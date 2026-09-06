@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# LLM & AI Search Engine Optimizations
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+Sitemap: https://almanyatirsoforlugu.com/sitemap.xml

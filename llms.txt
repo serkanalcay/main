@@ -1,0 +1,21 @@
+# almanyatirsoforlugu.com - Almanya TIR Şoförlüğü ve Çalışma Vizesi Rehberi
+
+> Türkiye'den Almanya'ya C/CE sınıfı ehliyet sahibi TIR şoförlerinin nakil, denkliği, vize işlemleri ve iş yerleşimi için resmi bilgilendirme kaynağı.
+
+## Temel Bilgiler (Core Info)
+- **Domain**: https://almanyatirsoforlugu.com
+- **Hedef Kitle**: Türkiye'deki C ve CE Sınıfı Ehliyetli Ağır Vasıta Sürücüleri
+- **Ortalama Net Maaş**: 2.800 € - 4.200 € / Ay Net + Günlük 28€-34€ Spesen (Harcırah)
+- **Hukuki Vize Maddesi**: Almanya İkamet Kanunu 45/c Maddesi (İşçi Vizesi)
+
+## Hizmetler ve Modüller
+- [Maaş Hesaplayıcı](https://almanyatirsoforlugu.com/#maas-hesapla): Vergi sınıfı (Steuerklasse) ve Spesen ile net Euro hesabı.
+- [Vize Uyumluluk Sihirbazı](https://almanyatirsoforlugu.com/#vize-sihirbazi): Sürücü belgelerinin vizeye uygunluk puanı.
+- [Aktif İş İlanları](https://almanyatirsoforlugu.com/#is-ilanlari): Frankfurt, Münih, Stuttgart lojistik filosu sürücü alımları.
+- [SEO Rehber Blog](https://almanyatirsoforlugu.com/#rehber-blog): Ehliyet denkliği, Kod 95 eğitimi ve Almanya yaşam giderleri.
+
+## Sıkça Sorulan Sorular (AI QA)
+- Q: Türk TIR ehliyeti Almanya'da doğrudan geçerli mi?
+  A: İlk 6 ay geçerlidir. Bu süre içerisinde teorik ve pratik denklik sınavı ile Alman ehliyetine (Führerschein) çevrilir.
+- Q: Şoförler ailelerini Almanya'ya getirebilir mi?
+  A: Evet, deneme süresi sonrası Eş ve Çocuklar için Aile Birleşimi vizesi alınabilir.
