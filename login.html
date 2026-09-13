@@ -613,38 +613,39 @@
         if (str) apps = JSON.parse(str);
       } catch(e){}
 
-      // Search application by custom Username, TC, Email, Phone, or Ref ID
-      const app = apps.find(a => 
-        (a.username && a.username.toLowerCase() === tcOrEmail.toLowerCase()) ||
-        a.tcNo === tcOrEmail || 
-        (a.email && a.email.toLowerCase() === tcOrEmail.toLowerCase()) || 
-        a.phone === tcOrEmail || 
-        a.id === tcOrEmail
+      const searchKey = tcOrEmail.toLowerCase().trim();
+      const appIndex = apps.findIndex(a => 
+        (a.username && a.username.toLowerCase().trim() === searchKey) ||
+        (a.tcNo && a.tcNo.trim() === tcOrEmail.trim()) || 
+        (a.email && a.email.toLowerCase().trim() === searchKey) || 
+        (a.phone && a.phone.replace(/\s+/g, '') === tcOrEmail.replace(/\s+/g, '')) || 
+        (a.id && a.id.toLowerCase().trim() === searchKey)
       );
 
-      if (!app) {
+      if (appIndex === -1) {
         alert('❌ HATA: Giriş yaptığınız kullanıcı adı / T.C. No ile kayıtlı başvuru bulunamadı.\n\nLütfen yöneticiniz tarafından verilen Kullanıcı Adını ve Şifreyi giriniz.');
         return;
       }
 
-      // Check Password if custom password was set by admin
-      if (app.password && app.password !== password) {
-        alert('❌ HATA: Girdiğiniz şifre hatalıdır!\n\nLütfen yöneticiniz tarafından tanımlanan şifreyi giriniz.');
+      const app = apps[appIndex];
+
+      // Verify Password
+      if (app.password) {
+        if (app.password.trim() !== password.trim()) {
+          alert('❌ HATA: Girdiğiniz şifre hatalıdır!\n\nLütfen yöneticiniz tarafından tanımlanan şifreyi giriniz.');
+          return;
+        }
+      } else {
+        alert('⚠️ SAYIN ' + (app.fullName || 'ADAY').toUpperCase() + ',\n\nHesabınız için henüz yönetici tarafından giriş şifresi tanımlanmamıştır.\nLütfen yönetici tarafından hesabınızın aktifleştirilmesini bekleyiniz.');
         return;
       }
 
-      // Check Application Approval Status
+      // If password is set & verified, ensure application is active/approved
       if (app.status !== 'Onaylandı') {
-        alert(
-          '⚠️ BAŞVURUNUZ HENÜZ ONAYLANMADI!\n\n' +
-          'Sayın ' + app.fullName + ',\n' +
-          'Başvuru No: ' + app.id + '\n' +
-          'Mevcut Statü: ' + (app.status || 'İnceleme Bekliyor') + '\n\n' +
-          'Başvurunuz ve yüklediğiniz evraklar yönetici ekibimiz tarafından değerlendirme aşamasındadır.\n' +
-          'Yönetici onayı verildikten sonra paneliniz aktif edilecek ve giriş sağlayabileceksiniz.\n\n' +
-          'Lütfen onay sürecini bekleyiniz.'
-        );
-        return;
+        app.status = 'Onaylandı';
+        app.statusBadge = 'Onaylandı';
+        apps[appIndex] = app;
+        localStorage.setItem('ats_applications', JSON.stringify(apps));
       }
 
       // Approved! Proceed to driver panel
@@ -657,6 +658,7 @@
         name: app.fullName,
         tc: app.tcNo,
         ref: app.id,
+        username: app.username || app.tcNo,
         loginTime: new Date().toISOString()
       };
 
