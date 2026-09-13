@@ -1180,25 +1180,18 @@
         try { session = JSON.parse(sessionStr); } catch(e){}
       }
 
-      // Default fallback demo session for member panel
+      // If no valid driver session exists, redirect to login page
       if (!session || !session.loggedIn || session.role === 'admin') {
-        session = {
-          loggedIn: true,
-          role: 'driver',
-          name: 'Ahmet Yılmaz',
-          tc: '12345678901',
-          ref: '#ATS-2025-8492'
-        };
-        sessionStorage.setItem('user_session', JSON.stringify(session));
-        localStorage.setItem('user_session', JSON.stringify(session));
+        window.location.href = 'login.html';
+        return;
       }
 
       // Populate Name & Ref Code in UI
-      const name = session.name || 'Ahmet Yılmaz';
-      const tc = session.tc || '12345678901';
-      const ref = session.ref || '#ATS-2025-8492';
+      const name = session.name || 'Sürücü Kaptan';
+      const tc = session.tc || '10000000000';
+      const ref = session.ref || '#ATS-2026-1001';
       
-      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'AY';
+      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'SK';
 
       document.getElementById('sidebarUserName').textContent = name;
       document.getElementById('sidebarAvatarInitials').textContent = initials;
@@ -1208,7 +1201,7 @@
       document.getElementById('profileBigName').textContent = name;
       document.getElementById('profileBigInitials').textContent = initials;
       
-      // Mask TC (e.g. 384******12)
+      // Mask TC
       if (tc.length >= 11) {
         document.getElementById('profileTcMasked').textContent = tc.substring(0, 3) + '******' + tc.substring(9);
       }

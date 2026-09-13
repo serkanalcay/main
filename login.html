@@ -154,36 +154,6 @@
             </button>
           </div>
 
-          <!-- TEST LOGIN ASSISTANT CARD -->
-          <div class="mt-6 p-4 rounded-xl bg-amber-50/80 border border-amber-200/80">
-            <div class="flex items-center justify-between gap-2 mb-2.5">
-              <div class="flex items-center gap-1.5 text-xs font-extrabold text-amber-900">
-                <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-                <span>Test Giriş Bilgileri (Tek Tıkla Giriş)</span>
-              </div>
-              <span class="text-[10px] bg-amber-200/60 text-amber-900 px-2 py-0.5 rounded font-bold">CANLI TEST</span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
-              <button type="button" onclick="fillTestLogin('driver')" class="p-2.5 rounded-lg bg-white border border-amber-300/80 hover:border-amber-500 hover:bg-amber-100/50 text-slate-800 text-left transition-all font-medium flex flex-col group shadow-sm">
-                <span class="font-bold text-amber-800 flex items-center justify-between">
-                  <span>🚛 Sürücü Paneli</span>
-                  <span class="text-[10px] text-amber-600 group-hover:translate-x-0.5 transition-transform">&rarr;</span>
-                </span>
-                <span class="text-slate-600 mt-1">T.C. No: <strong class="font-mono text-slate-900">12345678901</strong></span>
-                <span class="text-slate-600">Şifre: <strong class="font-mono text-slate-900">123456</strong></span>
-              </button>
-              <button type="button" onclick="fillTestLogin('admin')" class="p-2.5 rounded-lg bg-white border border-slate-300/80 hover:border-slate-500 hover:bg-slate-100/50 text-slate-800 text-left transition-all font-medium flex flex-col group shadow-sm">
-                <span class="font-bold text-slate-900 flex items-center justify-between">
-                  <span>🔐 Admin Paneli</span>
-                  <span class="text-[10px] text-slate-600 group-hover:translate-x-0.5 transition-transform">&rarr;</span>
-                </span>
-                <span class="text-slate-600 mt-1">Kullanıcı: <strong class="font-mono text-slate-900">11111111111</strong></span>
-                <span class="text-slate-600">Şifre: <strong class="font-mono text-slate-900">admin123</strong></span>
-              </button>
-            </div>
-          </div>
         </form>
 
         <!-- Admin Registration Reminder Note -->
@@ -555,19 +525,6 @@
       }
     }
 
-    function fillTestLogin(role) {
-      const tcInput = document.getElementById('tc-kimlik');
-      const passInput = document.getElementById('sifre');
-      if (role === 'admin') {
-        tcInput.value = '11111111111';
-        passInput.value = 'admin123';
-      } else {
-        tcInput.value = '12345678901';
-        passInput.value = '123456';
-      }
-      handleLoginSubmit();
-    }
-
     function handleLoginSubmit(event) {
       if (event) event.preventDefault();
       const tcOrEmail = document.getElementById('tc-kimlik').value.trim();
@@ -586,9 +543,9 @@
       const sessionData = {
         loggedIn: true,
         role: isAdmin ? 'admin' : 'driver',
-        name: isAdmin ? 'Admin Yetkilisi' : 'Ahmet Yılmaz',
+        name: isAdmin ? 'Admin Yetkilisi' : (tcOrEmail.includes('@') ? tcOrEmail.split('@')[0] : 'Sürücü Üye'),
         tc: tcOrEmail,
-        ref: '#ATS-2025-8492',
+        ref: '#ATS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000),
         loginTime: new Date().toISOString()
       };
 

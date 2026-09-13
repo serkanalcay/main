@@ -820,15 +820,9 @@
         try { session = JSON.parse(sessionStr); } catch(e){}
       }
 
-      if (!session || !session.loggedIn) {
-        session = {
-          loggedIn: true,
-          role: 'admin',
-          name: 'Murat Karaca',
-          tc: '11111111111'
-        };
-        sessionStorage.setItem('user_session', JSON.stringify(session));
-        localStorage.setItem('user_session', JSON.stringify(session));
+      if (!session || !session.loggedIn || session.role !== 'admin') {
+        window.location.href = 'login.html';
+        return;
       }
 
       // Format Date
