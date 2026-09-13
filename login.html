@@ -508,18 +508,26 @@
 
     // Auto-Redirect if user is already logged in
     function checkExistingSession() {
-      const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
-      if (sessionStr) {
-        try {
-          const session = JSON.parse(sessionStr);
-          if (session && session.loggedIn) {
-            if (session.role === 'admin') {
-              window.location.href = 'admin-panel.html';
-            } else {
-              window.location.href = 'driver-panel.html';
+      // Clear previous session when visiting login.html to allow effortless testing/login
+      const urlParams = new URLSearchParams(window.location.search);
+      const forceRedirect = urlParams.get('redirect') === 'true';
+
+      if (forceRedirect) {
+        const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
+        if (sessionStr) {
+          try {
+            const session = JSON.parse(sessionStr);
+            if (session && session.loggedIn) {
+              if (session.role === 'admin') {
+                window.location.href = 'admin-panel.html';
+                return;
+              } else {
+                window.location.href = 'driver-panel.html';
+                return;
+              }
             }
-          }
-        } catch(e){}
+          } catch(e){}
+        }
       }
     }
 
@@ -528,6 +536,9 @@
     // Tab Switcher for Driver vs Admin
     function switchLoginTab(mode) {
       currentLoginTab = mode;
+      sessionStorage.removeItem('user_session');
+      localStorage.removeItem('user_session');
+
       const driverBtn = document.getElementById('tabDriverBtn');
       const adminBtn = document.getElementById('tabAdminBtn');
       const tcInput = document.getElementById('tc-kimlik');
@@ -606,34 +617,42 @@
       const normInputUser = normalizeForMatch(rawUser);
       const normInputPass = normalizeForMatch(rawPass);
 
-      // 1. ADMIN LOGIN CHECK
-      if (normInputUser === 'serkanalcay52' || normInputUser === 'admin' || normInputUser === 'serkanalcay' || normInputUser === 'serkan') {
-        if (rawPass === '0817Serkanalcay*' || rawPass === '0817Serkanalcay' || normInputPass === '0817serkanalcay' || normInputPass === '0817serkanalcay') {
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<span>Yönetici Girişi Yapılıyor...</span>';
+      // 1. ADMIN LOGIN CHECK (Only if Admin tab is active)
+      if (currentLoginTab === 'admin') {
+        if (normInputUser === 'serkanalcay52' || normInputUser === 'admin' || normInputUser === 'serkanalcay' || normInputUser === 'serkan') {
+          if (rawPass === '0817Serkanalcay*' || rawPass === '0817Serkanalcay' || normInputPass === '0817serkanalcay') {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Yönetici Girişi Yapılıyor...</span>';
 
-          const sessionData = {
-            loggedIn: true,
-            role: 'admin',
-            name: 'Serkan Alçay',
-            username: normInputUser,
-            tc: 'serkanalcay52',
-            ref: '#ATS-ADMIN-52',
-            loginTime: new Date().toISOString()
-          };
+            sessionStorage.removeItem('user_session');
+            localStorage.removeItem('user_session');
 
-          sessionStorage.setItem('user_session', JSON.stringify(sessionData));
-          localStorage.setItem('user_session', JSON.stringify(sessionData));
+            const sessionData = {
+              loggedIn: true,
+              role: 'admin',
+              name: 'Serkan Alçay',
+              username: normInputUser,
+              tc: 'serkanalcay52',
+              ref: '#ATS-ADMIN-52',
+              loginTime: new Date().toISOString()
+            };
 
-          setTimeout(() => {
-            window.location.href = 'admin-panel.html';
-          }, 300);
-          return;
+            sessionStorage.setItem('user_session', JSON.stringify(sessionData));
+            localStorage.setItem('user_session', JSON.stringify(sessionData));
+
+            setTimeout(() => {
+              window.location.href = 'admin-panel.html';
+            }, 300);
+            return;
+          } else {
+            alert('❌ HATA: HATALI YÖNETİCİ ŞİFRESİ!');
+            return;
+          }
         }
       }
 
       // 2. MEMBER / DRIVER LOGIN CHECK - FETCH LATEST CLOUD DB
-      if (submitBtn) submitBtn.innerHTML = '<span>Bulut Veritabanı Kontrol Ediliyor...</span>';
+      if (submitBtn) submitBtn.innerHTML = '<span>Veritabanı Doğrulanıyor...</span>';
       
       if (typeof window.fetchApplicationsFromCloud === 'function') {
         try {
@@ -691,21 +710,18 @@
 
       // Fallback: If still no match, but apps exist
       if (!matchedApp && apps && apps.length > 0) {
-        // If there is only 1 application or if rawPass matches password of any app
-        if (apps.length === 1) {
+        // Check if rawPass matches password of any application
+        const passMatchIndex = apps.findIndex(a => {
+          if (!a) return false;
+          const p = String(a.password || '').trim();
+          return p && (p === rawPass || normalizeForMatch(p) === normInputPass);
+        });
+        if (passMatchIndex !== -1) {
+          matchedIndex = passMatchIndex;
+          matchedApp = apps[passMatchIndex];
+        } else if (apps.length === 1) {
           matchedIndex = 0;
           matchedApp = apps[0];
-        } else {
-          // Check if rawPass matches password of any application
-          const passMatchIndex = apps.findIndex(a => {
-            if (!a) return false;
-            const p = String(a.password || '').trim();
-            return p && (p === rawPass || normalizeForMatch(p) === normInputPass);
-          });
-          if (passMatchIndex !== -1) {
-            matchedIndex = passMatchIndex;
-            matchedApp = apps[passMatchIndex];
-          }
         }
       }
 
@@ -715,6 +731,7 @@
           `Girdiğiniz "${rawUser}" bilgisi ile sistemde kayıtlı sürücü bulunamadı.\n\n` +
           `Lütfen Yönetici Paneli'nde bu kullanıcı için belirlenen Kullanıcı Adı veya T.C. Kimlik Numarasını doğru girdiğinizden emin olunuz.`
         );
+        if (submitBtn) submitBtn.innerHTML = '<span>Giriş Yap</span>';
         return;
       }
 
@@ -740,9 +757,12 @@
         alert(
           `❌ HATA: HATALI ŞİFRE!\n\n` +
           `Sürücü: ${matchedApp.fullName}\n` +
-          `Kullanıcı Adı: ${matchedApp.username || matchedApp.tcNo}\n\n` +
-          `Girdiğiniz şifre Yönetici Paneli'nde belirlenen şifre ile uyuşmuyor.`
+          `Kullanıcı Adı: ${matchedApp.username || matchedApp.tcNo}\n` +
+          `Girdiğiniz Şifre: ${rawPass}\n\n` +
+          `Yönetici Paneli'nde Tanımlı Şifre: "${matchedApp.password || matchedApp.tcNo}"\n\n` +
+          `Lütfen bu tanımlı şifreyi giriniz.`
         );
+        if (submitBtn) submitBtn.innerHTML = '<span>Giriş Yap</span>';
         return;
       }
 
