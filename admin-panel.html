@@ -1128,8 +1128,11 @@
 
       const cmsData = { reportPrice, translationPrice, bannerText };
       localStorage.setItem('cms_settings', JSON.stringify(cmsData));
+      if (typeof window.saveCMSDataToFirebase === 'function') {
+        window.saveCMSDataToFirebase(cmsData);
+      }
 
-      alert('Tebrikler! Web sitesi fiyatlandırma ve banner ayarları canlı yayına aktarıldı.');
+      alert('Tebrikler! Web sitesi fiyatlandırma ve banner ayarları canlı yayına ve Firebase veritabanına aktarıldı.');
     }
 
     function loadCMSSettings() {
@@ -1267,7 +1270,7 @@
       closeNewUserModal();
     }
 
-    // Helper to sync account info into ats_driver_credentials
+    // Helper to sync account info into ats_driver_credentials & Firebase
     function syncDriverCredentialStore(app) {
       if (!app) return;
       try {
@@ -1283,6 +1286,11 @@
 
         localStorage.setItem('ats_driver_credentials', JSON.stringify(creds));
       } catch(e){}
+
+      // Sync to Google Firebase Firestore
+      if (typeof window.saveATSApplicationToFirebase === 'function') {
+        window.saveATSApplicationToFirebase(app);
+      }
     }
 
     // 6.5 MANUEL SÜRÜCÜ HESABI OLUŞTURMA (KULLANICI ADI & ŞİFRE)
@@ -1548,10 +1556,14 @@
 
       if (!apps[index]) return;
 
+      const appId = apps[index].id;
       const candidateName = apps[index].fullName;
       if (confirm(`⚠️ BAŞVURU SİLME ONAYI:\n\n"${candidateName}" isimli adayın başvurusunu tamamen silmek istediğinize emin misiniz?\n\nBu işlem geri alınamaz!`)) {
         apps.splice(index, 1);
         localStorage.setItem('ats_applications', JSON.stringify(apps));
+        if (typeof window.deleteATSApplicationFromFirebase === 'function') {
+          window.deleteATSApplicationFromFirebase(appId);
+        }
         renderApplicationsTable();
         alert(`🗑️ "${candidateName}" isimli adayın başvurusu başarıyla silindi.`);
         closeEditDocModal();
@@ -1767,14 +1779,17 @@
       document.getElementById('inspectCandidateModal').classList.remove('hidden');
     }
 
-    function closeInspectModal() {
-      document.getElementById('inspectCandidateModal').classList.add('hidden');
-    }
-
-    // Initialize Page
+    // Initialize Page & Firebase Listener
     document.addEventListener('DOMContentLoaded', function() {
       initAdminSession();
       loadCMSSettings();
+
+      // Start Firebase Realtime Listener for instant live updates
+      if (typeof window.listenATSApplications === 'function') {
+        window.listenATSApplications(function(updatedApps) {
+          renderApplicationsTable();
+        });
+      }
 
       const docSelect = document.getElementById('doc-status');
       const noteInput = document.getElementById('consultant-note');
@@ -1791,6 +1806,11 @@
       }
     });
   </script>
-  <script src="js/app.js"></script>
+  <!-- GOOGLE FIREBASE SDK (COMPAT MODULES) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase-db.js?v=2.5.0"></script>
+  <script src="js/app.js?v=2.5.0"></script>
 </body>
 </html>

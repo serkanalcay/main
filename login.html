@@ -785,7 +785,19 @@
         window.location.href = 'driver-panel.html';
       }, 300);
     }
+
+    // Fetch initial fresh data from Firebase if connected
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof window.fetchATSApplicationsFromFirebase === 'function') {
+        window.fetchATSApplicationsFromFirebase().catch(err => {});
+      }
+    });
   </script>
-  <script src="js/app.js?v=2.4.2"></script>
+  <!-- GOOGLE FIREBASE SDK (COMPAT MODULES) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase-db.js?v=2.5.0"></script>
+  <script src="js/app.js?v=2.5.0"></script>
 </body>
 </html>

@@ -1315,6 +1315,11 @@
       existingApps.unshift(applicationObj);
       localStorage.setItem('ats_applications', JSON.stringify(existingApps));
 
+      // Save to Google Firebase Firestore
+      if (typeof window.saveATSApplicationToFirebase === 'function') {
+        window.saveATSApplicationToFirebase(applicationObj);
+      }
+
       // Clear any previous driver session to prevent auto-login
       sessionStorage.removeItem('user_session');
       localStorage.removeItem('user_session');
@@ -1325,18 +1330,22 @@
         btn.classList.add('bg-amber-600', 'text-white');
 
         alert(
-          '✅ BAŞVURUNUZ BAŞARIYLA ALINDI!\n\n' +
+          '✅ BAŞVURUNUZ BAŞARIYLA ALINDI VE VERİTABANINA KAYDEDİLDİ!\n\n' +
           'Başvuru Takip No: ' + appId + '\n' +
           'Aday: ' + fullName.value.trim() + '\n\n' +
-          'Başvurunuz ve evraklarınız şu an yönetici inceleme ve değerlendirme aşamasındadır.\n' +
-          'Yönetici onayı verildikten sonra sisteme giriş yapabilirsiniz.\n\n' +
-          'Lütfen yönetici onay sürecini bekleyiniz.'
+          'Başvurunuz ve evraklarınız yönetici inceleme ve değerlendirme aşamasındadır.\n' +
+          'Yönetici onayından sonra giriş yapabilirsiniz.'
         );
 
         window.location.href = 'index.html';
       }, 1200);
     }
   </script>
-  <script src="js/app.js?v=2.4.2"></script>
+  <!-- GOOGLE FIREBASE SDK (COMPAT MODULES) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase-db.js?v=2.5.0"></script>
+  <script src="js/app.js?v=2.5.0"></script>
 </body>
 </html>
