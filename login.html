@@ -565,25 +565,26 @@
 
     function handleLoginSubmit(event) {
       if (event) event.preventDefault();
-      const tcOrEmail = document.getElementById('tc-kimlik').value.trim();
-      const password = document.getElementById('sifre').value.trim();
+      const tcOrEmail = (document.getElementById('tc-kimlik').value || '').trim();
+      const password = (document.getElementById('sifre').value || '').trim();
       const submitBtn = document.getElementById('loginSubmitBtn');
 
       if (!tcOrEmail || !password) {
-        alert('Lütfen kullanıcı bilgilerinizi ve şifrenizi giriniz.');
+        alert('Lütfen kullanıcı adınızı / T.C. kimlik numaranızı ve şifrenizi giriniz.');
         return;
       }
 
-      const u = tcOrEmail.toLowerCase();
-      const p = password;
+      // Safe normalization helper
+      const normalizeStr = str => String(str || '').toLowerCase().trim().replace(/i̇/g, 'i');
 
-      // Admin Credential Verification
-      if (u === 'serkanalcay52' || u === 'admin' || u === 'serkanalcay' || u === 'serkan') {
-        if (p !== '0817Serkanalcay*' && p !== '0817Serkanalcay') {
-          alert('❌ HATA: Hatalı yönetici şifresi! Lütfen tekrar deneyiniz.');
-          return;
-        }
+      const uKey = normalizeStr(tcOrEmail);
+      const pKey = password;
 
+      // 1. ADMIN LOGIN CHECK (Requires both Admin Username AND Admin Password)
+      const isAdminUsername = (uKey === 'serkanalcay52' || uKey === 'admin' || uKey === 'serkanalcay' || uKey === 'serkan');
+      const isAdminPassword = (pKey === '0817Serkanalcay*' || pKey === '0817Serkanalcay');
+
+      if (isAdminUsername && isAdminPassword) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Yönetici Girişi Yapılıyor...</span>';
 
@@ -591,7 +592,7 @@
           loggedIn: true,
           role: 'admin',
           name: 'Serkan Alçay',
-          username: 'serkanalcay52',
+          username: uKey,
           tc: 'serkanalcay52',
           ref: '#ATS-ADMIN-52',
           loginTime: new Date().toISOString()
@@ -606,59 +607,77 @@
         return;
       }
 
-      // Member / Driver Login Check
+      // 2. MEMBER / DRIVER LOGIN CHECK
       let apps = [];
       try {
         const str = localStorage.getItem('ats_applications');
         if (str) apps = JSON.parse(str);
       } catch(e){}
 
-      const searchKey = tcOrEmail.toLowerCase().trim();
-      const appIndex = apps.findIndex(a => 
-        (a.username && a.username.toLowerCase().trim() === searchKey) ||
-        (a.tcNo && a.tcNo.trim() === tcOrEmail.trim()) || 
-        (a.email && a.email.toLowerCase().trim() === searchKey) || 
-        (a.phone && a.phone.replace(/\s+/g, '') === tcOrEmail.replace(/\s+/g, '')) || 
-        (a.id && a.id.toLowerCase().trim() === searchKey)
-      );
+      // Find matching candidate by Username, TC No, Email, Phone or Ref ID
+      const appIndex = apps.findIndex(a => {
+        if (!a) return false;
+        const username = normalizeStr(a.username);
+        const tc = normalizeStr(a.tcNo);
+        const email = normalizeStr(a.email);
+        const phone = String(a.phone || '').replace(/\s+/g, '');
+        const refId = normalizeStr(a.id);
+        const searchClean = String(tcOrEmail).replace(/\s+/g, '');
+
+        return (
+          (username && username === uKey) ||
+          (tc && tc === uKey) ||
+          (email && email === uKey) ||
+          (phone && phone === searchClean) ||
+          (refId && refId === uKey)
+        );
+      });
 
       if (appIndex === -1) {
-        alert('❌ HATA: Giriş yaptığınız kullanıcı adı / T.C. No ile kayıtlı başvuru bulunamadı.\n\nLütfen yöneticiniz tarafından verilen Kullanıcı Adını ve Şifreyi giriniz.');
+        // If username matched admin list but password failed for admin, notify admin password error
+        if (isAdminUsername) {
+          alert('❌ HATA: Hatalı yönetici şifresi! Lütfen yönetici şifrenizi kontrol edip tekrar deneyiniz.');
+          return;
+        }
+        alert('❌ HATA: Giriş yaptığınız kullanıcı adı / T.C. No ile kayıtlı başvuru veya üye hesabı bulunamadı.\n\nLütfen yöneticiniz tarafından tanımlanan Kullanıcı Adını ve Şifreyi giriniz.');
         return;
       }
 
       const app = apps[appIndex];
+      const storedPass = String(app.password || '').trim();
 
-      // Verify Password
-      if (app.password) {
-        if (app.password.trim() !== password.trim()) {
-          alert('❌ HATA: Girdiğiniz şifre hatalıdır!\n\nLütfen yöneticiniz tarafından tanımlanan şifreyi giriniz.');
+      // Check Password
+      if (storedPass) {
+        if (storedPass !== pKey) {
+          alert('❌ HATA: Girdiğiniz şifre hatalıdır!\n\nLütfen yöneticiniz tarafından tanımlanan şifrenizi kontrol edip tekrar deneyiniz.');
           return;
         }
       } else {
-        alert('⚠️ SAYIN ' + (app.fullName || 'ADAY').toUpperCase() + ',\n\nHesabınız için henüz yönetici tarafından giriş şifresi tanımlanmamıştır.\nLütfen yönetici tarafından hesabınızın aktifleştirilmesini bekleyiniz.');
+        alert('⚠️ SAYIN ' + String(app.fullName || 'ADAY').toUpperCase() + ',\n\nHesabınız için henüz bir giriş şifresi tanımlanmamıştır.\nLütfen yönetici panelinden şifrenizin tanımlanmasını bekleyiniz.');
         return;
       }
 
-      // If password is set & verified, ensure application is active/approved
+      // If credentials matched, ensure application status is active ('Onaylandı')
       if (app.status !== 'Onaylandı') {
         app.status = 'Onaylandı';
         app.statusBadge = 'Onaylandı';
         apps[appIndex] = app;
-        localStorage.setItem('ats_applications', JSON.stringify(apps));
+        try {
+          localStorage.setItem('ats_applications', JSON.stringify(apps));
+        } catch(e){}
       }
 
-      // Approved! Proceed to driver panel
+      // Successfully authenticated! Proceed to driver panel
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Sürücü Paneline Bağlanılıyor...</span>';
 
       const sessionData = {
         loggedIn: true,
         role: 'driver',
-        name: app.fullName,
-        tc: app.tcNo,
-        ref: app.id,
-        username: app.username || app.tcNo,
+        name: app.fullName || 'Sürücü Kaptan',
+        tc: app.tcNo || '',
+        ref: app.id || '#ATS-DRIVER',
+        username: app.username || app.tcNo || '',
         loginTime: new Date().toISOString()
       };
 
@@ -667,7 +686,7 @@
 
       setTimeout(() => {
         window.location.href = 'driver-panel.html';
-      }, 800);
+      }, 600);
     }
   </script>
   <script src="js/app.js"></script>

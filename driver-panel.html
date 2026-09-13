@@ -1195,9 +1195,15 @@
 
       const userTc = session.tc;
       const userRef = session.ref;
-      const app = apps.find(a => a.tcNo === userTc || a.id === userRef || (a.email && a.email === userTc));
+      const userUsername = session.username;
+      const app = apps.find(a => 
+        (a.tcNo && a.tcNo === userTc) || 
+        (a.id && a.id === userRef) || 
+        (a.username && a.username === userUsername) ||
+        (a.email && a.email === userTc)
+      );
 
-      if (app && app.status !== 'Onaylandı') {
+      if (app && app.status !== 'Onaylandı' && (!app.username || !app.password)) {
         sessionStorage.removeItem('user_session');
         localStorage.removeItem('user_session');
         alert('⚠️ BAŞVURUNUZ HENÜZ ONAYLANMADI!\n\nBaşvurunuz yönetici değerlendirme aşamasındadır. Onay verildikten sonra panele erişim sağlayabilirsiniz.');
