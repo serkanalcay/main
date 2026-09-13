@@ -578,16 +578,12 @@
       }
 
       // Safe normalization helper
-      const normalizeStr = str => String(str || '').toLowerCase().trim().replace(/i̇/g, 'i');
-      const uKey = normalizeStr(rawUser);
-      const pKey = rawPass;
+      const cleanRawUser = rawUser.toLowerCase().trim();
+      const cleanNoSpaces = rawUser.toLowerCase().replace(/[\s\-\.\(\)]/g, '');
 
-      // 1. ADMIN TAB LOGIN
-      if (currentLoginTab === 'admin') {
-        const isAdminUser = (uKey === 'serkanalcay52' || uKey === 'admin' || uKey === 'serkanalcay' || uKey === 'serkan');
-        const isAdminPass = (pKey === '0817Serkanalcay*' || pKey === '0817Serkanalcay');
-
-        if (isAdminUser && isAdminPass) {
+      // 1. ADMIN CHECK (Validates if entered credentials match Admin credentials)
+      if (cleanRawUser === 'serkanalcay52' || cleanRawUser === 'admin' || cleanRawUser === 'serkanalcay' || cleanRawUser === 'serkan') {
+        if (rawPass === '0817Serkanalcay*' || rawPass === '0817Serkanalcay') {
           submitBtn.disabled = true;
           submitBtn.innerHTML = '<span>Yönetici Girişi Yapılıyor...</span>';
 
@@ -595,7 +591,7 @@
             loggedIn: true,
             role: 'admin',
             name: 'Serkan Alçay',
-            username: uKey,
+            username: cleanRawUser,
             tc: 'serkanalcay52',
             ref: '#ATS-ADMIN-52',
             loginTime: new Date().toISOString()
@@ -608,48 +604,46 @@
             window.location.href = 'admin-panel.html';
           }, 400);
           return;
-        } else {
-          alert('❌ HATA: Yönetici kullanıcı adı veya şifresi hatalıdır!\n\nLütfen admin panel giriş bilgilerinizi kontrol ediniz.');
-          return;
         }
       }
 
-      // 2. DRIVER / MEMBER TAB LOGIN
-      // Get registered driver applications via shared storage manager
+      // 2. MEMBER / DRIVER LOGIN CHECK
       let apps = [];
-      if (typeof window.getATSApplications === 'function') {
-        apps = window.getATSApplications();
-      } else {
-        try {
-          const str = localStorage.getItem('ats_applications');
-          if (str) apps = JSON.parse(str);
-        } catch(e){}
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      if (!apps || apps.length === 0) {
+        alert('❌ HATA: Sistemde henüz kayıtlı başvuru veya sürücü hesabı bulunmamaktadır.\n\nLütfen önce Yönetici Paneli\'nden bir sürücü kaydı ve şifresi oluşturunuz.');
+        return;
       }
 
-      // Find driver by Username, TC No, Email, Phone, or Ref ID
+      // Match application by username, tcNo, email, phone or id
       const appIndex = apps.findIndex(a => {
         if (!a) return false;
-        const u = normalizeStr(a.username);
-        const tc = normalizeStr(a.tcNo);
-        const em = normalizeStr(a.email);
-        const ph = String(a.phone || '').replace(/\s+/g, '');
-        const id = normalizeStr(a.id);
-        const searchClean = String(rawUser).replace(/\s+/g, '');
+        const u = String(a.username || '').toLowerCase().trim();
+        const uClean = String(a.username || '').toLowerCase().replace(/[\s\-\.\(\)]/g, '');
+        const tc = String(a.tcNo || '').toLowerCase().trim();
+        const tcClean = String(a.tcNo || '').toLowerCase().replace(/[\s\-\.\(\)]/g, '');
+        const email = String(a.email || '').toLowerCase().trim();
+        const phone = String(a.phone || '').replace(/[\s\-\.\(\)\+]/g, '');
+        const refId = String(a.id || '').toLowerCase().trim();
 
         return (
-          (u && u === uKey) ||
-          (tc && tc === uKey) ||
-          (em && em === uKey) ||
-          (ph && ph === searchClean) ||
-          (id && id === uKey)
+          (u && (u === cleanRawUser || uClean === cleanNoSpaces)) ||
+          (tc && (tc === cleanRawUser || tcClean === cleanNoSpaces)) ||
+          (email && email === cleanRawUser) ||
+          (phone && phone === cleanNoSpaces.replace(/\+/g, '')) ||
+          (refId && refId === cleanRawUser)
         );
       });
 
       if (appIndex === -1) {
         alert(
           `❌ HATA: KULLANICI BULUNAMADI!\n\n` +
-          `Yazdığınız "${rawUser}" kullanıcı adı veya T.C. No ile kayıtlı üye hesabı bulunamadı.\n\n` +
-          `Lütfen Yönetici Paneli'nden sürücü için tanımlanan Kullanıcı Adını ve Şifreyi eksiksiz giriniz.`
+          `Girdiğiniz "${rawUser}" kullanıcı adı veya T.C. kimlik numarası ile sistemde kayıtlı sürücü hesabı bulunamadı.\n\n` +
+          `Lütfen Admin Paneli'nde o sürücü için belirlediğiniz Kullanıcı Adını ve Şifreyi tam ve doğru girdiğinizden emin olunuz.`
         );
         return;
       }
@@ -660,36 +654,32 @@
       if (!storedPass) {
         alert(
           `⚠️ SAYIN ${(app.fullName || 'SÜRÜCÜ').toUpperCase()},\n\n` +
-          `Hesabınız için henüz yönetici paneli üzerinden giriş şifresi tanımlanmamıştır.\n` +
-          `Lütfen yöneticinizin sizin için bir kullanıcı adı ve şifre tanımlamasını bekleyiniz.`
+          `Hesabınız için henüz admin panelinde bir giriş şifresi belirlenmemiştir.\n` +
+          `Lütfen admin panelinden bu adaya şifre tanımlayınız.`
         );
         return;
       }
 
-      // Check Password (case-insensitive or exact match for maximum tolerance)
-      const passMatches = (storedPass === pKey) || (storedPass.toLowerCase() === pKey.toLowerCase());
+      // Compare Password (case insensitive fallback if simple password)
+      const isPassCorrect = (storedPass === rawPass) || (storedPass.toLowerCase() === rawPass.toLowerCase());
 
-      if (!passMatches) {
+      if (!isPassCorrect) {
         alert(
           `❌ HATA: HATALI ŞİFRE!\n\n` +
           `Aday: ${app.fullName}\n` +
           `Kullanıcı Adı: ${app.username || app.tcNo}\n\n` +
-          `Girdiğiniz şifre yönetici panelinde bu sürücü için belirlenen şifre ile eşleşmiyor. Lütfen yönetici panelinde tanımlanan şifreyi giriniz.`
+          `Girdiğiniz şifre admin panelinde belirlenen şifre ile uyuşmuyor.`
         );
         return;
       }
 
-      // SUCCESS! Auto approve application status if active credentials exist
-      if (app.status !== 'Onaylandı') {
-        app.status = 'Onaylandı';
-        app.statusBadge = 'Onaylandı';
-        apps[appIndex] = app;
-        if (typeof window.saveATSApplications === 'function') {
-          window.saveATSApplications(apps);
-        } else {
-          try { localStorage.setItem('ats_applications', JSON.stringify(apps)); } catch(e){}
-        }
-      }
+      // Password matches! Immediately activate and approve status
+      app.status = 'Onaylandı';
+      app.statusBadge = 'Onaylandı';
+      apps[appIndex] = app;
+      try {
+        localStorage.setItem('ats_applications', JSON.stringify(apps));
+      } catch(e){}
 
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Sürücü Paneline Bağlanılıyor...</span>';
@@ -709,7 +699,7 @@
 
       setTimeout(() => {
         window.location.href = 'driver-panel.html';
-      }, 500);
+      }, 400);
     }
   </script>
   <script src="js/app.js"></script>

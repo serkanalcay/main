@@ -115,81 +115,19 @@
   };
 
   // 6. SHARED APPLICATIONS DATA STORAGE MANAGER
-  const DEFAULT_APPLICATIONS = [
-    {
-      id: '#ATS-2026-8492',
-      fullName: 'Caner Yılmaz',
-      tcNo: '38104812402',
-      phone: '+90 532 410 20 30',
-      email: 'caner@ornek.com',
-      username: 'caneryilmaz',
-      password: '123456',
-      city: 'Kocaeli / Gebze',
-      licenseClass: 'C+CE',
-      experienceYears: '5-10 Yıl',
-      targetCountry: 'Almanya & Polonya',
-      matchScore: '%95 Uyum',
-      docCount: '6 / 6 Onaylı',
-      docs: {
-        ehliyet: 'Onaylandı',
-        takograf: 'Onaylandı',
-        pasaport: 'Onaylandı',
-        sicil: 'Onaylandı',
-        sgk: 'Onaylandı',
-        adr: 'Onaylandı'
-      },
-      status: 'Onaylandı',
-      statusBadge: 'Onaylandı',
-      service: 'Kurumsal Danışmanlık',
-      paymentStatus: 'Rapor ve Hesap Aktif',
-      createdAt: new Date().toLocaleDateString('tr-TR')
-    },
-    {
-      id: '#ATS-2026-9120',
-      fullName: 'Ahmet Yılmaz',
-      tcNo: '10000000000',
-      phone: '+90 535 111 22 33',
-      email: 'ahmet@ornek.com',
-      username: 'ahmetyilmaz',
-      password: '123456',
-      city: 'İstanbul / Kadıköy',
-      licenseClass: 'CE',
-      experienceYears: '3-5 Yıl',
-      targetCountry: 'Hollanda',
-      matchScore: '%90 Uyum',
-      docCount: '6 / 6 Onaylı',
-      docs: {
-        ehliyet: 'Onaylandı',
-        takograf: 'Onaylandı',
-        pasaport: 'Onaylandı',
-        sicil: 'Onaylandı',
-        sgk: 'Onaylandı',
-        adr: 'Onaylandı'
-      },
-      status: 'Onaylandı',
-      statusBadge: 'Onaylandı',
-      service: 'Kurumsal Danışmanlık',
-      paymentStatus: 'Rapor ve Hesap Aktif',
-      createdAt: new Date().toLocaleDateString('tr-TR')
-    }
-  ];
+  const DEFAULT_APPLICATIONS = [];
 
   window.getATSApplications = function () {
     try {
       const stored = localStorage.getItem('ats_applications');
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
+        if (Array.isArray(parsed)) {
           return parsed;
         }
       }
     } catch (e) {}
-
-    // Seed initial default applications if empty
-    try {
-      localStorage.setItem('ats_applications', JSON.stringify(DEFAULT_APPLICATIONS));
-    } catch (e) {}
-    return DEFAULT_APPLICATIONS;
+    return [];
   };
 
   window.saveATSApplications = function (apps) {
@@ -203,7 +141,6 @@
     window.initCMSData();
     window.initAccordions();
     window.initSmoothScroll();
-    window.getATSApplications();
   });
 
 })();
