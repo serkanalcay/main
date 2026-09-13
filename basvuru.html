@@ -10,6 +10,13 @@
   <title>Avrupa Tır Şoförlüğü Ön Analiz &amp; Evrak Değerlendirme Başvurusu | Avrupa Tır Şoförü</title>
   <meta name="description" content="Avrupa Birliği ve Mobility Package mevzuatına göre ehliyet, takograf, tecrübe ve e-Devlet evraklarınızın ön değerlendirmesi için başvuru formunu doldurun." />
   <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
+  <script>
+    // Maintenance Mode Guard
+    const urlParams = new URLSearchParams(window.location.search);
+    if (!urlParams.get('admin') && !urlParams.get('override')) {
+      window.location.href = 'index.html';
+    }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />

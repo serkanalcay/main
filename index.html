@@ -144,117 +144,38 @@
   </script>
 </head>
 
-<body class="bg-surface font-body-md text-on-surface antialiased">
-  <!-- HEADER -->
-  <header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-    <!-- Top Announcement Bar -->
-    <div class="bg-navy-deep text-on-primary py-space-xs px-margin-mobile lg:px-margin">
-      <div class="max-w-margin-desktop-max mx-auto flex items-center justify-between font-label-md text-label-md">
-        <div class="flex items-center gap-space-sm">
-          <span class="flex h-2 w-2 rounded-full bg-amber-vibrant animate-pulse"></span>
-          <span class="text-on-primary tracking-wide">Avrupa Tır Şoförlüğü Kariyer Analizi &amp; Süreç Danışmanlığı Portalı</span>
-          <span class="text-on-primary-container hidden md:inline">|</span>
-          <span class="text-amber-vibrant font-semibold hidden md:inline">Şoför Evrak ve Mevzuat Rehberliği</span>
-        </div>
-        <div class="hidden md:flex items-center gap-space-md text-label-sm font-label-sm">
-          <span class="text-on-primary-container flex items-center gap-space-xs">
-            <span class="material-symbols-outlined text-[14px]">verified</span>Bağımsız Danışmanlık ve Evrak Analiz Hizmeti
-          </span>
-        </div>
+<body class="bg-slate-950 font-sans antialiased text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-400 selection:text-slate-900 overflow-x-hidden">
+
+  <!-- Background Overlay & Film -->
+  <div class="fixed inset-0 z-0 pointer-events-none">
+    <img 
+      src="assets/hero_tir_autobahn_1788119161647.png" 
+      onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuC4dll0tfX6XGSaIbFbtNQGIbSiR9anrCdd6L-uMgyRVv69_UjAz9UHrWiBhjpq_xOqXpZU3s1RHXJDjqOTmSsMdxVOMZDETDC8IhbsIiKWK08HbWueCqUuAEny3zpYhiPyNWkyFZmgKZ3h4KxGi4aoVaJkJIWQci9H2kMqpmMzUxfrM2Wr1ELC5jZtq5J5lElGe7CMNlkmgr4DCHCRqZ29q26UmGaT3AHfpTPCGsGRDlnVcXwyzXs';"
+      alt="Bakım Modu Arka Plan"
+      class="w-full h-full object-cover object-center filter brightness-[0.25] scale-105"
+    >
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/80 to-slate-950"></div>
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Header Branding -->
+  <header class="relative z-20 w-full max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
+    <a href="index.html" class="inline-flex items-center gap-3">
+      <img src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1U16mn9a3n_4tV50zHQmDkkAFmlM2JmRraNMKh2IzzP1XDe3HEl6s60v2AS_I-Ldjm-xhCl5oK8jIgIZz-q9DPtS2bR_YWl3itzt65SDjQTDFx2imueVOK5rw7KJGH1l5xLafa41I7SSpOz2-GLJusY0HOupypaqDhC1rm1XFBU-A79ZVt3jVxnEZ3sSm-0d9JALL5Xij7qT6bOE5TWrig1Tr4IIQ5lQq-AysUhQvm958PNeB89NUWh_w';" alt="Avrupa Tır Şoförü Logo" class="h-10 md:h-12 w-auto object-contain">
+      <div class="flex flex-col">
+        <span class="font-black text-white text-base tracking-tight">AVRUPA TIR ŞOFÖRÜ</span>
+        <span class="text-[11px] font-bold tracking-widest text-amber-400 uppercase">Resmi Lojistik Portalı</span>
       </div>
-    </div>
+    </a>
 
-    <!-- Main Navigation Bar -->
-    <div class="h-20 max-w-margin-desktop-max mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md">
-      <div class="flex items-center gap-space-lg">
-        <a class="flex items-center gap-space-sm py-space-xs" data-path="ana-sayfa" href="index.html">
-          <img alt="Avrupa Tır Şoförü Logo" class="h-9 w-9 rounded-full object-cover border border-amber-vibrant" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1U16mn9a3n_4tV50zHQmDkkAFmlM2JmRraNMKh2IzzP1XDe3HEl6s60v2AS_I-Ldjm-xhCl5oK8jIgIZz-q9DPtS2bR_YWl3itzt65SDjQTDFx2imueVOK5rw7KJGH1l5xLafa41I7SSpOz2-GLJusY0HOupypaqDhC1rm1XFBU-A79ZVt3jVxnEZ3sSm-0d9JALL5Xij7qT6bOE5TWrig1Tr4IIQ5lQq-AysUhQvm958PNeB89NUWh_w';" />
-          <div class="flex flex-col">
-            <span class="font-headline-sm text-headline-sm tracking-tight text-navy-deep font-bold">AVRUPA TIR ŞOFÖRÜ</span>
-            <span class="font-label-sm text-label-sm tracking-widest text-on-surface-variant uppercase">Lojistik İstihdam Portalı</span>
-          </div>
-        </a>
-
-        <!-- Desktop Nav -->
-        <nav class="hidden xl:flex items-center gap-space-lg">
-          <a aria-current="page" class="transition-colors py-space-xs text-navy-deep font-bold border-b-2 border-amber-vibrant" data-path="ana-sayfa" href="index.html">Ana Sayfa</a>
-          <div class="relative group flex items-center">
-            <a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-space-xs flex items-center gap-space-xs" data-path="ulke-rehberi" href="#ulke-analizleri">
-              <span>Ülke Rehberi</span>
-              <span class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
-            </a>
-            <div class="absolute top-full left-0 hidden group-hover:block w-56 bg-surface-card rounded-xl shadow-[0_20px_25px_-5px_rgba(15,23,42,0.12)] p-space-sm mt-1 border border-slate-border">
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="#ulke-analizleri">Almanya</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="#ulke-analizleri">Bulgaristan</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="#ulke-analizleri">Romanya</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="#ulke-analizleri">Polonya</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="#ulke-analizleri">Litvanya</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="#ulke-analizleri">Belçika</a>
-            </div>
-          </div>
-          <a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-space-xs" data-path="is-analizi-ve-sartlar" href="#kriterler">İş Analizi &amp; Şartlar</a>
-          <a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-space-xs" data-path="haberler-ve-mevzuat" href="#haberler">Haberler &amp; Mevzuat</a>
-          <a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-space-xs" data-path="nasil-calisir" href="#surec-nasil-calisir">Nasıl Çalışır?</a>
-        </nav>
-      </div>
-
-      <div class="flex items-center gap-space-md">
-        <div class="hidden lg:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-full text-navy-deep font-label-sm text-label-sm border border-slate-border">
-          <span class="material-symbols-outlined text-[16px] text-status-success">fact_check</span>
-          <span>Uzman Danışmanlık ve Analiz</span>
-        </div>
-        <a class="flex items-center gap-space-xs bg-amber-vibrant hover:bg-amber-high-vis text-navy-deep font-label-lg text-label-lg px-space-lg py-space-sm rounded-xl font-bold transition-all shadow-[0_1px_3px_0_rgba(15,23,42,0.05)]" data-path="basvuru-yap" href="basvuru.html">
-          <span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
-          <span>Ön Analiz Başvurusu</span>
-        </a>
-        <a href="login.html" onclick="handleLoginClick(event)" title="Sürücü Girişi / Üye Paneli" class="w-8 h-8 rounded-full bg-navy-deep text-on-primary flex items-center justify-center hover:bg-amber-vibrant hover:text-navy-deep transition-all">
-          <span class="material-symbols-outlined text-[18px]">person</span>
-        </a>
-
-        <!-- Mobile Menu Hamburger Button -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="xl:hidden p-2 text-navy-deep hover:text-amber-vibrant focus:outline-none">
-          <span class="material-symbols-outlined text-[28px]">menu</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Navigation Dropdown -->
-    <div id="mobile-menu" class="hidden xl:hidden bg-surface-card border-b border-slate-border px-margin-mobile py-space-md flex flex-col gap-space-sm">
-      <a class="py-space-xs text-navy-deep font-bold border-l-4 border-amber-vibrant pl-2" href="index.html">Ana Sayfa</a>
-      <a class="py-space-xs text-on-surface-variant hover:text-navy-deep pl-2" href="#ulke-analizleri">Ülke Rehberi</a>
-      <a class="py-space-xs text-on-surface-variant hover:text-navy-deep pl-2" href="#kriterler">İş Analizi &amp; Şartlar</a>
-      <a class="py-space-xs text-on-surface-variant hover:text-navy-deep pl-2" href="#haberler">Haberler &amp; Mevzuat</a>
-      <a class="py-space-xs text-on-surface-variant hover:text-navy-deep pl-2" href="#surec-nasil-calisir">Nasıl Çalışır?</a>
-      <div class="pt-space-xs border-t border-slate-border flex flex-col gap-space-xs">
-        <a class="flex items-center justify-center gap-space-xs bg-amber-vibrant text-navy-deep font-bold py-space-sm rounded-xl" href="basvuru.html">
-          <span class="material-symbols-outlined text-[20px]">assignment_turned_in</span> Ön Analiz Başvurusu
-        </a>
-      </div>
-    </div>
+    <!-- Admin Panel Secret Button -->
+    <a href="login.html?tab=admin" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-amber-500/50 text-slate-300 hover:text-white text-xs font-semibold transition-all backdrop-blur-md">
+      <span class="material-symbols-outlined text-[16px] text-amber-400">admin_panel_settings</span>
+      <span>Yönetici Girişi</span>
+    </a>
   </header>
 
-  <main class="w-full pt-28 bg-surface-canvas min-h-screen">
-    <div class="flex flex-col w-full">
-      <!-- HERO SECTION WITH CINEMATIC BACKGROUND -->
-      <section class="relative w-full overflow-hidden bg-navy-deep text-on-primary">
-        <!-- Cinematic Background Container -->
-        <div class="absolute inset-0 z-0">
-          <img class="w-full h-full object-cover object-center opacity-40 scale-105 transform duration-1000 ease-out" data-alt="European commercial heavy freight truck driving on highway" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4dll0tfX6XGSaIbFbtNQGIbSiR9anrCdd6L-uMgyRVv69_UjAz9UHrWiBhjpq_xOqXpZU3s1RHXJDjqOTmSsMdxVOMZDETDC8IhbsIiKWK08HbWueCqUuAEny3zpYhiPyNWkyFZmgKZ3h4KxGi4aoVaJkJIWQci9H2kMqpmMzUxfrM2Wr1ELC5jZtq5J5lElGe7CMNlkmgr4DCHCRqZ29q26UmGaT3AHfpTPCGsGRDlnVcXwyzXs" onerror="this.onerror=null; this.src='assets/hero_tir_autobahn_1788119161647.png';" />
-          <div class="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-transparent"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-deep via-transparent to-navy-deep/60"></div>
-        </div>
-
-        <div class="relative z-10 max-w-margin-desktop-max mx-auto px-margin-mobile lg:px-margin pt-space-xl pb-24 flex flex-col justify-between">
-          <!-- Breadcrumb / Status Badge Row -->
-          <div class="flex flex-wrap items-center gap-space-sm mb-space-lg">
-            <div class="inline-flex items-center gap-space-xs bg-amber-vibrant/20 backdrop-blur-md px-3 py-1 rounded-full border-none">
-              <span class="w-2 h-2 rounded-full bg-amber-vibrant animate-ping"></span>
-              <span class="text-amber-vibrant font-label-sm text-label-sm tracking-widest uppercase">2025 AB Lojistik &amp; Sürücü Danışmanlığı</span>
-            </div>
-            <div class="hidden sm:inline-flex items-center gap-space-xs bg-surface-card/10 backdrop-blur-md px-3 py-1 rounded-full text-surface-variant font-label-sm text-label-sm">
-              <span class="material-symbols-outlined text-[16px] text-amber-vibrant">info</span>
-              <span>Bağımsız Kariyer Danışmanlığı &amp; Evrak Ön Uygunluk Analizi</span>
-            </div>
           </div>
 
           <!-- Main Headline & Narrative Layout -->
