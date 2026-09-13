@@ -836,17 +836,8 @@
       }
 
       if (!session || !session.loggedIn || session.role !== 'admin') {
-        session = {
-          loggedIn: true,
-          role: 'admin',
-          name: 'Serkan Alçay',
-          username: 'serkanalcay52',
-          tc: 'serkanalcay52',
-          ref: '#ATS-ADMIN-52',
-          loginTime: new Date().toISOString()
-        };
-        sessionStorage.setItem('user_session', JSON.stringify(session));
-        localStorage.setItem('user_session', JSON.stringify(session));
+        window.location.href = 'login.html';
+        return;
       }
 
       const name = session.name || 'Serkan Alçay';

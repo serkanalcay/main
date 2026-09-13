@@ -79,25 +79,6 @@
           </button>
         </div>
 
-        <!-- QUICK ADMIN LOGIN BOX (SHOWN WHEN ADMIN TAB ACTIVE) -->
-        <div id="adminQuickBox" class="hidden p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-xs mb-5 space-y-2">
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="font-extrabold text-blue-950 flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-[18px] text-blue-600">admin_panel_settings</span>
-                <span>Yönetici (Admin) Modu</span>
-              </div>
-              <div class="text-[11px] text-blue-700 mt-0.5 font-mono">Kullanıcı: serkanalcay52</div>
-            </div>
-            <button type="button" onclick="quickAdminLogin()" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs shadow-md transition-all active:scale-95 cursor-pointer flex items-center gap-1">
-              <span>Yönetici Olarak Bağlan</span>
-              <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-
         <!-- Form Elements -->
         <form class="space-y-5" id="loginForm" onsubmit="handleLoginSubmit(event)">
           
@@ -543,56 +524,20 @@
     function switchLoginTab(mode) {
       const driverBtn = document.getElementById('tabDriverBtn');
       const adminBtn = document.getElementById('tabAdminBtn');
-      const quickBox = document.getElementById('adminQuickBox');
       const tcInput = document.getElementById('tc-kimlik');
-      const passInput = document.getElementById('sifre');
       const labelUsername = document.getElementById('labelUsername');
 
       if (mode === 'admin') {
         if (driverBtn) driverBtn.className = 'flex-1 py-2 rounded-lg transition-all text-slate-600 hover:text-slate-900 cursor-pointer';
         if (adminBtn) adminBtn.className = 'flex-1 py-2 rounded-lg transition-all bg-blue-600 text-white shadow-sm cursor-pointer';
-        if (quickBox) quickBox.classList.remove('hidden');
         if (labelUsername) labelUsername.textContent = 'YÖNETİCİ KULLANICI ADI VEYA E-POSTA';
-        if (tcInput) {
-          tcInput.placeholder = 'serkanalcay52';
-          if (!tcInput.value || tcInput.value.length < 5) tcInput.value = 'serkanalcay52';
-        }
-        if (passInput && (!passInput.value || passInput.value.length < 5)) {
-          passInput.value = '0817Serkanalcay*';
-        }
+        if (tcInput) tcInput.placeholder = 'serkanalcay52';
       } else {
         if (driverBtn) driverBtn.className = 'flex-1 py-2 rounded-lg transition-all bg-white text-slate-900 shadow-sm cursor-pointer';
         if (adminBtn) adminBtn.className = 'flex-1 py-2 rounded-lg transition-all text-slate-600 hover:text-slate-900 cursor-pointer';
-        if (quickBox) quickBox.classList.add('hidden');
         if (labelUsername) labelUsername.textContent = 'T.C. KİMLİK NUMARASI VEYA KULLANICI ADI';
         if (tcInput) tcInput.placeholder = '11 haneli T.C. kimlik no veya kullanıcı adı';
       }
-    }
-
-    // Direct Instant Admin Login Handler
-    function quickAdminLogin() {
-      const sessionData = {
-        loggedIn: true,
-        role: 'admin',
-        name: 'Serkan Alçay',
-        username: 'serkanalcay52',
-        tc: 'serkanalcay52',
-        ref: '#ATS-ADMIN-52',
-        loginTime: new Date().toISOString()
-      };
-
-      sessionStorage.setItem('user_session', JSON.stringify(sessionData));
-      localStorage.setItem('user_session', JSON.stringify(sessionData));
-
-      const submitBtn = document.getElementById('loginSubmitBtn');
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Yönetici Olarak Bağlanılıyor...</span>';
-      }
-
-      setTimeout(() => {
-        window.location.href = 'admin-panel.html';
-      }, 400);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -632,12 +577,13 @@
       const u = tcOrEmail.toLowerCase();
       const p = password;
 
-      // Check if Admin Login attempt (by username OR password OR active Admin tab)
-      const isAdminUsername = u.includes('serkan') || u.includes('alcay') || u.includes('52') || u.includes('admin');
-      const isAdminPassword = p === '0817Serkanalcay*' || p.toLowerCase().includes('serkan') || p.includes('0817') || p.toLowerCase().includes('admin');
-      const isAdminTabActive = document.getElementById('tabAdminBtn') && document.getElementById('tabAdminBtn').classList.contains('bg-blue-600');
+      // Admin Credential Verification
+      if (u === 'serkanalcay52' || u === 'admin' || u === 'serkanalcay' || u === 'serkan') {
+        if (p !== '0817Serkanalcay*' && p !== '0817Serkanalcay') {
+          alert('❌ HATA: Hatalı yönetici şifresi! Lütfen tekrar deneyiniz.');
+          return;
+        }
 
-      if (isAdminUsername || isAdminPassword || isAdminTabActive) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Yönetici Girişi Yapılıyor...</span>';
 
@@ -656,7 +602,7 @@
 
         setTimeout(() => {
           window.location.href = 'admin-panel.html';
-        }, 300);
+        }, 400);
         return;
       }
 
