@@ -168,9 +168,9 @@
       <div class="p-3.5 bg-slate-950/70 border-t border-slate-800">
         <div class="flex items-center justify-between mb-3 px-1.5">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">MK</div>
+            <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs adminInitialsDisplay">SA</div>
             <div class="flex flex-col">
-              <span class="text-xs font-bold text-white leading-none">Murat K.</span>
+              <span class="text-xs font-bold text-white leading-none adminNameDisplay">Serkan Alçay</span>
               <span class="text-[10px] text-emerald-400 mt-1">Süper Admin / Aktif</span>
             </div>
           </div>
@@ -211,12 +211,12 @@
         <div class="h-6 w-px bg-slate-200"></div>
         
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shadow-sm">
-            MK
+          <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shadow-sm adminInitialsDisplay">
+            SA
           </div>
           <div class="flex flex-col text-left">
-            <span class="text-xs font-bold text-slate-900">Murat Karaca</span>
-            <span class="text-[11px] text-slate-500">Kıdemli Dosya Denetçisi</span>
+            <span class="text-xs font-bold text-slate-900 adminNameDisplay">Serkan Alçay</span>
+            <span class="text-[11px] text-slate-500">Süper Admin</span>
           </div>
         </div>
       </div>
@@ -824,6 +824,12 @@
         window.location.href = 'login.html';
         return;
       }
+
+      const name = session.name || 'Serkan Alçay';
+      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'SA';
+
+      document.querySelectorAll('.adminNameDisplay').forEach(el => el.textContent = name);
+      document.querySelectorAll('.adminInitialsDisplay').forEach(el => el.textContent = initials);
 
       // Format Date
       const now = new Date();

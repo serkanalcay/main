@@ -536,14 +536,43 @@
         return;
       }
 
+      // Admin Credential Check
+      if (tcOrEmail.toLowerCase() === 'serkanalcay52' || tcOrEmail.toLowerCase().includes('admin')) {
+        if (password !== '0817Serkanalcay*') {
+          alert('Hatalı yönetici şifresi! Lütfen tekrar deneyiniz.');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Yönetici Girişi Yapılıyor...</span>';
+
+        const sessionData = {
+          loggedIn: true,
+          role: 'admin',
+          name: 'Serkan Alçay',
+          username: 'serkanalcay52',
+          tc: 'serkanalcay52',
+          ref: '#ATS-ADMIN-52',
+          loginTime: new Date().toISOString()
+        };
+
+        sessionStorage.setItem('user_session', JSON.stringify(sessionData));
+        localStorage.setItem('user_session', JSON.stringify(sessionData));
+
+        setTimeout(() => {
+          window.location.href = 'admin-panel.html';
+        }, 800);
+        return;
+      }
+
+      // Member / Driver Login Check
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Giriş Yapılıyor...</span>';
 
-      const isAdmin = tcOrEmail.toLowerCase().includes('admin') || tcOrEmail === '11111111111';
       const sessionData = {
         loggedIn: true,
-        role: isAdmin ? 'admin' : 'driver',
-        name: isAdmin ? 'Admin Yetkilisi' : (tcOrEmail.includes('@') ? tcOrEmail.split('@')[0] : 'Sürücü Üye'),
+        role: 'driver',
+        name: tcOrEmail.includes('@') ? tcOrEmail.split('@')[0] : 'Sürücü Kaptan',
         tc: tcOrEmail,
         ref: '#ATS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000),
         loginTime: new Date().toISOString()
@@ -553,11 +582,7 @@
       localStorage.setItem('user_session', JSON.stringify(sessionData));
 
       setTimeout(() => {
-        if (isAdmin) {
-          window.location.href = 'admin-panel.html';
-        } else {
-          window.location.href = 'driver-panel.html';
-        }
+        window.location.href = 'driver-panel.html';
       }, 800);
     }
   </script>
