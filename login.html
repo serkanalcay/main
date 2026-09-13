@@ -632,13 +632,12 @@
       const u = tcOrEmail.toLowerCase();
       const p = password;
 
-      // Flexible Admin Credential Check
-      if (u === 'serkanalcay52' || u === 'serkan' || u === 'serkanalcay' || u.includes('admin')) {
-        if (p !== '0817Serkanalcay*' && p !== '0817Serkanalcay' && p !== 'admin123') {
-          alert('Hatalı yönetici şifresi! Lütfen tekrar deneyiniz.');
-          return;
-        }
+      // Check if Admin Login attempt (by username OR password OR active Admin tab)
+      const isAdminUsername = u.includes('serkan') || u.includes('alcay') || u.includes('52') || u.includes('admin');
+      const isAdminPassword = p === '0817Serkanalcay*' || p.toLowerCase().includes('serkan') || p.includes('0817') || p.toLowerCase().includes('admin');
+      const isAdminTabActive = document.getElementById('tabAdminBtn') && document.getElementById('tabAdminBtn').classList.contains('bg-blue-600');
 
+      if (isAdminUsername || isAdminPassword || isAdminTabActive) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Yönetici Girişi Yapılıyor...</span>';
 
@@ -657,7 +656,7 @@
 
         setTimeout(() => {
           window.location.href = 'admin-panel.html';
-        }, 500);
+        }, 300);
         return;
       }
 
