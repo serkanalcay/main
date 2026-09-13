@@ -1286,17 +1286,17 @@
         experienceYears: expYears,
         targetCountry: targetCountry,
         matchScore: '%92 Uyum',
-        docCount: '5 / 6 Belge',
+        docCount: '0 / 6 Onaylı',
         docs: {
-          ehliyet: 'Onaylandı',
-          takograf: 'Onaylandı',
-          pasaport: 'Onaylandı',
-          sicil: 'Onaylandı',
-          sgk: 'Güncelleme Bekleniyor',
-          adr: 'Henüz Eklenmedi'
+          ehliyet: 'İnceleme Bekliyor',
+          takograf: 'İnceleme Bekliyor',
+          pasaport: 'İnceleme Bekliyor',
+          sicil: 'İnceleme Bekliyor',
+          sgk: 'İnceleme Bekliyor',
+          adr: 'İnceleme Bekliyor'
         },
-        status: 'Ön İnceleme',
-        statusBadge: 'Ön Form',
+        status: 'İnceleme Bekliyor',
+        statusBadge: 'Onay Bekliyor',
         service: 'Ücretsiz Ön Uygunluk Formu',
         paymentStatus: '65 € Rapor Bekliyor',
         createdAt: new Date().toLocaleDateString('tr-TR')
@@ -1312,31 +1312,29 @@
       existingApps.unshift(applicationObj);
       localStorage.setItem('ats_applications', JSON.stringify(existingApps));
 
-      // Create driver user session for instant tracking
-      const sessionData = {
-        loggedIn: true,
-        role: 'driver',
-        name: fullName.value.trim(),
-        tc: tcNo.value.trim(),
-        ref: appId,
-        loginTime: new Date().toISOString()
-      };
-      sessionStorage.setItem('user_session', JSON.stringify(sessionData));
-      localStorage.setItem('user_session', JSON.stringify(sessionData));
+      // Clear any previous driver session to prevent auto-login
+      sessionStorage.removeItem('user_session');
+      localStorage.removeItem('user_session');
 
       setTimeout(function() {
-        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">done_all</span><span>Başvuru İletildi</span>';
+        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">done_all</span><span>Başvurunuz Alındı (İncelemede)</span>';
         btn.classList.remove('bg-amber-vibrant', 'hover:bg-amber-high-vis');
-        btn.classList.add('bg-status-success', 'text-on-primary');
+        btn.classList.add('bg-amber-600', 'text-white');
 
-        const alertBox = document.getElementById('submissionAlert');
-        if (alertBox) {
-          alertBox.classList.remove('hidden');
-          alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        alert(
+          '✅ BAŞVURUNUZ BAŞARIYLA ALINDI!\n\n' +
+          'Başvuru Takip No: ' + appId + '\n' +
+          'Aday: ' + fullName.value.trim() + '\n\n' +
+          'Başvurunuz ve evraklarınız şu an yönetici inceleme ve değerlendirme aşamasındadır.\n' +
+          'Yönetici onayı verildikten sonra sisteme giriş yapabilirsiniz.\n\n' +
+          'Lütfen yönetici onay sürecini bekleyiniz.'
+        );
+
+        window.location.href = 'index.html';
       }, 1200);
     }
   </script>
 </body>
+</html>
 
 </html>

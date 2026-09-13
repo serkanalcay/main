@@ -532,7 +532,16 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Başvuru Statüsü (Onay)</label>
+            <select id="editAppStatus" class="w-full h-9 px-2 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-bold text-blue-700">
+              <option value="İnceleme Bekliyor">İnceleme Bekliyor</option>
+              <option value="Değerlendirmede">Değerlendirmede</option>
+              <option value="Onaylandı">Onaylandı (Giriş İzni)</option>
+              <option value="Reddedildi">Reddedildi</option>
+            </select>
+          </div>
           <div>
             <label class="block font-bold text-slate-700 mb-1">Hedef Ülke</label>
             <select id="editTargetCountry" class="w-full h-9 px-2 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-semibold">
@@ -1102,15 +1111,16 @@
       document.getElementById('editModalCandidateTitle').textContent = `${app.fullName} (${app.id})`;
       document.getElementById('editFullName').value = app.fullName;
       document.getElementById('editPhone').value = app.phone;
+      document.getElementById('editAppStatus').value = app.status || 'İnceleme Bekliyor';
       document.getElementById('editTargetCountry').value = app.targetCountry || 'Almanya & Polonya';
       document.getElementById('editMatchScore').value = app.matchScore || '%92 Uyum';
 
       if (app.docs) {
-        document.getElementById('editDocEhliyet').value = app.docs.ehliyet || 'Onaylandı';
-        document.getElementById('editDocTakograf').value = app.docs.takograf || 'Onaylandı';
-        document.getElementById('editDocPasaport').value = app.docs.pasaport || 'Onaylandı';
-        document.getElementById('editDocSicil').value = app.docs.sicil || 'Onaylandı';
-        document.getElementById('editDocSgk').value = app.docs.sgk || 'Güncelleme Bekleniyor';
+        document.getElementById('editDocEhliyet').value = app.docs.ehliyet || 'İnceleme Bekliyor';
+        document.getElementById('editDocTakograf').value = app.docs.takograf || 'İnceleme Bekliyor';
+        document.getElementById('editDocPasaport').value = app.docs.pasaport || 'İnceleme Bekliyor';
+        document.getElementById('editDocSicil').value = app.docs.sicil || 'İnceleme Bekliyor';
+        document.getElementById('editDocSgk').value = app.docs.sgk || 'İnceleme Bekliyor';
         document.getElementById('editDocAdr').value = app.docs.adr || 'Henüz Eklenmedi';
       }
 
@@ -1133,8 +1143,11 @@
 
       if (!apps[index]) return;
 
+      const newStatus = document.getElementById('editAppStatus').value;
       apps[index].fullName = document.getElementById('editFullName').value.trim();
       apps[index].phone = document.getElementById('editPhone').value.trim();
+      apps[index].status = newStatus;
+      apps[index].statusBadge = newStatus;
       apps[index].targetCountry = document.getElementById('editTargetCountry').value;
       apps[index].matchScore = document.getElementById('editMatchScore').value.trim();
 
@@ -1147,9 +1160,13 @@
         adr: document.getElementById('editDocAdr').value
       };
 
+      // Count approved docs
+      const approvedCount = Object.values(apps[index].docs).filter(v => v === 'Onaylandı').length;
+      apps[index].docCount = `${approvedCount} / 6 Onaylı`;
+
       localStorage.setItem('ats_applications', JSON.stringify(apps));
       renderApplicationsTable();
-      alert('Aday evrak ve başvuru bilgileri başarıyla güncellendi!');
+      alert(`Aday evrak ve başvuru bilgileri güncellendi!\nBaşvuru Statüsü: ${newStatus}`);
       closeEditDocModal();
     }
 

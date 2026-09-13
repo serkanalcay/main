@@ -566,15 +566,49 @@
       }
 
       // Member / Driver Login Check
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      // Search application by TC, email, phone, or Ref ID
+      const app = apps.find(a => 
+        a.tcNo === tcOrEmail || 
+        (a.email && a.email.toLowerCase() === tcOrEmail.toLowerCase()) || 
+        a.phone === tcOrEmail || 
+        a.id === tcOrEmail
+      );
+
+      if (!app) {
+        alert('❌ HATA: Bu T.C. Kimlik No / E-posta adresi ile kayıtlı bir başvuru bulunamadı.\n\nSisteme giriş yapabilmek için lütfen öncelikle "Ön Analiz Başvurusu" yapınız.');
+        return;
+      }
+
+      // Check Application Approval Status
+      if (app.status !== 'Onaylandı') {
+        alert(
+          '⚠️ BAŞVURUNUZ HENÜZ ONAYLANMADI!\n\n' +
+          'Sayın ' + app.fullName + ',\n' +
+          'Başvuru No: ' + app.id + '\n' +
+          'Mevcut Statü: ' + (app.status || 'İnceleme Bekliyor') + '\n\n' +
+          'Başvurunuz ve yüklediğiniz evraklar yönetici ekibimiz tarafından değerlendirme aşamasındadır.\n' +
+          'Yönetici onayı verildikten sonra paneliniz aktif edilecek ve giriş sağlayabileceksiniz.\n\n' +
+          'Lütfen onay sürecini bekleyiniz.'
+        );
+        return;
+      }
+
+      // Approved! Proceed to driver panel
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Giriş Yapılıyor...</span>';
+      submitBtn.innerHTML = '<span>Sürücü Paneline Bağlanılıyor...</span>';
 
       const sessionData = {
         loggedIn: true,
         role: 'driver',
-        name: tcOrEmail.includes('@') ? tcOrEmail.split('@')[0] : 'Sürücü Kaptan',
-        tc: tcOrEmail,
-        ref: '#ATS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000),
+        name: app.fullName,
+        tc: app.tcNo,
+        ref: app.id,
         loginTime: new Date().toISOString()
       };
 
