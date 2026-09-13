@@ -592,7 +592,7 @@
         .replace(/[^a-z0-9]/g, '');
     }
 
-    function handleLoginSubmit(event) {
+    async function handleLoginSubmit(event) {
       if (event) event.preventDefault();
       const rawUser = (document.getElementById('tc-kimlik').value || '').trim();
       const rawPass = (document.getElementById('sifre').value || '').trim();
@@ -632,7 +632,15 @@
         }
       }
 
-      // 2. MEMBER / DRIVER LOGIN CHECK
+      // 2. MEMBER / DRIVER LOGIN CHECK - FETCH LATEST CLOUD DB
+      if (submitBtn) submitBtn.innerHTML = '<span>Bulut Veritabanı Kontrol Ediliyor...</span>';
+      
+      if (typeof window.fetchApplicationsFromCloud === 'function') {
+        try {
+          await window.fetchApplicationsFromCloud();
+        } catch(e){}
+      }
+
       let apps = [];
       try {
         const str = localStorage.getItem('ats_applications');
@@ -793,11 +801,13 @@
       }
     });
   </script>
+  <!-- GLOBAL CLOUD DATABASE & REALTIME SYNC ENGINE -->
+  <script src="js/cloud-db.js?v=2.6.0"></script>
   <!-- GOOGLE FIREBASE SDK (COMPAT MODULES) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script src="js/firebase-db.js?v=2.5.0"></script>
-  <script src="js/app.js?v=2.5.0"></script>
+  <script src="js/firebase-db.js?v=2.6.0"></script>
+  <script src="js/app.js?v=2.6.0"></script>
 </body>
 </html>

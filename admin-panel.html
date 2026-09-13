@@ -1270,7 +1270,7 @@
       closeNewUserModal();
     }
 
-    // Helper to sync account info into ats_driver_credentials & Firebase
+    // Helper to sync account info into ats_driver_credentials, Firebase & Global Cloud DB
     function syncDriverCredentialStore(app) {
       if (!app) return;
       try {
@@ -1290,6 +1290,12 @@
       // Sync to Google Firebase Firestore
       if (typeof window.saveATSApplicationToFirebase === 'function') {
         window.saveATSApplicationToFirebase(app);
+      }
+
+      // Sync to Global Cloud Database so users on ANY device can log in instantly
+      let apps = window.getATSApplications ? window.getATSApplications() : [];
+      if (typeof window.syncApplicationsToCloud === 'function' && apps.length > 0) {
+        window.syncApplicationsToCloud(apps);
       }
     }
 
@@ -1806,11 +1812,13 @@
       }
     });
   </script>
+  <!-- GLOBAL CLOUD DATABASE & REALTIME SYNC ENGINE -->
+  <script src="js/cloud-db.js?v=2.6.0"></script>
   <!-- GOOGLE FIREBASE SDK (COMPAT MODULES) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script src="js/firebase-db.js?v=2.5.0"></script>
-  <script src="js/app.js?v=2.5.0"></script>
+  <script src="js/firebase-db.js?v=2.6.0"></script>
+  <script src="js/app.js?v=2.6.0"></script>
 </body>
 </html>
