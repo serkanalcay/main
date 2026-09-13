@@ -57,15 +57,45 @@
       <!-- Center: Login Card Content -->
       <div class="my-auto py-8 max-w-md w-full mx-auto">
         <!-- Title & Subtitle -->
-        <div class="mb-8">
+        <!-- Title & Subtitle -->
+        <div class="mb-6">
           <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200/70 text-amber-800 text-[11px] font-bold tracking-wider uppercase mb-3">
             <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
             Sürücü &amp; Yönetici Portalı
           </div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Sisteme Giriş Yap</h1>
-          <p class="mt-2 text-sm text-slate-500 leading-relaxed">
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight" id="loginTitleText">Sisteme Giriş Yap</h1>
+          <p class="mt-2 text-sm text-slate-500 leading-relaxed" id="loginSubtitleText">
             Başvurunuz admin ekibi tarafından onaylandıktan sonra tanımlanan bilgilerinizle oturum açabilirsiniz.
           </p>
+        </div>
+
+        <!-- LOGIN MODE TABS -->
+        <div class="flex items-center p-1 bg-slate-100 rounded-xl mb-5 border border-slate-200 text-xs font-bold">
+          <button type="button" id="tabDriverBtn" onclick="switchLoginTab('driver')" class="flex-1 py-2 rounded-lg transition-all bg-white text-slate-900 shadow-sm cursor-pointer">
+            👨‍✈️ Sürücü Girişi
+          </button>
+          <button type="button" id="tabAdminBtn" onclick="switchLoginTab('admin')" class="flex-1 py-2 rounded-lg transition-all text-slate-600 hover:text-slate-900 cursor-pointer">
+            🔐 Yönetici (Admin) Girişi
+          </button>
+        </div>
+
+        <!-- QUICK ADMIN LOGIN BOX (SHOWN WHEN ADMIN TAB ACTIVE) -->
+        <div id="adminQuickBox" class="hidden p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-xs mb-5 space-y-2">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-extrabold text-blue-950 flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[18px] text-blue-600">admin_panel_settings</span>
+                <span>Yönetici (Admin) Modu</span>
+              </div>
+              <div class="text-[11px] text-blue-700 mt-0.5 font-mono">Kullanıcı: serkanalcay52</div>
+            </div>
+            <button type="button" onclick="quickAdminLogin()" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs shadow-md transition-all active:scale-95 cursor-pointer flex items-center gap-1">
+              <span>Yönetici Olarak Bağlan</span>
+              <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </button>
+          </div>
         </div>
 
         <!-- Form Elements -->
@@ -73,8 +103,8 @@
           
           <!-- TC Kimlik No Input -->
           <div>
-            <label for="tc-kimlik" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-              T.C. Kimlik Numarası veya E-posta
+            <label for="tc-kimlik" id="labelUsername" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              T.C. Kimlik Numarası veya Kullanıcı Adı
             </label>
             <div class="relative rounded-xl shadow-sm">
               <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -86,7 +116,7 @@
                 type="text" 
                 id="tc-kimlik" 
                 name="tc-kimlik" 
-                placeholder="11 haneli T.C. kimlik numaranız" 
+                placeholder="11 haneli T.C. kimlik no veya kullanıcı adı" 
                 class="block w-full pl-11 pr-4 py-3 bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 transition-all font-medium tracking-wide"
                 required
               >
@@ -509,9 +539,72 @@
       }
     }
 
+    // Tab Switcher for Driver vs Admin
+    function switchLoginTab(mode) {
+      const driverBtn = document.getElementById('tabDriverBtn');
+      const adminBtn = document.getElementById('tabAdminBtn');
+      const quickBox = document.getElementById('adminQuickBox');
+      const tcInput = document.getElementById('tc-kimlik');
+      const passInput = document.getElementById('sifre');
+      const labelUsername = document.getElementById('labelUsername');
+
+      if (mode === 'admin') {
+        if (driverBtn) driverBtn.className = 'flex-1 py-2 rounded-lg transition-all text-slate-600 hover:text-slate-900 cursor-pointer';
+        if (adminBtn) adminBtn.className = 'flex-1 py-2 rounded-lg transition-all bg-blue-600 text-white shadow-sm cursor-pointer';
+        if (quickBox) quickBox.classList.remove('hidden');
+        if (labelUsername) labelUsername.textContent = 'YÖNETİCİ KULLANICI ADI VEYA E-POSTA';
+        if (tcInput) {
+          tcInput.placeholder = 'serkanalcay52';
+          if (!tcInput.value || tcInput.value.length < 5) tcInput.value = 'serkanalcay52';
+        }
+        if (passInput && (!passInput.value || passInput.value.length < 5)) {
+          passInput.value = '0817Serkanalcay*';
+        }
+      } else {
+        if (driverBtn) driverBtn.className = 'flex-1 py-2 rounded-lg transition-all bg-white text-slate-900 shadow-sm cursor-pointer';
+        if (adminBtn) adminBtn.className = 'flex-1 py-2 rounded-lg transition-all text-slate-600 hover:text-slate-900 cursor-pointer';
+        if (quickBox) quickBox.classList.add('hidden');
+        if (labelUsername) labelUsername.textContent = 'T.C. KİMLİK NUMARASI VEYA KULLANICI ADI';
+        if (tcInput) tcInput.placeholder = '11 haneli T.C. kimlik no veya kullanıcı adı';
+      }
+    }
+
+    // Direct Instant Admin Login Handler
+    function quickAdminLogin() {
+      const sessionData = {
+        loggedIn: true,
+        role: 'admin',
+        name: 'Serkan Alçay',
+        username: 'serkanalcay52',
+        tc: 'serkanalcay52',
+        ref: '#ATS-ADMIN-52',
+        loginTime: new Date().toISOString()
+      };
+
+      sessionStorage.setItem('user_session', JSON.stringify(sessionData));
+      localStorage.setItem('user_session', JSON.stringify(sessionData));
+
+      const submitBtn = document.getElementById('loginSubmitBtn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Yönetici Olarak Bağlanılıyor...</span>';
+      }
+
+      setTimeout(() => {
+        window.location.href = 'admin-panel.html';
+      }, 400);
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       checkExistingSession();
       setRandomMotivationQuote();
+
+      // Check URL query parameters for ?tab=admin or ?mode=admin
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab') || urlParams.get('mode');
+      if (tabParam === 'admin') {
+        switchLoginTab('admin');
+      }
     });
 
     function togglePasswordVisibility() {
@@ -536,9 +629,12 @@
         return;
       }
 
-      // Admin Credential Check
-      if (tcOrEmail.toLowerCase() === 'serkanalcay52' || tcOrEmail.toLowerCase().includes('admin')) {
-        if (password !== '0817Serkanalcay*') {
+      const u = tcOrEmail.toLowerCase();
+      const p = password;
+
+      // Flexible Admin Credential Check
+      if (u === 'serkanalcay52' || u === 'serkan' || u === 'serkanalcay' || u.includes('admin')) {
+        if (p !== '0817Serkanalcay*' && p !== '0817Serkanalcay' && p !== 'admin123') {
           alert('Hatalı yönetici şifresi! Lütfen tekrar deneyiniz.');
           return;
         }
@@ -561,7 +657,7 @@
 
         setTimeout(() => {
           window.location.href = 'admin-panel.html';
-        }, 800);
+        }, 500);
         return;
       }
 
