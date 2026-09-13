@@ -522,7 +522,27 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', setRandomMotivationQuote);
+    // Auto-Redirect if user is already logged in
+    function checkExistingSession() {
+      const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
+      if (sessionStr) {
+        try {
+          const session = JSON.parse(sessionStr);
+          if (session && session.loggedIn) {
+            if (session.role === 'admin') {
+              window.location.href = 'admin-panel.html';
+            } else {
+              window.location.href = 'driver-panel.html';
+            }
+          }
+        } catch(e){}
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkExistingSession();
+      setRandomMotivationQuote();
+    });
 
     function togglePasswordVisibility() {
       const passwordInput = document.getElementById('sifre');
@@ -562,8 +582,21 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Giriş Yapılıyor...</span>';
 
+      const isAdmin = tcOrEmail.toLowerCase().includes('admin') || tcOrEmail === '11111111111';
+      const sessionData = {
+        loggedIn: true,
+        role: isAdmin ? 'admin' : 'driver',
+        name: isAdmin ? 'Admin Yetkilisi' : 'Ahmet Yılmaz',
+        tc: tcOrEmail,
+        ref: '#ATS-2025-8492',
+        loginTime: new Date().toISOString()
+      };
+
+      sessionStorage.setItem('user_session', JSON.stringify(sessionData));
+      localStorage.setItem('user_session', JSON.stringify(sessionData));
+
       setTimeout(() => {
-        if (tcOrEmail.toLowerCase().includes('admin') || tcOrEmail === '11111111111') {
+        if (isAdmin) {
           window.location.href = 'admin-panel.html';
         } else {
           window.location.href = 'driver-panel.html';

@@ -204,7 +204,7 @@
           <span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
           <span>Ön Analiz Başvurusu</span>
         </a>
-        <a href="login.html" title="Sürücü Girişi" class="w-8 h-8 rounded-full bg-navy-deep text-on-primary flex items-center justify-center hover:bg-amber-vibrant hover:text-navy-deep transition-all">
+        <a href="login.html" onclick="handleLoginClick(event)" title="Sürücü Girişi / Üye Paneli" class="w-8 h-8 rounded-full bg-navy-deep text-on-primary flex items-center justify-center hover:bg-amber-vibrant hover:text-navy-deep transition-all">
           <span class="material-symbols-outlined text-[18px]">person</span>
         </a>
 
@@ -1174,6 +1174,23 @@
       const menu = document.getElementById('mobile-menu');
       if (menu) {
         menu.classList.toggle('hidden');
+      }
+    }
+
+    function handleLoginClick(e) {
+      const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
+      if (sessionStr) {
+        try {
+          const session = JSON.parse(sessionStr);
+          if (session && session.loggedIn) {
+            if (e) e.preventDefault();
+            if (session.role === 'admin') {
+              window.location.href = 'admin-panel.html';
+            } else {
+              window.location.href = 'driver-panel.html';
+            }
+          }
+        } catch(err){}
       }
     }
   </script>
