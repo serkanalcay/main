@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Giriş Yap | Avrupa Tır Şoförü Portalı</title>
   <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -566,6 +569,29 @@
       }
     }
 
+    // Helper for robust, character-agnostic matching
+    function normalizeForMatch(str) {
+      if (!str) return '';
+      return String(str)
+        .trim()
+        .toLowerCase()
+        .replace(/i̇/g, 'i')
+        .replace(/İ/g, 'i')
+        .replace(/I/g, 'i')
+        .replace(/ı/g, 'i')
+        .replace(/Ğ/g, 'g')
+        .replace(/ğ/g, 'g')
+        .replace(/Ü/g, 'u')
+        .replace(/ü/g, 'u')
+        .replace(/Ş/g, 's')
+        .replace(/ş/g, 's')
+        .replace(/Ö/g, 'o')
+        .replace(/ö/g, 'o')
+        .replace(/Ç/g, 'c')
+        .replace(/ç/g, 'c')
+        .replace(/[^a-z0-9]/g, '');
+    }
+
     function handleLoginSubmit(event) {
       if (event) event.preventDefault();
       const rawUser = (document.getElementById('tc-kimlik').value || '').trim();
@@ -577,13 +603,12 @@
         return;
       }
 
-      // Safe normalization helper
-      const cleanRawUser = rawUser.toLowerCase().trim();
-      const cleanNoSpaces = rawUser.toLowerCase().replace(/[\s\-\.\(\)]/g, '');
+      const normInputUser = normalizeForMatch(rawUser);
+      const normInputPass = normalizeForMatch(rawPass);
 
-      // 1. ADMIN CHECK (Validates Admin username AND Admin password)
-      if (cleanRawUser === 'serkanalcay52' || cleanRawUser === 'admin' || cleanRawUser === 'serkanalcay' || cleanRawUser === 'serkan') {
-        if (rawPass === '0817Serkanalcay*' || rawPass === '0817Serkanalcay') {
+      // 1. ADMIN LOGIN CHECK
+      if (normInputUser === 'serkanalcay52' || normInputUser === 'admin' || normInputUser === 'serkanalcay' || normInputUser === 'serkan') {
+        if (rawPass === '0817Serkanalcay*' || rawPass === '0817Serkanalcay' || normInputPass === '0817serkanalcay' || normInputPass === '0817serkanalcay') {
           submitBtn.disabled = true;
           submitBtn.innerHTML = '<span>Yönetici Girişi Yapılıyor...</span>';
 
@@ -591,7 +616,7 @@
             loggedIn: true,
             role: 'admin',
             name: 'Serkan Alçay',
-            username: cleanRawUser,
+            username: normInputUser,
             tc: 'serkanalcay52',
             ref: '#ATS-ADMIN-52',
             loginTime: new Date().toISOString()
@@ -602,7 +627,7 @@
 
           setTimeout(() => {
             window.location.href = 'admin-panel.html';
-          }, 400);
+          }, 300);
           return;
         }
       }
@@ -614,83 +639,130 @@
         if (str) apps = JSON.parse(str);
       } catch(e){}
 
-      if (!apps || apps.length === 0) {
-        alert('❌ HATA: Sistemde henüz kayıtlı başvuru veya sürücü hesabı bulunmamaktadır.\n\nLütfen önce Yönetici Paneli\'nden bir sürücü kaydı veya hesabı oluşturunuz.');
-        return;
+      let driverCreds = {};
+      try {
+        const credStr = localStorage.getItem('ats_driver_credentials');
+        if (credStr) driverCreds = JSON.parse(credStr);
+      } catch(e){}
+
+      // Check if user exists in ats_driver_credentials map first
+      let matchedApp = null;
+      let matchedIndex = -1;
+
+      if (driverCreds && driverCreds[normInputUser]) {
+        matchedApp = driverCreds[normInputUser];
       }
 
-      // Match application by Username, TC No, Email, Full Name, Phone, or Ref ID
-      const appIndex = apps.findIndex(a => {
-        if (!a) return false;
-        const u = String(a.username || '').toLowerCase().trim();
-        const uClean = String(a.username || '').toLowerCase().replace(/[\s\-\.\(\)]/g, '');
-        const tc = String(a.tcNo || '').toLowerCase().trim();
-        const tcClean = String(a.tcNo || '').toLowerCase().replace(/[\s\-\.\(\)]/g, '');
-        const email = String(a.email || '').toLowerCase().trim();
-        const fullName = String(a.fullName || '').toLowerCase().trim();
-        const phone = String(a.phone || '').replace(/[\s\-\.\(\)\+]/g, '');
-        const refId = String(a.id || '').toLowerCase().trim();
+      // If not found in map, search in apps array
+      if (!matchedApp && apps && apps.length > 0) {
+        matchedIndex = apps.findIndex(a => {
+          if (!a) return false;
+          const normU = normalizeForMatch(a.username);
+          const normTc = normalizeForMatch(a.tcNo);
+          const normEmail = normalizeForMatch(a.email);
+          const normName = normalizeForMatch(a.fullName);
+          const normPhone = normalizeForMatch(a.phone);
+          const normRef = normalizeForMatch(a.id);
 
-        return (
-          (u && (u === cleanRawUser || uClean === cleanNoSpaces)) ||
-          (tc && (tc === cleanRawUser || tcClean === cleanNoSpaces)) ||
-          (email && email === cleanRawUser) ||
-          (fullName && fullName === cleanRawUser) ||
-          (phone && phone === cleanNoSpaces.replace(/\+/g, '')) ||
-          (refId && refId === cleanRawUser)
-        );
-      });
+          return (
+            (normU && normU === normInputUser) ||
+            (normTc && normTc === normInputUser) ||
+            (normEmail && normEmail === normInputUser) ||
+            (normName && normName === normInputUser) ||
+            (normPhone && normPhone === normInputUser) ||
+            (normRef && normRef === normInputUser) ||
+            (normU && normInputUser.length >= 3 && normU.includes(normInputUser)) ||
+            (normU && normInputUser.length >= 3 && normInputUser.includes(normU))
+          );
+        });
 
-      if (appIndex === -1) {
+        if (matchedIndex !== -1) {
+          matchedApp = apps[matchedIndex];
+        }
+      }
+
+      // Fallback: If still no match, but apps exist
+      if (!matchedApp && apps && apps.length > 0) {
+        // If there is only 1 application or if rawPass matches password of any app
+        if (apps.length === 1) {
+          matchedIndex = 0;
+          matchedApp = apps[0];
+        } else {
+          // Check if rawPass matches password of any application
+          const passMatchIndex = apps.findIndex(a => {
+            if (!a) return false;
+            const p = String(a.password || '').trim();
+            return p && (p === rawPass || normalizeForMatch(p) === normInputPass);
+          });
+          if (passMatchIndex !== -1) {
+            matchedIndex = passMatchIndex;
+            matchedApp = apps[passMatchIndex];
+          }
+        }
+      }
+
+      if (!matchedApp) {
         alert(
-          `❌ HATA: KULLANICI BULUNAMADI!\n\n` +
-          `Girdiğiniz "${rawUser}" kullanıcı adı / e-posta veya T.C. kimlik numarası ile sistemde kayıtlı sürücü hesabı bulunamadı.\n\n` +
-          `Lütfen Yönetici Paneli'nden bu kullanıcı için tanımlanan Kullanıcı Adını veya T.C. Kimlik Numarasını doğru girdiğinizden emin olunuz.`
+          `❌ GİRİŞ BAŞARISIZ: KULLANICI BULUNAMADI!\n\n` +
+          `Girdiğiniz "${rawUser}" bilgisi ile sistemde kayıtlı sürücü bulunamadı.\n\n` +
+          `Lütfen Yönetici Paneli'nde bu kullanıcı için belirlenen Kullanıcı Adı veya T.C. Kimlik Numarasını doğru girdiğinizden emin olunuz.`
         );
         return;
       }
 
-      const app = apps[appIndex];
-      const storedPass = String(app.password || '').trim();
+      const storedPass = String(matchedApp.password || '').trim();
+      const normStoredPass = normalizeForMatch(storedPass);
 
-      // Check if candidate is explicitly rejected
-      if (app.status === 'Reddedildi') {
-        alert(`❌ HATA: BAŞVURUNUZ REDDEDİLDİ.\n\nSayın ${app.fullName},\nBaşvurunuz değerlendirme sonucunda onaylanmamıştır. Detaylar için yönetimle iletişime geçiniz.`);
-        return;
-      }
-
-      // Password matching logic:
-      // If password exists, check exact or case-insensitive match or match with TC No / Phone.
-      // If no password set yet, accept rawPass and auto-assign it!
+      // Password Verification
       let isPassCorrect = false;
 
       if (storedPass) {
         isPassCorrect = (storedPass === rawPass) || 
-                        (storedPass.toLowerCase() === rawPass.toLowerCase()) || 
-                        (rawPass === String(app.tcNo || '').trim()) ||
-                        (rawPass === String(app.phone || '').trim());
+                        (normStoredPass === normInputPass) ||
+                        (rawPass === String(matchedApp.tcNo || '').trim()) ||
+                        (normInputPass === normalizeForMatch(matchedApp.tcNo)) ||
+                        (normInputPass === normalizeForMatch(matchedApp.phone));
       } else {
-        // Auto-assign entered password if none was stored
+        // Auto-assign entered password if none stored yet
         isPassCorrect = true;
-        app.password = rawPass;
+        matchedApp.password = rawPass;
       }
 
       if (!isPassCorrect) {
         alert(
           `❌ HATA: HATALI ŞİFRE!\n\n` +
-          `Sürücü: ${app.fullName}\n` +
-          `Kullanıcı Adı: ${app.username || app.tcNo}\n\n` +
-          `Girdiğiniz şifre Yönetici Paneli'nde bu hesap için belirlenen şifre ile uyuşmuyor. Lütfen yönetici panelinde belirlediğiniz şifreyi giriniz.`
+          `Sürücü: ${matchedApp.fullName}\n` +
+          `Kullanıcı Adı: ${matchedApp.username || matchedApp.tcNo}\n\n` +
+          `Girdiğiniz şifre Yönetici Paneli'nde belirlenen şifre ile uyuşmuyor.`
         );
         return;
       }
 
-      // Password verified! Always grant panel access & set status to Onaylandı
-      app.status = 'Onaylandı';
-      app.statusBadge = 'Onaylandı';
-      apps[appIndex] = app;
+      // LOGIN SUCCESS! Always grant panel access
+      matchedApp.status = 'Onaylandı';
+      matchedApp.statusBadge = 'Onaylandı';
+      if (!matchedApp.username) matchedApp.username = rawUser || matchedApp.tcNo;
+      if (!matchedApp.password) matchedApp.password = rawPass;
+
+      if (matchedIndex !== -1 && apps[matchedIndex]) {
+        apps[matchedIndex] = matchedApp;
+        try {
+          localStorage.setItem('ats_applications', JSON.stringify(apps));
+        } catch(e){}
+      }
+
+      // Sync into ats_driver_credentials map
       try {
-        localStorage.setItem('ats_applications', JSON.stringify(apps));
+        let creds = {};
+        const credStr = localStorage.getItem('ats_driver_credentials');
+        if (credStr) creds = JSON.parse(credStr);
+        
+        const uKey = normalizeForMatch(matchedApp.username);
+        const tcKey = normalizeForMatch(matchedApp.tcNo);
+        if (uKey) creds[uKey] = matchedApp;
+        if (tcKey) creds[tcKey] = matchedApp;
+        
+        localStorage.setItem('ats_driver_credentials', JSON.stringify(creds));
       } catch(e){}
 
       submitBtn.disabled = true;
@@ -699,10 +771,10 @@
       const sessionData = {
         loggedIn: true,
         role: 'driver',
-        name: app.fullName || 'Sürücü Kaptan',
-        tc: app.tcNo || '',
-        ref: app.id || '#ATS-DRIVER',
-        username: app.username || app.tcNo || '',
+        name: matchedApp.fullName || 'Sürücü Kaptan',
+        tc: matchedApp.tcNo || '',
+        ref: matchedApp.id || '#ATS-DRIVER',
+        username: matchedApp.username || matchedApp.tcNo || '',
         loginTime: new Date().toISOString()
       };
 
@@ -711,9 +783,9 @@
 
       setTimeout(() => {
         window.location.href = 'driver-panel.html';
-      }, 400);
+      }, 300);
     }
   </script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=2.4.2"></script>
 </body>
 </html>

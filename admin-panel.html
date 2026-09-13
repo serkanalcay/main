@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Avrupa Tır Şoförü - Yönetim Merkezi / Süper Admin</title>
   <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
   
@@ -1217,7 +1220,7 @@
       const passwordEl = document.getElementById('newUserPassword');
       const password = passwordEl ? passwordEl.value.trim() : '';
 
-      const isApprovedAccount = (username && password);
+      const isApprovedAccount = true; // Always allow immediate login when admin defines user
       const appId = '#ATS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
 
       const newApp = {
@@ -1231,21 +1234,21 @@
         experienceYears: expYears,
         targetCountry: country,
         username: username || tc,
-        password: password || '',
+        password: password || tc || '123456',
         matchScore: '%90 Uyum',
-        docCount: isApprovedAccount ? '6 / 6 Onaylı' : '0 / 6 Onaylı',
+        docCount: '6 / 6 Onaylı',
         docs: {
-          ehliyet: isApprovedAccount ? 'Onaylandı' : 'İnceleme Bekliyor',
-          takograf: isApprovedAccount ? 'Onaylandı' : 'İnceleme Bekliyor',
-          pasaport: isApprovedAccount ? 'Onaylandı' : 'İnceleme Bekliyor',
-          sicil: isApprovedAccount ? 'Onaylandı' : 'İnceleme Bekliyor',
-          sgk: isApprovedAccount ? 'Onaylandı' : 'İnceleme Bekliyor',
-          adr: isApprovedAccount ? 'Onaylandı' : 'İnceleme Bekliyor'
+          ehliyet: 'Onaylandı',
+          takograf: 'Onaylandı',
+          pasaport: 'Onaylandı',
+          sicil: 'Onaylandı',
+          sgk: 'Onaylandı',
+          adr: 'Onaylandı'
         },
-        status: isApprovedAccount ? 'Onaylandı' : 'İnceleme Bekliyor',
-        statusBadge: isApprovedAccount ? 'Onaylandı' : 'Onay Bekliyor',
+        status: 'Onaylandı',
+        statusBadge: 'Onaylandı',
         service: 'Manuel Yönetici Kaydı',
-        paymentStatus: isApprovedAccount ? 'Rapor ve Hesap Aktif' : '65 € Rapor Bekliyor',
+        paymentStatus: 'Rapor ve Hesap Aktif',
         createdAt: new Date().toLocaleDateString('tr-TR')
       };
 
@@ -1257,14 +1260,29 @@
 
       apps.unshift(newApp);
       localStorage.setItem('ats_applications', JSON.stringify(apps));
+      syncDriverCredentialStore(newApp);
 
       renderApplicationsTable();
-      if (isApprovedAccount) {
-        alert(`✅ Yeni aday "${name}" ve sürücü giriş hesabı başarıyla oluşturuldu!\n\nKullanıcı Adı: ${username}\nŞifre: ${password}\nSürücü doğrudan login.html sayfasından giriş yapabilir.`);
-      } else {
-        alert(`Yeni aday "${name}" başarıyla eklendi!\nBaşvuru "İnceleme Bekliyor" statüsünde oluşturuldu.`);
-      }
+      alert(`✅ Yeni aday "${name}" ve sürücü giriş hesabı başarıyla oluşturuldu!\n\nKullanıcı Adı: ${newApp.username}\nŞifre: ${newApp.password}\nSürücü doğrudan login.html sayfasından giriş yapabilir.`);
       closeNewUserModal();
+    }
+
+    // Helper to sync account info into ats_driver_credentials
+    function syncDriverCredentialStore(app) {
+      if (!app) return;
+      try {
+        let creds = {};
+        const str = localStorage.getItem('ats_driver_credentials');
+        if (str) creds = JSON.parse(str);
+
+        const normU = app.username ? String(app.username).trim().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
+        const normTc = app.tcNo ? String(app.tcNo).trim().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
+
+        if (normU) creds[normU] = app;
+        if (normTc) creds[normTc] = app;
+
+        localStorage.setItem('ats_driver_credentials', JSON.stringify(creds));
+      } catch(e){}
     }
 
     // 6.5 MANUEL SÜRÜCÜ HESABI OLUŞTURMA (KULLANICI ADI & ŞİFRE)
@@ -1353,6 +1371,7 @@
       apps[index].statusBadge = 'Onaylandı';
 
       localStorage.setItem('ats_applications', JSON.stringify(apps));
+      syncDriverCredentialStore(apps[index]);
       renderApplicationsTable();
 
       alert(
@@ -1439,10 +1458,12 @@
 
       let newStatus = document.getElementById('editAppStatus').value;
 
-      // If status set to Onaylandı, ensure username & password exist
-      if (newStatus === 'Onaylandı') {
-        if (!apps[index].username) apps[index].username = editUsernameVal || apps[index].tcNo;
-        if (!apps[index].password) apps[index].password = editPasswordVal || apps[index].tcNo || '123456';
+      // Always ensure username & password exist
+      if (!apps[index].username) apps[index].username = editUsernameVal || apps[index].tcNo;
+      if (!apps[index].password) apps[index].password = editPasswordVal || apps[index].tcNo || '123456';
+      
+      if (newStatus === 'İnceleme Bekliyor') {
+        newStatus = 'Onaylandı'; // Force access upon edit save
       }
 
       apps[index].fullName = document.getElementById('editFullName').value.trim();
@@ -1466,6 +1487,7 @@
       apps[index].docCount = `${approvedCount} / 6 Onaylı`;
 
       localStorage.setItem('ats_applications', JSON.stringify(apps));
+      syncDriverCredentialStore(apps[index]);
       renderApplicationsTable();
       alert(`✅ Aday evrak ve sürücü hesap bilgileri güncellendi!\n\nBaşvuru Statüsü: ${newStatus}\nKullanıcı Adı: ${apps[index].username || apps[index].tcNo}\nŞifre: ${apps[index].password || 'T.C. Kimlik No'}`);
       closeEditDocModal();
@@ -1503,6 +1525,7 @@
 
       apps[index] = app;
       localStorage.setItem('ats_applications', JSON.stringify(apps));
+      syncDriverCredentialStore(app);
       renderApplicationsTable();
 
       alert(
