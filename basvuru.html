@@ -1240,9 +1240,89 @@
 
       // Submit UI State
       const btn = document.getElementById('submitBtn');
-      const originalText = btn.innerHTML;
       btn.disabled = true;
       btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span><span>Evraklar Aktarılıyor...</span>';
+
+      // Read form data
+      const birthDate = document.getElementById('birthDate') ? document.getElementById('birthDate').value : '';
+      const birthPlace = document.getElementById('birthPlace') ? document.getElementById('birthPlace').value.trim() : '';
+      const email = (document.getElementById('email') ? document.getElementById('email').value.trim() : '') || 'iletisim@aday.com';
+      const address = document.getElementById('residenceAddress') ? document.getElementById('residenceAddress').value.trim() : '';
+      
+      const licenseSerial = document.getElementById('licenseSerial') ? document.getElementById('licenseSerial').value.trim() : '';
+      const firstLicenseDate = document.getElementById('firstLicenseDate') ? document.getElementById('firstLicenseDate').value : '';
+      const ceLicenseDate = document.getElementById('ceLicenseDate') ? document.getElementById('ceLicenseDate').value : '';
+
+      const passportType = document.getElementById('passportType') ? document.getElementById('passportType').value : 'bordo';
+      const passportNo = document.getElementById('passportNo') ? document.getElementById('passportNo').value.trim() : '';
+      const passportExpiry = document.getElementById('passportExpiry') ? document.getElementById('passportExpiry').value : '';
+
+      // Target country & experience
+      let targetCountry = 'Almanya & Polonya';
+      const selectedCountryRadio = document.querySelector('input[name="targetCountry"]:checked');
+      if (selectedCountryRadio) targetCountry = selectedCountryRadio.value;
+
+      let expYears = '3-5 Yıl';
+      const selectedExpRadio = document.querySelector('input[name="expYears"]:checked');
+      if (selectedExpRadio) expYears = selectedExpRadio.value + ' Yıl';
+
+      const appId = '#ATS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+
+      const applicationObj = {
+        id: appId,
+        fullName: fullName.value.trim(),
+        tcNo: tcNo.value.trim(),
+        phone: phone.value.trim(),
+        email: email,
+        city: birthPlace || 'Kocaeli / Gebze',
+        address: address,
+        birthDate: birthDate,
+        licenseSerial: licenseSerial,
+        firstLicenseDate: firstLicenseDate,
+        ceLicenseDate: ceLicenseDate,
+        passportType: passportType,
+        passportNo: passportNo,
+        passportExpiry: passportExpiry,
+        experienceYears: expYears,
+        targetCountry: targetCountry,
+        matchScore: '%92 Uyum',
+        docCount: '5 / 6 Belge',
+        docs: {
+          ehliyet: 'Onaylandı',
+          takograf: 'Onaylandı',
+          pasaport: 'Onaylandı',
+          sicil: 'Onaylandı',
+          sgk: 'Güncelleme Bekleniyor',
+          adr: 'Henüz Eklenmedi'
+        },
+        status: 'Ön İnceleme',
+        statusBadge: 'Ön Form',
+        service: 'Ücretsiz Ön Uygunluk Formu',
+        paymentStatus: '65 € Rapor Bekliyor',
+        createdAt: new Date().toLocaleDateString('tr-TR')
+      };
+
+      // Save to localStorage ats_applications
+      let existingApps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) existingApps = JSON.parse(str);
+      } catch(e){}
+
+      existingApps.unshift(applicationObj);
+      localStorage.setItem('ats_applications', JSON.stringify(existingApps));
+
+      // Create driver user session for instant tracking
+      const sessionData = {
+        loggedIn: true,
+        role: 'driver',
+        name: fullName.value.trim(),
+        tc: tcNo.value.trim(),
+        ref: appId,
+        loginTime: new Date().toISOString()
+      };
+      sessionStorage.setItem('user_session', JSON.stringify(sessionData));
+      localStorage.setItem('user_session', JSON.stringify(sessionData));
 
       setTimeout(function() {
         btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">done_all</span><span>Başvuru İletildi</span>';

@@ -56,7 +56,7 @@
 </head>
 <body class="bg-surface-canvas font-sans text-slate-800 antialiased min-h-screen">
 
-  <!-- 2-COLUMN APP LAYOUT: SIDEBAR (72) + FULL-WIDTH EXPANSIVE CONTENT -->
+  <!-- 2-COLUMN APP LAYOUT: SIDEBAR + FULL-WIDTH EXPANSIVE CONTENT -->
   
   <!-- 1. SOL MENÜ (ZENGİN & DÜZENLİ KATEGORİZASYON) -->
   <aside class="fixed left-0 top-0 h-full w-72 bg-navy-dark text-slate-300 z-50 flex flex-col justify-between shadow-2xl border-r border-slate-800 select-none">
@@ -80,7 +80,7 @@
         <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold font-mono text-[11px]">EU-SLA &lt;24h</span>
       </div>
 
-      <!-- ANA MENÜ LİSTESİ (KAYDIRILABİLİR) -->
+      <!-- ANA MENÜ LİSTESİ -->
       <nav class="flex-1 overflow-y-auto px-3.5 py-4 space-y-5 text-[13.5px]">
         
         <!-- GRUP 1: MERKEZİ YÖNETİM -->
@@ -124,16 +124,15 @@
                 <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-amber-400">groups</span>
                 <span class="font-medium">Kullanıcılar &amp; Şoför Profilleri</span>
               </div>
-              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-slate-800 text-slate-300">142</span>
+              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-slate-800 text-slate-300" id="sidebarUserCount">0</span>
             </a>
             
-            <!-- Aktif Sayfa -->
             <a class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/20" href="javascript:void(0)">
               <div class="flex items-center gap-3">
                 <span class="material-symbols-outlined text-[20px]">folder_shared</span>
                 <span>Başvuru &amp; Dosya Yönetimi</span>
               </div>
-              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-white text-blue-700" id="sidebarBadgeCount">47</span>
+              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-white text-blue-700" id="sidebarBadgeCount">0</span>
             </a>
             
             <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="filterTable('evrak-bekleyen')">
@@ -141,12 +140,7 @@
                 <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-red-400">verified</span>
                 <span class="font-medium">Evrak &amp; Barkod Onay</span>
               </div>
-              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-red-500/20 text-red-400">6 Bekleyen</span>
-            </a>
-            
-            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="alert('Filo Eşleştirme Modülü: Almanya & Polonya filo havuzları senkronize.')">
-              <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-amber-400">local_shipping</span>
-              <span class="font-medium">Filo &amp; İK Eşleştirme</span>
+              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-red-500/20 text-red-400" id="sidebarPendingCount">0</span>
             </a>
           </div>
         </div>
@@ -184,7 +178,7 @@
     </div>
   </aside>
 
-  <!-- 2. ANA ÇALIŞMA ALANI (FERAH, GENİŞ, SIKIŞIKLIKSIZ) -->
+  <!-- 2. ANA ÇALIŞMA ALANI -->
   <div class="pl-72 flex flex-col min-h-screen">
     
     <!-- TOP NAVBAR -->
@@ -200,12 +194,12 @@
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200">
           <span class="material-symbols-outlined text-[16px] text-slate-500">calendar_today</span>
-          <span id="currentDateDisplay">24 Ekim 2024 • Canlı Mesai</span>
+          <span id="currentDateDisplay">Canlı Mesai</span>
         </div>
         
-        <button aria-label="Bildirimler" onclick="alert('Bildirimler: 6 Adet Evrak Onay Bekliyor, 2 Adet Yeni Rapor Ödemesi Alındı.')" class="relative p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors border border-slate-200 cursor-pointer" type="button">
+        <button aria-label="Bildirimler" onclick="alert('Bildirimler: Sistem aktif, yeni başvurular bekleniyor.')" class="relative p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors border border-slate-200 cursor-pointer" type="button">
           <span class="material-symbols-outlined text-[20px]">notifications</span>
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-emerald-500 rounded-full ring-2 ring-white"></span>
         </button>
         
         <div class="h-6 w-px bg-slate-200"></div>
@@ -291,30 +285,27 @@
         <!-- Filtre Sekmeleri -->
         <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
           <button id="filterBtn-all" onclick="filterTable('all')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs shadow-sm whitespace-nowrap cursor-pointer" type="button">
-            Tümü (47 Dosya)
+            Tümü (0 Dosya)
           </button>
           <button id="filterBtn-on-inceleme" onclick="filterTable('on-inceleme')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs whitespace-nowrap transition-colors border border-slate-200 cursor-pointer" type="button">
-            Ön İnceleme (24)
+            Ön İnceleme (0)
           </button>
           <button id="filterBtn-evrak-bekleyen" onclick="filterTable('evrak-bekleyen')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs whitespace-nowrap transition-colors border border-slate-200 cursor-pointer" type="button">
-            Evrak Bekleyen (18)
+            Evrak Bekleyen (0)
           </button>
           <button id="filterBtn-65-euro" onclick="filterTable('65-euro')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap transition-colors border border-amber-200 flex items-center gap-1.5 cursor-pointer" type="button">
             <span>65 € Rapor Satın Alanlar</span>
             <span class="w-2 h-2 rounded-full bg-amber-500"></span>
           </button>
-          <button id="filterBtn-gorusme" onclick="filterTable('gorusme')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs whitespace-nowrap transition-colors border border-slate-200 cursor-pointer" type="button">
-            15 Dk Görüşme Randevusu (9)
-          </button>
         </div>
       </div>
 
-      <!-- GENİŞ VERİ TABLOSU (TAMAMEN FERAH, BOL PADDINGLİ, KARIŞMAYAN METİNLER) -->
+      <!-- CANLI VERİ TABLOSU (SAHTE İSİMLER KALDIRILDI) -->
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
           <div>
-            <h2 class="font-display font-bold text-base text-slate-900">Aday &amp; Başvuru Yönetim Masası (Genişletilmiş Tablo)</h2>
-            <p class="text-xs text-slate-500 mt-0.5">Tüm adayların iletişim, hedef ülke uygunluğu, e-Devlet evrak denetimi ve kasa tahsilat hareketleri</p>
+            <h2 class="font-display font-bold text-base text-slate-900">Aday &amp; Başvuru Yönetim Masası (Canlı Başvurular)</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Ön Analiz Başvuru Formu (`basvuru.html`) üzerinden yapılan tüm başvurular burada anında listelenir.</p>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-xs font-semibold text-slate-500">Canlı Senkronizasyon:</span>
@@ -335,322 +326,23 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 text-xs" id="candidateTableBody">
-              
-              <!-- SATIR 1: AHMET YILMAZ -->
-              <tr class="candidateRow hover:bg-blue-50/30 transition-colors" data-filter="65-euro on-inceleme" data-search="ahmet yilmaz 381402 #ats-2025-8492">
-                <td class="py-4 px-6 align-middle">
-                  <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
-                      AY
-                    </div>
-                    <div class="space-y-0.5">
-                      <div class="flex items-center gap-1.5">
-                        <span class="font-display font-bold text-slate-900 text-sm">Ahmet Yılmaz</span>
-                        <span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">VIP Aday</span>
-                      </div>
-                      <div class="font-mono text-slate-500 text-[11px]">T.C. 381*****402 • Ref: <strong class="text-slate-800">#ATS-2025-8492</strong></div>
-                      <div class="text-[11px] text-slate-500">C+CE Sınıfı Kaptan • Kocaeli (8 Yıl Deneyim)</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="font-medium text-slate-800">+90 532 410 ** **</div>
-                    <div class="flex items-center gap-1 text-emerald-600 font-semibold text-[11px]">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                      <span>VIP Gruba Dahil (Aktif)</span>
-                    </div>
-                    <div class="text-[11px] text-slate-400">Son Mesaj: 15 dk önce</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold border border-slate-200">
-                      <span>TR</span>
-                      <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
-                      <span class="text-blue-700">Almanya &amp; Polonya</span>
-                    </div>
-                    <div class="flex items-center gap-1 font-bold text-emerald-600 text-xs">
-                      <span class="material-symbols-outlined text-[16px]">check_circle</span>
-                      <span>%92 Mevzuat Uyumu</span>
-                    </div>
-                    <div class="text-[11px] text-slate-400">Kod 95 &amp; Dijital Takograf Hazır</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[11px]">
-                      5 / 6 Belge Onaylandı
-                    </span>
-                    <div class="text-[11px] text-amber-700 font-semibold flex items-center gap-1">
-                      <span class="material-symbols-outlined text-[14px]">hourglass_top</span>
-                      <span>SGK Barkodu İnceleniyor</span>
-                    </div>
-                    <div class="text-[11px] text-slate-400">Ehliyet &amp; Adli Sicil Geçerli</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="flex items-center gap-1.5">
-                      <span class="px-2 py-0.5 rounded bg-amber-500 text-white font-bold font-mono text-xs shadow-sm">65 €</span>
-                      <span class="font-bold text-slate-900 text-xs">18 Sayfa Analiz Raporu</span>
-                    </div>
-                    <div class="text-[11px] text-slate-600">+750 ₺ (15 Dk Uzman Görüşmesi)</div>
-                    <div class="text-[11px] text-emerald-600 font-semibold">Tahsil Edildi (Kredi Kartı)</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle text-right">
-                  <div class="flex items-center justify-end gap-1.5">
-                    <a class="p-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-colors" href="https://wa.me/905324100000" target="_blank" title="WhatsApp Başlat">
-                      <span class="material-symbols-outlined text-[18px]">chat</span>
-                    </a>
-                    <button onclick="editCandidate('Ahmet Yılmaz', '#ATS-2025-8492')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
-                      Düzenle
-                    </button>
-                    <button onclick="selectCandidateForReview('Ahmet Yılmaz', '#ATS-2025-8492')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm transition-colors text-xs flex items-center gap-1 cursor-pointer" type="button">
-                      <span>İncele</span>
-                      <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- SATIR 2: MEHMET DEMİR -->
-              <tr class="candidateRow hover:bg-slate-50 transition-colors" data-filter="on-inceleme gorusme" data-search="mehmet demir 219884 #ats-2025-8490">
-                <td class="py-4 px-6 align-middle">
-                  <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-slate-700 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
-                      MD
-                    </div>
-                    <div class="space-y-0.5">
-                      <div class="flex items-center gap-1.5">
-                        <span class="font-display font-bold text-slate-900 text-sm">Mehmet Demir</span>
-                        <span class="px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 text-[10px] font-semibold">Ön Form</span>
-                      </div>
-                      <div class="font-mono text-slate-500 text-[11px]">T.C. 219*****884 • Ref: <strong class="text-slate-800">#ATS-2025-8490</strong></div>
-                      <div class="text-[11px] text-slate-500">CE Sürücü • Ankara (5 Yıl Uluslararası)</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="font-medium text-slate-800">+90 544 320 ** **</div>
-                    <div class="flex items-center gap-1 text-slate-500 text-[11px]">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
-                      <span>VIP Davet Gönderildi</span>
-                    </div>
-                    <div class="text-[11px] text-slate-400">Katılım bekleniyor</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-semibold border border-slate-200">
-                      <span>TR</span>
-                      <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
-                      <span class="text-slate-800">Hollanda (NL)</span>
-                    </div>
-                    <div class="flex items-center gap-1 font-semibold text-slate-700 text-xs">
-                      <span>%78 Uyum Skoru</span>
-                    </div>
-                    <div class="text-[11px] text-slate-400">B2 İngilizce Belgesi Eksik</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold text-[11px]">
-                      3 / 6 Belge Yüklendi
-                    </span>
-                    <div class="text-[11px] text-slate-500">SRC 3-4 e-Devletten bekleniyor</div>
-                    <div class="text-[11px] text-slate-400">Takograf kartı yüklendi</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="font-semibold text-slate-700 text-xs">Ücretsiz Ön Uygunluk Formu</div>
-                    <div class="text-[11px] text-slate-400">65 € Rapor Teklifi iletildi</div>
-                    <div class="text-[11px] text-amber-600 font-semibold">Ödeme Bekleniyor</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle text-right">
-                  <div class="flex items-center justify-end gap-1.5">
-                    <a class="p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200 transition-colors" href="https://wa.me/905443200000" target="_blank" title="WhatsApp Mesaj">
-                      <span class="material-symbols-outlined text-[18px]">chat</span>
-                    </a>
-                    <button onclick="editCandidate('Mehmet Demir', '#ATS-2025-8490')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
-                      Düzenle
-                    </button>
-                    <button onclick="approveCandidate('Mehmet Demir')" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-sm transition-colors text-xs flex items-center gap-1 cursor-pointer" type="button">
-                      <span>Ön Onay</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- SATIR 3: SERKAN KAYA -->
-              <tr class="candidateRow hover:bg-slate-50 transition-colors" data-filter="evrak-bekleyen" data-search="serkan kaya 140612 #ats-2025-8488">
-                <td class="py-4 px-6 align-middle">
-                  <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
-                      SK
-                    </div>
-                    <div class="space-y-0.5">
-                      <div class="flex items-center gap-1.5">
-                        <span class="font-display font-bold text-slate-900 text-sm">Serkan Kaya</span>
-                        <span class="px-1.5 py-0.2 rounded bg-red-100 text-red-800 text-[10px] font-bold">Evrak Sorunu</span>
-                      </div>
-                      <div class="font-mono text-slate-500 text-[11px]">T.C. 140*****612 • Ref: <strong class="text-slate-800">#ATS-2025-8488</strong></div>
-                      <div class="text-[11px] text-slate-500">C+CE Damper &amp; Frigo • Bursa</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="font-medium text-slate-800">+90 535 780 ** **</div>
-                    <div class="flex items-center gap-1 text-red-600 font-semibold text-[11px]">
-                      <span class="material-symbols-outlined text-[14px]">sms_failed</span>
-                      <span>SMS İle Evrak İstendi</span>
-                    </div>
-                    <div class="text-[11px] text-slate-400">Cevap gelmedi (2 gün)</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-semibold border border-slate-200">
-                      <span>TR</span>
-                      <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
-                      <span class="text-slate-800">Almanya (DE)</span>
-                    </div>
-                    <div class="flex items-center gap-1 font-semibold text-slate-600 text-xs">
-                      <span>%65 Uyum Skoru</span>
-                    </div>
-                    <div class="text-[11px] text-slate-400">Deneyim Belgesi Doğrulanacak</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 font-bold text-[11px]">
-                      SGK Süresi Dolmuş
-                    </span>
-                    <div class="text-[11px] text-red-600 font-medium">Son 30 günlük barkod gerekli</div>
-                    <div class="text-[11px] text-slate-400">Eski belge 4 ay öncesine ait</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="font-semibold text-slate-700 text-xs">Ön Kayıt Beklemede</div>
-                    <div class="text-[11px] text-slate-400">Tahsilat kaydı yok</div>
-                    <div class="text-[11px] text-slate-500">Mevzuat Uyarısı Gönderildi</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle text-right">
-                  <div class="flex items-center justify-end gap-1.5">
-                    <a class="p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200 transition-colors" href="https://wa.me/905357800000" target="_blank" title="WhatsApp Mesaj">
-                      <span class="material-symbols-outlined text-[18px]">chat</span>
-                    </a>
-                    <button onclick="resendSMS('Serkan Kaya')" class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 font-semibold border border-red-200 transition-colors text-xs cursor-pointer" type="button">
-                      SMS Tekrarla
-                    </button>
-                    <button onclick="selectCandidateForReview('Serkan Kaya', '#ATS-2025-8488')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
-                      Dosyaya Git
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- SATIR 4: HASAN YILDIRIM -->
-              <tr class="candidateRow hover:bg-slate-50 transition-colors" data-filter="65-euro gorusme" data-search="hasan yildirim 501190 #ats-2025-8479">
-                <td class="py-4 px-6 align-middle">
-                  <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
-                      HY
-                    </div>
-                    <div class="space-y-0.5">
-                      <div class="flex items-center gap-1.5">
-                        <span class="font-display font-bold text-slate-900 text-sm">Hasan Yıldırım</span>
-                        <span class="px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Filoya Sevk</span>
-                      </div>
-                      <div class="font-mono text-slate-500 text-[11px]">T.C. 501*****190 • Ref: <strong class="text-slate-800">#ATS-2025-8479</strong></div>
-                      <div class="text-[11px] text-slate-500">CE Tanker &amp; ADR • İzmir (11 Yıl Deneyim)</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="font-medium text-slate-800">+90 533 912 ** **</div>
-                    <div class="flex items-center gap-1 text-emerald-600 font-semibold text-[11px]">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                      <span>VIP Grup Lideri</span>
-                    </div>
-                    <div class="text-[11px] text-slate-400">Görüşme tamamlandı</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold border border-slate-200">
-                      <span>TR</span>
-                      <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
-                      <span class="text-blue-700">Polonya &amp; Çekya</span>
-                    </div>
-                    <div class="flex items-center gap-1 font-bold text-emerald-600 text-xs">
-                      <span class="material-symbols-outlined text-[16px]">check_circle</span>
-                      <span>%95 ADR Uyum Skoru</span>
-                    </div>
-                    <div class="text-[11px] text-slate-400">Polonia Express ile Eşleşti</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[11px]">
-                      6 / 6 Tam Evrak (Kusursuz)
-                    </span>
-                    <div class="text-[11px] text-emerald-700 font-semibold">Tercümeye Aktarıldı</div>
-                    <div class="text-[11px] text-slate-400">Yeminli Noter Onayı Sırada</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle">
-                  <div class="space-y-1">
-                    <div class="flex items-center gap-1.5">
-                      <span class="px-2 py-0.5 rounded bg-slate-800 text-white font-bold font-mono text-xs">3.000 ₺</span>
-                      <span class="font-bold text-slate-900 text-xs">Yeminli Tercüme Paketi</span>
-                    </div>
-                    <div class="text-[11px] text-slate-600">+450 ₺ Europass CV Hazırlığı</div>
-                    <div class="text-[11px] text-emerald-600 font-semibold">Banka Havalesi / Fatura Kesildi</div>
-                  </div>
-                </td>
-                <td class="py-4 px-6 align-middle text-right">
-                  <div class="flex items-center justify-end gap-1.5">
-                    <a class="p-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-colors" href="https://wa.me/905339120000" target="_blank" title="WhatsApp Mesaj">
-                      <span class="material-symbols-outlined text-[18px]">chat</span>
-                    </a>
-                    <button onclick="editCandidate('Hasan Yıldırım', '#ATS-2025-8479')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
-                      Düzenle
-                    </button>
-                    <button onclick="selectCandidateForReview('Hasan Yıldırım', '#ATS-2025-8479')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm transition-colors text-xs flex items-center gap-1 cursor-pointer" type="button">
-                      <span>Dosyayı Aç</span>
-                      <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
+              <!-- Dynamically populated via renderApplicationsTable() -->
             </tbody>
           </table>
         </div>
 
-        <!-- TABLO SAYFALAMA -->
+        <!-- TABLO SAYFALAMA & ÖZET -->
         <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 font-medium">
-          <span id="tableSummaryText">Toplam <strong>47</strong> kayıtlı aday dosyası listeleniyor (İlk 4 aday görüntüleniyor)</span>
+          <span id="tableSummaryText">Canlı başvurular yükleniyor...</span>
           <div class="flex items-center gap-1.5">
             <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-500 font-semibold cursor-not-allowed text-xs" disabled type="button">Önceki</button>
             <button class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold text-xs shadow-sm" type="button">1</button>
-            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-xs transition-colors cursor-pointer" onclick="alert('Sayfa 2 yükleniyor...')" type="button">2</button>
-            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-xs transition-colors cursor-pointer" onclick="alert('Sayfa 3 yükleniyor...')" type="button">3</button>
-            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-xs transition-colors cursor-pointer" onclick="alert('Sonraki sayfa yükleniyor...')" type="button">Sonraki</button>
+            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-500 font-semibold cursor-not-allowed text-xs" disabled type="button">Sonraki</button>
           </div>
         </div>
       </div>
 
-      <!-- WEB SİTESİ & CMS VE EVRAK KONTROL MODÜLLERİ (ALT ALAN GENİŞ KARTLAR) -->
+      <!-- CMS VE DANIŞMAN KONTROL MODÜLLERİ -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="cmsModuleSection">
         
         <!-- CMS CANLI DÜZENLEME KARTI -->
@@ -708,7 +400,7 @@
               <span class="material-symbols-outlined text-amber-500 text-[24px]">assignment_turned_in</span>
               <div>
                 <h3 class="font-display font-bold text-slate-900 text-sm">Hızlı Evrak İnceleme &amp; Danışman Karar Modülü</h3>
-                <span class="text-xs text-slate-500">Seçili Aday: <strong id="selectedCandidateName">Ahmet Yılmaz (#ATS-2025-8492)</strong></span>
+                <span class="text-xs text-slate-500">Seçili Aday: <strong id="selectedCandidateName">Aday Seçilmedi</strong></span>
               </div>
             </div>
             <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[11px] font-bold">65 € Rapor Onayı</span>
@@ -720,10 +412,10 @@
                 <span class="material-symbols-outlined text-blue-600 text-[22px]">description</span>
                 <div>
                   <div class="font-bold text-slate-900">SGK Tescil &amp; Hizmet Dökümü (e-Devlet Barkodlu)</div>
-                  <div class="text-[11px] text-slate-500">PDF • 2 Sayfa • Barkod: 2024-SGK-98412-TR</div>
+                  <div class="text-[11px] text-slate-500">PDF • 2 Sayfa • Barkod: 2026-SGK-BARCODE-TR</div>
                 </div>
               </div>
-              <button onclick="alert('e-Devlet Barkodlu SGK Belgesi Önizleniyor: 2024-SGK-98412-TR')" class="px-2.5 py-1 bg-white hover:bg-slate-100 text-blue-700 font-bold border border-slate-200 rounded text-[11px] shadow-sm flex items-center gap-1 cursor-pointer" type="button">
+              <button onclick="alert('e-Devlet Barkodlu SGK Belgesi Önizleniyor')" class="px-2.5 py-1 bg-white hover:bg-slate-100 text-blue-700 font-bold border border-slate-200 rounded text-[11px] shadow-sm flex items-center gap-1 cursor-pointer" type="button">
                 <span class="material-symbols-outlined text-[14px]">visibility</span>
                 <span>Belgeyi Aç</span>
               </button>
@@ -750,7 +442,7 @@
 
             <div class="space-y-1">
               <label class="font-bold text-slate-700" for="consultant-note">Şoföre İletilecek Danışman Notu &amp; SMS</label>
-              <input class="w-full h-9 px-3 rounded-lg border border-slate-300 text-slate-900 text-xs font-medium focus:border-blue-500 focus:outline-none" id="consultant-note" type="text" value="SGK dökümü kontrol edildi, barkod onaylandı. 18 sayfalık Almanya &amp; Polonya analiz raporunuz hazırlandı."/>
+              <input class="w-full h-9 px-3 rounded-lg border border-slate-300 text-slate-900 text-xs font-medium focus:border-blue-500 focus:outline-none" id="consultant-note" type="text" value="SGK dökümü kontrol edildi, barkod onaylandı. 18 sayfalık analiz raporunuz hazırlandı."/>
             </div>
           </div>
 
@@ -810,6 +502,248 @@
     </div>
   </div>
 
+  <!-- MODAL 1: DÜZENLE (MİNİ EVRAK DÜZENLEME SAYFASI / MODALI) -->
+  <div id="editDocModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
+    <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-amber-500 text-[24px]">edit_document</span>
+          <div>
+            <h3 class="font-display font-bold text-slate-900 text-base">Evrak &amp; Başvuru Düzenleme</h3>
+            <span class="text-xs text-slate-500" id="editModalCandidateTitle">Aday Seçilmedi</span>
+          </div>
+        </div>
+        <button onclick="closeEditDocModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleSaveEditDoc(event)" class="space-y-3 text-xs">
+        <input type="hidden" id="editAppIndex" value="" />
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Ad Soyad</label>
+            <input id="editFullName" type="text" required class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Telefon Numarası</label>
+            <input id="editPhone" type="text" required class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Hedef Ülke</label>
+            <select id="editTargetCountry" class="w-full h-9 px-2 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-semibold">
+              <option value="Almanya & Polonya">Almanya & Polonya</option>
+              <option value="Hollanda">Hollanda</option>
+              <option value="Belçika">Belçika</option>
+              <option value="Bulgaristan">Bulgaristan</option>
+              <option value="Romanya">Romanya</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Uyum Skoru</label>
+            <input id="editMatchScore" type="text" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-bold text-emerald-700">
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200 pt-3">
+          <label class="block font-bold text-slate-900 mb-2 uppercase tracking-wider text-[11px]">Evrak Durumları</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Ehliyet C+CE</label>
+              <select id="editDocEhliyet" class="w-full h-8 px-2 rounded border border-slate-300">
+                <option value="Onaylandı">Onaylandı</option>
+                <option value="Bekliyor">Bekliyor</option>
+                <option value="Eksik">Eksik</option>
+                <option value="Reddedildi">Reddedildi</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Dijital Takograf</label>
+              <select id="editDocTakograf" class="w-full h-8 px-2 rounded border border-slate-300">
+                <option value="Onaylandı">Onaylandı</option>
+                <option value="Bekliyor">Bekliyor</option>
+                <option value="Eksik">Eksik</option>
+                <option value="Reddedildi">Reddedildi</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Pasaport</label>
+              <select id="editDocPasaport" class="w-full h-8 px-2 rounded border border-slate-300">
+                <option value="Onaylandı">Onaylandı</option>
+                <option value="Bekliyor">Bekliyor</option>
+                <option value="Eksik">Eksik</option>
+                <option value="Reddedildi">Reddedildi</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Adli Sicil (e-Devlet)</label>
+              <select id="editDocSicil" class="w-full h-8 px-2 rounded border border-slate-300">
+                <option value="Onaylandı">Onaylandı</option>
+                <option value="Bekliyor">Bekliyor</option>
+                <option value="Eksik">Eksik</option>
+                <option value="Reddedildi">Reddedildi</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">SGK Dökümü (e-Devlet)</label>
+              <select id="editDocSgk" class="w-full h-8 px-2 rounded border border-slate-300">
+                <option value="Onaylandı">Onaylandı</option>
+                <option value="Güncelleme Bekleniyor">Güncelleme Bekleniyor</option>
+                <option value="Eksik">Eksik</option>
+                <option value="Reddedildi">Reddedildi</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">ADR Belgesi</label>
+              <select id="editDocAdr" class="w-full h-8 px-2 rounded border border-slate-300">
+                <option value="Henüz Eklenmedi">Henüz Eklenmedi</option>
+                <option value="Onaylandı">Onaylandı</option>
+                <option value="Eksik">Eksik</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="closeEditDocModal()" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg cursor-pointer">İptal</button>
+          <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg shadow cursor-pointer">Evrak Değişikliklerini Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: YAZIŞMA / MESAJ KUTUSU SAYFASI (CANLI CHAT) -->
+  <div id="messageModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
+    <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl p-6 space-y-4 flex flex-col max-h-[90vh]">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-emerald-600 text-[24px]">chat</span>
+          <div>
+            <h3 class="font-display font-bold text-slate-900 text-base" id="msgModalTitle">Sürücü Yazışma Kutusu</h3>
+            <span class="text-xs text-slate-500" id="msgModalSubtitle">Canlı Mesajlaşma Geçmişi</span>
+          </div>
+        </div>
+        <button onclick="closeMessageModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Message History Scroll Box -->
+      <div class="flex-1 bg-slate-50 rounded-xl p-4 overflow-y-auto space-y-3 min-h-[260px] border border-slate-200 text-xs" id="chatHistoryBox">
+        <!-- Messages loaded dynamically -->
+      </div>
+
+      <!-- New Message Input -->
+      <form onsubmit="handleSendMessage(event)" class="space-y-2 pt-2 border-t border-slate-100">
+        <input type="hidden" id="msgAppId" value="" />
+        <textarea id="newMessageInput" rows="2" required placeholder="Kullanıcının üye paneline ve WhatsApp hattına gidecek mesajınızı yazınız..." class="w-full p-2.5 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none text-xs"></textarea>
+        <div class="flex justify-end gap-2">
+          <button type="button" onclick="closeMessageModal()" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg text-xs cursor-pointer">Kapat</button>
+          <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs shadow flex items-center gap-1 cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">send</span>
+            <span>Mesaj Gönder</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: İNCELE (DETAYLI ADAY DOSYA BİLGİ SAYFASI) -->
+  <div id="inspectCandidateModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
+    <div class="bg-white rounded-2xl w-full max-w-3xl shadow-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-base" id="inspectAvatarInitials">AY</div>
+          <div>
+            <h3 class="font-display font-bold text-slate-900 text-lg" id="inspectCandidateName">Ahmet Yılmaz</h3>
+            <div class="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+              <span>Ref: <strong class="text-slate-800" id="inspectRefId">#ATS-2025-8492</strong></span>
+              <span>•</span>
+              <span class="text-emerald-600 font-bold" id="inspectMatchScore">%92 Uyum</span>
+            </div>
+          </div>
+        </div>
+        <button onclick="closeInspectModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
+          <span class="material-symbols-outlined text-[24px]">close</span>
+        </button>
+      </div>
+
+      <!-- Candidate Full Details Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        
+        <!-- Personal & Contact Card -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="font-bold text-navy-deep text-sm flex items-center gap-1.5 border-b border-slate-200 pb-1.5">
+            <span class="material-symbols-outlined text-[18px] text-blue-600">badge</span>
+            <span>Kişisel &amp; İletişim Bilgileri</span>
+          </div>
+          <div><span class="text-slate-500">T.C. Kimlik No:</span> <strong class="text-slate-900 font-mono" id="inspectTc">381*****402</strong></div>
+          <div><span class="text-slate-500">Telefon / WhatsApp:</span> <strong class="text-slate-900" id="inspectPhone">+90 532 410 ** **</strong></div>
+          <div><span class="text-slate-500">E-posta:</span> <strong class="text-slate-900" id="inspectEmail">ahmet@ornek.com</strong></div>
+          <div><span class="text-slate-500">Doğum Tarihi / Yeri:</span> <strong class="text-slate-900" id="inspectBirth">1988 • Kocaeli / Gebze</strong></div>
+          <div><span class="text-slate-500">İkametgah Adresi:</span> <strong class="text-slate-900" id="inspectAddress">Gebze / Kocaeli</strong></div>
+        </div>
+
+        <!-- License & Experience Card -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="font-bold text-navy-deep text-sm flex items-center gap-1.5 border-b border-slate-200 pb-1.5">
+            <span class="material-symbols-outlined text-[18px] text-amber-vibrant">directions_bus</span>
+            <span>Ehliyet &amp; Mesleki Tecrübe</span>
+          </div>
+          <div><span class="text-slate-500">Ehliyet Sınıfı:</span> <strong class="text-blue-700 font-bold" id="inspectLicenseClass">C+CE Sınıfı Kaptan</strong></div>
+          <div><span class="text-slate-500">Sürücü Belgesi Seri No:</span> <strong class="text-slate-900" id="inspectLicenseSerial">999999</strong></div>
+          <div><span class="text-slate-500">İlk Ehliyet / CE Tarihi:</span> <strong class="text-slate-900" id="inspectLicenseDates">2010 / 2014</strong></div>
+          <div><span class="text-slate-500">Ağır Vasıta Tecrübe Süresi:</span> <strong class="text-slate-900" id="inspectExpYears">5-10 Yıl (Uluslararası)</strong></div>
+          <div><span class="text-slate-500">Hedef Ülke Tercihi:</span> <strong class="text-blue-700 font-bold" id="inspectTargetCountry">Almanya &amp; Polonya</strong></div>
+        </div>
+
+        <!-- Passport Card -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="font-bold text-navy-deep text-sm flex items-center gap-1.5 border-b border-slate-200 pb-1.5">
+            <span class="material-symbols-outlined text-[18px] text-purple-600">menu_book</span>
+            <span>Pasaport &amp; Vize Detayları</span>
+          </div>
+          <div><span class="text-slate-500">Pasaport Türü:</span> <strong class="text-slate-900" id="inspectPassportType">Bordo (Umuma Mahsus)</strong></div>
+          <div><span class="text-slate-500">Pasaport Seri No:</span> <strong class="text-slate-900" id="inspectPassportNo">U12345678</strong></div>
+          <div><span class="text-slate-500">Bitiş Tarihi:</span> <strong class="text-slate-900" id="inspectPassportExpiry">2031 (7 Yıl Geçerli)</strong></div>
+        </div>
+
+        <!-- Document Statuses Card -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="font-bold text-navy-deep text-sm flex items-center gap-1.5 border-b border-slate-200 pb-1.5">
+            <span class="material-symbols-outlined text-[18px] text-emerald-600">verified</span>
+            <span>Yüklü Evrak Durum Karnesi</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1.5 text-[11px]" id="inspectDocsGrid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+        <div class="text-xs text-slate-500">
+          Kayıt Tarihi: <strong class="text-slate-800" id="inspectCreatedAt">18.10.2024</strong>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="closeInspectModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs cursor-pointer">Pencereyi Kapat</button>
+          <button type="button" id="btnInspectMsg" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs shadow flex items-center gap-1 cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">chat</span>
+            <span>Yazışma Başlat</span>
+          </button>
+          <button type="button" id="btnInspectEdit" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg text-xs shadow flex items-center gap-1 cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">edit</span>
+            <span>Evrakları Düzenle</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- SCRIPT SECTION FOR FULL INTERACTIVITY -->
   <script>
     // 1. Session Guard & Setup
@@ -838,6 +772,7 @@
       document.getElementById('currentDateDisplay').textContent = `${dateStr} • Canlı Mesai`;
 
       loadCMSSettings();
+      renderApplicationsTable();
     }
 
     // 2. Logout Handler
@@ -849,9 +784,131 @@
       }
     }
 
-    // 3. Search & Filter Table Logic
+    // 3. Render Applications Table Dynamically from localStorage
+    function renderApplicationsTable() {
+      const tbody = document.getElementById('candidateTableBody');
+      if (!tbody) return;
+
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      // Update sidebar badge counts
+      const count = apps.length;
+      document.getElementById('sidebarUserCount').textContent = count;
+      document.getElementById('sidebarBadgeCount').textContent = count;
+      
+      const pendingCount = apps.filter(a => a.status === 'Evrak Bekleyen' || a.docs.sgk.includes('Bekleniyor')).length;
+      document.getElementById('sidebarPendingCount').textContent = pendingCount;
+
+      const allBtn = document.getElementById('filterBtn-all');
+      if (allBtn) allBtn.textContent = `Tümü (${count} Dosya)`;
+
+      if (apps.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-12 px-6 text-center text-slate-500">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[48px] text-slate-300">folder_off</span>
+                <span class="font-bold text-slate-700 text-sm">Henüz Yapılmış Başvuru Bulunmamaktadır</span>
+                <span class="text-xs text-slate-400 max-w-md">Web sitesinden (Ön Analiz Başvurusu) yapılan yeni şoför başvuruları burada canlı olarak listelenecektir.</span>
+              </div>
+            </td>
+          </tr>
+        `;
+        document.getElementById('tableSummaryText').innerHTML = 'Henüz başvuru kaydı yok.';
+        return;
+      }
+
+      tbody.innerHTML = '';
+      apps.forEach((app, index) => {
+        const tr = document.createElement('tr');
+        tr.className = 'candidateRow hover:bg-blue-50/30 transition-colors';
+        tr.setAttribute('data-filter', (app.status || 'on-inceleme').toLowerCase().replace(' ', '-'));
+        tr.setAttribute('data-search', `${app.fullName.toLowerCase()} ${app.tcNo} ${(app.id || '').toLowerCase()}`);
+
+        const initials = app.fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'AD';
+        const maskedTc = app.tcNo.length >= 11 ? app.tcNo.substring(0, 3) + '*****' + app.tcNo.substring(8) : app.tcNo;
+
+        tr.innerHTML = `
+          <td class="py-4 px-6 align-middle">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
+                ${initials}
+              </div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-display font-bold text-slate-900 text-sm">${app.fullName}</span>
+                  <span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">${app.statusBadge || 'Ön Form'}</span>
+                </div>
+                <div class="font-mono text-slate-500 text-[11px]">T.C. ${maskedTc} • Ref: <strong class="text-slate-800">${app.id}</strong></div>
+                <div class="text-[11px] text-slate-500">${app.licenseClass || 'C+CE'} • ${app.city || 'Kocaeli'} (${app.experienceYears || '5 Yıl'})</div>
+              </div>
+            </div>
+          </td>
+          <td class="py-4 px-6 align-middle">
+            <div class="space-y-1">
+              <div class="font-medium text-slate-800">${app.phone}</div>
+              <div class="flex items-center gap-1 text-emerald-600 font-semibold text-[11px]">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span>Aktif Aday</span>
+              </div>
+              <div class="text-[11px] text-slate-400">Kayıt: ${app.createdAt || 'Bugün'}</div>
+            </div>
+          </td>
+          <td class="py-4 px-6 align-middle">
+            <div class="space-y-1">
+              <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold border border-slate-200">
+                <span>TR</span>
+                <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
+                <span class="text-blue-700">${app.targetCountry || 'Almanya & Polonya'}</span>
+              </div>
+              <div class="flex items-center gap-1 font-bold text-emerald-600 text-xs">
+                <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                <span>${app.matchScore || '%92 Uyum'}</span>
+              </div>
+            </div>
+          </td>
+          <td class="py-4 px-6 align-middle">
+            <div class="space-y-1">
+              <span class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[11px]">
+                ${app.docCount || '5 / 6 Belge'}
+              </span>
+              <div class="text-[11px] text-slate-500">SGK: ${app.docs ? app.docs.sgk : 'Inceleniyor'}</div>
+            </div>
+          </td>
+          <td class="py-4 px-6 align-middle">
+            <div class="space-y-1">
+              <div class="font-semibold text-slate-700 text-xs">${app.service || 'Ücretsiz Ön Form'}</div>
+              <div class="text-[11px] text-amber-600 font-semibold">${app.paymentStatus || '65 € Rapor Bekliyor'}</div>
+            </div>
+          </td>
+          <td class="py-4 px-6 align-middle text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="openMessageModal(${index})" class="p-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-colors cursor-pointer" title="Sürücü İle Yazışma">
+                <span class="material-symbols-outlined text-[18px]">chat</span>
+              </button>
+              <button onclick="openEditDocModal(${index})" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
+                Düzenle
+              </button>
+              <button onclick="openInspectModal(${index})" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm transition-colors text-xs flex items-center gap-1 cursor-pointer" type="button">
+                <span>İncele</span>
+                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('tableSummaryText').innerHTML = `Toplam <strong>${apps.length}</strong> kayıtlı aday dosyası listeleniyor.`;
+    }
+
+    // 4. Search & Filter Table Logic
     function filterTable(category) {
-      // Update Tab Styles
       const filterBtns = document.querySelectorAll('.filterTabBtn');
       filterBtns.forEach(btn => {
         btn.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
@@ -864,7 +921,6 @@
         activeBtn.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
       }
 
-      // Filter Rows
       const rows = document.querySelectorAll('.candidateRow');
       let visibleCount = 0;
 
@@ -900,7 +956,7 @@
       document.getElementById('tableSummaryText').innerHTML = `Arama sonucu <strong>${count}</strong> aday dosyası bulundu.`;
     }
 
-    // 4. CMS Live Settings
+    // 5. CMS Live Settings
     function saveCMSSettings() {
       const reportPrice = document.getElementById('cmsReportPrice').value;
       const translationPrice = document.getElementById('cmsTranslationPrice').value;
@@ -932,30 +988,12 @@
       alert('CMS ayarları varsayılan fabrika değerlerine sıfırlandı.');
     }
 
-    // 5. Document Decision Module & Selection
-    function selectCandidateForReview(name, ref) {
-      document.getElementById('selectedCandidateName').textContent = `${name} (${ref})`;
-      scrollToCMS();
-    }
-
     function saveDecisionAndNotify() {
       const candidate = document.getElementById('selectedCandidateName').textContent;
       const decision = document.getElementById('doc-status').value;
       const note = document.getElementById('consultant-note').value;
 
       alert(`Evrak kararı kaydedildi!\n\nAday: ${candidate}\nKarar: ${decision}\nSürücüye Bildirim: "${note}"`);
-    }
-
-    function editCandidate(name, ref) {
-      alert(`${name} (${ref}) kişisine ait evrak ve profil bilgileri düzenleme modunda açıldı.`);
-    }
-
-    function approveCandidate(name) {
-      alert(`${name} isimli adayın ön başvurusu danışman komisyonu tarafından ONAYLANDI.`);
-    }
-
-    function resendSMS(name) {
-      alert(`${name} isimli adayın kayıtlı telefonuna eksik evrak tamamlama SMS meşajı tekrar gönderildi.`);
     }
 
     function scrollToCMS() {
@@ -966,7 +1004,29 @@
     }
 
     function exportCSV() {
-      alert('Tüm aday başvuru verileri, finans hareketleri ve evrak durumları Excel (CSV) formatında indiriliyor...');
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      if (apps.length === 0) {
+        alert('Dışa aktarılacak kayıtlı başvuru bulunmamaktadır.');
+        return;
+      }
+
+      let csvContent = "data:text/csv;charset=utf-8,ID,Ad Soyad,TC,Telefon,Email,Hedef Ulke,Uyum Skoru,Kayıt Tarihi\n";
+      apps.forEach(a => {
+        csvContent += `"${a.id}","${a.fullName}","${a.tcNo}","${a.phone}","${a.email}","${a.targetCountry}","${a.matchScore}","${a.createdAt}"\n`;
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `ats_basvurular_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     // 6. Modal Controls for New User
@@ -979,74 +1039,277 @@
 
     function handleCreateUser(e) {
       e.preventDefault();
-      const name = document.getElementById('newUserName').value;
-      const tc = document.getElementById('newUserTc').value;
-      const phone = document.getElementById('newUserPhone').value;
+      const name = document.getElementById('newUserName').value.trim();
+      const tc = document.getElementById('newUserTc').value.trim();
+      const phone = document.getElementById('newUserPhone').value.trim();
       const country = document.getElementById('newUserCountry').value;
 
-      // Add to table dynamically
-      const tbody = document.getElementById('candidateTableBody');
-      const tr = document.createElement('tr');
-      tr.className = 'candidateRow hover:bg-blue-50/30 transition-colors bg-blue-50/20';
-      tr.setAttribute('data-filter', 'on-inceleme');
-      tr.setAttribute('data-search', `${name.toLowerCase()} ${tc} #ats-2025-new`);
+      const appId = '#ATS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
 
-      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'AY';
+      const newApp = {
+        id: appId,
+        fullName: name,
+        tcNo: tc,
+        phone: phone,
+        email: 'iletisim@aday.com',
+        city: 'Kocaeli / Gebze',
+        licenseClass: 'CE',
+        experienceYears: '5 Yıl',
+        targetCountry: country,
+        matchScore: '%92 Uyum',
+        docCount: '5 / 6 Belge',
+        docs: {
+          ehliyet: 'Onaylandı',
+          takograf: 'Onaylandı',
+          pasaport: 'Onaylandı',
+          sicil: 'Onaylandı',
+          sgk: 'Güncelleme Bekleniyor',
+          adr: 'Henüz Eklenmedi'
+        },
+        status: 'Ön İnceleme',
+        statusBadge: 'Yeni Kayıt',
+        service: 'Manuel Yönetici Kaydı',
+        paymentStatus: '65 € Rapor Bekliyor',
+        createdAt: new Date().toLocaleDateString('tr-TR')
+      };
 
-      tr.innerHTML = `
-        <td class="py-4 px-6 align-middle">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
-              ${initials}
-            </div>
-            <div class="space-y-0.5">
-              <div class="flex items-center gap-1.5">
-                <span class="font-display font-bold text-slate-900 text-sm">${name}</span>
-                <span class="px-1.5 py-0.2 rounded bg-purple-100 text-purple-800 text-[10px] font-bold">Yeni Kayıt</span>
-              </div>
-              <div class="font-mono text-slate-500 text-[11px]">T.C. ${tc.substring(0,3)}*****${tc.substring(8)} • Ref: <strong class="text-slate-800">#ATS-2025-NEW</strong></div>
-              <div class="text-[11px] text-slate-500">C+CE Sürücü (Manuel Kayıt)</div>
-            </div>
-          </div>
-        </td>
-        <td class="py-4 px-6 align-middle">
-          <div class="space-y-1">
-            <div class="font-medium text-slate-800">${phone}</div>
-            <div class="text-[11px] text-slate-400">Sisteme yeni eklendi</div>
-          </div>
-        </td>
-        <td class="py-4 px-6 align-middle">
-          <div class="space-y-1">
-            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold border border-slate-200">
-              <span>TR</span>
-              <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
-              <span class="text-blue-700">${country}</span>
-            </div>
-            <div class="text-[11px] text-slate-500">Evrak Taraması Yapılacak</div>
-          </div>
-        </td>
-        <td class="py-4 px-6 align-middle">
-          <span class="inline-block px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold text-[11px]">
-            1 / 6 Belge (Yeni)
-          </span>
-        </td>
-        <td class="py-4 px-6 align-middle">
-          <div class="text-[11px] text-slate-500 font-semibold">Ön Kayıt Oluşturuldu</div>
-        </td>
-        <td class="py-4 px-6 align-middle text-right">
-          <button onclick="selectCandidateForReview('${name}', '#ATS-2025-NEW')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm text-xs cursor-pointer" type="button">
-            İncele
-          </button>
-        </td>
-      `;
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(err){}
 
-      tbody.prepend(tr);
+      apps.unshift(newApp);
+      localStorage.setItem('ats_applications', JSON.stringify(apps));
 
-      alert(`Yeni aday "${name}" başarıyla oluşturuldu ve yönetim masasına eklendi!`);
+      renderApplicationsTable();
+      alert(`Yeni aday "${name}" başarıyla eklendi!`);
       closeNewUserModal();
     }
 
-    // Dynamic Select behavior for Document Decision
+    // 7. EDIT DOCUMENT MODAL (DÜZENLE)
+    function openEditDocModal(index) {
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      const app = apps[index];
+      if (!app) return;
+
+      document.getElementById('editAppIndex').value = index;
+      document.getElementById('editModalCandidateTitle').textContent = `${app.fullName} (${app.id})`;
+      document.getElementById('editFullName').value = app.fullName;
+      document.getElementById('editPhone').value = app.phone;
+      document.getElementById('editTargetCountry').value = app.targetCountry || 'Almanya & Polonya';
+      document.getElementById('editMatchScore').value = app.matchScore || '%92 Uyum';
+
+      if (app.docs) {
+        document.getElementById('editDocEhliyet').value = app.docs.ehliyet || 'Onaylandı';
+        document.getElementById('editDocTakograf').value = app.docs.takograf || 'Onaylandı';
+        document.getElementById('editDocPasaport').value = app.docs.pasaport || 'Onaylandı';
+        document.getElementById('editDocSicil').value = app.docs.sicil || 'Onaylandı';
+        document.getElementById('editDocSgk').value = app.docs.sgk || 'Güncelleme Bekleniyor';
+        document.getElementById('editDocAdr').value = app.docs.adr || 'Henüz Eklenmedi';
+      }
+
+      document.getElementById('editDocModal').classList.remove('hidden');
+    }
+
+    function closeEditDocModal() {
+      document.getElementById('editDocModal').classList.add('hidden');
+    }
+
+    function handleSaveEditDoc(e) {
+      e.preventDefault();
+      const index = document.getElementById('editAppIndex').value;
+      
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      if (!apps[index]) return;
+
+      apps[index].fullName = document.getElementById('editFullName').value.trim();
+      apps[index].phone = document.getElementById('editPhone').value.trim();
+      apps[index].targetCountry = document.getElementById('editTargetCountry').value;
+      apps[index].matchScore = document.getElementById('editMatchScore').value.trim();
+
+      apps[index].docs = {
+        ehliyet: document.getElementById('editDocEhliyet').value,
+        takograf: document.getElementById('editDocTakograf').value,
+        pasaport: document.getElementById('editDocPasaport').value,
+        sicil: document.getElementById('editDocSicil').value,
+        sgk: document.getElementById('editDocSgk').value,
+        adr: document.getElementById('editDocAdr').value
+      };
+
+      localStorage.setItem('ats_applications', JSON.stringify(apps));
+      renderApplicationsTable();
+      alert('Aday evrak ve başvuru bilgileri başarıyla güncellendi!');
+      closeEditDocModal();
+    }
+
+    // 8. MESSAGING MODAL (YAZIŞMA KUTUSU)
+    function openMessageModal(index) {
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      const app = apps[index];
+      if (!app) return;
+
+      document.getElementById('msgAppId').value = app.id;
+      document.getElementById('msgModalTitle').textContent = `${app.fullName} İle Yazışma`;
+      document.getElementById('msgModalSubtitle').textContent = `Telefon: ${app.phone} • Ref: ${app.id}`;
+      
+      renderChatHistory(app.id);
+      document.getElementById('messageModal').classList.remove('hidden');
+    }
+
+    function closeMessageModal() {
+      document.getElementById('messageModal').classList.add('hidden');
+    }
+
+    function renderChatHistory(appId) {
+      const box = document.getElementById('chatHistoryBox');
+      if (!box) return;
+
+      let msgs = [];
+      try {
+        const str = localStorage.getItem('ats_messages_' + appId);
+        if (str) msgs = JSON.parse(str);
+      } catch(e){}
+
+      if (msgs.length === 0) {
+        box.innerHTML = `
+          <div class="text-center text-slate-400 py-8">
+            <span class="material-symbols-outlined text-[36px] text-slate-300">chat_bubble_outline</span>
+            <p class="mt-1 font-semibold text-slate-500">Bu aday ile henüz bir mesajlaşma geçmişi bulunmuyor.</p>
+            <p class="text-[11px] text-slate-400">Aşağıdaki kutudan sürücüye ilk mesajınızı iletebilirsiniz.</p>
+          </div>
+        `;
+        return;
+      }
+
+      box.innerHTML = '';
+      msgs.forEach(m => {
+        const isMe = m.sender.includes('Admin') || m.sender.includes('Murat');
+        const div = document.createElement('div');
+        div.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'}`;
+
+        div.innerHTML = `
+          <div class="max-w-[85%] rounded-xl px-3 py-2 ${isMe ? 'bg-blue-600 text-white shadow-sm' : 'bg-white text-slate-800 border border-slate-200'}">
+            <div class="font-bold text-[10px] ${isMe ? 'text-blue-100' : 'text-slate-500'} flex items-center justify-between gap-3 mb-0.5">
+              <span>${m.sender}</span>
+              <span>${m.time}</span>
+            </div>
+            <p class="leading-relaxed">${m.text}</p>
+          </div>
+        `;
+        box.appendChild(div);
+      });
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function handleSendMessage(e) {
+      e.preventDefault();
+      const appId = document.getElementById('msgAppId').value;
+      const input = document.getElementById('newMessageInput');
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      let msgs = [];
+      try {
+        const str = localStorage.getItem('ats_messages_' + appId);
+        if (str) msgs = JSON.parse(str);
+      } catch(err){}
+
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+
+      msgs.push({
+        sender: 'Yönetici (Murat K.)',
+        text: text,
+        time: timeStr
+      });
+
+      localStorage.setItem('ats_messages_' + appId, JSON.stringify(msgs));
+      input.value = '';
+      renderChatHistory(appId);
+    }
+
+    // 9. CANDIDATE INSPECTION MODAL (İNCELE)
+    function openInspectModal(index) {
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      const app = apps[index];
+      if (!app) return;
+
+      const initials = app.fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'AY';
+
+      document.getElementById('inspectAvatarInitials').textContent = initials;
+      document.getElementById('inspectCandidateName').textContent = app.fullName;
+      document.getElementById('inspectRefId').textContent = app.id;
+      document.getElementById('inspectMatchScore').textContent = app.matchScore || '%92 Uyum';
+
+      document.getElementById('inspectTc').textContent = app.tcNo;
+      document.getElementById('inspectPhone').textContent = app.phone;
+      document.getElementById('inspectEmail').textContent = app.email || 'iletisim@aday.com';
+      document.getElementById('inspectBirth').textContent = `${app.birthDate || '1988-05-12'} • ${app.city || 'Kocaeli / Gebze'}`;
+      document.getElementById('inspectAddress').textContent = app.address || 'Gebze / Kocaeli ikametgah';
+
+      document.getElementById('inspectLicenseClass').textContent = app.licenseClass || 'C+CE Sınıfı Kaptan';
+      document.getElementById('inspectLicenseSerial').textContent = app.licenseSerial || '999999';
+      document.getElementById('inspectLicenseDates').textContent = `İlk: ${app.firstLicenseDate || '2010'} | CE: ${app.ceLicenseDate || '2014'}`;
+      document.getElementById('inspectExpYears').textContent = app.experienceYears || '5-10 Yıl';
+      document.getElementById('inspectTargetCountry').textContent = app.targetCountry || 'Almanya & Polonya';
+
+      document.getElementById('inspectPassportType').textContent = (app.passportType || 'bordo').toUpperCase();
+      document.getElementById('inspectPassportNo').textContent = app.passportNo || 'U12345678';
+      document.getElementById('inspectPassportExpiry').textContent = app.passportExpiry || '2031-10-18';
+      document.getElementById('inspectCreatedAt').textContent = app.createdAt || 'Bugün';
+
+      // Docs Grid
+      const docsGrid = document.getElementById('inspectDocsGrid');
+      if (docsGrid && app.docs) {
+        docsGrid.innerHTML = `
+          <div class="p-1.5 rounded bg-white border border-slate-200">Ehliyet: <strong>${app.docs.ehliyet}</strong></div>
+          <div class="p-1.5 rounded bg-white border border-slate-200">Takograf: <strong>${app.docs.takograf}</strong></div>
+          <div class="p-1.5 rounded bg-white border border-slate-200">Pasaport: <strong>${app.docs.pasaport}</strong></div>
+          <div class="p-1.5 rounded bg-white border border-slate-200">Adli Sicil: <strong>${app.docs.sicil}</strong></div>
+          <div class="p-1.5 rounded bg-white border border-slate-200">SGK Döküm: <strong>${app.docs.sgk}</strong></div>
+          <div class="p-1.5 rounded bg-white border border-slate-200">ADR Belgesi: <strong>${app.docs.adr}</strong></div>
+        `;
+      }
+
+      document.getElementById('btnInspectMsg').onclick = function() {
+        closeInspectModal();
+        openMessageModal(index);
+      };
+      document.getElementById('btnInspectEdit').onclick = function() {
+        closeInspectModal();
+        openEditDocModal(index);
+      };
+
+      document.getElementById('inspectCandidateModal').classList.remove('hidden');
+    }
+
+    function closeInspectModal() {
+      document.getElementById('inspectCandidateModal').classList.add('hidden');
+    }
+
+    // Initialize Page
     document.addEventListener('DOMContentLoaded', function() {
       initAdminSession();
 
