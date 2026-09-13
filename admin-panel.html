@@ -948,11 +948,13 @@
       const tbody = document.getElementById('candidateTableBody');
       if (!tbody) return;
 
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
+      let apps = (typeof window.getATSApplications === 'function') ? window.getATSApplications() : [];
+      if (apps.length === 0) {
+        try {
+          const str = localStorage.getItem('ats_applications');
+          if (str) apps = JSON.parse(str);
+        } catch(e){}
+      }
 
       // Update sidebar badge counts
       const count = apps.length;
