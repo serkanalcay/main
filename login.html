@@ -1,397 +1,315 @@
 <!DOCTYPE html>
-<html lang="tr">
-
+<html lang="tr" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sisteme Giriş | Almanya TIR Şoförlüğü Portalı</title>
-  <meta name="description" content="Almanya TIR Şoförlüğü sürücü aday girişi ve yetkili yönetici paneli giriş portalı.">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png">
-  <style>
-    body {
-      background: #ffffff !important;
-      font-family: var(--font-body), 'Inter', sans-serif;
-      color: #0f172a;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+  <title>Giriş Yap | Avrupa Tır Şoförü Portalı</title>
+  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              navy: '#0F172A',
+              blue: '#1E293B',
+              amber: '#F59E0B',
+              amberHover: '#D97706',
+              accent: '#38BDF8',
+              slate: '#64748B',
+              border: '#E2E8F0',
+              inputBg: '#F8FAFC',
+            }
+          }
+        }
+      }
     }
-
-    .mockup-header {
-      background: #090d1a;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 0.85rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .mockup-card-container {
-      background: linear-gradient(180deg, #0f172a 0%, #080c19 100%);
-      border: 1.5px solid rgba(245, 158, 11, 0.35);
-      border-radius: 20px;
-      width: 100%;
-      max-width: 480px;
-      padding: 2.5rem 2.25rem;
-      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
-      color: #ffffff;
-      margin: 2.5rem auto;
-      box-sizing: border-box;
-    }
-
-    .mockup-logo-ring {
-      position: relative;
-      width: 86px;
-      height: 86px;
-      margin: 0 auto 1.5rem auto;
-    }
-
-    .mockup-logo-ring img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #f59e0b;
-      box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
-      box-sizing: border-box;
-    }
-
-    .mockup-eu-badge {
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-      background: #1e3a8a;
-      color: #fbbf24;
-      font-size: 0.65rem;
-      font-weight: 900;
-      padding: 0.15rem 0.45rem;
-      border-radius: 4px;
-      border: 1.5px solid #f59e0b;
-    }
-
-    .mockup-input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      margin-bottom: 1.15rem;
-    }
-
-    .mockup-label {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: #94a3b8;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .mockup-input-box {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .mockup-input-box span.icon {
-      position: absolute;
-      left: 1rem;
-      color: #64748b;
-      font-size: 1.1rem;
-    }
-
-    .mockup-input {
-      width: 100%;
-      background: #070c18 !important;
-      border: 1px solid #1e293b !important;
-      border-radius: 10px !important;
-      color: #ffffff !important;
-      padding: 0.85rem 1rem 0.85rem 2.8rem !important;
-      font-size: 0.92rem !important;
-      font-weight: 600 !important;
-      box-sizing: border-box;
-      outline: none;
-      transition: all 0.2s ease;
-    }
-
-    .mockup-input:focus {
-      border-color: #f59e0b !important;
-      box-shadow: 0 0 12px rgba(245, 158, 11, 0.25) !important;
-    }
-
-    .mockup-submit-btn {
-      margin-top: 0.85rem;
-      background: linear-gradient(135deg, #f97316 0%, #d97706 100%) !important;
-      color: #ffffff !important;
-      border: none !important;
-      padding: 0.95rem !important;
-      border-radius: 10px !important;
-      font-size: 1.02rem !important;
-      font-weight: 800 !important;
-      cursor: pointer !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 0.5rem !important;
-      width: 100% !important;
-      box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4) !important;
-      transition: all 0.2s ease !important;
-    }
-
-    .mockup-submit-btn:hover {
-      transform: translateY(-2px) !important;
-      box-shadow: 0 6px 24px rgba(249, 115, 22, 0.55) !important;
-    }
-
-    .mockup-footer-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 2rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.75rem;
-      color: #94a3b8;
-      font-weight: 600;
-    }
-
-    .mode-tab-bar {
-      display: flex;
-      background: #070c18;
-      border: 1px solid #1e293b;
-      border-radius: 10px;
-      padding: 3px;
-      margin-bottom: 1.5rem;
-    }
-
-    .mode-tab-btn {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: #94a3b8;
-      padding: 0.55rem;
-      font-size: 0.82rem;
-      font-weight: 700;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .mode-tab-btn.active {
-      background: #f59e0b;
-      color: #0f172a;
-      font-weight: 900;
-      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
-    }
-  </style>
+  </script>
 </head>
+<body class="h-full bg-slate-950 font-sans antialiased text-slate-800 selection:bg-amber-400 selection:text-slate-900 flex flex-col justify-between min-h-screen">
 
-<body>
-
-  <!-- TOP HEADER BAR MATCHING MOCKUP -->
-  <header class="mockup-header">
-    <div style="display:flex; align-items:center; gap:1.25rem;">
-      <a href="index.html" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none;">
-        <img src="assets/avrupa_tir_soforu_logo.png" alt="ATS Logo" style="width:38px; height:38px; border-radius:50%; object-fit:cover; border:2px solid #f59e0b;">
-        <div>
-          <div style="color:#ffffff; font-size:1rem; font-weight:900; font-family:var(--font-heading);">AVRUPA TIR ŞOFÖRÜ</div>
-          <div style="color:#64748b; font-size:0.72rem; font-weight:600;">avrupatirsoforu.com • Portalı</div>
-        </div>
-      </a>
-      <span style="background:#1e293b; color:#38bdf8; font-size:0.72rem; font-weight:800; padding:0.2rem 0.6rem; border-radius:999px; border:1px solid #334155;">TR • DE</span>
-    </div>
-
-    <div style="display:flex; align-items:center; gap:1.25rem;">
-      <div style="background:#0f172a; border:1px solid #1e293b; padding:0.4rem 0.9rem; border-radius:999px; font-size:0.82rem; color:#ffffff; font-weight:700; display:flex; align-items:center; gap:0.5rem;">
-        <span style="color:#10b981;">●</span> 1 EUR = 38.45 ₺ <span style="background:#059669; color:#fff; font-size:0.7rem; padding:0.1rem 0.35rem; border-radius:4px;">+0.32%</span>
-      </div>
-      <!-- PANEL GİRİŞ BUTTON: REQUIRES USERNAME & PASSWORD -->
-      <button type="button" onclick="setLoginMode('admin')" style="display:inline-flex; align-items:center; gap:0.4rem; background:transparent; border:1.5px solid #f59e0b; color:#f59e0b; font-weight:800; font-size:0.85rem; padding:0.5rem 1.1rem; border-radius:999px; cursor:pointer; transition:all 0.2s ease;">
-        🛡️ Panel Giriş &rarr;
-      </button>
-    </div>
-  </header>
-
-  <!-- MAIN LOGIN SECTION (WHITE PAGE BACKGROUND WITH FLOATING MOCKUP CARD) -->
-  <main style="flex:1; background:#ffffff; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem 1.5rem;">
+  <!-- Main Container -->
+  <main class="flex-1 flex flex-col lg:flex-row min-h-screen w-full relative overflow-hidden">
     
-    <div class="mockup-card-container">
+    <!-- LEFT SIDE: Clean & Focused Login Form -->
+    <div class="w-full lg:w-[46%] xl:w-[42%] bg-white flex flex-col justify-between p-6 sm:p-10 md:p-14 lg:p-16 z-20 shadow-2xl relative">
       
-      <!-- LOGO WITH EU BADGE -->
-      <div class="mockup-logo-ring">
-        <img src="assets/avrupa_tir_soforu_logo.png" alt="ATS Logo">
-        <span class="mockup-eu-badge">EU</span>
+      <!-- Top Brand Header -->
+      <div class="flex items-center justify-between">
+        <a href="index.html" class="inline-flex items-center gap-3 group">
+          <img src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1U16mn9a3n_4tV50zHQmDkkAFmlM2JmRraNMKh2IzzP1XDe3HEl6s60v2AS_I-Ldjm-xhCl5oK8jIgIZz-q9DPtS2bR_YWl3itzt65SDjQTDFx2imueVOK5rw7KJGH1l5xLafa41I7SSpOz2-GLJusY0HOupypaqDhC1rm1XFBU-A79ZVt3jVxnEZ3sSm-0d9JALL5Xij7qT6bOE5TWrig1Tr4IIQ5lQq-AysUhQvm958PNeB89NUWh_w';" alt="Avrupa Tır Şoförü Portalı Logo" class="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]">
+        </a>
+        <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-slate-900 flex items-center gap-1.5 py-1.5 px-3 rounded-full border border-slate-200 hover:border-slate-300 transition-all bg-slate-50">
+          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Ana Sayfaya Dön
+        </a>
       </div>
 
-      <!-- MODE TOGGLE TAB BAR -->
-      <div class="mode-tab-bar">
-        <button id="tab-driver-btn" type="button" class="mode-tab-btn active" onclick="setLoginMode('driver')">🚚 Sürücü Girişi</button>
-        <button id="tab-admin-btn" type="button" class="mode-tab-btn" onclick="setLoginMode('admin')">⚡ Yönetici (Admin) Girişi</button>
-      </div>
+      <!-- Center: Login Card Content -->
+      <div class="my-auto py-8 max-w-md w-full mx-auto">
+        <!-- Title & Subtitle -->
+        <div class="mb-8">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200/70 text-amber-800 text-[11px] font-bold tracking-wider uppercase mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+            Sürücü &amp; Yönetici Portalı
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Sisteme Giriş Yap</h1>
+          <p class="mt-2 text-sm text-slate-500 leading-relaxed">
+            Başvurunuz admin ekibi tarafından onaylandıktan sonra tanımlanan bilgilerinizle oturum açabilirsiniz.
+          </p>
+        </div>
 
-      <!-- TITLE & SUBTITLE MATCHING MOCKUP EXACTLY -->
-      <div style="text-align:center; margin-bottom:1.5rem;">
-        <h1 id="login-heading" style="font-size:1.75rem; font-weight:900; color:#ffffff; font-family:var(--font-heading); margin:0 0 0.4rem 0;">Sisteme Giriş</h1>
-        <p id="login-subheading" style="color:#94a3b8; font-size:0.85rem; line-height:1.5; margin:0 auto; max-width:380px;">
-          Lojistik portalına ve yetkili işlemlerine erişmek için bilgilerinizi giriniz.
-        </p>
-      </div>
+        <!-- Form Elements -->
+        <form class="space-y-5" id="loginForm" onsubmit="handleLoginSubmit(event)">
+          
+          <!-- TC Kimlik No Input -->
+          <div>
+            <label for="tc-kimlik" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+              T.C. Kimlik Numarası veya E-posta
+            </label>
+            <div class="relative rounded-xl shadow-sm">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+                </svg>
+              </div>
+              <input 
+                type="text" 
+                id="tc-kimlik" 
+                name="tc-kimlik" 
+                placeholder="11 haneli T.C. kimlik numaranız" 
+                class="block w-full pl-11 pr-4 py-3 bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 transition-all font-medium tracking-wide"
+                required
+              >
+            </div>
+          </div>
 
-      <!-- ERROR / WARNING ALERT BOX -->
-      <div id="login-error-alert" style="display:none; background:rgba(239, 68, 68, 0.15); border:1px solid #ef4444; color:#fca5a5; padding:0.75rem 1rem; border-radius:8px; font-size:0.85rem; margin-bottom:1.15rem; text-align:center; font-weight:700;">
-      </div>
+          <!-- Sifre Input -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label for="sifre" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                Şifre
+              </label>
+              <a href="javascript:void(0)" onclick="alert('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.')" class="text-xs font-semibold text-amber-600 hover:text-amber-700 hover:underline transition-colors">
+                Şifremi Unuttum?
+              </a>
+            </div>
+            <div class="relative rounded-xl shadow-sm">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+              </div>
+              <input 
+                type="password" 
+                id="sifre" 
+                name="sifre" 
+                placeholder="••••••••••••" 
+                class="block w-full pl-11 pr-11 py-3 bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-200 rounded-xl text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 transition-all font-medium"
+                required
+              >
+              <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 transition-colors">
+                <svg id="eyeIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
 
-      <!-- LOGIN FORM MATCHING MOCKUP -->
-      <form id="mockup-login-form" onsubmit="handleGeneralLogin(event)">
-        
-        <!-- KULLANICI ADI VEYA E-POSTA -->
-        <div class="mockup-input-group">
-          <label id="label-username" class="mockup-label">KULLANICI ADI VEYA E-POSTA</label>
-          <div class="mockup-input-box">
-            <span class="icon">👤</span>
-            <input type="text" id="login-username" class="mockup-input" required placeholder="ornek@avrupatirsoforu.com" autocomplete="username">
+          <!-- Remember me checkbox -->
+          <div class="flex items-center justify-between pt-1">
+            <label class="flex items-center cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-amber-500 focus:ring-amber-400">
+              <span class="ml-2 text-xs font-medium text-slate-600">Beni hatırla</span>
+            </label>
+            <span class="text-xs text-slate-400 flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+              </svg>
+              256-bit SSL Korumalı
+            </span>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-2">
+            <button 
+              type="submit" 
+              id="loginSubmitBtn"
+              class="w-full py-3.5 px-6 rounded-xl font-bold text-sm text-slate-900 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-400 hover:from-amber-500 hover:to-amber-500 shadow-lg shadow-amber-500/25 active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2 group"
+            >
+              <span>Giriş Yap</span>
+              <svg class="w-4 h-4 text-slate-900 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+
+        <!-- Admin Registration Reminder Note -->
+        <div class="mt-8 pt-6 border-t border-slate-100">
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
+            <div class="p-1.5 rounded-lg bg-blue-50 text-blue-600 mt-0.5 shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-slate-800">Henüz hesabınız yok mu?</p>
+              <p class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
+                Platforma kullanıcılar doğrudan kayıt olamaz. Evrak ve tecrübe analizi için öncelikle <a href="basvuru.html" class="font-bold text-amber-600 hover:underline">Ön Analiz Başvurusu</a> yapmanız gerekmektedir.
+              </p>
+            </div>
           </div>
         </div>
 
-        <!-- ŞİFRE & ŞİFREMİ UNUTTUM -->
-        <div class="mockup-input-group">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-            <label id="label-password" class="mockup-label" style="margin:0;">ŞİFRE</label>
-            <a href="#" onclick="alert('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.'); return false;" style="font-size:0.72rem; color:#f59e0b; font-weight:700; text-decoration:none;">Şifremi Unuttum?</a>
-          </div>
-          <div class="mockup-input-box">
-            <span class="icon">🔒</span>
-            <input type="password" id="login-password" class="mockup-input" required placeholder="••••••••••••" autocomplete="current-password">
-          </div>
-        </div>
-
-        <!-- BENİ HATIRLA CHECKBOX -->
-        <div style="display:flex; align-items:center; gap:0.5rem; margin:0.5rem 0 1rem 0; font-size:0.82rem; color:#cbd5e1; font-weight:600;">
-          <input type="checkbox" id="remember-me" checked style="accent-color:#f59e0b; width:16px; height:16px; cursor:pointer;">
-          <label for="remember-me" style="cursor:pointer;">Beni hatırla (30 gün)</label>
-        </div>
-
-        <!-- SUBMIT BUTTON MATCHING MOCKUP ORANGE-GOLD GRADIENT -->
-        <button id="login-submit-btn" type="submit" class="mockup-submit-btn">
-          Giriş Yap <span style="font-size:1.1rem;">&rarr;</span>
-        </button>
-      </form>
-
-      <!-- FOOTER BADGES MATCHING MOCKUP -->
-      <div class="mockup-footer-info">
-        <span style="display:flex; align-items:center; gap:0.35rem;">
-          <span style="color:#10b981;">●</span> 256-Bit SSL Korumalı
-        </span>
-        <span style="display:flex; align-items:center; gap:0.35rem;">
-          🛡️ Yetkili Erişim Portalı
-        </span>
       </div>
 
+      <!-- Bottom mini copyright -->
+      <div class="pt-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2 border-t border-slate-100">
+        <span>© 2026 avrupatirsoforu.com • Tüm hakları saklıdır.</span>
+        <div class="flex items-center gap-3">
+          <a href="javascript:void(0)" onclick="alert('KVKK Aydınlatma Metni: Tüm verileriniz 6698 sayılı kanuna uygundur.')" class="hover:text-slate-600 transition-colors">KVKK Aydınlatma Metni</a>
+          <span>•</span>
+          <a href="javascript:void(0)" onclick="alert('Güvenlik: 256-Bit SSL Sertifikalı Yetkili Portal')" class="hover:text-slate-600 transition-colors">Güvenlik</a>
+        </div>
+      </div>
     </div>
 
-    <!-- TECHNICAL HELP LINK BELOW CARD -->
-    <div style="margin-top:1rem; font-size:0.82rem; color:#64748b; text-align:center;">
-      Giriş yapmakta sorun mu yaşıyorsunuz? <a href="https://wa.me/905320000000" target="_blank" style="color:#2563eb; font-weight:700; text-decoration:underline;">Teknik Destek Ekibi</a>
+    <!-- RIGHT SIDE: Photographic Background with Translucent Overlay & Personal Development Quote -->
+    <div class="w-full lg:w-[54%] xl:w-[58%] relative min-h-[480px] lg:min-h-screen flex items-center justify-center p-8 sm:p-14 lg:p-20 overflow-hidden bg-slate-950">
+      
+      <!-- Background Image with Semi-Transparent Film -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="https://lh3.googleusercontent.com/aida/AEtjO1Vutg2Z_mhhPXPFmut5OxcGxw-8tOvq-xlEs8Hh8Nun4h2QnbxGQ9_bALM0nVIKo2L6httT6sLHPhHwa3GdAkvD7aPjnIZ3XT-gCpaOYEvaPc9rMkyxtqOBRZp0mQIGcTskYs_47FGXhLcT_1NMDregDc0uBtBcm958hD5X6IGc9zvWQGCmFaLv8bBuNjav5fKBV8BPNnOLYKJEXo7pXnU24agCiWhTEHjhkSNQMzkkknOP6lUzPUkR6w" 
+          onerror="this.onerror=null; this.src='assets/driver_cab_cinematic_1788119173392.png';"
+          alt="Avrupa Karayolu Lojistik Tır Taşımacılığı" 
+          class="w-full h-full object-cover object-center scale-105 filter brightness-90"
+        >
+        <!-- Layered translucent dark & navy gradient overlay for readability and depth -->
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/75 to-slate-900/80 backdrop-blur-[2px]"></div>
+        <!-- Ambient subtle warm light spot -->
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full filter blur-3xl pointer-events-none"></div>
+      </div>
+
+      <!-- Quote & Inspiration Content Card -->
+      <div class="relative z-10 max-w-xl w-full">
+        
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-amber-400 text-xs font-semibold tracking-wider uppercase mb-8 shadow-sm">
+          <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+          </svg>
+          Günün İlhamı &amp; Kariyer Vizyonu
+        </div>
+
+        <!-- Large Quote Icon -->
+        <div class="text-amber-400/40 mb-3 select-none">
+          <svg class="w-14 h-14" fill="currentColor" viewBox="0 0 32 32">
+            <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H6c0-2.2 1.8-4 4-4V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-8c0-2.2 1.8-4 4-4V8z"/>
+          </svg>
+        </div>
+
+        <!-- Personal Development & Motivation Quote -->
+        <blockquote class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-snug tracking-tight font-sans">
+          "Uzak hedefler, sadece yola çıkma cesareti gösterenlerin gerçeği olur. Her kilometre taşında yeni bir tecrübe, her zorlu virajda daha güçlü bir profesyonel gizlidir."
+        </blockquote>
+
+        <p class="mt-4 text-base sm:text-lg text-slate-300 font-medium leading-relaxed">
+          Kabin arkasındaki sabır, yollara duyulan tutku ve mesleki disiplin; sınırları aşan gerçek başarının anahtarıdır.
+        </p>
+
+        <!-- Quote Details & Stats Badges -->
+        <div class="mt-8 pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-400 font-black text-sm">
+              AT
+            </div>
+            <div>
+              <div class="text-sm font-bold text-white tracking-wide">Avrupa Yol Rehberi</div>
+              <div class="text-xs text-slate-400">Kariyer &amp; Kişisel Gelişim Notları</div>
+            </div>
+          </div>
+
+          <!-- Mini trust indicators on the right -->
+          <div class="flex items-center gap-2 text-xs font-semibold text-slate-300 bg-black/40 backdrop-blur-md px-3 py-2 rounded-xl border border-white/10">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>Avrupa Genelinde 1.450+ Aktif Sürücü Analizi</span>
+          </div>
+        </div>
+
+        <!-- Bottom Feature Highlights -->
+        <div class="grid grid-cols-2 gap-4 mt-8">
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+            <div class="text-amber-400 font-bold text-sm flex items-center gap-2 mb-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Sürekli İlerleme
+            </div>
+            <p class="text-xs text-slate-300/80 leading-relaxed">Yeni dil, yeni mevzuat ve dijital takograf tecrübesiyle sınırları genişletin.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+            <div class="text-amber-400 font-bold text-sm flex items-center gap-2 mb-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+              Hedefe Odaklanma
+            </div>
+            <p class="text-xs text-slate-300/80 leading-relaxed">Hedeflediğiniz Avrupa ülkesinin standartlarına uygun hazırlık ve evrak analizi.</p>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
   </main>
 
-  <script src="js/app.js"></script>
   <script>
-    let currentMode = 'driver';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('tab') === 'admin' || window.location.hash === '#admin') {
-        setLoginMode('admin');
-      }
-    });
-
-    function setLoginMode(mode) {
-      currentMode = mode;
-      const driverTab = document.getElementById('tab-driver-btn');
-      const adminTab = document.getElementById('tab-admin-btn');
-      const heading = document.getElementById('login-heading');
-      const subheading = document.getElementById('login-subheading');
-      const labelUser = document.getElementById('label-username');
-      const labelPass = document.getElementById('label-password');
-      const userInput = document.getElementById('login-username');
-      const submitBtn = document.getElementById('login-submit-btn');
-      const errBox = document.getElementById('login-error-alert');
-
-      if (errBox) errBox.style.display = 'none';
-
-      if (mode === 'admin') {
-        driverTab.classList.remove('active');
-        adminTab.classList.add('active');
-        heading.textContent = 'Yönetici Girişi (Admin Portal)';
-        subheading.textContent = 'Yönetici paneline erişmek için yetkili kullanıcı adı ve şifrenizi giriniz.';
-        labelUser.textContent = 'YÖNETİCİ KULLANICI ADI VEYA E-POSTA';
-        labelPass.textContent = 'YÖNETİCİ ŞİFRESİ';
-        userInput.placeholder = 'admin';
-        submitBtn.innerHTML = 'Yönetici Paneline Giriş Yap <span style="font-size:1.1rem;">&rarr;</span>';
-        userInput.focus();
-      } else {
-        adminTab.classList.remove('active');
-        driverTab.classList.add('active');
-        heading.textContent = 'Sisteme Giriş';
-        subheading.textContent = 'Lojistik portalına ve sürücü başvuru takip işlemlerinize erişmek için bilgilerinizi giriniz.';
-        labelUser.textContent = 'KULLANICI ADI VEYA E-POSTA';
-        labelPass.textContent = 'ŞİFRE';
-        userInput.placeholder = 'ornek@avrupatirsoforu.com';
-        submitBtn.innerHTML = 'Giriş Yap <span style="font-size:1.1rem;">&rarr;</span>';
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById('sifre');
+      if (passwordInput) {
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+        } else {
+          passwordInput.type = 'password';
+        }
       }
     }
 
-    function handleGeneralLogin(event) {
+    function handleLoginSubmit(event) {
       event.preventDefault();
-      const userVal = document.getElementById('login-username').value.trim();
-      const passVal = document.getElementById('login-password').value.trim();
-      const errBox = document.getElementById('login-error-alert');
+      const tcOrEmail = document.getElementById('tc-kimlik').value.trim();
+      const password = document.getElementById('sifre').value.trim();
+      const submitBtn = document.getElementById('loginSubmitBtn');
 
-      if (!userVal || !passVal) {
-        errBox.textContent = '⚠️ Lütfen kullanıcı adı ve şifrenizi eksiksiz giriniz.';
-        errBox.style.display = 'block';
+      if (!tcOrEmail || !password) {
+        alert('Lütfen kullanıcı bilgilerinizi ve şifrenizi giriniz.');
         return;
       }
 
-      if (currentMode === 'admin' || userVal.toLowerCase() === 'admin') {
-        // ADMIN AUTHENTICATION CHECK
-        if (userVal.toLowerCase() === 'admin' && passVal === '123') {
-          localStorage.setItem('user_session', JSON.stringify({
-            role: 'admin',
-            username: 'ATS Admin',
-            email: 'admin@avrupatirsoforu.com'
-          }));
-          window.location.href = 'admin-panel.html';
-        } else if (userVal.toLowerCase() === 'admin' || userVal.includes('admin')) {
-          // Default fallback demo login for admin username
-          localStorage.setItem('user_session', JSON.stringify({
-            role: 'admin',
-            username: 'ATS Admin',
-            email: 'admin@avrupatirsoforu.com'
-          }));
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Giriş Yapılıyor...</span>';
+
+      setTimeout(() => {
+        if (tcOrEmail.toLowerCase().includes('admin') || tcOrEmail === '11111111111') {
           window.location.href = 'admin-panel.html';
         } else {
-          errBox.textContent = '❌ Hatalı yönetici kullanıcı adı veya şifre! Lütfen yetkili bilgilerinizi kontrol ediniz.';
-          errBox.style.display = 'block';
+          window.location.href = 'driver-panel.html';
         }
-      } else {
-        // DRIVER AUTHENTICATION (MEMBER PANEL ACCESS)
-        const displayName = userVal.includes('@') ? userVal.split('@')[0].toUpperCase() : userVal;
-        localStorage.setItem('user_session', JSON.stringify({
-          role: 'driver',
-          name: displayName === 'ADMIN' ? 'Murat Kaya' : displayName,
-          username: userVal,
-          email: userVal,
-          trackingCode: 'ATS-' + Math.floor(1000 + Math.random() * 9000)
-        }));
-        window.location.href = 'driver-panel.html';
-      }
+      }, 800);
     }
   </script>
 </body>
-
 </html>
