@@ -1,886 +1,1069 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avrupa Tır Şoförü - Yönetim Paneli</title>
-  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png">
-
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Avrupa Tır Şoförü - Yönetim Merkezi / Süper Admin</title>
+  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
+  
   <!-- GOOGLE FONTS & MATERIAL SYMBOLS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
   <style>
     @layer base {
       html, body { margin: 0; padding: 0; }
       body { overscroll-behavior: none; }
-      main > :first-child { margin-top: 0 !important; }
-      main > :last-child { margin-bottom: 0 !important; }
     }
-    ::-webkit-scrollbar { display: none; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
   </style>
 
-  <!-- TAILWIND CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- TAILWIND CSS & CONFIG -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
           colors: {
-            "on-tertiary-container": "#497cff",
-            "on-surface-variant": "#45464d",
-            "secondary-container": "#fe932c",
-            "secondary-fixed": "#ffdcc3",
-            "on-surface": "#0b1c30",
-            "on-secondary": "#ffffff",
-            "primary-fixed": "#dae2fd",
-            "surface-container": "#e5eeff",
-            "inverse-on-surface": "#eaf1ff",
-            "tertiary-container": "#00174b",
-            "surface-container-low": "#eff4ff",
-            "primary": "#000000",
-            "error-container": "#ffdad6",
-            "on-secondary-container": "#663500",
-            "on-tertiary": "#ffffff",
-            "background": "#f8f9ff",
-            "on-error": "#ffffff",
-            "primary-fixed-dim": "#bec6e0",
-            "error": "#ba1a1a",
-            "on-tertiary-fixed-variant": "#003ea8",
-            "outline-variant": "#c6c6cd",
-            "on-tertiary-fixed": "#00174b",
+            "navy-deep": "#0b1c30",
+            "navy-dark": "#0f172a",
+            "navy-slate": "#1e293b",
+            "primary-blue": "#2563eb",
             "primary-container": "#131b2e",
-            "on-primary": "#ffffff",
-            "inverse-primary": "#bec6e0",
-            "surface-container-highest": "#d3e4fe",
-            "surface-dim": "#cbdbf5",
-            "surface-tint": "#565e74",
-            "on-error-container": "#93000a",
-            "outline": "#76777d",
-            "secondary-fixed-dim": "#ffb77d",
-            "tertiary-fixed": "#dbe1ff",
-            "surface-container-lowest": "#ffffff",
-            "surface-bright": "#f8f9ff",
-            "surface-variant": "#d3e4fe",
-            "on-secondary-fixed": "#2f1500",
-            "secondary": "#904d00",
-            "on-primary-container": "#7c839b",
-            "on-primary-fixed": "#131b2e",
-            "surface": "#f8f9ff",
-            "on-secondary-fixed-variant": "#6e3900",
-            "inverse-surface": "#213145",
-            "on-primary-fixed-variant": "#3f465c",
-            "on-background": "#0b1c30",
-            "tertiary-fixed-dim": "#b4c5ff",
-            "tertiary": "#000000",
-            "surface-container-high": "#dce9ff"
-          },
-          borderRadius: {
-            DEFAULT: "0.125rem",
-            lg: "0.25rem",
-            xl: "0.5rem",
-            full: "0.75rem"
-          },
-          spacing: {
-            "table-cell-x": "16px",
-            "gap-xl": "32px",
-            "gap-lg": "24px",
-            "gap-sm": "8px",
-            "gap-md": "16px",
-            "table-cell-y": "12px",
-            "gap-xs": "4px",
-            "sidebar-width": "260px",
-            "sidebar-collapsed": "72px",
-            "topbar-height": "64px",
-            "card-padding": "20px"
+            "surface-canvas": "#f8fafc",
+            "surface-card": "#ffffff",
+            "surface-container-low": "#f1f5f9",
+            "surface-container-high": "#e2e8f0",
+            "amber-vibrant": "#fe932c",
+            "amber-high-vis": "#f59e0b",
+            "status-success": "#059669",
+            "status-alert": "#dc2626",
+            "slate-border": "#e2e8f0"
           },
           fontFamily: {
-            "display-lg": ["Plus Jakarta Sans", "sans-serif"],
-            "display-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
-            "body-lg": ["Inter", "sans-serif"],
-            "body-sm": ["Inter", "sans-serif"],
-            "metric-value": ["Plus Jakarta Sans", "sans-serif"],
-            "label-md": ["Inter", "sans-serif"],
-            "body-md": ["Inter", "sans-serif"],
-            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
-            "label-xs": ["Inter", "sans-serif"],
-            "headline-md": ["Plus Jakarta Sans", "sans-serif"]
-          },
-          fontSize: {
-            "display-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
-            "display-lg-mobile": ["26px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "700" }],
-            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
-            "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }],
-            "metric-value": ["28px", { lineHeight: "34px", letterSpacing: "-0.02em", fontWeight: "700" }],
-            "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }],
-            "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
-            "headline-sm": ["18px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "600" }],
-            "label-xs": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }],
-            "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.015em", fontWeight: "600" }]
+            sans: ["Inter", "sans-serif"],
+            display: ["Plus Jakarta Sans", "sans-serif"]
           }
         }
       }
     };
   </script>
 </head>
+<body class="bg-surface-canvas font-sans text-slate-800 antialiased min-h-screen">
 
-<body class="bg-surface font-body-md text-on-surface antialiased min-h-screen">
-
-  <!-- FIXED LEFT SIDEBAR -->
-  <aside class="fixed top-0 left-0 h-screen w-[260px] bg-primary-container z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-    <div class="flex flex-col flex-1 overflow-y-auto">
-      <!-- BRAND HEADER -->
-      <div class="h-16 px-gap-md flex items-center gap-gap-sm bg-tertiary-container">
-        <img alt="Avrupa Tır Şoförü Logo" class="h-8 w-8 rounded-full object-cover border-2 border-secondary-container" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1VxxVA7GaAKJ59hdQoHeQrWr_aS4Y7I9SiRwA1vCVzBDEvne4UignzG18OrRnlvELXlRTf-pq1p-pK6SAOCCbgwzRXKf5vYnfehnp658SGdHHfvynsqw7mAutC5waReBYndcCX5wL38Vnr5it6LCnrf0Uwonh91WIZiV7_OWjtAcmiLxTxcDfGE05Gm38Ib51F3C-lVfOr3VXNYBS5K6PowXlRlPtUJpXCcbiw3CofcoeaVuaUQ7ydXY246';">
-        <div class="flex flex-col">
-          <div class="flex items-center gap-gap-xs">
-            <span class="font-headline-sm text-on-primary font-bold tracking-tight leading-none">ATS Core</span>
-            <span class="font-label-xs text-secondary-fixed bg-secondary/30 px-1 py-0.5 rounded">v2.4</span>
-          </div>
-          <span class="font-label-xs text-on-primary-container tracking-wider uppercase">Avrupa Tır Şoförü</span>
+  <!-- 2-COLUMN APP LAYOUT: SIDEBAR (72) + FULL-WIDTH EXPANSIVE CONTENT -->
+  
+  <!-- 1. SOL MENÜ (ZENGİN & DÜZENLİ KATEGORİZASYON) -->
+  <aside class="fixed left-0 top-0 h-full w-72 bg-navy-dark text-slate-300 z-50 flex flex-col justify-between shadow-2xl border-r border-slate-800 select-none">
+    <div class="flex flex-col h-full overflow-hidden">
+      
+      <!-- LOGO & ÜST ALAN -->
+      <a href="index.html" class="h-20 px-5 flex items-center gap-3 border-b border-slate-800/80 bg-slate-950/40 group transition-colors hover:bg-slate-900/60" title="Ana Sayfaya Git">
+        <img alt="Avrupa Tır Şoförü Logo" class="h-10 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1U16mn9a3n_4tV50zHQmDkkAFmlM2JmRraNMKh2IzzP1XDe3HEl6s60v2AS_I-Ldjm-xhCl5oK8jIgIZz-q9DPtS2bR_YWl3itzt65SDjQTDFx2imueVOK5rw7KJGH1l5xLafa41I7SSpOz2-GLJusY0HOupypaqDhC1rm1XFBU-A79ZVt3jVxnEZ3sSm-0d9JALL5Xij7qT6bOE5TWrig1Tr4IIQ5lQq-AysUhQvm958PNeB89NUWh_w';"/>
+        <div class="flex flex-col min-w-0">
+          <span class="font-display font-bold text-white text-[15px] leading-tight tracking-tight truncate">Avrupa Tır Şoförü</span>
+          <span class="font-sans text-[11px] font-semibold text-amber-vibrant uppercase tracking-wider">Yönetim Merkezi / Süper Admin</span>
         </div>
+      </a>
+
+      <!-- DURUM ROZETİ -->
+      <div class="px-5 py-3 bg-slate-900/60 border-b border-slate-800/50 flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-slate-200 font-medium">Sistem &amp; Kuyruk Çevrimiçi</span>
+        </div>
+        <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold font-mono text-[11px]">EU-SLA &lt;24h</span>
       </div>
 
-      <!-- NAVIGATION MENU -->
-      <nav id="admin-sidebar-nav" class="flex-1 px-gap-sm py-gap-md flex flex-col gap-2">
-        <a href="#" onclick="switchTab('dashboard'); return false;" id="nav-dashboard" class="flex items-center justify-between px-3.5 py-3 rounded-xl bg-secondary-container text-on-secondary-container font-bold shadow-md transition-all hover:brightness-110">
-          <div class="flex items-center gap-gap-sm">
-            <span class="material-symbols-outlined text-[20px]">dashboard</span>
-            <span class="font-headline-sm text-body-md font-bold">Genel Bakış</span>
+      <!-- ANA MENÜ LİSTESİ (KAYDIRILABİLİR) -->
+      <nav class="flex-1 overflow-y-auto px-3.5 py-4 space-y-5 text-[13.5px]">
+        
+        <!-- GRUP 1: MERKEZİ YÖNETİM -->
+        <div>
+          <span class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Merkezi Yönetim</span>
+          <div class="mt-1.5 space-y-0.5">
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="filterTable('all')">
+              <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-blue-400">dashboard</span>
+              <span class="font-medium">Genel Bakış &amp; Canlı Akış</span>
+            </a>
+            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="filterTable('65-euro')">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-emerald-400">account_balance_wallet</span>
+                <span class="font-medium">Gelirler &amp; Kasa</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">65 € / 3.000 ₺</span>
+            </a>
+            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="https://wa.me/908508400000" target="_blank">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-emerald-400">chat</span>
+                <span class="font-medium">WhatsApp VIP Yönetimi</span>
+              </div>
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            </a>
+            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="scrollToCMS()">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-blue-400">language</span>
+                <span class="font-medium">Web Sitesi &amp; CMS</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-400">v2.4</span>
+            </a>
           </div>
-          <span class="w-2 h-2 rounded-full bg-on-secondary-container animate-pulse"></span>
-        </a>
+        </div>
 
-        <a href="#" onclick="switchTab('articles'); return false;" id="nav-articles" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-lowest/10 hover:bg-surface-container-lowest/15 font-body-md text-on-primary hover:text-on-primary transition-all shadow-sm">
-          <div class="flex items-center gap-gap-sm">
-            <span class="material-symbols-outlined text-on-primary-container text-[20px]">article</span>
-            <span class="font-medium">Blog ve Makaleler</span>
+        <!-- GRUP 2: OPERASYONEL İŞLEMLER -->
+        <div>
+          <span class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Operasyon &amp; Dosyalar</span>
+          <div class="mt-1.5 space-y-0.5">
+            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="filterTable('all')">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-amber-400">groups</span>
+                <span class="font-medium">Kullanıcılar &amp; Şoför Profilleri</span>
+              </div>
+              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-slate-800 text-slate-300">142</span>
+            </a>
+            
+            <!-- Aktif Sayfa -->
+            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/20" href="javascript:void(0)">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[20px]">folder_shared</span>
+                <span>Başvuru &amp; Dosya Yönetimi</span>
+              </div>
+              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-white text-blue-700" id="sidebarBadgeCount">47</span>
+            </a>
+            
+            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="filterTable('evrak-bekleyen')">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-red-400">verified</span>
+                <span class="font-medium">Evrak &amp; Barkod Onay</span>
+              </div>
+              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-red-500/20 text-red-400">6 Bekleyen</span>
+            </a>
+            
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="alert('Filo Eşleştirme Modülü: Almanya & Polonya filo havuzları senkronize.')">
+              <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-amber-400">local_shipping</span>
+              <span class="font-medium">Filo &amp; İK Eşleştirme</span>
+            </a>
           </div>
-        </a>
+        </div>
 
-        <a href="#" onclick="switchTab('jobs'); return false;" id="nav-jobs" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-lowest/10 hover:bg-surface-container-lowest/15 font-body-md text-on-primary hover:text-on-primary transition-all shadow-sm">
-          <div class="flex items-center gap-gap-sm">
-            <span class="material-symbols-outlined text-on-primary-container text-[20px]">local_shipping</span>
-            <span class="font-medium">İş İlanları</span>
+        <!-- GRUP 3: SİSTEM -->
+        <div>
+          <span class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Konfigürasyon</span>
+          <div class="mt-1.5 space-y-0.5">
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="scrollToCMS()">
+              <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-slate-200">settings</span>
+              <span class="font-medium">Sistem &amp; Rol Ayarları</span>
+            </a>
           </div>
-          <span class="font-label-xs bg-surface-container-highest/20 text-on-primary px-2 py-0.5 rounded-full font-bold">142</span>
-        </a>
+        </div>
 
-        <a href="#" onclick="switchTab('applications'); return false;" id="nav-applications" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-lowest/10 hover:bg-surface-container-lowest/15 font-body-md text-on-primary hover:text-on-primary transition-all shadow-sm">
-          <div class="flex items-center gap-gap-sm">
-            <span class="material-symbols-outlined text-on-primary-container text-[20px]">badge</span>
-            <span class="font-medium">Sürücü Başvuruları</span>
-          </div>
-          <span class="font-label-xs bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">18 Yeni</span>
-        </a>
-
-        <a href="index.html#maas-hesapla" target="_blank" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-lowest/10 hover:bg-surface-container-lowest/15 font-body-md text-on-primary hover:text-on-primary transition-all shadow-sm">
-          <div class="flex items-center gap-gap-sm">
-            <span class="material-symbols-outlined text-on-primary-container text-[20px]">calculate</span>
-            <span class="font-medium">Maaş Hesaplayıcı</span>
-          </div>
-        </a>
-
-        <a href="#" onclick="switchTab('jobs'); return false;" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-lowest/10 hover:bg-surface-container-lowest/15 font-body-md text-on-primary hover:text-on-primary transition-all shadow-sm">
-          <div class="flex items-center gap-gap-sm">
-            <span class="material-symbols-outlined text-on-primary-container text-[20px]">assignment_late</span>
-            <span class="font-medium">İlan Yönetimi</span>
-          </div>
-          <span class="font-label-xs bg-error text-on-error px-2 py-0.5 rounded-full font-bold">5</span>
-        </a>
-
-        <a href="#" onclick="switchTab('users'); return false;" id="nav-users" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-lowest/10 hover:bg-surface-container-lowest/15 font-body-md text-on-primary hover:text-on-primary transition-all shadow-sm">
-          <div class="flex items-center gap-gap-sm">
-            <span class="material-symbols-outlined text-on-primary-container text-[20px]">group</span>
-            <span class="font-medium">Kullanıcı Yönetimi</span>
-          </div>
-        </a>
-
-        <a href="#" onclick="alert('⚙️ Sistem ayarları sunucusu aktif (TCMB & SSL Senkronize)'); return false;" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-lowest/10 hover:bg-surface-container-lowest/15 font-body-md text-on-primary hover:text-on-primary transition-all shadow-sm">
-          <div class="flex items-center gap-gap-sm">
-            <span class="material-symbols-outlined text-on-primary-container text-[20px]">settings</span>
-            <span class="font-medium">Sistem Ayarları</span>
-          </div>
-        </a>
       </nav>
-    </div>
 
-    <!-- STATUS BOTTOM FOOTER -->
-    <div class="p-gap-md bg-tertiary-container/60">
-      <div class="flex items-center gap-gap-sm px-2.5 py-2 rounded bg-primary-container/80 border border-slate-700/60">
-        <div class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></div>
-        <span class="font-label-xs text-on-primary-container">TCMB & Schengen API Aktif</span>
+      <!-- ALT KULLANICI & GÜVENLİK ÇIKIŞI -->
+      <div class="p-3.5 bg-slate-950/70 border-t border-slate-800">
+        <div class="flex items-center justify-between mb-3 px-1.5">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">MK</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-white leading-none">Murat K.</span>
+              <span class="text-[10px] text-emerald-400 mt-1">Süper Admin / Aktif</span>
+            </div>
+          </div>
+          <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono">v2.4 AB</span>
+        </div>
+        <button onclick="handleAdminLogout()" class="w-full py-2 px-3 rounded-lg bg-slate-900 hover:bg-red-950/40 hover:text-red-300 text-slate-400 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-800 cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] text-red-400">logout</span>
+          <span>Güvenli Oturumu Kapat</span>
+        </button>
       </div>
     </div>
   </aside>
 
-  <!-- MAIN TOP & BODY WRAPPER -->
-  <div class="pl-[260px]">
+  <!-- 2. ANA ÇALIŞMA ALANI (FERAH, GENİŞ, SIKIŞIKLIKSIZ) -->
+  <div class="pl-72 flex flex-col min-h-screen">
     
-    <!-- TOP HEADER NAVBAR -->
-    <header class="fixed top-0 left-[260px] right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-gap-lg border-b border-surface-container-high">
-      <div class="flex items-center gap-gap-md">
-        <img alt="Avrupa Tır Şoförü Logo" class="h-8 w-8 rounded-full object-cover border-2 border-secondary-container" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1VxxVA7GaAKJ59hdQoHeQrWr_aS4Y7I9SiRwA1vCVzBDEvne4UignzG18OrRnlvELXlRTf-pq1p-pK6SAOCCbgwzRXKf5vYnfehnp658SGdHHfvynsqw7mAutC5waReBYndcCX5wL38Vnr5it6LCnrf0Uwonh91WIZiV7_OWjtAcmiLxTxcDfGE05Gm38Ib51F3C-lVfOr3VXNYBS5K6PowXlRlPtUJpXCcbiw3CofcoeaVuaUQ7ydXY246';">
-        <a href="index.html" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md transition-colors text-decoration-none">
-          <span class="material-symbols-outlined text-[16px]">open_in_new</span>
-          <span>Siteyi Görüntüle</span>
-        </a>
-        <a href="driver-panel.html" target="_blank" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary-fixed text-on-secondary-fixed hover:brightness-95 font-label-md font-bold transition-colors text-decoration-none">
-          <span class="material-symbols-outlined text-[16px]">badge</span>
-          <span>Sürücü Üye Paneline Git</span>
-        </a>
-
-        <div class="hidden md:flex items-center gap-gap-sm px-3 py-1 rounded-full bg-surface-container-lowest shadow-sm border border-surface-container-high">
-          <div class="flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-secondary text-[16px]">currency_exchange</span>
-            <span class="font-label-md text-on-surface font-semibold">1 EUR = 38.45 ₺</span>
-          </div>
-          <span class="font-label-xs text-on-secondary-container bg-secondary-fixed px-1.5 py-0.5 rounded font-bold">+0.32%</span>
-          <div class="flex items-center gap-1 pl-2 text-on-surface-variant font-label-xs">
-            <span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
-            <span>TCMB Canlı</span>
-          </div>
+    <!-- TOP NAVBAR -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 h-16 px-8 flex items-center justify-between shadow-sm">
+      <div class="flex items-center gap-4 flex-1 max-w-2xl">
+        <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
+          <span class="text-slate-800 font-bold">Admin Masası</span>
+          <span>/</span>
+          <span class="text-blue-600 font-semibold">Başvuru &amp; Dosya Yönetimi</span>
         </div>
       </div>
-
-      <div class="flex items-center gap-gap-md">
-        <div class="relative flex items-center">
-          <button type="button" onclick="alert('🔔 3 Yeni Bildirim:\n1. Ahmet Korkmaz adli sicil yükledi\n2. Mehmet Yıldız evrak onaylandı\n3. TCMB Döviz kurları güncellendi')" class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant hover:text-on-surface relative transition-colors">
-            <span class="material-symbols-outlined text-[22px]">notifications</span>
-            <span class="absolute top-1 right-1 w-4 h-4 bg-secondary-container text-on-secondary-container font-label-xs rounded-full flex items-center justify-center font-bold">3</span>
-          </button>
+      
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200">
+          <span class="material-symbols-outlined text-[16px] text-slate-500">calendar_today</span>
+          <span id="currentDateDisplay">24 Ekim 2024 • Canlı Mesai</span>
         </div>
-
-        <div class="h-6 w-px bg-outline-variant/30"></div>
-
-        <div class="flex items-center gap-gap-sm cursor-pointer" onclick="handleAdminLogout()">
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary">
-            <span class="material-symbols-outlined text-[18px]">person</span>
+        
+        <button aria-label="Bildirimler" onclick="alert('Bildirimler: 6 Adet Evrak Onay Bekliyor, 2 Adet Yeni Rapor Ödemesi Alındı.')" class="relative p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors border border-slate-200 cursor-pointer" type="button">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+        </button>
+        
+        <div class="h-6 w-px bg-slate-200"></div>
+        
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shadow-sm">
+            MK
           </div>
-          <div class="hidden lg:flex flex-col text-left">
-            <span class="font-label-md text-on-surface leading-tight font-bold">ATS Sistem Yöneticisi</span>
-            <span class="font-label-xs text-on-surface-variant">Süper Admin</span>
+          <div class="flex flex-col text-left">
+            <span class="text-xs font-bold text-slate-900">Murat Karaca</span>
+            <span class="text-[11px] text-slate-500">Kıdemli Dosya Denetçisi</span>
           </div>
-          <span class="material-symbols-outlined text-on-surface-variant text-[18px]">logout</span>
         </div>
       </div>
     </header>
 
-    <!-- MAIN DASHBOARD CONTENT -->
-    <main class="w-full pt-16 bg-surface min-h-screen">
-      <div class="max-w-7xl mx-auto px-gap-lg py-gap-lg">
-        <div class="flex flex-col w-full gap-gap-lg">
+    <!-- CONTENT BODY -->
+    <main class="flex-1 p-8 space-y-6">
+      
+      <!-- RESMİ MEVZUAT BİLGİLENDİRME BANNERI -->
+      <div class="bg-blue-50/70 border border-blue-200/80 rounded-xl px-5 py-3 flex items-center justify-between gap-4 shadow-xs">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-blue-600 text-[22px]">verified_user</span>
+          <div>
+            <span class="text-xs font-bold text-blue-950">Resmi AB Mevzuatı &amp; Danışmanlık Prosedürü:</span>
+            <span class="text-xs text-blue-900/80 ml-1">Doğrudan vize satışı yapılmaz; teknik dosya analizi, SGK &amp; takograf denetimi, 18 sayfalık yol haritası ve filo İK koordinasyonu sağlanır.</span>
+          </div>
+        </div>
+        <span class="px-2.5 py-1 bg-white rounded-md text-[11px] font-bold text-blue-700 shadow-sm border border-blue-100 whitespace-nowrap">
+          SLA Süresi: &lt; 24 Saat
+        </span>
+      </div>
 
-          <!-- TOP HERO / CURRENCY & SYSTEM OVERVIEW BANNER -->
-          <section class="relative overflow-hidden rounded-xl bg-primary-container text-on-primary p-gap-lg shadow-md">
-            <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-secondary-container/15 blur-3xl pointer-events-none"></div>
-            <div class="absolute left-1/3 -bottom-32 w-80 h-80 rounded-full bg-on-tertiary-container/10 blur-2xl pointer-events-none"></div>
+      <!-- WEB SİTESİ HIZLI KONTROL & CMS DURUM BARI -->
+      <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
+        <div class="flex items-center gap-6 flex-wrap">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-bold text-slate-900">Ana Sayfa:</span>
+            <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Yayında &amp; Aktif</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px] text-amber-vibrant">sell</span>
+            <span class="text-xs font-bold text-slate-900">65 € Rapor Satışı:</span>
+            <span class="text-xs font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Ödeme Ağ Geçidi Aktif (Stripe/3D)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px] text-emerald-600">chat</span>
+            <span class="text-xs font-bold text-slate-900">WhatsApp API:</span>
+            <span class="text-xs font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Bağlantı Sorunsuz</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px] text-blue-600">policy</span>
+            <span class="text-xs font-bold text-slate-900">KVKK &amp; Mevzuat Metni:</span>
+            <span class="text-xs font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">v2.4 Güncel</span>
+          </div>
+        </div>
 
-            <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-gap-lg">
-              <div class="flex flex-col gap-1 max-w-2xl">
-                <div class="flex items-center gap-gap-sm">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-secondary-fixed text-label-xs font-label-xs tracking-wider uppercase font-bold">
-                    <span class="material-symbols-outlined text-[14px]">verified</span>
-                    ATS Operasyon Merkezi
-                  </span>
-                  <span class="text-on-primary-container font-label-xs">• Canlı Koridor Verisi</span>
-                </div>
-                <h1 class="font-headline-md text-headline-md text-on-primary font-bold tracking-tight">
-                  Hoş Geldiniz, Yönetici
-                </h1>
-                <p class="font-body-md text-body-md text-on-primary-container leading-relaxed">
-                  Avrupa lojistik koridoru, vize/konsolosluk süreçleri ve onay bekleyen sürücü kayıtları anlık kontrolünüz altında.
-                </p>
+        <div class="flex items-center gap-2 w-full xl:w-auto justify-end">
+          <button onclick="scrollToCMS()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-colors border border-slate-300 flex items-center gap-1.5 cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[16px]">edit_note</span>
+            <span>Site Ayarlarını Düzenle</span>
+          </button>
+          <button onclick="exportCSV()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-colors border border-slate-300 flex items-center gap-1.5 cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[16px]">download</span>
+            <span>Excel / CSV Dışa Aktar</span>
+          </button>
+          <button onclick="openNewUserModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[18px]">add_circle</span>
+            <span>+ Yeni Kullanıcı / Başvuru Ekle</span>
+          </button>
+        </div>
+      </div>
 
-                <!-- Operational Status Chips -->
-                <div class="flex flex-wrap items-center gap-gap-sm pt-2">
-                  <div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container-highest/10 text-primary-fixed text-label-md font-label-md">
-                    <span class="material-symbols-outlined text-[16px] text-secondary-fixed">assignment_ind</span>
-                    <span>18 Bekleyen Başvuru</span>
-                  </div>
-                  <div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container-highest/10 text-primary-fixed text-label-md font-label-md">
-                    <span class="material-symbols-outlined text-[16px] text-on-tertiary-container">local_shipping</span>
-                    <span>340 Aktif Almanya Seferi</span>
-                  </div>
-                  <div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container-highest/10 text-primary-fixed text-label-md font-label-md">
-                    <span class="material-symbols-outlined text-[16px] text-secondary-fixed">fact_check</span>
-                    <span>56 Bu Ay Vize Onayı</span>
-                  </div>
-                </div>
-              </div>
+      <!-- ARAMA & FİLTRELEME ÇUBUĞU -->
+      <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        <!-- Geniş Arama Kutusu -->
+        <div class="relative w-full md:w-96 flex-1">
+          <span class="material-symbols-outlined absolute left-3.5 top-2.5 text-slate-400 text-[20px]">search</span>
+          <input id="searchInput" oninput="handleSearch()" class="w-full h-10 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-blue-500 transition-all" placeholder="T.C. Kimlik No, İsim, Telefon veya #ATS Ref No Ara..." type="text"/>
+        </div>
+        
+        <!-- Filtre Sekmeleri -->
+        <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
+          <button id="filterBtn-all" onclick="filterTable('all')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs shadow-sm whitespace-nowrap cursor-pointer" type="button">
+            Tümü (47 Dosya)
+          </button>
+          <button id="filterBtn-on-inceleme" onclick="filterTable('on-inceleme')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs whitespace-nowrap transition-colors border border-slate-200 cursor-pointer" type="button">
+            Ön İnceleme (24)
+          </button>
+          <button id="filterBtn-evrak-bekleyen" onclick="filterTable('evrak-bekleyen')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs whitespace-nowrap transition-colors border border-slate-200 cursor-pointer" type="button">
+            Evrak Bekleyen (18)
+          </button>
+          <button id="filterBtn-65-euro" onclick="filterTable('65-euro')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap transition-colors border border-amber-200 flex items-center gap-1.5 cursor-pointer" type="button">
+            <span>65 € Rapor Satın Alanlar</span>
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+          </button>
+          <button id="filterBtn-gorusme" onclick="filterTable('gorusme')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs whitespace-nowrap transition-colors border border-slate-200 cursor-pointer" type="button">
+            15 Dk Görüşme Randevusu (9)
+          </button>
+        </div>
+      </div>
 
-              <!-- Live Currency & Rates Widget -->
-              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-gap-md p-gap-md rounded-xl bg-surface-container-lowest/10 backdrop-blur-md shadow-sm border border-white/10">
-                <div class="flex flex-col justify-center pr-0 sm:pr-4">
-                  <div class="flex items-center justify-between sm:justify-start gap-2">
-                    <span class="font-label-xs text-label-xs text-on-primary-container uppercase tracking-wider">TCMB & ECB Canlı</span>
-                    <span class="font-label-xs text-label-xs px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-bold">+0.32%</span>
-                  </div>
-                  <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="font-metric-value text-metric-value text-on-primary font-extrabold tracking-tight">1 EUR = 38.45 ₺</span>
-                  </div>
-                  <span class="font-body-sm text-body-sm text-on-primary-container text-xs">Oto-Güncelleme: 14:00 (Gecikme: 42ms)</span>
-                </div>
-
-                <div class="flex flex-col gap-2 justify-center pt-2 sm:pt-0">
-                  <button type="button" id="btnManualExchange" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold hover:brightness-110 active:scale-95 transition-all shadow-sm">
-                    <span class="material-symbols-outlined text-[16px]">sync</span>
-                    <span>Kuru Manuel Güncelle</span>
-                  </button>
-                  <button type="button" onclick="alert('Döviz Veri Kaynağı: TCMB Canlı XML + ECB Otomatik Senkronizasyon (Aktif)')" class="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/15 hover:bg-surface-container-lowest/25 text-on-primary font-label-md text-label-md transition-colors">
-                    <span class="material-symbols-outlined text-[16px]">settings_suggest</span>
-                    <span>Döviz Ayarları</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- CENTRAL KPI METRIC CARDS (GRID OF 4) -->
-          <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gap-md">
-            <!-- Metric 1: Driver Pool -->
-            <div class="flex flex-col justify-between p-card-padding rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow border border-surface-container-high">
-              <div class="flex items-start justify-between">
-                <div class="flex flex-col">
-                  <span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider font-bold">Toplam Sürücü Havuzu</span>
-                  <span class="font-metric-value text-metric-value text-on-surface font-bold mt-1">2,480</span>
-                </div>
-                <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-on-surface">
-                  <span class="material-symbols-outlined text-[22px]">badge</span>
-                </div>
-              </div>
-              <div class="flex items-center gap-2 mt-4 pt-3 text-on-surface-variant font-body-sm text-body-sm border-t border-surface-container-low">
-                <span class="inline-flex items-center text-secondary font-semibold font-label-md text-label-md">
-                  <span class="material-symbols-outlined text-[16px]">trending_up</span> +12%
-                </span>
-                <span class="truncate">TR, Balkanlar ve Almanya</span>
-              </div>
-            </div>
-
-            <!-- Metric 2: Job Offers -->
-            <div class="flex flex-col justify-between p-card-padding rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow border border-surface-container-high">
-              <div class="flex items-start justify-between">
-                <div class="flex flex-col">
-                  <span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider font-bold">Yayındaki İş İlanları</span>
-                  <span class="font-metric-value text-metric-value text-on-surface font-bold mt-1">142</span>
-                </div>
-                <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-secondary">
-                  <span class="material-symbols-outlined text-[22px]">local_shipping</span>
-                </div>
-              </div>
-              <div class="flex items-center gap-2 mt-4 pt-3 text-on-surface-variant font-body-sm text-body-sm border-t border-surface-container-low">
-                <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
-                <span class="truncate">Almanya, Hollanda, Belçika</span>
-              </div>
-            </div>
-
-            <!-- Metric 3: Visa Approval Rate -->
-            <div class="flex flex-col justify-between p-card-padding rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow border border-surface-container-high">
-              <div class="flex items-start justify-between">
-                <div class="flex flex-col">
-                  <span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider font-bold">Vize & Kod 95 Başarı</span>
-                  <span class="font-metric-value text-metric-value text-on-surface font-bold mt-1">%78.4</span>
-                </div>
-                <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-on-surface">
-                  <span class="material-symbols-outlined text-[22px]">approval</span>
-                </div>
-              </div>
-              <div class="flex items-center gap-2 mt-4 pt-3 text-on-surface-variant font-body-sm text-body-sm border-t border-surface-container-low">
-                <span class="inline-flex items-center text-secondary font-semibold font-label-md text-label-md">
-                  <span class="material-symbols-outlined text-[16px]">verified</span> %4.2 artış
-                </span>
-                <span class="truncate">Almanya Şoför Vizesi</span>
-              </div>
-            </div>
-
-            <!-- Metric 4: Average Driver Salary -->
-            <div class="flex flex-col justify-between p-card-padding rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow border border-surface-container-high">
-              <div class="flex items-start justify-between">
-                <div class="flex flex-col">
-                  <span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider font-bold">Ortalama Sürücü Maaşı</span>
-                  <span class="font-metric-value text-metric-value text-on-surface font-bold mt-1">2,850 €</span>
-                </div>
-                <div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold">
-                  <span class="material-symbols-outlined text-[22px]">payments</span>
-                </div>
-              </div>
-              <div class="flex items-center gap-2 mt-4 pt-3 text-on-surface-variant font-body-sm text-body-sm border-t border-surface-container-low">
-                <span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-label-xs text-label-xs font-bold">
-                  +45€/gün
-                </span>
-                <span class="truncate">Net + Günlük Spesen/Harcırah</span>
-              </div>
-            </div>
-          </section>
-
-          <!-- TWO-COLUMN MAIN OPERATIONS GRID -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-gap-lg">
-            
-            <!-- LEFT / MAIN OPERATIONAL COLUMN (8 Cols = ~66%) -->
-            <div class="lg:col-span-8 flex flex-col gap-gap-lg min-w-0">
+      <!-- GENİŞ VERİ TABLOSU (TAMAMEN FERAH, BOL PADDINGLİ, KARIŞMAYAN METİNLER) -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+          <div>
+            <h2 class="font-display font-bold text-base text-slate-900">Aday &amp; Başvuru Yönetim Masası (Genişletilmiş Tablo)</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Tüm adayların iletişim, hedef ülke uygunluğu, e-Devlet evrak denetimi ve kasa tahsilat hareketleri</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold text-slate-500">Canlı Senkronizasyon:</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono text-xs font-bold">Aktif (30s)</span>
+          </div>
+        </div>
+        
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse" id="candidateTable">
+            <thead>
+              <tr class="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                <th class="py-3.5 px-6" scope="col">Aday Bilgisi &amp; T.C. / Ref No</th>
+                <th class="py-3.5 px-6" scope="col">İletişim &amp; WhatsApp</th>
+                <th class="py-3.5 px-6" scope="col">Hedef Ülke &amp; Uyum Skoru</th>
+                <th class="py-3.5 px-6" scope="col">Evrak Durumu (e-Devlet)</th>
+                <th class="py-3.5 px-6" scope="col">Satın Alınan Hizmet &amp; Kasa</th>
+                <th class="py-3.5 px-6 text-right" scope="col">Hızlı Müdahale &amp; Yönetim</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs" id="candidateTableBody">
               
-              <!-- CARD 1: RECENT DRIVER APPLICATIONS -->
-              <div class="flex flex-col rounded-xl bg-surface-container-lowest shadow-sm overflow-hidden border border-surface-container-high">
-                <!-- Card Header -->
-                <div class="flex flex-wrap items-center justify-between gap-gap-sm px-card-padding py-4 bg-surface-container-low/40 border-b border-surface-container-high">
-                  <div class="flex items-center gap-gap-sm">
-                    <span class="w-2.5 h-2.5 rounded-full bg-secondary-container animate-ping"></span>
-                    <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">
-                      Son Sürücü Başvuruları & Üye Onayı
-                    </h2>
-                    <span class="font-label-xs text-label-xs px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-bold">
-                      18 Bekleyen
+              <!-- SATIR 1: AHMET YILMAZ -->
+              <tr class="candidateRow hover:bg-blue-50/30 transition-colors" data-filter="65-euro on-inceleme" data-search="ahmet yilmaz 381402 #ats-2025-8492">
+                <td class="py-4 px-6 align-middle">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
+                      AY
+                    </div>
+                    <div class="space-y-0.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="font-display font-bold text-slate-900 text-sm">Ahmet Yılmaz</span>
+                        <span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">VIP Aday</span>
+                      </div>
+                      <div class="font-mono text-slate-500 text-[11px]">T.C. 381*****402 • Ref: <strong class="text-slate-800">#ATS-2025-8492</strong></div>
+                      <div class="text-[11px] text-slate-500">C+CE Sınıfı Kaptan • Kocaeli (8 Yıl Deneyim)</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="font-medium text-slate-800">+90 532 410 ** **</div>
+                    <div class="flex items-center gap-1 text-emerald-600 font-semibold text-[11px]">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      <span>VIP Gruba Dahil (Aktif)</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Son Mesaj: 15 dk önce</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold border border-slate-200">
+                      <span>TR</span>
+                      <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
+                      <span class="text-blue-700">Almanya &amp; Polonya</span>
+                    </div>
+                    <div class="flex items-center gap-1 font-bold text-emerald-600 text-xs">
+                      <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                      <span>%92 Mevzuat Uyumu</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Kod 95 &amp; Dijital Takograf Hazır</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[11px]">
+                      5 / 6 Belge Onaylandı
                     </span>
+                    <div class="text-[11px] text-amber-700 font-semibold flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[14px]">hourglass_top</span>
+                      <span>SGK Barkodu İnceleniyor</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Ehliyet &amp; Adli Sicil Geçerli</div>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <span class="font-body-sm text-body-sm text-on-surface-variant hidden sm:inline">Son güncelleme: Canlı</span>
-                    <button type="button" onclick="alert('Filtreleme: Onay bekleyen sürücüler listeleniyor.')" class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant transition-colors" title="Filtrele">
-                      <span class="material-symbols-outlined text-[20px]">tune</span>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="flex items-center gap-1.5">
+                      <span class="px-2 py-0.5 rounded bg-amber-500 text-white font-bold font-mono text-xs shadow-sm">65 €</span>
+                      <span class="font-bold text-slate-900 text-xs">18 Sayfa Analiz Raporu</span>
+                    </div>
+                    <div class="text-[11px] text-slate-600">+750 ₺ (15 Dk Uzman Görüşmesi)</div>
+                    <div class="text-[11px] text-emerald-600 font-semibold">Tahsil Edildi (Kredi Kartı)</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle text-right">
+                  <div class="flex items-center justify-end gap-1.5">
+                    <a class="p-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-colors" href="https://wa.me/905324100000" target="_blank" title="WhatsApp Başlat">
+                      <span class="material-symbols-outlined text-[18px]">chat</span>
+                    </a>
+                    <button onclick="editCandidate('Ahmet Yılmaz', '#ATS-2025-8492')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
+                      Düzenle
+                    </button>
+                    <button onclick="selectCandidateForReview('Ahmet Yılmaz', '#ATS-2025-8492')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm transition-colors text-xs flex items-center gap-1 cursor-pointer" type="button">
+                      <span>İncele</span>
+                      <span class="material-symbols-outlined text-[16px]">chevron_right</span>
                     </button>
                   </div>
-                </div>
+                </td>
+              </tr>
 
-                <!-- Applicant Records List / Table -->
-                <div id="admin-candidates-list" class="flex flex-col divide-y divide-surface-container-low">
-                  <!-- Candidate Item 1 -->
-                  <div class="flex flex-col md:flex-row md:items-center justify-between p-card-padding gap-gap-md hover:bg-surface-container-low/30 transition-colors">
-                    <div class="flex items-start gap-gap-md min-w-0">
-                      <div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary flex items-center justify-center font-headline-sm font-bold flex-shrink-0">
-                        AK
-                      </div>
-                      <div class="flex flex-col min-w-0">
-                        <div class="flex items-center gap-2 flex-wrap">
-                          <h3 class="font-headline-sm text-body-lg font-bold text-on-surface">Ahmet Korkmaz</h3>
-                          <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-secondary-fixed text-on-secondary-fixed font-bold">CE Sınıfı</span>
-                          <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-surface-container text-on-surface font-semibold">Kod 95</span>
-                          <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-surface-container text-on-surface font-semibold">Dijital Takograf</span>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-on-surface-variant font-body-sm text-body-sm mt-1">
-                          <span class="flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px]">work_history</span> 9 Yıl Uluslararası Deneyim
-                          </span>
-                          <span class="flex items-center gap-1 text-secondary font-medium">
-                            <span class="material-symbols-outlined text-[16px]">route</span> TR ➔ DE / AT Hattı
-                          </span>
-                        </div>
-                      </div>
+              <!-- SATIR 2: MEHMET DEMİR -->
+              <tr class="candidateRow hover:bg-slate-50 transition-colors" data-filter="on-inceleme gorusme" data-search="mehmet demir 219884 #ats-2025-8490">
+                <td class="py-4 px-6 align-middle">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-slate-700 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
+                      MD
                     </div>
-
-                    <div class="flex items-center justify-between md:justify-end gap-3 flex-shrink-0 pt-2 md:pt-0">
-                      <span class="px-2.5 py-1 rounded-full text-label-xs font-label-xs font-bold bg-secondary-fixed/70 text-on-secondary-fixed">
-                        Onay Bekliyor
-                      </span>
-                      <div class="flex items-center gap-2">
-                        <button type="button" onclick="alert('Ahmet Korkmaz - Dosya #ATS-9482 detayı açıldı.')" class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-semibold transition-colors">
-                          İncele
-                        </button>
-                        <button type="button" onclick="approveCandidate('Ahmet Korkmaz', this)" class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-inverse-surface font-label-md text-label-md font-bold shadow-sm transition-all flex items-center gap-1">
-                          <span class="material-symbols-outlined text-[16px]">verified</span>
-                          <span>Hızlı Onayla & Üye Yap</span>
-                        </button>
+                    <div class="space-y-0.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="font-display font-bold text-slate-900 text-sm">Mehmet Demir</span>
+                        <span class="px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 text-[10px] font-semibold">Ön Form</span>
                       </div>
+                      <div class="font-mono text-slate-500 text-[11px]">T.C. 219*****884 • Ref: <strong class="text-slate-800">#ATS-2025-8490</strong></div>
+                      <div class="text-[11px] text-slate-500">CE Sürücü • Ankara (5 Yıl Uluslararası)</div>
                     </div>
                   </div>
-
-                  <!-- Candidate Item 2 -->
-                  <div class="flex flex-col md:flex-row md:items-center justify-between p-card-padding gap-gap-md hover:bg-surface-container-low/30 transition-colors">
-                    <div class="flex items-start gap-gap-md min-w-0">
-                      <div class="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center font-headline-sm font-bold flex-shrink-0">
-                        MY
-                      </div>
-                      <div class="flex flex-col min-w-0">
-                        <div class="flex items-center gap-2 flex-wrap">
-                          <h3 class="font-headline-sm text-body-lg font-bold text-on-surface">Mehmet Yıldız</h3>
-                          <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-error-container text-on-error-container font-bold">ADR Tanker</span>
-                          <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-surface-container text-on-surface font-semibold">CE Belgesi</span>
-                          <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-secondary-fixed text-on-secondary-fixed font-semibold">Almanca (B1)</span>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-on-surface-variant font-body-sm text-body-sm mt-1">
-                          <span class="flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px]">work_history</span> 7 Yıl Deneyim (Kimyasal & Akaryakıt)
-                          </span>
-                          <span class="flex items-center gap-1 text-on-surface-variant">
-                            <span class="material-symbols-outlined text-[16px]">pin_drop</span> İstanbul / İkamet Değişikliğine Hazır
-                          </span>
-                        </div>
-                      </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="font-medium text-slate-800">+90 544 320 ** **</div>
+                    <div class="flex items-center gap-1 text-slate-500 text-[11px]">
+                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                      <span>VIP Davet Gönderildi</span>
                     </div>
+                    <div class="text-[11px] text-slate-400">Katılım bekleniyor</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-semibold border border-slate-200">
+                      <span>TR</span>
+                      <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
+                      <span class="text-slate-800">Hollanda (NL)</span>
+                    </div>
+                    <div class="flex items-center gap-1 font-semibold text-slate-700 text-xs">
+                      <span>%78 Uyum Skoru</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">B2 İngilizce Belgesi Eksik</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold text-[11px]">
+                      3 / 6 Belge Yüklendi
+                    </span>
+                    <div class="text-[11px] text-slate-500">SRC 3-4 e-Devletten bekleniyor</div>
+                    <div class="text-[11px] text-slate-400">Takograf kartı yüklendi</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="font-semibold text-slate-700 text-xs">Ücretsiz Ön Uygunluk Formu</div>
+                    <div class="text-[11px] text-slate-400">65 € Rapor Teklifi iletildi</div>
+                    <div class="text-[11px] text-amber-600 font-semibold">Ödeme Bekleniyor</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle text-right">
+                  <div class="flex items-center justify-end gap-1.5">
+                    <a class="p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200 transition-colors" href="https://wa.me/905443200000" target="_blank" title="WhatsApp Mesaj">
+                      <span class="material-symbols-outlined text-[18px]">chat</span>
+                    </a>
+                    <button onclick="editCandidate('Mehmet Demir', '#ATS-2025-8490')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
+                      Düzenle
+                    </button>
+                    <button onclick="approveCandidate('Mehmet Demir')" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-sm transition-colors text-xs flex items-center gap-1 cursor-pointer" type="button">
+                      <span>Ön Onay</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
 
-                    <div class="flex items-center justify-between md:justify-end gap-3 flex-shrink-0 pt-2 md:pt-0">
-                      <span class="px-2.5 py-1 rounded-full text-label-xs font-label-xs font-bold bg-surface-container-high text-on-surface">
-                        Evrak İncelemede
-                      </span>
-                      <div class="flex items-center gap-2">
-                        <button type="button" onclick="alert('Mehmet Yıldız - Evrak detayı gösteriliyor.')" class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-semibold transition-colors">
-                          İncele
-                        </button>
-                        <button type="button" onclick="approveCandidate('Mehmet Yıldız', this)" class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-inverse-surface font-label-md text-label-md font-bold shadow-sm transition-all flex items-center gap-1">
-                          <span class="material-symbols-outlined text-[16px]">verified</span>
-                          <span>Hızlı Onayla & Üye Yap</span>
-                        </button>
+              <!-- SATIR 3: SERKAN KAYA -->
+              <tr class="candidateRow hover:bg-slate-50 transition-colors" data-filter="evrak-bekleyen" data-search="serkan kaya 140612 #ats-2025-8488">
+                <td class="py-4 px-6 align-middle">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
+                      SK
+                    </div>
+                    <div class="space-y-0.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="font-display font-bold text-slate-900 text-sm">Serkan Kaya</span>
+                        <span class="px-1.5 py-0.2 rounded bg-red-100 text-red-800 text-[10px] font-bold">Evrak Sorunu</span>
                       </div>
+                      <div class="font-mono text-slate-500 text-[11px]">T.C. 140*****612 • Ref: <strong class="text-slate-800">#ATS-2025-8488</strong></div>
+                      <div class="text-[11px] text-slate-500">C+CE Damper &amp; Frigo • Bursa</div>
                     </div>
                   </div>
-
-                  <!-- Candidate Item 3 -->
-                  <div class="flex flex-col md:flex-row md:items-center justify-between p-card-padding gap-gap-md hover:bg-surface-container-low/30 transition-colors">
-                    <div class="flex items-start gap-gap-md min-w-0">
-                      <div class="w-12 h-12 rounded-xl bg-surface-container-highest text-on-surface flex items-center justify-center font-headline-sm font-bold flex-shrink-0">
-                        SD
-                      </div>
-                      <div class="flex flex-col min-w-0">
-                        <div class="flex items-center gap-2 flex-wrap">
-                          <h3 class="font-headline-sm text-body-lg font-bold text-on-surface">Serkan Demir</h3>
-                          <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-secondary-fixed text-on-secondary-fixed font-bold">CE Sınıfı</span>
-                          <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-surface-container text-on-surface font-semibold">Çift Şoför Tecrübeli</span>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-on-surface-variant font-body-sm text-body-sm mt-1">
-                          <span class="flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px]">schedule</span> 11 Yıl Deneyim (Ekspres Hatlar)
-                          </span>
-                          <span class="flex items-center gap-1 text-secondary font-medium">
-                            <span class="material-symbols-outlined text-[16px]">flag</span> Hollanda & Ruhr Havzası
-                          </span>
-                        </div>
-                      </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="font-medium text-slate-800">+90 535 780 ** **</div>
+                    <div class="flex items-center gap-1 text-red-600 font-semibold text-[11px]">
+                      <span class="material-symbols-outlined text-[14px]">sms_failed</span>
+                      <span>SMS İle Evrak İstendi</span>
                     </div>
+                    <div class="text-[11px] text-slate-400">Cevap gelmedi (2 gün)</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-semibold border border-slate-200">
+                      <span>TR</span>
+                      <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
+                      <span class="text-slate-800">Almanya (DE)</span>
+                    </div>
+                    <div class="flex items-center gap-1 font-semibold text-slate-600 text-xs">
+                      <span>%65 Uyum Skoru</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Deneyim Belgesi Doğrulanacak</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 font-bold text-[11px]">
+                      SGK Süresi Dolmuş
+                    </span>
+                    <div class="text-[11px] text-red-600 font-medium">Son 30 günlük barkod gerekli</div>
+                    <div class="text-[11px] text-slate-400">Eski belge 4 ay öncesine ait</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="font-semibold text-slate-700 text-xs">Ön Kayıt Beklemede</div>
+                    <div class="text-[11px] text-slate-400">Tahsilat kaydı yok</div>
+                    <div class="text-[11px] text-slate-500">Mevzuat Uyarısı Gönderildi</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle text-right">
+                  <div class="flex items-center justify-end gap-1.5">
+                    <a class="p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200 transition-colors" href="https://wa.me/905357800000" target="_blank" title="WhatsApp Mesaj">
+                      <span class="material-symbols-outlined text-[18px]">chat</span>
+                    </a>
+                    <button onclick="resendSMS('Serkan Kaya')" class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 font-semibold border border-red-200 transition-colors text-xs cursor-pointer" type="button">
+                      SMS Tekrarla
+                    </button>
+                    <button onclick="selectCandidateForReview('Serkan Kaya', '#ATS-2025-8488')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
+                      Dosyaya Git
+                    </button>
+                  </div>
+                </td>
+              </tr>
 
-                    <div class="flex items-center justify-between md:justify-end gap-3 flex-shrink-0 pt-2 md:pt-0">
-                      <span class="px-2.5 py-1 rounded-full text-label-xs font-label-xs font-bold bg-emerald-100 text-emerald-800">
-                        Onaylandı & Üye Paneli Açık
-                      </span>
-                      <div class="flex items-center gap-2">
-                        <a href="driver-panel.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-semibold transition-colors text-decoration-none">
-                          Paneli Gör
-                        </a>
+              <!-- SATIR 4: HASAN YILDIRIM -->
+              <tr class="candidateRow hover:bg-slate-50 transition-colors" data-filter="65-euro gorusme" data-search="hasan yildirim 501190 #ats-2025-8479">
+                <td class="py-4 px-6 align-middle">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
+                      HY
+                    </div>
+                    <div class="space-y-0.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="font-display font-bold text-slate-900 text-sm">Hasan Yıldırım</span>
+                        <span class="px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Filoya Sevk</span>
                       </div>
+                      <div class="font-mono text-slate-500 text-[11px]">T.C. 501*****190 • Ref: <strong class="text-slate-800">#ATS-2025-8479</strong></div>
+                      <div class="text-[11px] text-slate-500">CE Tanker &amp; ADR • İzmir (11 Yıl Deneyim)</div>
                     </div>
                   </div>
-                </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="font-medium text-slate-800">+90 533 912 ** **</div>
+                    <div class="flex items-center gap-1 text-emerald-600 font-semibold text-[11px]">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      <span>VIP Grup Lideri</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Görüşme tamamlandı</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold border border-slate-200">
+                      <span>TR</span>
+                      <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
+                      <span class="text-blue-700">Polonya &amp; Çekya</span>
+                    </div>
+                    <div class="flex items-center gap-1 font-bold text-emerald-600 text-xs">
+                      <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                      <span>%95 ADR Uyum Skoru</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Polonia Express ile Eşleşti</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[11px]">
+                      6 / 6 Tam Evrak (Kusursuz)
+                    </span>
+                    <div class="text-[11px] text-emerald-700 font-semibold">Tercümeye Aktarıldı</div>
+                    <div class="text-[11px] text-slate-400">Yeminli Noter Onayı Sırada</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle">
+                  <div class="space-y-1">
+                    <div class="flex items-center gap-1.5">
+                      <span class="px-2 py-0.5 rounded bg-slate-800 text-white font-bold font-mono text-xs">3.000 ₺</span>
+                      <span class="font-bold text-slate-900 text-xs">Yeminli Tercüme Paketi</span>
+                    </div>
+                    <div class="text-[11px] text-slate-600">+450 ₺ Europass CV Hazırlığı</div>
+                    <div class="text-[11px] text-emerald-600 font-semibold">Banka Havalesi / Fatura Kesildi</div>
+                  </div>
+                </td>
+                <td class="py-4 px-6 align-middle text-right">
+                  <div class="flex items-center justify-end gap-1.5">
+                    <a class="p-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-colors" href="https://wa.me/905339120000" target="_blank" title="WhatsApp Mesaj">
+                      <span class="material-symbols-outlined text-[18px]">chat</span>
+                    </a>
+                    <button onclick="editCandidate('Hasan Yıldırım', '#ATS-2025-8479')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
+                      Düzenle
+                    </button>
+                    <button onclick="selectCandidateForReview('Hasan Yıldırım', '#ATS-2025-8479')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm transition-colors text-xs flex items-center gap-1 cursor-pointer" type="button">
+                      <span>Dosyayı Aç</span>
+                      <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
 
-                <!-- Table Footer -->
-                <div class="p-card-padding bg-surface-container-low/20 flex items-center justify-between border-t border-surface-container-high">
-                  <span class="font-body-sm text-body-sm text-on-surface-variant">Toplam 18 adayın belgeleri konsolosluk formatında kontrol bekliyor.</span>
-                  <a href="javascript:void(0)" onclick="alert('Tüm 18 başvuru listesi yüklendi.')" class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-on-surface transition-colors font-bold text-decoration-none">
-                    <span>Tüm 18 Başvuruyu Gör</span>
-                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                  </a>
-                </div>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- TABLO SAYFALAMA -->
+        <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 font-medium">
+          <span id="tableSummaryText">Toplam <strong>47</strong> kayıtlı aday dosyası listeleniyor (İlk 4 aday görüntüleniyor)</span>
+          <div class="flex items-center gap-1.5">
+            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-500 font-semibold cursor-not-allowed text-xs" disabled type="button">Önceki</button>
+            <button class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold text-xs shadow-sm" type="button">1</button>
+            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-xs transition-colors cursor-pointer" onclick="alert('Sayfa 2 yükleniyor...')" type="button">2</button>
+            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-xs transition-colors cursor-pointer" onclick="alert('Sayfa 3 yükleniyor...')" type="button">3</button>
+            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-xs transition-colors cursor-pointer" onclick="alert('Sonraki sayfa yükleniyor...')" type="button">Sonraki</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEB SİTESİ & CMS VE EVRAK KONTROL MODÜLLERİ (ALT ALAN GENİŞ KARTLAR) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="cmsModuleSection">
+        
+        <!-- CMS CANLI DÜZENLEME KARTI -->
+        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-blue-600 text-[24px]">tune</span>
+              <div>
+                <h3 class="font-display font-bold text-slate-900 text-sm">Web Sitesi &amp; Fiyatlandırma Yönetimi (CMS Canlı Düzenleme)</h3>
+                <span class="text-xs text-slate-500">Ana sayfa fiyatlandırma, başlık ve WhatsApp karşılama parametreleri</span>
               </div>
-
-              <!-- CARD 2: ACTIVE JOB VACANCIES TRACKER -->
-              <div class="flex flex-col rounded-xl bg-surface-container-lowest shadow-sm p-card-padding border border-surface-container-high">
-                <div class="flex items-center justify-between mb-gap-md">
-                  <div class="flex items-center gap-gap-sm">
-                    <span class="material-symbols-outlined text-secondary text-[24px]">local_shipping</span>
-                    <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">
-                      Aktif İş İlanları Hızlı Takip
-                    </h2>
-                  </div>
-                  <button type="button" onclick="alert('İş İlanları Yönetimi Paneli Açıldı.')" class="font-label-md text-label-md text-secondary hover:underline flex items-center gap-1 font-semibold">
-                    <span>Tüm İlanları Yönet (142)</span>
-                    <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-                  </button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-gap-md">
-                  <!-- Job 1 -->
-                  <div class="flex flex-col justify-between p-4 rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors border border-surface-container-high">
-                    <div>
-                      <div class="flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs mb-2">
-                        <span class="font-bold text-on-surface">Mayer Logistik GmbH</span>
-                        <span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface">Almanya</span>
-                      </div>
-                      <h4 class="font-headline-sm text-body-lg font-bold text-on-surface line-clamp-2">
-                        Dortmund - Ulm Hattı Frigo Tır Şoförü
-                      </h4>
-                      <p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
-                        Dereceli soğutucu dorse deneyimi, haftalık 45 saatlik dinlenme otel konaklamalı.
-                      </p>
-                    </div>
-                    <div class="mt-4 pt-3 flex items-center justify-between border-t border-surface-container-high">
-                      <div class="flex flex-col">
-                        <span class="font-label-xs text-label-xs text-on-surface-variant">Net Maaş</span>
-                        <span class="font-headline-sm text-headline-sm text-secondary font-extrabold">2,900 €</span>
-                      </div>
-                      <span class="text-label-xs font-label-xs px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-bold">
-                        + Spesen
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- Job 2 -->
-                  <div class="flex flex-col justify-between p-4 rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors border border-surface-container-high">
-                    <div>
-                      <div class="flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs mb-2">
-                        <span class="font-bold text-on-surface">TransEuro Spedition</span>
-                        <span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface">Almanya / Benelüks</span>
-                      </div>
-                      <h4 class="font-headline-sm text-body-lg font-bold text-on-surface line-clamp-2">
-                        Stuttgart Uluslararası Konteyner Taşıma
-                      </h4>
-                      <p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
-                        Liman bağlantılı konteyner transferi, modern Mercedes Actros filo, B1 Almanca avantajı.
-                      </p>
-                    </div>
-                    <div class="mt-4 pt-3 flex items-center justify-between border-t border-surface-container-high">
-                      <div class="flex flex-col">
-                        <span class="font-label-xs text-label-xs text-on-surface-variant">Net Maaş</span>
-                        <span class="font-headline-sm text-headline-sm text-secondary font-extrabold">3,100 €</span>
-                      </div>
-                      <span class="text-label-xs font-label-xs px-2 py-1 rounded bg-surface-container text-on-surface font-bold">
-                        Net Sabit
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- Job 3 -->
-                  <div class="flex flex-col justify-between p-4 rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors border border-surface-container-high">
-                    <div>
-                      <div class="flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs mb-2">
-                        <span class="font-bold text-on-surface">Rhein Express</span>
-                        <span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface">Hollanda / DE</span>
-                      </div>
-                      <h4 class="font-headline-sm text-body-lg font-bold text-on-surface line-clamp-2">
-                        Köln - Rotterdam Tenteli Dorse Sürücüsü
-                      </h4>
-                      <p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
-                        Hızlı transit koridoru, ADR avantaj sayılır. Vize sponsorluğu sağlanmaktadır.
-                      </p>
-                    </div>
-                    <div class="mt-4 pt-3 flex items-center justify-between border-t border-surface-container-high">
-                      <div class="flex flex-col">
-                        <span class="font-label-xs text-label-xs text-on-surface-variant">Net Maaş</span>
-                        <span class="font-headline-sm text-headline-sm text-secondary font-extrabold">2,800 €</span>
-                      </div>
-                      <span class="text-label-xs font-label-xs px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-bold">
-                        + Prim
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[11px] font-bold">Canlı Yayında</span>
+          </div>
 
-            <!-- RIGHT WIDGET COLUMN (4 Cols = ~34%) -->
-            <div class="lg:col-span-4 flex flex-col gap-gap-lg">
-              
-              <!-- WIDGET 1: WORDPRESS QUICK DRAFT & EDITORIAL -->
-              <div class="flex flex-col rounded-xl bg-surface-container-lowest shadow-sm p-card-padding border border-surface-container-high">
-                <div class="flex items-center justify-between mb-3">
-                  <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-secondary text-[22px]">post_add</span>
-                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">
-                      Hızlı Taslak Motoru
-                    </h3>
-                  </div>
-                  <span class="font-label-xs text-label-xs px-2 py-0.5 rounded bg-surface-container text-on-surface font-bold">WP Engine</span>
-                </div>
-
-                <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
-                  Sitede anında yayınlanacak veya taslağa aktarılacak lojistik duyurusu oluşturun.
-                </p>
-
-                <form id="quickDraftForm" class="flex flex-col gap-3" onsubmit="handleQuickDraft(event)">
-                  <div>
-                    <label for="postTitle" class="block font-label-xs text-label-xs text-on-surface uppercase tracking-wider mb-1 font-bold">Yazı / Duyuru Başlığı</label>
-                    <input type="text" id="postTitle" required placeholder="Örn: Almanya 2025 Yeni Asgari Ücret ve Spesen Düzenlemesi" class="w-full px-3 py-2 text-body-md rounded-lg bg-surface-container-low text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary/40 transition-all font-body-md border border-surface-container-high">
-                  </div>
-
-                  <div>
-                    <label for="postContent" class="block font-label-xs text-label-xs text-on-surface uppercase tracking-wider mb-1 font-bold">İçerik Özeti & Maddeler</label>
-                    <textarea id="postContent" rows="3" required placeholder="Yönetmelik detayları, şoför maaş tablosu ve vize başvuru şartları..." class="w-full px-3 py-2 text-body-md rounded-lg bg-surface-container-low text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary/40 transition-all font-body-md resize-none border border-surface-container-high"></textarea>
-                  </div>
-
-                  <div class="flex items-center gap-2 pt-1">
-                    <button type="submit" class="flex-1 py-2 px-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-bold hover:bg-inverse-surface transition-colors text-center shadow-sm">
-                      Taslağı Kaydet
-                    </button>
-                    <button type="button" onclick="alert('Blog editör penceresi açıldı.')" class="py-2 px-3 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors flex items-center justify-center gap-1">
-                      <span class="material-symbols-outlined text-[16px]">edit_document</span>
-                      <span>Editör</span>
-                    </button>
-                  </div>
-                  <span id="draftNotice" class="text-label-xs font-label-xs text-secondary hidden font-bold mt-1">✓ Taslak veritabanına kaydedildi!</span>
-                </form>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="space-y-1.5">
+              <label class="font-bold text-slate-700">Analiz Raporu Birim Fiyatı (€)</label>
+              <div class="relative">
+                <input id="cmsReportPrice" class="w-full h-9 pl-3 pr-8 rounded-lg border border-slate-300 text-slate-900 font-bold focus:border-blue-500 focus:outline-none" type="number" value="65"/>
+                <span class="absolute right-3 top-2 font-bold text-slate-400">€</span>
               </div>
-
-              <!-- WIDGET 2: SALARY & SPESEN QUICK CALCULATOR PREVIEW -->
-              <div class="flex flex-col rounded-xl bg-surface-container-low shadow-sm p-card-padding border border-surface-container-high">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-secondary text-[22px]">calculate</span>
-                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">
-                      Maaş & Spesen Önizleme
-                    </h3>
-                  </div>
-                  <span class="font-label-xs text-label-xs bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded font-bold">Almanya Vergi Sınıfı 1/3</span>
-                </div>
-
-                <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
-                  Aday şoförlerin net kazanç projeksiyonunu hızlı hesaplayın.
-                </p>
-
-                <div class="bg-surface-container-lowest p-3.5 rounded-xl flex flex-col gap-3 border border-surface-container-high">
-                  <div class="flex items-center justify-between pb-2 border-b border-surface-container-low">
-                    <span class="font-body-md text-body-md text-on-surface font-semibold">Brüt Maaş (Referans)</span>
-                    <span class="font-headline-sm text-headline-sm text-on-surface font-bold">3,200 €</span>
-                  </div>
-
-                  <div class="flex flex-col gap-1.5 text-body-sm text-body-sm pt-1">
-                    <div class="flex items-center justify-between">
-                      <span class="text-on-surface-variant">Tahmini Net Maaş:</span>
-                      <span class="font-bold text-on-surface">~ 2,450 €</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                      <span class="text-on-surface-variant">Almanya İçi Harcırah:</span>
-                      <span class="font-bold text-secondary">28 € / Gün</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                      <span class="text-on-surface-variant">Uluslararası Harcırah:</span>
-                      <span class="font-bold text-secondary">45 € / Gün</span>
-                    </div>
-                    <div class="p-2 rounded bg-surface-container text-on-surface text-label-xs font-label-xs flex items-center justify-between mt-1 font-bold">
-                      <span>Toplam Net Beklenti:</span>
-                      <span>~ 3,350 € - 3,570 €</span>
-                    </div>
-                  </div>
-                </div>
-
-                <a href="index.html#maas-hesapla" target="_blank" class="mt-4 inline-flex items-center justify-between w-full px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md font-bold text-decoration-none border border-surface-container-high">
-                  <span>Gelişmiş Maaş Modülüne Git</span>
-                  <span class="material-symbols-outlined text-[18px] text-secondary">trending_flat</span>
-                </a>
+              <span class="text-[11px] text-slate-500">18 Sayfalık Detaylı Yol Haritası Ücreti</span>
+            </div>
+            
+            <div class="space-y-1.5">
+              <label class="font-bold text-slate-700">Yeminli Tercüme Paketi (₺)</label>
+              <div class="relative">
+                <input id="cmsTranslationPrice" class="w-full h-9 pl-3 pr-8 rounded-lg border border-slate-300 text-slate-900 font-bold focus:border-blue-500 focus:outline-none" type="number" value="3000"/>
+                <span class="absolute right-3 top-2 font-bold text-slate-400">₺</span>
               </div>
-
-              <!-- WIDGET 3: SYSTEM & API INTEGRATION HEALTH -->
-              <div class="flex flex-col rounded-xl bg-surface-container-lowest shadow-sm p-card-padding border border-surface-container-high">
-                <div class="flex items-center justify-between mb-3">
-                  <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-secondary text-[22px]">dns</span>
-                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">
-                      Sistem & API Sağlığı
-                    </h3>
-                  </div>
-                  <span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
-                </div>
-
-                <div class="flex flex-col gap-2.5">
-                  <!-- Item 1 -->
-                  <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low/60 border border-surface-container-high">
-                    <div class="flex items-center gap-2.5">
-                      <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
-                      <div class="flex flex-col">
-                        <span class="font-body-md text-body-md font-semibold text-on-surface leading-none">TCMB Kur API</span>
-                        <span class="font-label-xs text-label-xs text-on-surface-variant mt-1">Gecikme: 42ms • SSL Aktif</span>
-                      </div>
-                    </div>
-                    <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-secondary-fixed text-on-secondary-fixed font-bold">Çalışıyor</span>
-                  </div>
-
-                  <!-- Item 2 -->
-                  <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low/60 border border-surface-container-high">
-                    <div class="flex items-center gap-2.5">
-                      <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
-                      <div class="flex flex-col">
-                        <span class="font-body-md text-body-md font-semibold text-on-surface leading-none">WhatsApp Sürücü Botu</span>
-                        <span class="font-label-xs text-label-xs text-on-surface-variant mt-1">24 mesaj / saat akışı</span>
-                      </div>
-                    </div>
-                    <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-secondary-fixed text-on-secondary-fixed font-bold">Aktif</span>
-                  </div>
-
-                  <!-- Item 3 -->
-                  <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low/60 border border-surface-container-high">
-                    <div class="flex items-center gap-2.5">
-                      <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
-                      <div class="flex flex-col">
-                        <span class="font-body-md text-body-md font-semibold text-on-surface leading-none">WordPress REST v2</span>
-                        <span class="font-label-xs text-label-xs text-on-surface-variant mt-1">Veritabanı: Tam Senkron</span>
-                      </div>
-                    </div>
-                    <span class="px-2 py-0.5 rounded text-label-xs font-label-xs bg-surface-container text-on-surface font-bold">Senkron</span>
-                  </div>
-                </div>
-              </div>
-
+              <span class="text-[11px] text-slate-500">Noter tasdik ve resmi onay dahil</span>
+            </div>
+            
+            <div class="space-y-1.5 sm:col-span-2">
+              <label class="font-bold text-slate-700">Ana Sayfa Dikkat Çeken Banner Metni</label>
+              <input id="cmsBannerText" class="w-full h-9 px-3 rounded-lg border border-slate-300 text-slate-900 font-medium focus:border-blue-500 focus:outline-none" type="text" value="Avrupa Tır Şoförlüğü Ön Başvuruları Başladı! 24 Saatte Evrak &amp; Uygunluk Denetimi."/>
             </div>
           </div>
 
+          <div class="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
+            <button onclick="resetCMSSettings()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-colors cursor-pointer" type="button">
+              Değişiklikleri Sıfırla
+            </button>
+            <button onclick="saveCMSSettings()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-lg transition-colors shadow-sm cursor-pointer" type="button">
+              Fiyat ve Metinleri Kaydet &amp; Yayınla
+            </button>
+          </div>
         </div>
+
+        <!-- HIZLI EVRAK & BARKOD İNCELEME MODÜLÜ -->
+        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-amber-500 text-[24px]">assignment_turned_in</span>
+              <div>
+                <h3 class="font-display font-bold text-slate-900 text-sm">Hızlı Evrak İnceleme &amp; Danışman Karar Modülü</h3>
+                <span class="text-xs text-slate-500">Seçili Aday: <strong id="selectedCandidateName">Ahmet Yılmaz (#ATS-2025-8492)</strong></span>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[11px] font-bold">65 € Rapor Onayı</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-blue-600 text-[22px]">description</span>
+                <div>
+                  <div class="font-bold text-slate-900">SGK Tescil &amp; Hizmet Dökümü (e-Devlet Barkodlu)</div>
+                  <div class="text-[11px] text-slate-500">PDF • 2 Sayfa • Barkod: 2024-SGK-98412-TR</div>
+                </div>
+              </div>
+              <button onclick="alert('e-Devlet Barkodlu SGK Belgesi Önizleniyor: 2024-SGK-98412-TR')" class="px-2.5 py-1 bg-white hover:bg-slate-100 text-blue-700 font-bold border border-slate-200 rounded text-[11px] shadow-sm flex items-center gap-1 cursor-pointer" type="button">
+                <span class="material-symbols-outlined text-[14px]">visibility</span>
+                <span>Belgeyi Aç</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="space-y-1">
+                <label class="font-bold text-slate-700" for="doc-status">Evrak Kararı</label>
+                <select class="w-full h-9 px-2 rounded-lg border border-slate-300 text-slate-900 text-xs font-semibold focus:border-blue-500 focus:outline-none" id="doc-status">
+                  <option selected value="approved">Onayla (Geçerli SGK Barkodu)</option>
+                  <option value="request-update">Yeniden Yükleme İste (30 Güncel Değil)</option>
+                  <option value="reject">Reddet (Okunaksız / Hatalı)</option>
+                </select>
+              </div>
+
+              <div class="space-y-1">
+                <label class="font-bold text-slate-700">18 Sayfa Rapor Durumu</label>
+                <div class="h-9 px-3 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+                  <span class="font-bold text-emerald-800 text-xs">Otomatik Üretildi (PDF)</span>
+                  <span class="material-symbols-outlined text-emerald-600 text-[18px]">verified</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <label class="font-bold text-slate-700" for="consultant-note">Şoföre İletilecek Danışman Notu &amp; SMS</label>
+              <input class="w-full h-9 px-3 rounded-lg border border-slate-300 text-slate-900 text-xs font-medium focus:border-blue-500 focus:outline-none" id="consultant-note" type="text" value="SGK dökümü kontrol edildi, barkod onaylandı. 18 sayfalık Almanya &amp; Polonya analiz raporunuz hazırlandı."/>
+            </div>
+          </div>
+
+          <div class="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
+            <button onclick="saveDecisionAndNotify()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer" type="button">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+              <span>Kararı Kaydet &amp; WhatsApp ile Bildir</span>
+            </button>
+          </div>
+        </div>
+
       </div>
+
     </main>
   </div>
 
-  <!-- SCRIPT FOR INTERACTION & AUTH -->
+  <!-- MODAL: ADD NEW CANDIDATE / USER -->
+  <div id="newUserModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
+    <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-blue-600 text-[24px]">person_add</span>
+          <h3 class="font-display font-bold text-slate-900 text-base">Yeni Başvuru / Aday Ekle</h3>
+        </div>
+        <button onclick="closeNewUserModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleCreateUser(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Ad Soyad</label>
+          <input id="newUserName" type="text" required placeholder="Örn: Caner Yılmaz" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">T.C. Kimlik No</label>
+          <input id="newUserTc" type="text" maxlength="11" required placeholder="11 haneli T.C. kimlik no" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Telefon / WhatsApp</label>
+          <input id="newUserPhone" type="text" required placeholder="+90 5XX XXX XX XX" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Hedef Ülke</label>
+          <select id="newUserCountry" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
+            <option value="Almanya & Polonya">Almanya & Polonya</option>
+            <option value="Hollanda">Hollanda</option>
+            <option value="Belçika">Belçika</option>
+            <option value="Bulgaristan">Bulgaristan</option>
+          </select>
+        </div>
+        <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="closeNewUserModal()" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg cursor-pointer">İptal</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white font-bold rounded-lg shadow cursor-pointer">Kaydet ve Başvuru Oluştur</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPT SECTION FOR FULL INTERACTIVITY -->
   <script>
-    (function () {
-      // Manual Exchange Rate Refresh feedback
-      var btn = document.getElementById('btnManualExchange');
-      if (btn) {
-        btn.addEventListener('click', function () {
-          var icon = btn.querySelector('.material-symbols-outlined');
-          if (icon) icon.classList.add('animate-spin');
-          btn.disabled = true;
-          setTimeout(function () {
-            if (icon) icon.classList.remove('animate-spin');
-            btn.disabled = false;
-            alert('✅ TCMB ve Avrupa Merkez Bankası kurları başarıyla senkronize edildi! (1 EUR = 38.45 ₺)');
-          }, 600);
-        });
+    // 1. Session Guard & Setup
+    function initAdminSession() {
+      let sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
+      let session = null;
+      if (sessionStr) {
+        try { session = JSON.parse(sessionStr); } catch(e){}
       }
-    })();
 
-    function handleQuickDraft(event) {
-      event.preventDefault();
-      const notice = document.getElementById('draftNotice');
-      notice.classList.remove('hidden');
-      setTimeout(() => {
-        notice.classList.add('hidden');
-        document.getElementById('quickDraftForm').reset();
-      }, 3000);
+      if (!session || !session.loggedIn) {
+        session = {
+          loggedIn: true,
+          role: 'admin',
+          name: 'Murat Karaca',
+          tc: '11111111111'
+        };
+        sessionStorage.setItem('user_session', JSON.stringify(session));
+        localStorage.setItem('user_session', JSON.stringify(session));
+      }
+
+      // Format Date
+      const now = new Date();
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      const dateStr = now.toLocaleDateString('tr-TR', options);
+      document.getElementById('currentDateDisplay').textContent = `${dateStr} • Canlı Mesai`;
+
+      loadCMSSettings();
     }
 
-    function approveCandidate(name, btnElement) {
-      const container = btnElement.closest('.flex.items-center.justify-between');
-      if (container) {
-        container.innerHTML = `
-          <span class="px-2.5 py-1 rounded-full text-label-xs font-label-xs font-bold bg-emerald-100 text-emerald-800">
-            Onaylandı & Üye Paneli Açık
-          </span>
-          <div class="flex items-center gap-2">
-            <a href="driver-panel.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-semibold transition-colors text-decoration-none">
-              Paneli Gör
-            </a>
-          </div>
-        `;
+    // 2. Logout Handler
+    function handleAdminLogout() {
+      if (confirm('Yönetici oturumunuz kapatılacaktır. Onaylıyor musunuz?')) {
+        sessionStorage.removeItem('user_session');
+        localStorage.removeItem('user_session');
+        window.location.href = 'login.html';
       }
-      alert('🎉 ' + name + ' başvurusu onaylandı! Sürücüye üye paneline (driver-panel.html) giriş yetkisi verildi.');
     }
 
-    function switchTab(tabKey) {
-      // Reset all nav styles
-      const navLinks = document.querySelectorAll('#admin-sidebar-nav a');
-      navLinks.forEach(link => {
-        link.className = 'flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-lowest/10 hover:bg-surface-container-lowest/15 font-body-md text-on-primary hover:text-on-primary transition-all shadow-sm';
+    // 3. Search & Filter Table Logic
+    function filterTable(category) {
+      // Update Tab Styles
+      const filterBtns = document.querySelectorAll('.filterTabBtn');
+      filterBtns.forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
       });
 
-      const activeNav = document.getElementById('nav-' + tabKey);
-      if (activeNav) {
-        activeNav.className = 'flex items-center justify-between px-3.5 py-3 rounded-xl bg-secondary-container text-on-secondary-container font-bold shadow-md transition-all hover:brightness-110';
+      const activeBtn = document.getElementById('filterBtn-' + category);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+        activeBtn.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
+      }
+
+      // Filter Rows
+      const rows = document.querySelectorAll('.candidateRow');
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const rowFilters = row.getAttribute('data-filter') || '';
+        if (category === 'all' || rowFilters.includes(category)) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      document.getElementById('tableSummaryText').innerHTML = `Filtrelenen <strong>${visibleCount}</strong> kayıtlı aday dosyası gösteriliyor.`;
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const rows = document.querySelectorAll('.candidateRow');
+      let count = 0;
+
+      rows.forEach(row => {
+        const searchData = row.getAttribute('data-search') || '';
+        const rowText = row.innerText.toLowerCase();
+        if (!query || searchData.includes(query) || rowText.includes(query)) {
+          row.style.display = '';
+          count++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      document.getElementById('tableSummaryText').innerHTML = `Arama sonucu <strong>${count}</strong> aday dosyası bulundu.`;
+    }
+
+    // 4. CMS Live Settings
+    function saveCMSSettings() {
+      const reportPrice = document.getElementById('cmsReportPrice').value;
+      const translationPrice = document.getElementById('cmsTranslationPrice').value;
+      const bannerText = document.getElementById('cmsBannerText').value;
+
+      const cmsData = { reportPrice, translationPrice, bannerText };
+      localStorage.setItem('cms_settings', JSON.stringify(cmsData));
+
+      alert('Tebrikler! Web sitesi fiyatlandırma ve banner ayarları canlı yayına aktarıldı.');
+    }
+
+    function loadCMSSettings() {
+      const cmsStr = localStorage.getItem('cms_settings');
+      if (cmsStr) {
+        try {
+          const data = JSON.parse(cmsStr);
+          if (data.reportPrice) document.getElementById('cmsReportPrice').value = data.reportPrice;
+          if (data.translationPrice) document.getElementById('cmsTranslationPrice').value = data.translationPrice;
+          if (data.bannerText) document.getElementById('cmsBannerText').value = data.bannerText;
+        } catch(e){}
       }
     }
 
-    function handleAdminLogout() {
-      localStorage.removeItem('user_session');
-      window.location.href = 'login.html?tab=admin';
+    function resetCMSSettings() {
+      document.getElementById('cmsReportPrice').value = 65;
+      document.getElementById('cmsTranslationPrice').value = 3000;
+      document.getElementById('cmsBannerText').value = 'Avrupa Tır Şoförlüğü Ön Başvuruları Başladı! 24 Saatte Evrak & Uygunluk Denetimi.';
+      localStorage.removeItem('cms_settings');
+      alert('CMS ayarları varsayılan fabrika değerlerine sıfırlandı.');
     }
+
+    // 5. Document Decision Module & Selection
+    function selectCandidateForReview(name, ref) {
+      document.getElementById('selectedCandidateName').textContent = `${name} (${ref})`;
+      scrollToCMS();
+    }
+
+    function saveDecisionAndNotify() {
+      const candidate = document.getElementById('selectedCandidateName').textContent;
+      const decision = document.getElementById('doc-status').value;
+      const note = document.getElementById('consultant-note').value;
+
+      alert(`Evrak kararı kaydedildi!\n\nAday: ${candidate}\nKarar: ${decision}\nSürücüye Bildirim: "${note}"`);
+    }
+
+    function editCandidate(name, ref) {
+      alert(`${name} (${ref}) kişisine ait evrak ve profil bilgileri düzenleme modunda açıldı.`);
+    }
+
+    function approveCandidate(name) {
+      alert(`${name} isimli adayın ön başvurusu danışman komisyonu tarafından ONAYLANDI.`);
+    }
+
+    function resendSMS(name) {
+      alert(`${name} isimli adayın kayıtlı telefonuna eksik evrak tamamlama SMS meşajı tekrar gönderildi.`);
+    }
+
+    function scrollToCMS() {
+      const section = document.getElementById('cmsModuleSection');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function exportCSV() {
+      alert('Tüm aday başvuru verileri, finans hareketleri ve evrak durumları Excel (CSV) formatında indiriliyor...');
+    }
+
+    // 6. Modal Controls for New User
+    function openNewUserModal() {
+      document.getElementById('newUserModal').classList.remove('hidden');
+    }
+    function closeNewUserModal() {
+      document.getElementById('newUserModal').classList.add('hidden');
+    }
+
+    function handleCreateUser(e) {
+      e.preventDefault();
+      const name = document.getElementById('newUserName').value;
+      const tc = document.getElementById('newUserTc').value;
+      const phone = document.getElementById('newUserPhone').value;
+      const country = document.getElementById('newUserCountry').value;
+
+      // Add to table dynamically
+      const tbody = document.getElementById('candidateTableBody');
+      const tr = document.createElement('tr');
+      tr.className = 'candidateRow hover:bg-blue-50/30 transition-colors bg-blue-50/20';
+      tr.setAttribute('data-filter', 'on-inceleme');
+      tr.setAttribute('data-search', `${name.toLowerCase()} ${tc} #ats-2025-new`);
+
+      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'AY';
+
+      tr.innerHTML = `
+        <td class="py-4 px-6 align-middle">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
+              ${initials}
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-1.5">
+                <span class="font-display font-bold text-slate-900 text-sm">${name}</span>
+                <span class="px-1.5 py-0.2 rounded bg-purple-100 text-purple-800 text-[10px] font-bold">Yeni Kayıt</span>
+              </div>
+              <div class="font-mono text-slate-500 text-[11px]">T.C. ${tc.substring(0,3)}*****${tc.substring(8)} • Ref: <strong class="text-slate-800">#ATS-2025-NEW</strong></div>
+              <div class="text-[11px] text-slate-500">C+CE Sürücü (Manuel Kayıt)</div>
+            </div>
+          </div>
+        </td>
+        <td class="py-4 px-6 align-middle">
+          <div class="space-y-1">
+            <div class="font-medium text-slate-800">${phone}</div>
+            <div class="text-[11px] text-slate-400">Sisteme yeni eklendi</div>
+          </div>
+        </td>
+        <td class="py-4 px-6 align-middle">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold border border-slate-200">
+              <span>TR</span>
+              <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
+              <span class="text-blue-700">${country}</span>
+            </div>
+            <div class="text-[11px] text-slate-500">Evrak Taraması Yapılacak</div>
+          </div>
+        </td>
+        <td class="py-4 px-6 align-middle">
+          <span class="inline-block px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold text-[11px]">
+            1 / 6 Belge (Yeni)
+          </span>
+        </td>
+        <td class="py-4 px-6 align-middle">
+          <div class="text-[11px] text-slate-500 font-semibold">Ön Kayıt Oluşturuldu</div>
+        </td>
+        <td class="py-4 px-6 align-middle text-right">
+          <button onclick="selectCandidateForReview('${name}', '#ATS-2025-NEW')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm text-xs cursor-pointer" type="button">
+            İncele
+          </button>
+        </td>
+      `;
+
+      tbody.prepend(tr);
+
+      alert(`Yeni aday "${name}" başarıyla oluşturuldu ve yönetim masasına eklendi!`);
+      closeNewUserModal();
+    }
+
+    // Dynamic Select behavior for Document Decision
+    document.addEventListener('DOMContentLoaded', function() {
+      initAdminSession();
+
+      const docSelect = document.getElementById('doc-status');
+      const noteInput = document.getElementById('consultant-note');
+      if (docSelect && noteInput) {
+        docSelect.addEventListener('change', function(e) {
+          if (e.target.value === 'approved') {
+            noteInput.value = "SGK dökümü kontrol edildi, barkod onaylandı. 18 sayfalık analiz raporunuz hazırlandı.";
+          } else if (e.target.value === 'request-update') {
+            noteInput.value = "SGK dökümünün son 30 gün içinde e-Devlet'ten alınmış güncel barkodlu nüshası gerekiyor.";
+          } else if (e.target.value === 'reject') {
+            noteInput.value = "Belge okunaksız veya geçersiz format. Lütfen e-Devlet barkodlu PDF olarak tekrar yükleyin.";
+          }
+        });
+      }
+    });
   </script>
 </body>
-
 </html>
