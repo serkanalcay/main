@@ -581,7 +581,7 @@
       const cleanRawUser = rawUser.toLowerCase().trim();
       const cleanNoSpaces = rawUser.toLowerCase().replace(/[\s\-\.\(\)]/g, '');
 
-      // 1. ADMIN CHECK (Validates if entered credentials match Admin credentials)
+      // 1. ADMIN CHECK (Validates Admin username AND Admin password)
       if (cleanRawUser === 'serkanalcay52' || cleanRawUser === 'admin' || cleanRawUser === 'serkanalcay' || cleanRawUser === 'serkan') {
         if (rawPass === '0817Serkanalcay*' || rawPass === '0817Serkanalcay') {
           submitBtn.disabled = true;
@@ -615,11 +615,11 @@
       } catch(e){}
 
       if (!apps || apps.length === 0) {
-        alert('❌ HATA: Sistemde henüz kayıtlı başvuru veya sürücü hesabı bulunmamaktadır.\n\nLütfen önce Yönetici Paneli\'nden bir sürücü kaydı ve şifresi oluşturunuz.');
+        alert('❌ HATA: Sistemde henüz kayıtlı başvuru veya sürücü hesabı bulunmamaktadır.\n\nLütfen önce Yönetici Paneli\'nden bir sürücü kaydı veya hesabı oluşturunuz.');
         return;
       }
 
-      // Match application by username, tcNo, email, phone or id
+      // Match application by Username, TC No, Email, Full Name, Phone, or Ref ID
       const appIndex = apps.findIndex(a => {
         if (!a) return false;
         const u = String(a.username || '').toLowerCase().trim();
@@ -627,6 +627,7 @@
         const tc = String(a.tcNo || '').toLowerCase().trim();
         const tcClean = String(a.tcNo || '').toLowerCase().replace(/[\s\-\.\(\)]/g, '');
         const email = String(a.email || '').toLowerCase().trim();
+        const fullName = String(a.fullName || '').toLowerCase().trim();
         const phone = String(a.phone || '').replace(/[\s\-\.\(\)\+]/g, '');
         const refId = String(a.id || '').toLowerCase().trim();
 
@@ -634,6 +635,7 @@
           (u && (u === cleanRawUser || uClean === cleanNoSpaces)) ||
           (tc && (tc === cleanRawUser || tcClean === cleanNoSpaces)) ||
           (email && email === cleanRawUser) ||
+          (fullName && fullName === cleanRawUser) ||
           (phone && phone === cleanNoSpaces.replace(/\+/g, '')) ||
           (refId && refId === cleanRawUser)
         );
@@ -642,8 +644,8 @@
       if (appIndex === -1) {
         alert(
           `❌ HATA: KULLANICI BULUNAMADI!\n\n` +
-          `Girdiğiniz "${rawUser}" kullanıcı adı veya T.C. kimlik numarası ile sistemde kayıtlı sürücü hesabı bulunamadı.\n\n` +
-          `Lütfen Admin Paneli'nde o sürücü için belirlediğiniz Kullanıcı Adını ve Şifreyi tam ve doğru girdiğinizden emin olunuz.`
+          `Girdiğiniz "${rawUser}" kullanıcı adı / e-posta veya T.C. kimlik numarası ile sistemde kayıtlı sürücü hesabı bulunamadı.\n\n` +
+          `Lütfen Yönetici Paneli'nden bu kullanıcı için tanımlanan Kullanıcı Adını veya T.C. Kimlik Numarasını doğru girdiğinizden emin olunuz.`
         );
         return;
       }
@@ -651,19 +653,15 @@
       const app = apps[appIndex];
       const storedPass = String(app.password || '').trim();
 
-      // 1. Check if rejected
+      // Check if candidate is explicitly rejected
       if (app.status === 'Reddedildi') {
         alert(`❌ HATA: BAŞVURUNUZ REDDEDİLDİ.\n\nSayın ${app.fullName},\nBaşvurunuz değerlendirme sonucunda onaylanmamıştır. Detaylar için yönetimle iletişime geçiniz.`);
         return;
       }
 
-      // 2. Check if pending and no password set
-      if (app.status === 'İnceleme Bekliyor' && !storedPass) {
-        alert(`⚠️ SAYIN ${(app.fullName || 'SÜRÜCÜ').toUpperCase()},\n\nHesabınız henüz yönetici inceleme/değerlendirme aşamasındadır.\nYönetici onayı veya şifre tanımlaması tamamlandıktan sonra giriş yapabilirsiniz.`);
-        return;
-      }
-
-      // 3. Password matching logic
+      // Password matching logic:
+      // If password exists, check exact or case-insensitive match or match with TC No / Phone.
+      // If no password set yet, accept rawPass and auto-assign it!
       let isPassCorrect = false;
 
       if (storedPass) {
@@ -671,12 +669,8 @@
                         (storedPass.toLowerCase() === rawPass.toLowerCase()) || 
                         (rawPass === String(app.tcNo || '').trim()) ||
                         (rawPass === String(app.phone || '').trim());
-      } else if (app.status === 'Onaylandı' || app.statusBadge === 'Onaylandı') {
-        // If approved by admin but password wasn't manually set, initialize password with rawPass
-        isPassCorrect = true;
-        app.password = rawPass;
       } else {
-        // Default fallback
+        // Auto-assign entered password if none was stored
         isPassCorrect = true;
         app.password = rawPass;
       }
@@ -684,14 +678,14 @@
       if (!isPassCorrect) {
         alert(
           `❌ HATA: HATALI ŞİFRE!\n\n` +
-          `Aday: ${app.fullName}\n` +
+          `Sürücü: ${app.fullName}\n` +
           `Kullanıcı Adı: ${app.username || app.tcNo}\n\n` +
-          `Girdiğiniz şifre Admin Paneli'nde bu sürücü için belirlenen şifre ile uyuşmuyor.`
+          `Girdiğiniz şifre Yönetici Paneli'nde bu hesap için belirlenen şifre ile uyuşmuyor. Lütfen yönetici panelinde belirlediğiniz şifreyi giriniz.`
         );
         return;
       }
 
-      // Password matches! Immediately activate and approve status
+      // Password verified! Always grant panel access & set status to Onaylandı
       app.status = 'Onaylandı';
       app.statusBadge = 'Onaylandı';
       apps[appIndex] = app;

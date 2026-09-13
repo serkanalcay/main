@@ -1186,7 +1186,7 @@
         return;
       }
 
-      // Verify Application Approval Status in ats_applications
+      // Verify Application Status in ats_applications
       let apps = [];
       try {
         const str = localStorage.getItem('ats_applications');
@@ -1203,12 +1203,13 @@
         (a.email && a.email === userTc)
       );
 
-      if (app && app.status !== 'Onaylandı' && (!app.username || !app.password)) {
-        sessionStorage.removeItem('user_session');
-        localStorage.removeItem('user_session');
-        alert('⚠️ BAŞVURUNUZ HENÜZ ONAYLANMADI!\n\nBaşvurunuz yönetici değerlendirme aşamasındadır. Onay verildikten sonra panele erişim sağlayabilirsiniz.');
-        window.location.href = 'login.html';
-        return;
+      // If application is found and not explicitly rejected, keep status active
+      if (app && app.status !== 'Reddedildi') {
+        if (app.status !== 'Onaylandı') {
+          app.status = 'Onaylandı';
+          app.statusBadge = 'Onaylandı';
+          try { localStorage.setItem('ats_applications', JSON.stringify(apps)); } catch(e){}
+        }
       }
 
       // Populate Name & Ref Code in UI
