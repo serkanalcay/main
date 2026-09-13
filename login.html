@@ -572,8 +572,9 @@
         if (str) apps = JSON.parse(str);
       } catch(e){}
 
-      // Search application by TC, email, phone, or Ref ID
+      // Search application by custom Username, TC, Email, Phone, or Ref ID
       const app = apps.find(a => 
+        (a.username && a.username.toLowerCase() === tcOrEmail.toLowerCase()) ||
         a.tcNo === tcOrEmail || 
         (a.email && a.email.toLowerCase() === tcOrEmail.toLowerCase()) || 
         a.phone === tcOrEmail || 
@@ -581,7 +582,13 @@
       );
 
       if (!app) {
-        alert('❌ HATA: Bu T.C. Kimlik No / E-posta adresi ile kayıtlı bir başvuru bulunamadı.\n\nSisteme giriş yapabilmek için lütfen öncelikle "Ön Analiz Başvurusu" yapınız.');
+        alert('❌ HATA: Giriş yaptığınız kullanıcı adı / T.C. No ile kayıtlı başvuru bulunamadı.\n\nLütfen yöneticiniz tarafından verilen Kullanıcı Adını ve Şifreyi giriniz.');
+        return;
+      }
+
+      // Check Password if custom password was set by admin
+      if (app.password && app.password !== password) {
+        alert('❌ HATA: Girdiğiniz şifre hatalıdır!\n\nLütfen yöneticiniz tarafından tanımlanan şifreyi giriniz.');
         return;
       }
 

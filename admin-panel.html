@@ -267,9 +267,13 @@
             <span class="material-symbols-outlined text-[16px]">download</span>
             <span>Excel / CSV Dışa Aktar</span>
           </button>
+          <button onclick="openCreateAccountModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[18px]">key</span>
+            <span>Sürücü Hesabı Tanımla (Kullanıcı Adı &amp; Şifre)</span>
+          </button>
           <button onclick="openNewUserModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer" type="button">
             <span class="material-symbols-outlined text-[18px]">add_circle</span>
-            <span>+ Yeni Kullanıcı / Başvuru Ekle</span>
+            <span>+ Yeni Başvuru Ekle</span>
           </button>
         </div>
       </div>
@@ -502,6 +506,64 @@
     </div>
   </div>
 
+  <!-- MODAL: MANUEL SÜRÜCÜ HESABI TANIMLAMA (KULLANICI ADI & ŞİFRE) -->
+  <div id="createAccountModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
+    <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-emerald-600 text-[24px]">key</span>
+          <div>
+            <h3 class="font-display font-bold text-slate-900 text-base">Sürücü Giriş Hesabı Oluştur</h3>
+            <span class="text-xs text-slate-500">Adaya özel Kullanıcı Adı ve Şifre Tanımlama</span>
+          </div>
+        </div>
+        <button onclick="closeCreateAccountModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleSaveAccountCredentials(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Hesap Tanımlanacak Başvuru / Aday</label>
+          <select id="accountAppSelect" required class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-semibold text-slate-800" onchange="autoFillAccountFields(this.value)">
+            <!-- Loaded dynamically from ats_applications -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kullanıcı Adı (Manuel)</label>
+          <input id="accountUsername" type="text" required placeholder="Örn: ahmetyilmaz veya T.C. Kimlik No" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-mono font-bold text-blue-700">
+          <span class="text-[10px] text-slate-400 mt-0.5 block">Aday sisteme giriş yaparken bu kullanıcı adını yazacaktır.</span>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Şifre (Manuel)</label>
+          <div class="relative">
+            <input id="accountPassword" type="text" required placeholder="Örn: 123456 veya Özel Şifre" class="w-full h-9 px-3 pr-16 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-mono font-bold text-slate-800">
+            <button type="button" onclick="generateRandomPass()" class="absolute right-1 top-1 text-[10px] bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-2 py-1 rounded cursor-pointer">Rastgele</button>
+          </div>
+          <span class="text-[10px] text-slate-400 mt-0.5 block">Adayın üye paneline erişirken kullanacağı şifredir.</span>
+        </div>
+
+        <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-[11px] space-y-1">
+          <div class="font-bold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">verified</span>
+            <span>Giriş Yetkisi ve Otomatik Onay</span>
+          </div>
+          <p>Bu hesabı kaydettiğinizde adayın başvurusu otomatik olarak <strong>"Onaylandı"</strong> statüsüne geçirilecek ve üye panel erişimi aktifleştirilecektir.</p>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="closeCreateAccountModal()" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg cursor-pointer">İptal</button>
+          <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow cursor-pointer flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">lock_reset</span>
+            <span>Hesabı Tanımla &amp; Onayla</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- MODAL 1: DÜZENLE (MİNİ EVRAK DÜZENLEME SAYFASI / MODALI) -->
   <div id="editDocModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
     <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto">
@@ -617,9 +679,19 @@
           </div>
         </div>
 
-        <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
-          <button type="button" onclick="closeEditDocModal()" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg cursor-pointer">İptal</button>
-          <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg shadow cursor-pointer">Evrak Değişikliklerini Kaydet</button>
+        <div class="pt-3 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100">
+          <button type="button" onclick="deleteApplicationFromEditModal()" class="px-3.5 py-2 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-lg text-xs border border-red-200 cursor-pointer flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">delete</span>
+            <span>BAŞVURUYU SİL</span>
+          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="approveApplicationFromEditModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs shadow flex items-center gap-1 cursor-pointer">
+              <span class="material-symbols-outlined text-[16px]">check_circle</span>
+              <span>ONAYLA</span>
+            </button>
+            <button type="button" onclick="closeEditDocModal()" class="px-3 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg text-xs cursor-pointer">İptal</button>
+            <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg text-xs shadow cursor-pointer">Değişiklikleri Kaydet</button>
+          </div>
         </div>
       </form>
     </div>
@@ -1096,7 +1168,106 @@
       closeNewUserModal();
     }
 
-    // 7. EDIT DOCUMENT MODAL (DÜZENLE)
+    // 6.5 MANUEL SÜRÜCÜ HESABI OLUŞTURMA (KULLANICI ADI & ŞİFRE)
+    function openCreateAccountModal() {
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      const select = document.getElementById('accountAppSelect');
+      if (!select) return;
+
+      if (apps.length === 0) {
+        alert('Hesap oluşturulacak kayıtlı başvuru bulunmamaktadır.');
+        return;
+      }
+
+      select.innerHTML = '';
+      apps.forEach((app, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        option.textContent = `${app.fullName} (${app.id} - T.C. ${app.tcNo}) [${app.status || 'İnceleme Bekliyor'}]`;
+        select.appendChild(option);
+      });
+
+      autoFillAccountFields(0);
+      document.getElementById('createAccountModal').classList.remove('hidden');
+    }
+
+    function closeCreateAccountModal() {
+      document.getElementById('createAccountModal').classList.add('hidden');
+    }
+
+    function autoFillAccountFields(index) {
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      const app = apps[index];
+      if (!app) return;
+
+      const usernameInput = document.getElementById('accountUsername');
+      const passInput = document.getElementById('accountPassword');
+
+      if (usernameInput) {
+        usernameInput.value = app.username || app.tcNo || app.fullName.toLowerCase().replace(/[^a-z0-9]/g, '');
+      }
+      if (passInput) {
+        passInput.value = app.password || Math.floor(100000 + Math.random() * 900000).toString();
+      }
+    }
+
+    function generateRandomPass() {
+      const passInput = document.getElementById('accountPassword');
+      if (passInput) {
+        const randPass = Math.floor(100000 + Math.random() * 900000).toString();
+        passInput.value = randPass;
+      }
+    }
+
+    function handleSaveAccountCredentials(e) {
+      e.preventDefault();
+      const index = document.getElementById('accountAppSelect').value;
+      const username = document.getElementById('accountUsername').value.trim();
+      const password = document.getElementById('accountPassword').value.trim();
+
+      if (!username || !password) {
+        alert('Lütfen kullanıcı adı ve şifreyi eksiksiz giriniz.');
+        return;
+      }
+
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(err){}
+
+      if (!apps[index]) return;
+
+      apps[index].username = username;
+      apps[index].password = password;
+      apps[index].status = 'Onaylandı';
+      apps[index].statusBadge = 'Onaylandı';
+
+      localStorage.setItem('ats_applications', JSON.stringify(apps));
+      renderApplicationsTable();
+
+      alert(
+        `✅ SÜRÜCÜ HESABI BAŞARIYLA OLUŞTURULDU VE ONAYLANDI!\n\n` +
+        `Aday: ${apps[index].fullName}\n` +
+        `Kullanıcı Adı: ${username}\n` +
+        `Şifre: ${password}\n\n` +
+        `Sürücü bu bilgilerle üye giriş sayfasından (login.html) doğrudan oturum açabilir.`
+      );
+
+      closeCreateAccountModal();
+    }
+
+    // 7. EDIT DOCUMENT MODAL (DÜZENLE, ONAYLA, SİL)
     function openEditDocModal(index) {
       let apps = [];
       try {
@@ -1168,6 +1339,54 @@
       renderApplicationsTable();
       alert(`Aday evrak ve başvuru bilgileri güncellendi!\nBaşvuru Statüsü: ${newStatus}`);
       closeEditDocModal();
+    }
+
+    function approveApplicationFromEditModal() {
+      const index = document.getElementById('editAppIndex').value;
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      if (!apps[index]) return;
+
+      apps[index].status = 'Onaylandı';
+      apps[index].statusBadge = 'Onaylandı';
+      if (apps[index].docs) {
+        apps[index].docs.ehliyet = 'Onaylandı';
+        apps[index].docs.takograf = 'Onaylandı';
+        apps[index].docs.pasaport = 'Onaylandı';
+        apps[index].docs.sicil = 'Onaylandı';
+        apps[index].docs.sgk = 'Onaylandı';
+      }
+      apps[index].docCount = '5 / 6 Onaylı';
+
+      localStorage.setItem('ats_applications', JSON.stringify(apps));
+      renderApplicationsTable();
+
+      alert(`✅ BAŞVURU ONAYLANDI!\n\nAday "${apps[index].fullName}" başvurusu onaylandı ve üye paneline erişim izni aktifleştirildi.`);
+      closeEditDocModal();
+    }
+
+    function deleteApplicationFromEditModal() {
+      const index = document.getElementById('editAppIndex').value;
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e){}
+
+      if (!apps[index]) return;
+
+      const candidateName = apps[index].fullName;
+      if (confirm(`⚠️ BAŞVURU SİLME ONAYI:\n\n"${candidateName}" isimli adayın başvurusunu tamamen silmek istediğinize emin misiniz?\n\nBu işlem geri alınamaz!`)) {
+        apps.splice(index, 1);
+        localStorage.setItem('ats_applications', JSON.stringify(apps));
+        renderApplicationsTable();
+        alert(`🗑️ "${candidateName}" isimli adayın başvurusu başarıyla silindi.`);
+        closeEditDocModal();
+      }
     }
 
     // 8. MESSAGING MODAL (YAZIŞMA KUTUSU)
