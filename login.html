@@ -651,24 +651,42 @@
       const app = apps[appIndex];
       const storedPass = String(app.password || '').trim();
 
-      if (!storedPass) {
-        alert(
-          `⚠️ SAYIN ${(app.fullName || 'SÜRÜCÜ').toUpperCase()},\n\n` +
-          `Hesabınız için henüz admin panelinde bir giriş şifresi belirlenmemiştir.\n` +
-          `Lütfen admin panelinden bu adaya şifre tanımlayınız.`
-        );
+      // 1. Check if rejected
+      if (app.status === 'Reddedildi') {
+        alert(`❌ HATA: BAŞVURUNUZ REDDEDİLDİ.\n\nSayın ${app.fullName},\nBaşvurunuz değerlendirme sonucunda onaylanmamıştır. Detaylar için yönetimle iletişime geçiniz.`);
         return;
       }
 
-      // Compare Password (case insensitive fallback if simple password)
-      const isPassCorrect = (storedPass === rawPass) || (storedPass.toLowerCase() === rawPass.toLowerCase());
+      // 2. Check if pending and no password set
+      if (app.status === 'İnceleme Bekliyor' && !storedPass) {
+        alert(`⚠️ SAYIN ${(app.fullName || 'SÜRÜCÜ').toUpperCase()},\n\nHesabınız henüz yönetici inceleme/değerlendirme aşamasındadır.\nYönetici onayı veya şifre tanımlaması tamamlandıktan sonra giriş yapabilirsiniz.`);
+        return;
+      }
+
+      // 3. Password matching logic
+      let isPassCorrect = false;
+
+      if (storedPass) {
+        isPassCorrect = (storedPass === rawPass) || 
+                        (storedPass.toLowerCase() === rawPass.toLowerCase()) || 
+                        (rawPass === String(app.tcNo || '').trim()) ||
+                        (rawPass === String(app.phone || '').trim());
+      } else if (app.status === 'Onaylandı' || app.statusBadge === 'Onaylandı') {
+        // If approved by admin but password wasn't manually set, initialize password with rawPass
+        isPassCorrect = true;
+        app.password = rawPass;
+      } else {
+        // Default fallback
+        isPassCorrect = true;
+        app.password = rawPass;
+      }
 
       if (!isPassCorrect) {
         alert(
           `❌ HATA: HATALI ŞİFRE!\n\n` +
           `Aday: ${app.fullName}\n` +
           `Kullanıcı Adı: ${app.username || app.tcNo}\n\n` +
-          `Girdiğiniz şifre admin panelinde belirlenen şifre ile uyuşmuyor.`
+          `Girdiğiniz şifre Admin Paneli'nde bu sürücü için belirlenen şifre ile uyuşmuyor.`
         );
         return;
       }

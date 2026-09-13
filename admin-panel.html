@@ -1439,9 +1439,10 @@
 
       let newStatus = document.getElementById('editAppStatus').value;
 
-      // If credentials defined/updated, set status to Onaylandı if not explicitly rejected
-      if (editUsernameVal && editPasswordVal && newStatus !== 'Reddedildi') {
-        newStatus = 'Onaylandı';
+      // If status set to Onaylandı, ensure username & password exist
+      if (newStatus === 'Onaylandı') {
+        if (!apps[index].username) apps[index].username = editUsernameVal || apps[index].tcNo;
+        if (!apps[index].password) apps[index].password = editPasswordVal || apps[index].tcNo || '123456';
       }
 
       apps[index].fullName = document.getElementById('editFullName').value.trim();
@@ -1466,7 +1467,7 @@
 
       localStorage.setItem('ats_applications', JSON.stringify(apps));
       renderApplicationsTable();
-      alert(`Aday evrak ve sürücü hesap bilgileri güncellendi!\nBaşvuru Statüsü: ${newStatus}`);
+      alert(`✅ Aday evrak ve sürücü hesap bilgileri güncellendi!\n\nBaşvuru Statüsü: ${newStatus}\nKullanıcı Adı: ${apps[index].username || apps[index].tcNo}\nŞifre: ${apps[index].password || 'T.C. Kimlik No'}`);
       closeEditDocModal();
     }
 
@@ -1480,21 +1481,37 @@
 
       if (!apps[index]) return;
 
-      apps[index].status = 'Onaylandı';
-      apps[index].statusBadge = 'Onaylandı';
-      if (apps[index].docs) {
-        apps[index].docs.ehliyet = 'Onaylandı';
-        apps[index].docs.takograf = 'Onaylandı';
-        apps[index].docs.pasaport = 'Onaylandı';
-        apps[index].docs.sicil = 'Onaylandı';
-        apps[index].docs.sgk = 'Onaylandı';
-      }
-      apps[index].docCount = '5 / 6 Onaylı';
+      const app = apps[index];
 
+      // Ensure username & password exist upon approval
+      const editUser = document.getElementById('editUsername') ? document.getElementById('editUsername').value.trim() : '';
+      const editPass = document.getElementById('editPassword') ? document.getElementById('editPassword').value.trim() : '';
+
+      app.username = editUser || app.username || app.tcNo;
+      app.password = editPass || app.password || app.tcNo || '123456';
+      app.status = 'Onaylandı';
+      app.statusBadge = 'Onaylandı';
+      if (app.docs) {
+        app.docs.ehliyet = 'Onaylandı';
+        app.docs.takograf = 'Onaylandı';
+        app.docs.pasaport = 'Onaylandı';
+        app.docs.sicil = 'Onaylandı';
+        app.docs.sgk = 'Onaylandı';
+        app.docs.adr = 'Onaylandı';
+      }
+      app.docCount = '6 / 6 Onaylı';
+
+      apps[index] = app;
       localStorage.setItem('ats_applications', JSON.stringify(apps));
       renderApplicationsTable();
 
-      alert(`✅ BAŞVURU ONAYLANDI!\n\nAday "${apps[index].fullName}" başvurusu onaylandı ve üye paneline erişim izni aktifleştirildi.`);
+      alert(
+        `✅ BAŞVURU BAŞARIYLA ONAYLANDI VE ERİŞİM İZNİ VERİLDİ!\n\n` +
+        `Aday: ${app.fullName}\n` +
+        `Giriş Kullanıcı Adı: ${app.username}\n` +
+        `Giriş Şifresi: ${app.password}\n\n` +
+        `Sürücü bu bilgilerle üye giriş sayfasından (login.html) doğrudan panel erişimi sağlayabilir.`
+      );
       closeEditDocModal();
     }
 
