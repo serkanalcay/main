@@ -8,6 +8,15 @@
   <meta http-equiv="Expires" content="0" />
   <title>Sürücü Üye Paneli | Avrupa Tır Şoförü Portalı</title>
   <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
+  <script>
+    // Maintenance Mode Guard - Redirect public visitors to index.html
+    const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
+    let session = null;
+    try { if (sessionStr) session = JSON.parse(sessionStr); } catch(e){}
+    if (!session || !session.loggedIn || session.role !== 'admin') {
+      window.location.href = 'index.html';
+    }
+  </script>
   
   <!-- GOOGLE FONTS & MATERIAL SYMBOLS -->
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
