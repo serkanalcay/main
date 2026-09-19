@@ -7,72 +7,137 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>Sitemiz Şu An Hazırlanıyor | Avrupa Tır Şoförü Portalı</title>
+  <title>Avrupa Tır Şoförü Portalı | Resmi Ön Analiz &amp; Evrak Değerlendirme</title>
+  <meta name="description" content="Avrupa Birliği ve Mobility Package mevzuatına göre ehliyet, takograf, tecrübe ve e-Devlet evraklarınızın ön değerlendirmesini yapın, vize ve filo süreçlerine anında başlayın." />
   <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- MAINTENANCE & GUARD ENGINE (LIVE MODE) -->
+  <script src="js/maintenance-guard.js?v=2.8.0"></script>
 </head>
 
-<body class="h-full bg-slate-950 font-sans antialiased text-white selection:bg-amber-400 selection:text-slate-900 flex flex-col justify-between items-center min-h-screen relative overflow-hidden select-none p-6 sm:p-10">
+<body class="h-full bg-slate-950 font-sans antialiased text-white selection:bg-amber-400 selection:text-slate-900 flex flex-col justify-between items-center min-h-screen relative overflow-x-hidden p-6 sm:p-10">
 
   <!-- Background Ambient Glow & Film -->
   <div class="fixed inset-0 pointer-events-none z-0">
-    <div class="absolute -top-40 -left-40 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px]"></div>
-    <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px]"></div>
+    <div class="absolute -top-40 -left-40 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[150px]"></div>
+    <div class="absolute -bottom-40 -right-40 w-[600px] h-[600px] bg-blue-600/15 rounded-full blur-[150px]"></div>
     <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-30"></div>
   </div>
 
-  <!-- Header Logo -->
-  <header class="relative z-10 w-full max-w-5xl flex items-center justify-between py-4">
+  <!-- Header Logo & Nav Bar -->
+  <header class="relative z-10 w-full max-w-6xl flex items-center justify-between py-4 border-b border-slate-900">
     <div class="inline-flex items-center gap-3">
       <img src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1U16mn9a3n_4tV50zHQmDkkAFmlM2JmRraNMKh2IzzP1XDe3HEl6s60v2AS_I-Ldjm-xhCl5oK8jIgIZz-q9DPtS2bR_YWl3itzt65SDjQTDFx2imueVOK5rw7KJGH1l5xLafa41I7SSpOz2-GLJusY0HOupypaqDhC1rm1XFBU-A79ZVt3jVxnEZ3sSm-0d9JALL5Xij7qT6bOE5TWrig1Tr4IIQ5lQq-AysUhQvm958PNeB89NUWh_w';" alt="Avrupa Tır Şoförü Logo" class="h-10 md:h-12 w-auto object-contain">
-      <span class="font-extrabold text-white text-base tracking-tight hidden sm:inline">AVRUPA TIR ŞOFÖRÜ</span>
+      <span class="font-extrabold text-white text-lg tracking-tight">AVRUPA TIR ŞOFÖRÜ</span>
     </div>
 
-    <!-- Live Status Indicator -->
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-amber-400 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-      <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-      <span>Yapım Aşamasında</span>
+    <!-- Live Status & Quick Action Nav -->
+    <div class="flex items-center gap-3">
+      <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800/80 text-emerald-400 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>Sistem Canlı &amp; Aktif</span>
+      </div>
+      <a href="login.html" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[18px]">lock</span>
+        <span>Giriş Yap</span>
+      </a>
+      <a href="basvuru.html" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl font-extrabold text-xs transition-all shadow-lg flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[18px]">assignment</span>
+        <span>Başvuru Yap</span>
+      </a>
     </div>
   </header>
 
-  <!-- CENTER GIANT TEXT HERO -->
-  <main class="relative z-10 my-auto text-center max-w-4xl px-4 flex flex-col items-center justify-center space-y-8">
+  <!-- CENTER GIANT TEXT HERO & LIVE PORTAL -->
+  <main class="relative z-10 my-auto text-center max-w-5xl px-4 flex flex-col items-center justify-center space-y-8 py-12">
     
-    <!-- Big Warning Badge -->
+    <!-- Status Badge -->
     <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm font-extrabold tracking-wider uppercase backdrop-blur-xl shadow-2xl">
-      <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-      </svg>
-      <span>Sistem Güncelleniyor</span>
+      <span class="material-symbols-outlined text-[20px] animate-pulse">verified</span>
+      <span>Resmi AB Lojistik &amp; Sürücü Uyum Portalı</span>
     </div>
 
     <!-- GIANT MAIN HEADING -->
-    <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white leading-none uppercase drop-shadow-2xl">
-      SİTEMİZ ŞU AN <br />
-      <span class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">HAZIRLANIYOR</span>
+    <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-tight uppercase drop-shadow-2xl">
+      AVRUPA TIR ŞOFÖRLÜĞÜ <br />
+      <span class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">ÖN ANALİZ &amp; EVRAK PORTALI</span>
     </h1>
 
     <!-- Subtitle -->
-    <p class="text-lg sm:text-2xl text-slate-300 font-semibold max-w-2xl mx-auto leading-relaxed tracking-wide">
-      Çok Yakında Hizmetinizdeyiz.
+    <p class="text-lg sm:text-xl text-slate-300 font-medium max-w-3xl mx-auto leading-relaxed">
+      Avrupa Birliği Mobility Package mevzuatına göre C/CE ehliyet, takograf, Kod 95 ve e-Devlet evraklarınızın ön değerlendirmesini yapın, dijital analiz raporunuzu oluşturun.
     </p>
+
+    <!-- MAIN ACTION BUTTONS -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full max-w-lg">
+      <a href="basvuru.html" class="w-full sm:w-auto px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-2xl font-black text-base transition-all transform hover:-translate-y-0.5 shadow-2xl flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined text-[24px]">assignment_add</span>
+        <span>Ön Analiz Başvurusu Yap</span>
+      </a>
+      <a href="login.html" class="w-full sm:w-auto px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined text-[24px]">account_circle</span>
+        <span>Sürücü / Yönetici Girişi</span>
+      </a>
+    </div>
+
+    <!-- TRUST & SERVICE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl pt-8 text-left">
+      
+      <div class="p-5 bg-slate-900/80 border border-slate-800 rounded-2xl backdrop-blur-md">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
+          <span class="material-symbols-outlined">analytics</span>
+        </div>
+        <h3 class="font-bold text-base text-white">Dijital Uygunluk Raporu</h3>
+        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+          Ehliyet süreniz, yaşınız ve evrak tamlığınıza göre AB uygunluk skorunuz ve raporunuz anında hazırlanır.
+        </p>
+      </div>
+
+      <div class="p-5 bg-slate-900/80 border border-slate-800 rounded-2xl backdrop-blur-md">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
+          <span class="material-symbols-outlined">forum</span>
+        </div>
+        <h3 class="font-bold text-base text-white">Sektörel İlan &amp; Network</h3>
+        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+          Doğrulanmış Avrupa lojistik firmalarının güncel açık pozisyon duyurularına ve bilgilendirme ağlarına erişim.
+        </p>
+      </div>
+
+      <div class="p-5 bg-slate-900/80 border border-slate-800 rounded-2xl backdrop-blur-md">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
+          <span class="material-symbols-outlined">shield</span>
+        </div>
+        <h3 class="font-bold text-base text-white">KVKK &amp; 256-Bit SSL Güvenlik</h3>
+        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+          Tüm e-Devlet evraklarınız 6698 sayılı KVKK standartlarına uygun olarak şifreli veritabanında saklanır.
+        </p>
+      </div>
+
+    </div>
 
   </main>
 
-  <!-- Footer with Discreet Admin Entrance -->
-  <footer class="relative z-10 w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between py-4 text-xs text-slate-500 gap-3 border-t border-slate-900">
-    <span>© 2026 avrupatirsoforu.com • Tüm Hakları Saklıdır.</span>
-    <a href="login.html?tab=admin" class="text-slate-600 hover:text-slate-400 transition-colors font-medium">🔐 Yönetici Girişi</a>
+  <!-- Footer -->
+  <footer class="relative z-10 w-full max-w-6xl flex flex-col sm:flex-row items-center justify-between py-6 text-xs text-slate-500 gap-3 border-t border-slate-900">
+    <span>© 2026 avrupatirsoforu.com • Tüm Hakları Saklıdır. Avrupa Resmi Lojistik Ön Analiz Portalı.</span>
+    <div class="flex items-center gap-4">
+      <a href="basvuru.html" class="hover:text-slate-300 transition-colors">Başvuru Formu</a>
+      <span>•</span>
+      <a href="login.html" class="hover:text-slate-300 transition-colors">Giriş Yap</a>
+      <span>•</span>
+      <a href="login.html?tab=admin" class="text-slate-500 hover:text-slate-300 transition-colors font-medium">🔐 Yönetici Girişi</a>
+    </div>
   </footer>
 
   <!-- GLOBAL CLOUD DATABASE ENGINE -->
-  <script src="js/cloud-db.js?v=2.7.0"></script>
-  <script src="js/app.js?v=2.7.0"></script>
+  <script src="js/cloud-db.js?v=2.8.0"></script>
+  <script src="js/app.js?v=2.8.0"></script>
 </body>
 
 </html>

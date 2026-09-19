@@ -10,13 +10,8 @@
   <title>Avrupa Tır Şoförlüğü Ön Analiz &amp; Evrak Değerlendirme Başvurusu | Avrupa Tır Şoförü</title>
   <meta name="description" content="Avrupa Birliği ve Mobility Package mevzuatına göre ehliyet, takograf, tecrübe ve e-Devlet evraklarınızın ön değerlendirmesi için başvuru formunu doldurun." />
   <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
-  <script>
-    // Maintenance Mode Guard
-    const urlParams = new URLSearchParams(window.location.search);
-    if (!urlParams.get('admin') && !urlParams.get('override')) {
-      window.location.href = 'index.html';
-    }
-  </script>
+  <!-- MAINTENANCE & DEVELOPER PREVIEW GUARD -->
+  <script src="js/maintenance-guard.js?v=2.7.0"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -874,36 +869,56 @@
                   <span class="material-symbols-outlined text-[20px]">policy</span>
                 </div>
                 <div>
-                  <h2 class="font-headline-md text-headline-md text-navy-deep font-bold">5. Yasal Beyanlar, KVKK &amp; Başvuru Onayları</h2>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant">Başvurunuzun admin değerlendirme sistemine aktarılması için tüm maddelerin onaylanması zorunludur.</p>
+                  <h2 class="font-headline-md text-headline-md text-navy-deep font-bold">5. Yasal Beyanlar, Sözleşmeler &amp; Onaylar</h2>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Başvurunuzun değerlendirilmesi için yasal onay kutucuklarının tamamının işaretlenmesi zorunludur.</p>
                 </div>
               </div>
 
-              <!-- Checkbox 1: KVKK Açık Rıza -->
+              <!-- Checkbox 1: Mesafeli Satış Sözleşmesi ve Ön Bilgilendirme Formu -->
+              <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
+                <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="mssCheck" required="" type="checkbox" />
+                <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="mssCheck">
+                  <strong class="text-navy-deep">Mesafeli Satış Sözleşmesi &amp; Ön Bilgilendirme Formu:</strong>
+                  Hizmet şartlarını, 
+                  <a class="text-secondary underline font-semibold hover:text-navy-deep" href="javascript:void(0)" onclick="openLegalModal('mss')">Mesafeli Satış Sözleşmesi</a>'ni ve 
+                  <a class="text-secondary underline font-semibold hover:text-navy-deep" href="javascript:void(0)" onclick="openLegalModal('obf')">Ön Bilgilendirme Formu</a>'nu okudum, şartları kabul ediyorum.
+                </label>
+              </div>
+
+              <!-- Checkbox 2: Anında Teslimat & Cayma Hakkı Feragat Beyanı (TKHK m.15/1-ğ) -->
+              <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
+                <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="withdrawalCheck" required="" type="checkbox" />
+                <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="withdrawalCheck">
+                  <strong class="text-navy-deep">Dijital İçerik Anında Teslimat &amp; Cayma Hakkı Feragatnamesi:</strong>
+                  6502 sayılı TKHK Mesafeli Sözleşmeler Yönetmeliği m.15/1-ğ uyarınca, elektronik ortamda anında teslim edilen Dijital Analiz Raporu hizmetinde <strong>14 günlük cayma hakkının kullanılamayacağını</strong> ve ifanın başlamasıyla cayma hakkımdan feragat ettiğimi kabul ederim.
+                </label>
+              </div>
+
+              <!-- Checkbox 3: KVKK & Özel Nitelikli Kişisel Veri Açık Rıza -->
               <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
                 <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="kvkkCheck" required="" type="checkbox" />
                 <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="kvkkCheck">
-                  <strong class="text-navy-deep">Kişisel Verilerin Korunması Kanunu (KVKK) Açık Rıza Metni:</strong>
-                  6698 sayılı KVKK kapsamında ehliyet, takograf, kimlik, adli sicil ve SGK hizmet dökümü evraklarımın yalnızca başvuru ön uygunluk değerlendirmesi, mevzuat analizi ve kariyer danışmanlığı süreçleri çerçevesinde işlenmesini ve admin değerlendirme paneline aktarılmasını açık rıza ile kabul ediyorum. 
-                  <a class="text-secondary underline font-semibold hover:text-navy-deep ml-1" href="javascript:void(0)" onclick="alert('KVKK Aydınlatma Metni: Tüm kişisel verileriniz 6698 sayılı kanun kapsamında korunmaktadır.')">KVKK Aydınlatma Metnini İncele</a>
+                  <strong class="text-navy-deep">KVKK Özel Nitelikli Kişisel Veri Açık Rıza Metni:</strong>
+                  6698 sayılı KVKK kapsamında ehliyet, takograf, pasaport, adli sicil ve SGK belgelerimin analiz raporu hazırlanması ve mevzuat değerlendirmesi amacıyla işlenmesine açık rıza veriyorum. 
+                  <a class="text-secondary underline font-semibold hover:text-navy-deep ml-1" href="javascript:void(0)" onclick="openLegalModal('kvkk')">KVKK Aydınlatma Metnini Okuyun</a>
                 </label>
               </div>
 
-              <!-- Checkbox 2: Bağımsız Danışmanlık ve Feragatname -->
+              <!-- Checkbox 4: İŞKUR & Bağımsız Danışmanlık Feragat Beyanı -->
               <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
                 <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="disclaimerCheck" required="" type="checkbox" />
                 <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="disclaimerCheck">
-                  <strong class="text-navy-deep">Bağımsız Danışmanlık &amp; Feragat Beyanı:</strong>
-                  <strong>avrupatirsoforu.com platformunun kesinlikle vize veren bir merci olmadığını</strong>, konsolosluk veya elçilik yerine geçmediğini ve iş garantisi taahhüt etmediğini; sunulan hizmetin bağımsız ön evrak incelemesi, mevzuat bilgilendirmesi ve süreç danışmanlığı olduğunu biliyor ve kabul ediyorum.
+                  <strong class="text-navy-deep">İŞKUR &amp; Bağımsız Danışmanlık Sorumluluk Reddi:</strong>
+                  Platformun bir İŞKUR Özel İstihdam Bürosu veya vize mercii olmadığını, kesin iş/vize garantisi vermediğini; sunulan hizmetin bağımsız ön evrak analizi ve sektör bilgilendirmesi olduğunu kabul ediyorum.
                 </label>
               </div>
 
-              <!-- Checkbox 3: Bilgi Doğruluğu Beyanı -->
+              <!-- Checkbox 5: Bilgi Doğruluğu Beyanı -->
               <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
                 <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="accuracyCheck" required="" type="checkbox" />
                 <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="accuracyCheck">
                   <strong class="text-navy-deep">Evrak ve Bilgi Doğruluğu Beyanı:</strong>
-                  Form üzerinden beyan ettiğim tüm kimlik ve mesleki bilgilerin, yüklemiş olduğum e-Devlet barkodlu belgelerinin ve fotoğrafların kendime ait, güncel ve gerçeğe uygun olduğunu; yanıltıcı bilgi durumunda başvurumun iptal edileceğini taahhüt ederim.
+                  Form üzerinden beyan ettiğim tüm bilgilerin ve e-Devlet belgelerinin kendime ait ve gerçeğe uygun olduğunu beyan ederim.
                 </label>
               </div>
             </div>
@@ -914,28 +929,28 @@
                 <div>
                   <div class="flex items-center gap-space-xs text-amber-vibrant mb-1">
                     <span class="material-symbols-outlined text-[20px]">send_and_archive</span>
-                    <span class="font-label-sm text-label-sm uppercase tracking-wider font-bold">Admin Değerlendirme Sistemi</span>
+                    <span class="font-label-sm text-label-sm uppercase tracking-wider font-bold">Resmi Analiz &amp; Raporlama Talebi</span>
                   </div>
                   <h3 class="font-headline-md text-headline-md text-on-primary font-bold">
-                    Ön Analiz Dosyanızı İletmeye Hazır mısınız?
+                    Analiz Dosyanızı İletmeye Hazır mısınız?
                   </h3>
                   <p class="font-body-sm text-body-sm text-on-primary-container max-w-xl leading-relaxed">
-                    Gönderilen evraklar şifreli güvenli sunucuya yüklenir ve danışman ekibimiz 24-48 saat içerisinde incelemeyi tamamlar. Doğrudan hesap açma yetkisi yalnızca admin ekibindedir.
+                    Gönderilen evraklar şifreli güvenli sunucuya yüklenir. Raporunuz tamamlandıktan sonra üye panelinizden erişim sağlayabilirsiniz.
                   </p>
                 </div>
 
-                <!-- Submit Button -->
+                <!-- Submit Button with Financial Obligation Clarification -->
                 <button class="w-full sm:w-auto flex-shrink-0 bg-amber-vibrant hover:bg-amber-high-vis text-navy-deep px-space-xl py-space-md rounded-xl font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-sm transition-all transform active:scale-95 shadow-md" id="submitBtn" onclick="handleApplicationSubmit()" type="button">
                   <span class="material-symbols-outlined text-[24px]">verified</span>
-                  <span>Ön Analiz Başvurusunu Gönder</span>
+                  <span>Ödemeyi Tamamla ve Raporu Al (<span class="cmsReportPriceDisplay">65 €</span>)</span>
                 </button>
               </div>
 
-              <!-- Submission Feedback Box (Hidden by default) -->
+              <!-- Submission Feedback Box -->
               <div class="hidden p-space-md rounded-lg bg-status-success/20 text-on-primary flex items-start gap-space-sm border border-status-success/40" id="submissionAlert">
                 <span class="material-symbols-outlined text-[22px] text-amber-vibrant shrink-0 mt-0.5">check_circle</span>
                 <div class="font-body-sm text-body-sm">
-                  <strong>Başvurunuz Başarıyla Alındı!</strong> Evraklarınız admin inceleme kuyruğuna aktarılmıştır. Dosya Takip Kodunuz: <span class="font-mono font-bold text-amber-vibrant">ATS-2025-9841</span>. Danışmanımız en geç 48 saat içerisinde WhatsApp / telefon ile geri dönüş yapacaktır.
+                  <strong>Başvurunuz Başarıyla Alındı!</strong> Evraklarınız inceleme kuyruğuna aktarılmıştır. Dosya Takip Kodunuz: <span class="font-mono font-bold text-amber-vibrant">ATS-2026-9841</span>.
                 </div>
               </div>
             </div>
@@ -1172,10 +1187,10 @@
 
       <div class="border-t border-on-primary-container/20 pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-on-primary-container">
         <p>© 2026 avrupatirsoforu.com. Tüm hakları saklıdır. Avrupa Resmi Lojistik İstihdam Sistemi.</p>
-        <div class="flex items-center gap-space-lg">
-          <a class="hover:text-on-primary transition-colors" href="javascript:void(0)" onclick="alert('Gizlilik Politikası: Verileriniz KVKK standartlarına uygun olarak saklanmaktadır.')">Gizlilik Politikası</a>
-          <a class="hover:text-on-primary transition-colors" href="javascript:void(0)" onclick="alert('KVKK Aydınlatma Metni: Tüm kişisel verileriniz 6698 sayılı kanun kapsamında korunmaktadır.')">KVKK Aydınlatma Metni</a>
-          <a class="hover:text-on-primary transition-colors" href="javascript:void(0)" onclick="alert('Kullanım Koşulları: Bu sistem sadece yetkili başvuru işlemlerinde kullanılır.')">Kullanım Koşulları</a>
+        <div class="flex flex-wrap items-center gap-space-lg">
+          <a class="hover:text-on-primary transition-colors cursor-pointer" href="javascript:void(0)" onclick="openLegalModal('mss')">Mesafeli Satış Sözleşmesi</a>
+          <a class="hover:text-on-primary transition-colors cursor-pointer" href="javascript:void(0)" onclick="openLegalModal('obf')">Ön Bilgilendirme Formu</a>
+          <a class="hover:text-on-primary transition-colors cursor-pointer" href="javascript:void(0)" onclick="openLegalModal('kvkk')">KVKK Aydınlatma Metni</a>
         </div>
       </div>
     </div>
@@ -1227,8 +1242,67 @@
       }
     }
 
+    // Legal Modal Dialog Handler
+    function openLegalModal(type) {
+      let title = '';
+      let content = '';
+
+      if (type === 'mss') {
+        title = '📜 Mesafeli Satış Sözleşmesi';
+        content = `
+          <h4 class="font-bold text-navy-deep text-sm mb-2">1. TARAFLAR VE KONU</h4>
+          <p class="text-xs text-slate-600 mb-3">İşbu sözleşme avrupatirsoforu.com (Şirket) ile platform üzerinden Dijital Analiz Raporu ve Sektörel İlan Topluluk erişimi satın alan Tüketici (Kullanıcı) arasında akdedilmiştir.</p>
+          <h4 class="font-bold text-navy-deep text-sm mb-2">2. HİZMETİN NİTELİĞİ VE İFA</h4>
+          <p class="text-xs text-slate-600 mb-3">Satın alınan Dijital Analiz Raporu elektronik ortamda anında hazırlanarak kullanıcının üyelik paneline iletilir. İlan erişimi ise abonelik bazlı dijital içerik hizmetidir.</p>
+          <h4 class="font-bold text-navy-deep text-sm mb-2">3. CAYMA HAKKI İSTİSNASI (TKHK m.15/1-ğ)</h4>
+          <p class="text-xs text-slate-600 mb-3">6502 sayılı Tüketicinin Korunması Hakkında Kanun Mesafeli Sözleşmeler Yönetmeliği m.15/1-ğ uyarınca elektronik ortamda anında teslim edilen gayrimaddi mallarda <strong>cayma hakkı kullanılamaz</strong>.</p>
+          <h4 class="font-bold text-navy-deep text-sm mb-2">4. İŞKUR VE İŞ GARANTİSİ FERAGATNAMESİ</h4>
+          <p class="text-xs text-slate-600 mb-1">Şirket bir Özel İstihdam Bürosu değildir ve iş garantisi taahhüt etmez.</p>
+        `;
+      } else if (type === 'obf') {
+        title = '📄 Ön Bilgilendirme Formu';
+        content = `
+          <h4 class="font-bold text-navy-deep text-sm mb-2">SATICI BİLGİLERİ</h4>
+          <p class="text-xs text-slate-600 mb-2">Unvan: Avrupa Tır Şoförü Lojistik ve Kariyer Danışmanlığı A.Ş.<br>E-posta: info@avrupatirsoforu.com | Çağrı Merkezi: +90 (850) 840 00 00</p>
+          <h4 class="font-bold text-navy-deep text-sm mb-2">HİZMET VE ÖDEME BİLGİLERİ</h4>
+          <p class="text-xs text-slate-600 mb-2">Hizmet Adı: Dijital Uygunluk ve Evrak Analiz Raporu<br>Toplam Fiyat: Vergiler Dahil <span class="cmsReportPriceDisplay">65 €</span><br>Teslimat Usulü: Anında Dijital İfa (Üye Paneli)</p>
+        `;
+      } else if (type === 'kvkk') {
+        title = '🛡️ KVKK Aydınlatma & Özel Nitelikli Veri Metni';
+        content = `
+          <p class="text-xs text-slate-600 mb-2">6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca, ehliyet, takograf, pasaport, SGK ve adli sicil belgeleriniz veri sorumlusu sıfatıyla yalnızca raporlama ve analiz amacıyla işlenir.</p>
+          <p class="text-xs text-slate-600 mb-2">Verileriniz 256-Bit SSL ve AES-256 algoritması ile veritabanında saklanır, onayınız olmadan üçüncü taraflarla paylaşılmaz.</p>
+        `;
+      }
+
+      let modal = document.getElementById('legalModal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'legalModal';
+        modal.className = 'fixed inset-0 z-[99999] bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4';
+        document.body.appendChild(modal);
+      }
+
+      modal.innerHTML = `
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 relative animate-in fade-in duration-200">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
+            <h3 class="font-bold text-lg text-slate-900">${title}</h3>
+            <button onclick="document.getElementById('legalModal').remove()" class="text-slate-400 hover:text-slate-700 text-xl font-bold p-1">&times;</button>
+          </div>
+          <div class="max-h-[60vh] overflow-y-auto pr-2 text-left font-sans">
+            ${content}
+          </div>
+          <div class="mt-6 border-t border-slate-100 pt-4 text-right">
+            <button onclick="document.getElementById('legalModal').remove()" class="px-5 py-2 bg-navy-deep text-white font-bold text-xs rounded-xl hover:bg-slate-800 transition-all">Anladım, Kapat</button>
+          </div>
+        </div>
+      `;
+    }
+
     // Application Submission Handler
     function handleApplicationSubmit() {
+      const mss = document.getElementById('mssCheck');
+      const withdrawal = document.getElementById('withdrawalCheck');
       const kvkk = document.getElementById('kvkkCheck');
       const disclaimer = document.getElementById('disclaimerCheck');
       const accuracy = document.getElementById('accuracyCheck');
@@ -1243,8 +1317,8 @@
         return;
       }
 
-      if (!kvkk.checked || !disclaimer.checked || !accuracy.checked) {
-        alert('Başvurunuzun değerlendirilmesi için lütfen KVKK Açık Rıza, Danışmanlık Feragatnamesi ve Bilgi Doğruluğu onay kutucuklarının tamamını işaretleyiniz.');
+      if (!mss.checked || !withdrawal.checked || !kvkk.checked || !disclaimer.checked || !accuracy.checked) {
+        alert('Lütfen başvurunuzu tamamlamak için 5 zorunlu yasal onay kutucuğunun (Mesafeli Satış, Cayma Hakkı Feragati, KVKK Açık Rıza, İŞKUR Feragatnamesi ve Doğruluk Beyanı) tamamını işaretleyiniz.');
         return;
       }
 
