@@ -1,143 +1,841 @@
 <!DOCTYPE html>
-<html lang="tr" class="h-full">
-
+<html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <title>Avrupa Tır Şoförü Portalı | Resmi Ön Analiz &amp; Evrak Değerlendirme</title>
-  <meta name="description" content="Avrupa Birliği ve Mobility Package mevzuatına göre ehliyet, takograf, tecrübe ve e-Devlet evraklarınızın ön değerlendirmesini yapın, vize ve filo süreçlerine anında başlayın." />
-  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_standard" name="shell-type">
+  <title>Avrupa Tır Şoförü | Uluslararası Ağır Vasıta Kariyer Portalı &amp; İstihdam Danışmanlığı</title>
+  <meta name="description" content="Almanya, Polonya, Hollanda ve tüm Avrupa ülkelerinde güvenilir lojistik firmalarında yüksek standartlarda çalışma fırsatı. Evrak sürecinden işe başlama aşamasına kadar profesyonel danışmanlık.">
+  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- MAINTENANCE & GUARD ENGINE (LIVE MODE) -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#684000",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#497cff",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed": "#00174b",
+            "border-muted": "#E2E8F0",
+            "primary-fixed": "#dae2fd",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface-variant": "#d3e4fe",
+            "on-error": "#ffffff",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#2a1700",
+            "surface-container-low": "#eff4ff",
+            "secondary-container": "#fea619",
+            "status-success": "#34D399",
+            "on-primary-container": "#7c839b",
+            "surface-tint": "#565e74",
+            "tertiary-fixed": "#dbe1ff",
+            "on-surface": "#0b1c30",
+            "inverse-on-surface": "#eaf1ff",
+            "surface-card": "#FFFFFF",
+            "surface": "#f8f9ff",
+            "outline-variant": "#c6c6cd",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-dim": "#cbdbf5",
+            "canvas-dark": "#020617",
+            "secondary": "#855300",
+            "surface-container": "#e5eeff",
+            "secondary-fixed": "#ffddb8",
+            "surface-bright": "#f8f9ff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-primary-fixed-variant": "#3f465c",
+            "surface-container-high": "#dce9ff",
+            "on-background": "#0b1c30",
+            "inverse-primary": "#bec6e0",
+            "primary": "#000000",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "on-surface-variant": "#45464d",
+            "primary-container": "#131b2e",
+            "warning-amber-hover": "#D97706",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "outline": "#76777d",
+            "surface-container-highest": "#d3e4fe",
+            "inverse-surface": "#213145",
+            "error": "#ba1a1a",
+            "primary-fixed-dim": "#bec6e0",
+            "tertiary-container": "#00174b",
+            "on-primary-fixed": "#131b2e",
+            "surface-subtle": "#F8FAFC",
+            "tertiary": "#000000",
+            "background": "#f8f9ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin-mobile": "1rem",
+            "margin": "2rem",
+            "gutter-mobile": "1rem",
+            "space-md": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "label-sm": ["Space Grotesk", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "display": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "display-mobile": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "label-md": ["Space Grotesk", "sans-serif"],
+            "headline-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
+            "label-lg": ["Space Grotesk", "sans-serif"]
+          },
+          "fontSize": {
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "display": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "display-mobile": ["34px", { "lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- MAINTENANCE & GUARD -->
   <script src="js/maintenance-guard.js?v=2.8.0"></script>
 </head>
 
-<body class="h-full bg-slate-950 font-sans antialiased text-white selection:bg-amber-400 selection:text-slate-900 flex flex-col justify-between items-center min-h-screen relative overflow-x-hidden p-6 sm:p-10">
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between">
 
-  <!-- Background Ambient Glow & Film -->
-  <div class="fixed inset-0 pointer-events-none z-0">
-    <div class="absolute -top-40 -left-40 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[150px]"></div>
-    <div class="absolute -bottom-40 -right-40 w-[600px] h-[600px] bg-blue-600/15 rounded-full blur-[150px]"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-30"></div>
-  </div>
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="h-20 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-6">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="index.html" class="flex items-center gap-3">
+          <img alt="Avrupa Tır Şoförü Logo" class="h-8 w-auto object-contain" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuCNwsIQASR26KQQ6m2ZIt68WIhJfRzb2w_hH7dJ4mjj-39GFYgMhBDeHvLtSB14gzTMbro24M-ItAbgKuo1yg8NfCIMs2WQmVNr8-5VHB4IOgNQ_zI7hXLIUpMaWZKCN6aSirz0Q98UpFeUmWPVI-g46oCFEBVJe6jx4cBGvDH5Jqytp3Y663sZSmHUOSxpi0Y-1C-1VSzfmTHxXQ-3t8scczHuHUdF2-xRR2y-D591CoTyBS7Lbd3S';">
+          <div class="flex flex-col">
+            <span class="font-label-lg text-label-lg font-bold tracking-tight text-on-surface">avrupatirsoforu.com</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Avrupa Tır Şoförü İstihdam &amp; Evrak Danışmanlığı</span>
+          </div>
+        </a>
+      </div>
 
-  <!-- Header Logo & Nav Bar -->
-  <header class="relative z-10 w-full max-w-6xl flex items-center justify-between py-4 border-b border-slate-900">
-    <div class="inline-flex items-center gap-3">
-      <img src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1U16mn9a3n_4tV50zHQmDkkAFmlM2JmRraNMKh2IzzP1XDe3HEl6s60v2AS_I-Ldjm-xhCl5oK8jIgIZz-q9DPtS2bR_YWl3itzt65SDjQTDFx2imueVOK5rw7KJGH1l5xLafa41I7SSpOz2-GLJusY0HOupypaqDhC1rm1XFBU-A79ZVt3jVxnEZ3sSm-0d9JALL5Xij7qT6bOE5TWrig1Tr4IIQ5lQq-AysUhQvm958PNeB89NUWh_w';" alt="Avrupa Tır Şoförü Logo" class="h-10 md:h-12 w-auto object-contain">
-      <span class="font-extrabold text-white text-lg tracking-tight">AVRUPA TIR ŞOFÖRÜ</span>
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded-lg">
+        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="hizmetler" href="#surec">Hizmetler</a>
+        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="hakkimizda" href="#neden-biz">Hakkımızda</a>
+        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="iletisim" href="#iletisim">İletişim</a>
+        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="neler-oluyor" href="#neler-oluyor">Neler Oluyor?</a>
+      </nav>
+
+      <!-- Action & Login Buttons -->
+      <div class="flex items-center gap-3">
+        <a href="login.html" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-label-md font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-lg transition-colors">
+          <span class="material-symbols-outlined text-[18px]">lock</span>
+          <span>Giriş Yap</span>
+        </a>
+        <a class="inline-flex items-center justify-center h-11 px-6 rounded-lg bg-secondary-container text-canvas-dark font-label-md text-label-md font-bold tracking-wider hover:bg-warning-amber-hover transition-colors shadow-sm" data-path="hemen-basvur" href="#hizli-basvuru">
+          HEMEN BAŞVUR
+        </a>
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" class="md:hidden p-2 text-on-surface rounded-lg hover:bg-surface-container-high" onclick="document.getElementById('mobileNav').classList.toggle('hidden');" aria-label="Menü">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+      </div>
+
     </div>
 
-    <!-- Live Status & Quick Action Nav -->
-    <div class="flex items-center gap-3">
-      <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800/80 text-emerald-400 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        <span>Sistem Canlı &amp; Aktif</span>
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobileNav" class="hidden md:hidden bg-surface border-b border-border-muted px-6 py-4 space-y-2">
+      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="#surec" onclick="document.getElementById('mobileNav').classList.add('hidden');">Hizmetler</a>
+      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="#neden-biz" onclick="document.getElementById('mobileNav').classList.add('hidden');">Hakkımızda</a>
+      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="#iletisim" onclick="document.getElementById('mobileNav').classList.add('hidden');">İletişim</a>
+      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="#neler-oluyor" onclick="document.getElementById('mobileNav').classList.add('hidden');">Neler Oluyor?</a>
+      <div class="pt-2 border-t border-border-muted flex gap-2">
+        <a href="login.html" class="flex-1 text-center py-2 text-label-md font-bold bg-surface-container text-on-surface rounded-lg">Giriş Yap</a>
+        <a href="#hizli-basvuru" onclick="document.getElementById('mobileNav').classList.add('hidden');" class="flex-1 text-center py-2 text-label-md font-bold bg-secondary-container text-canvas-dark rounded-lg">Başvur</a>
       </div>
-      <a href="login.html" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5">
-        <span class="material-symbols-outlined text-[18px]">lock</span>
-        <span>Giriş Yap</span>
-      </a>
-      <a href="basvuru.html" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl font-extrabold text-xs transition-all shadow-lg flex items-center gap-1.5">
-        <span class="material-symbols-outlined text-[18px]">assignment</span>
-        <span>Başvuru Yap</span>
-      </a>
     </div>
   </header>
 
-  <!-- CENTER GIANT TEXT HERO & LIVE PORTAL -->
-  <main class="relative z-10 my-auto text-center max-w-5xl px-4 flex flex-col items-center justify-center space-y-8 py-12">
-    
-    <!-- Status Badge -->
-    <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm font-extrabold tracking-wider uppercase backdrop-blur-xl shadow-2xl">
-      <span class="material-symbols-outlined text-[20px] animate-pulse">verified</span>
-      <span>Resmi AB Lojistik &amp; Sürücü Uyum Portalı</span>
-    </div>
+  <!-- Main Content -->
+  <main class="w-full pt-20 bg-background flex-1">
+    <div class="flex flex-col w-full">
 
-    <!-- GIANT MAIN HEADING -->
-    <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-tight uppercase drop-shadow-2xl">
-      AVRUPA TIR ŞOFÖRLÜĞÜ <br />
-      <span class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">ÖN ANALİZ &amp; EVRAK PORTALI</span>
-    </h1>
-
-    <!-- Subtitle -->
-    <p class="text-lg sm:text-xl text-slate-300 font-medium max-w-3xl mx-auto leading-relaxed">
-      Avrupa Birliği Mobility Package mevzuatına göre C/CE ehliyet, takograf, Kod 95 ve e-Devlet evraklarınızın ön değerlendirmesini yapın, dijital analiz raporunuzu oluşturun.
-    </p>
-
-    <!-- MAIN ACTION BUTTONS -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full max-w-lg">
-      <a href="basvuru.html" class="w-full sm:w-auto px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-2xl font-black text-base transition-all transform hover:-translate-y-0.5 shadow-2xl flex items-center justify-center gap-3">
-        <span class="material-symbols-outlined text-[24px]">assignment_add</span>
-        <span>Ön Analiz Başvurusu Yap</span>
-      </a>
-      <a href="login.html" class="w-full sm:w-auto px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-3">
-        <span class="material-symbols-outlined text-[24px]">account_circle</span>
-        <span>Sürücü / Yönetici Girişi</span>
-      </a>
-    </div>
-
-    <!-- TRUST & SERVICE CARDS -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl pt-8 text-left">
-      
-      <div class="p-5 bg-slate-900/80 border border-slate-800 rounded-2xl backdrop-blur-md">
-        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
-          <span class="material-symbols-outlined">analytics</span>
+      <!-- Top Trust Notice Bar -->
+      <div class="w-full bg-primary-container text-on-primary py-2.5 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm uppercase tracking-wider bg-secondary-container text-canvas-dark font-bold">2026 KONTENJANI</span>
+            <span class="font-body-sm text-body-sm text-primary-fixed">Almanya, Polonya ve Hollanda'da CE Sınıfı Sürücü Alımları Aktif Olarak Devam Ediyor</span>
+          </div>
+          <div class="flex items-center gap-4 text-label-sm font-label-sm text-surface-variant">
+            <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-secondary-container">verified_user</span>%100 Yasal Çerçeve</span>
+          </div>
         </div>
-        <h3 class="font-bold text-base text-white">Dijital Uygunluk Raporu</h3>
-        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-          Ehliyet süreniz, yaşınız ve evrak tamlığınıza göre AB uygunluk skorunuz ve raporunuz anında hazırlanır.
-        </p>
       </div>
 
-      <div class="p-5 bg-slate-900/80 border border-slate-800 rounded-2xl backdrop-blur-md">
-        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
-          <span class="material-symbols-outlined">forum</span>
-        </div>
-        <h3 class="font-bold text-base text-white">Sektörel İlan &amp; Network</h3>
-        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-          Doğrulanmış Avrupa lojistik firmalarının güncel açık pozisyon duyurularına ve bilgilendirme ağlarına erişim.
-        </p>
-      </div>
+      <!-- Hero Section (Expanded & Centered Modern Layout) -->
+      <section class="relative w-full overflow-hidden bg-surface py-16 lg:py-24">
+        <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center space-y-8">
+          
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface-container-high shadow-sm">
+            <span class="material-symbols-outlined text-secondary text-[20px]">local_shipping</span>
+            <span class="font-label-md text-label-md text-on-surface font-semibold tracking-wide">Uluslararası Ağır Vasıta Kariyer Portalı</span>
+          </div>
 
-      <div class="p-5 bg-slate-900/80 border border-slate-800 rounded-2xl backdrop-blur-md">
-        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
-          <span class="material-symbols-outlined">shield</span>
+          <!-- Heading & Text -->
+          <div class="space-y-5 max-w-4xl">
+            <h1 class="font-display text-display text-on-surface font-extrabold tracking-tight leading-tight">
+              Avrupa'da Profesyonel <br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-on-surface via-primary-container to-secondary-container">Tır Şoförü Olarak</span> Kariyerinize Başlayın.
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto leading-relaxed">
+              Almanya, Polonya, Hollanda ve tüm Avrupa ülkelerinde güvenilir lojistik firmalarında yüksek standartlarda çalışma fırsatı. Evrak sürecinden işe başlama aşamasına kadar profesyonel danışmanlığımızla yanınızdayız.
+            </p>
+          </div>
+
+          <!-- Call to Actions -->
+          <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <a class="inline-flex items-center justify-center h-12 px-8 rounded-lg bg-secondary-container text-canvas-dark font-label-lg text-label-lg font-bold tracking-wider hover:bg-warning-amber-hover transition-all shadow-md hover:shadow-lg" href="#hizli-basvuru">
+              Hemen Başvurun
+              <span class="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
+            </a>
+            <a class="inline-flex items-center justify-center h-12 px-7 rounded-lg bg-surface-container-lowest text-on-surface font-label-lg text-label-lg font-semibold hover:bg-surface-container transition-all shadow-sm border border-border-muted" href="#surec">
+              <span class="material-symbols-outlined mr-2 text-[20px] text-primary-container">route</span>
+              Süreci İnceleyin
+            </a>
+          </div>
+
+          <!-- Trust Metric Grid -->
+          <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 max-w-4xl">
+            <div class="p-6 rounded-2xl bg-surface-card shadow-sm border border-border-muted/60 space-y-1.5 text-center">
+              <div class="font-label-sm text-label-sm uppercase font-bold text-on-surface-variant flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-secondary-container text-[18px]">payments</span>
+                Aylık Net Gelir
+              </div>
+              <div class="font-headline-sm text-headline-sm font-bold text-on-surface">2.500€ - 3.500€+</div>
+              <div class="font-body-sm text-body-sm text-on-surface-variant">Başlangıç Maaşları</div>
+            </div>
+            <div class="p-6 rounded-2xl bg-surface-card shadow-sm border border-border-muted/60 space-y-1.5 text-center">
+              <div class="font-label-sm text-label-sm uppercase font-bold text-on-surface-variant flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-status-success text-[18px]">verified</span>
+                Yasal Statü
+              </div>
+              <div class="font-headline-sm text-headline-sm font-bold text-on-surface">%100 Resmi İzin</div>
+              <div class="font-body-sm text-body-sm text-on-surface-variant">Doğrudan İş Sözleşmesi</div>
+            </div>
+            <div class="p-6 rounded-2xl bg-surface-card shadow-sm border border-border-muted/60 space-y-1.5 text-center">
+              <div class="font-label-sm text-label-sm uppercase font-bold text-on-surface-variant flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-on-tertiary-container text-[18px]">support_agent</span>
+                Tam Danışmanlık
+              </div>
+              <div class="font-headline-sm text-headline-sm font-bold text-on-surface">A’dan Z’ye Süreç</div>
+              <div class="font-body-sm text-body-sm text-on-surface-variant">Evrak Takibi &amp; Süreç Danışmanlığı</div>
+            </div>
+          </div>
+
         </div>
-        <h3 class="font-bold text-base text-white">KVKK &amp; 256-Bit SSL Güvenlik</h3>
-        <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-          Tüm e-Devlet evraklarınız 6698 sayılı KVKK standartlarına uygun olarak şifreli veritabanında saklanır.
-        </p>
+      </section>
+
+      <!-- 4 Kolay Adımda Avrupa'ya Geçiş (Step-by-step roadmap) -->
+      <section class="w-full py-20 bg-surface-container-low" id="surec">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 space-y-16">
+          <div class="text-center max-w-3xl mx-auto space-y-3">
+            <span class="font-label-sm text-label-sm uppercase font-bold text-secondary tracking-widest">NET VE ŞEFFAF YOL HARİTASI</span>
+            <h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">4 Kolay Adımda Avrupa'ya Geçiş</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">Karmaşık evrak bürokrasisi ve dosya hazırlama sürecini profesyonel ekibimizle hızlıca aşın.</p>
+          </div>
+
+          <!-- Roadmap Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            <!-- Step 1 -->
+            <div class="bg-surface-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative group">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="w-12 h-12 rounded-xl bg-secondary-container text-canvas-dark font-label-lg text-label-lg font-bold flex items-center justify-center shadow-sm">
+                    01
+                  </div>
+                  <span class="material-symbols-outlined text-outline-variant text-[24px]">app_registration</span>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Online Ön Başvuru</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Web sitemizden veya WhatsApp hattımızdan ehliyet sınıfınızı, tecrübenizi ve temel bilgilerinizi ileterek ilk kaydınızı oluşturun.
+                  </p>
+                </div>
+              </div>
+              <div class="pt-6">
+                <span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">Süre: 1 İş Günü</span>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="bg-surface-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative group">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="w-12 h-12 rounded-xl bg-surface-container-high text-on-surface font-label-lg text-label-lg font-bold flex items-center justify-center shadow-sm">
+                    02
+                  </div>
+                  <span class="material-symbols-outlined text-outline-variant text-[24px]">fact_check</span>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Evrak Analizi &amp; Denklik</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    SRC, dijital ehliyet ve sabıka kaydınız incelenir; AB standartlarında tercümeler ve Kod 95 hazırlık dosyası derlenir.
+                  </p>
+                </div>
+              </div>
+              <div class="pt-6">
+                <span class="font-label-sm text-label-sm text-on-surface font-bold uppercase tracking-wider">Süre: 3-5 Gün</span>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-surface-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative group">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="w-12 h-12 rounded-xl bg-surface-container-high text-on-surface font-label-lg text-label-lg font-bold flex items-center justify-center shadow-sm">
+                    03
+                  </div>
+                  <span class="material-symbols-outlined text-outline-variant text-[24px]">handshake</span>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">İşveren Eşleşmesi</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Profilinize uygun kurumsal lojistik filolarıyla resmi online görüşmeler gerçekleştirilir ve adınıza doğrudan resmi iş teklifi düzenlenir.
+                  </p>
+                </div>
+              </div>
+              <div class="pt-6">
+                <span class="font-label-sm text-label-sm text-on-surface font-bold uppercase tracking-wider">Süre: 1-2 Hafta</span>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-surface-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative group">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center shadow-sm">
+                    04
+                  </div>
+                  <span class="material-symbols-outlined text-secondary-container text-[24px]">assignment</span>
+                </div>
+                <div class="space-y-2">
+                  <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">İşveren Görüşmesi ve Evrak Takibi</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Profilinize uygun kurumsal lojistik filolarıyla mülakat organizasyonu gerçekleştirilir ve tüm resmi evrak takibi titizlikle tamamlanır.
+                  </p>
+                </div>
+              </div>
+              <div class="pt-6">
+                <span class="font-label-sm text-label-sm text-status-success font-bold uppercase tracking-wider">Hedef: Avrupa Yolları</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mid-section banner quote / guarantee -->
+          <div class="p-6 md:p-8 rounded-2xl bg-surface-card shadow-sm border border-border-muted/60 flex flex-col lg:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-status-success/20 text-status-success flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[28px]">lock</span>
+              </div>
+              <div>
+                <h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Hukuki ve Finansal Şeffaflık Taahhüdü</h4>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Süreç boyunca yapılan her işlem kayıt altındadır ve doğrudan işveren garantilidir.</p>
+              </div>
+            </div>
+            <a class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-bold hover:bg-canvas-dark transition-all shrink-0" href="#hizli-basvuru">
+              Hemen Başvuru Başlat
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Neden avrupatirsoforu.com? (Trust & Strengths - 3 Column Layout) -->
+      <section class="w-full py-20 bg-surface" id="neden-biz">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
+          <div class="text-center max-w-3xl mx-auto space-y-3">
+            <span class="font-label-sm text-label-sm uppercase font-bold text-secondary tracking-widest">NEDEN BİZİMLE ÇALIŞMALISINIZ?</span>
+            <h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Neden avrupatirsoforu.com?</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              Biz yalnızca bir danışmanlık şirketi değiliz; mesleğinize ve emeğinize saygı duyan, sizi Avrupa'daki çalışma hayatınıza eksiksiz hazırlayan kurumsal yol arkadaşınızız.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="flex flex-col justify-between p-8 rounded-2xl bg-surface-card shadow-sm hover:shadow-md transition-all border border-border-muted/60 space-y-5">
+              <div class="space-y-4">
+                <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center">
+                  <span class="material-symbols-outlined text-primary-container text-[28px]">verified</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Güvenilir Danışmanlık</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Doğrudan kurumsal şirketimiz güvencesiyle çalışırsınız.
+                </p>
+              </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="flex flex-col justify-between p-8 rounded-2xl bg-surface-card shadow-sm hover:shadow-md transition-all border border-border-muted/60 space-y-5">
+              <div class="space-y-4">
+                <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center">
+                  <span class="material-symbols-outlined text-secondary text-[28px]">translate</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Dil Desteği &amp; Mesleki Rehberlik</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Yabancı dil bilmiyorum diye endişelenmeyin. Gümrük, rampa ve lojistik merkezlerinde kullanılan temel mesleki Almanca/İngilizce terim kılavuzu ve pratik konuşma rehberi ücretsiz sunulur.
+                </p>
+              </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="flex flex-col justify-between p-8 rounded-2xl bg-surface-card shadow-sm hover:shadow-md transition-all border border-border-muted/60 space-y-5">
+              <div class="space-y-4">
+                <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center">
+                  <span class="material-symbols-outlined text-on-tertiary-container text-[28px]">home_work</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Varış Sonrası Destek</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Avrupa'ya indiğiniz andan itibaren yalnız değilsiniz. Şehir ikamet kaydı (Anmeldung vb.), maaş banka hesabı açılışı, geçici lojman konaklama organizasyonu ve ilk seferinizde filo koordinatörlüğü desteği sağlıyoruz.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Neler Oluyor? (Conversion / Blog Section) -->
+      <section class="w-full py-20 bg-surface-container-lowest border-t border-border-muted/60" id="neler-oluyor">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="space-y-3">
+              <span class="font-label-sm text-label-sm uppercase font-bold text-secondary tracking-widest">GÜNCEL GELİŞMELER &amp; REHBER</span>
+              <h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Neler Oluyor?</h2>
+              <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Avrupa taşımacılık sektörü, vize süreçleri ve mesleki yeterlilik belgelerine dair en son güncellemeler ve rehberler.</p>
+            </div>
+            <a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-all self-start md:self-auto shrink-0 border border-border-muted" href="#hizli-basvuru">
+              <span>Tüm Haber ve Yazıları İncele</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <!-- Left Large Article Card -->
+            <article class="lg:col-span-7 bg-surface-card rounded-2xl p-6 sm:p-8 border border-border-muted/60 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+              <div class="space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-label-sm font-label-sm font-bold bg-secondary-container/20 text-secondary tracking-wide">Mesleki Yeterlilik &amp; Rehber</span>
+                  <div class="flex items-center gap-3 text-label-sm font-label-sm text-on-surface-variant">
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">schedule</span>6 dk okuma</span>
+                    <span>•</span>
+                    <span>Mart 2026</span>
+                  </div>
+                </div>
+                <h3 class="font-headline-md text-headline-md font-bold text-on-surface group-hover:text-secondary transition-colors">
+                  Avrupa'da Tır Şoförlüğü İçin Kod 95 (Code 95) Nedir ve Nasıl Alınır? 2026 Güncel Rehberi
+                </h3>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Avrupa Birliği sınırları içerisinde profesyonel ticari yük taşımacılığı yapmak isteyen her sürücü için Kod 95 yasal bir zorunluluktur. Müfredat gereklilikleri, Türkiye ehliyetlerinin denkliği, periyodik eğitim modülleri ve danışmanlık hizmetimizle sürücülerimizin denklik sınavlarını sorunsuz geçmesini sağlayan adımları inceleyin.
+                </p>
+              </div>
+              <div class="pt-6 border-t border-border-muted/60 flex items-center justify-between mt-6">
+                <a href="#hizli-basvuru" class="font-label-md text-label-md font-bold text-secondary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  Rehberi Oku <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </a>
+                <span class="material-symbols-outlined text-outline-variant text-[24px]">badge</span>
+              </div>
+            </article>
+
+            <!-- Right Two Small Article Cards -->
+            <div class="lg:col-span-5 flex flex-col justify-between gap-6">
+              <article class="bg-surface-card rounded-2xl p-6 border border-border-muted/60 shadow-sm hover:shadow-md transition-all flex-1 flex flex-col justify-between group">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded text-label-sm font-label-sm font-bold bg-surface-container-high text-on-surface-variant">Sektörel Haber</span>
+                    <span class="text-label-sm font-label-sm text-on-surface-variant">2 gün önce</span>
+                  </div>
+                  <h4 class="font-headline-sm text-headline-sm font-bold text-on-surface group-hover:text-secondary transition-colors">
+                    Almanya ve Polonya'da Lojistik Sektöründe Ağır Vasıta Şoförü Talebi Artıyor
+                  </h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    2026 yılı lojistik raporlarına göre Avrupa genelinde 300 binden fazla sürücü açığı bulunuyor; firmalar doğrudan vize sponsorluğu ve yüksek maaş teklifleri sunuyor.
+                  </p>
+                </div>
+                <div class="pt-4 flex items-center justify-between">
+                  <a href="#hizli-basvuru" class="font-label-sm text-label-sm font-bold text-on-surface group-hover:text-secondary inline-flex items-center gap-1 transition-all">
+                    Detayları Oku <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                  </a>
+                </div>
+              </article>
+
+              <article class="bg-surface-card rounded-2xl p-6 border border-border-muted/60 shadow-sm hover:shadow-md transition-all flex-1 flex flex-col justify-between group">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded text-label-sm font-label-sm font-bold bg-surface-container-high text-on-surface-variant">Mevzuat &amp; Kural</span>
+                    <span class="text-label-sm font-label-sm text-on-surface-variant">5 gün önce</span>
+                  </div>
+                  <h4 class="font-headline-sm text-headline-sm font-bold text-on-surface group-hover:text-secondary transition-colors">
+                    Dijital Takograf ve Sürüş/Dinlenme Sürelerinde Yeni Düzenlemeler
+                  </h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Akıllı Takograf Versiyon 2 geçişleri ve AB Mobility Package kapsamında kabin dinlenme kurallarına dair bilmeniz gereken tüm kritik maddeler.
+                  </p>
+                </div>
+                <div class="pt-4 flex items-center justify-between">
+                  <a href="#hizli-basvuru" class="font-label-sm text-label-sm font-bold text-on-surface group-hover:text-secondary inline-flex items-center gap-1 transition-all">
+                    Detayları Oku <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hızlı Başvuru & İletişim Çağrısı (Conversion Section) -->
+      <section class="w-full py-20 bg-surface-container-low" id="hizli-basvuru">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+          <div class="bg-primary-container rounded-3xl p-8 lg:p-16 shadow-2xl relative overflow-hidden">
+            <!-- Decorative Glow Backdrops -->
+            <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-secondary-container/10 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-surface-variant/10 blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              
+              <!-- CTA Text -->
+              <div class="lg:col-span-5 space-y-6 text-on-primary">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-card/10 text-secondary-fixed text-label-sm font-label-sm font-bold uppercase tracking-wider backdrop-blur-sm">
+                  <span class="material-symbols-outlined text-[16px]">speed</span>
+                  2 Dakikada Hızlı Ön Değerlendirme
+                </div>
+                <h2 class="font-headline-lg text-headline-lg font-extrabold tracking-tight leading-tight">
+                  Avrupa Yollarına Çıkmaya Hazır mısınız?
+                </h2>
+                <p class="font-body-md text-body-md text-primary-fixed leading-relaxed">
+                  Formu eksiksiz doldurun; uzman lojistik kariyer danışmanlarımız 24 saat içinde evrak durumunuzu değerlendirip size özel istihdam planı için arasın.
+                </p>
+
+                <div class="space-y-3 pt-4 font-body-sm text-body-sm text-surface-variant">
+                  <div class="flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-secondary-container text-[20px]">check_circle</span>
+                    <span>Bilgileriniz KVKK kapsamında %100 gizli tutulur.</span>
+                  </div>
+                  <div class="flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-secondary-container text-[20px]">check_circle</span>
+                    <span>Ön başvuru ve ilk evrak incelemesi tamamen ücretsizdir.</span>
+                  </div>
+                  <div class="flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-secondary-container text-[20px]">check_circle</span>
+                    <span>Doğrudan Avrupa kurumsal taşıma filolarına yönlendirme.</span>
+                  </div>
+                </div>
+
+                <!-- Kurumsal İletişim / E-Posta Link -->
+                <div class="pt-4 flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary-container">
+                    <span class="material-symbols-outlined text-[20px]">mail</span>
+                  </div>
+                  <div>
+                    <p class="font-label-sm text-label-sm text-surface-variant uppercase">Kurumsal İletişim Hattı</p>
+                    <a class="font-label-lg text-label-lg font-bold text-on-primary hover:text-secondary-fixed transition-colors" href="mailto:info@avrupatirsoforu.com">info@avrupatirsoforu.com</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Application Card Form -->
+              <div class="lg:col-span-7">
+                <div class="bg-surface-card rounded-2xl p-6 sm:p-10 shadow-xl">
+                  <form class="space-y-5" id="onBasvuruForm" onsubmit="handleQuickApplication(event);">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <!-- Ad Soyad -->
+                      <div class="space-y-1.5">
+                        <label class="font-label-md text-label-md font-semibold text-on-surface" for="adSoyad">Ad Soyad *</label>
+                        <div class="relative">
+                          <input class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-secondary-container shadow-sm border border-border-muted" id="adSoyad" placeholder="Örn: Ahmet Yılmaz" required="" type="text">
+                        </div>
+                      </div>
+                      <!-- Telefon Numarası -->
+                      <div class="space-y-1.5">
+                        <label class="font-label-md text-label-md font-semibold text-on-surface" for="telefon">Telefon Numarası (WhatsApp) *</label>
+                        <div class="relative">
+                          <input class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-secondary-container shadow-sm border border-border-muted" id="telefon" placeholder="05XX XXX XX XX" required="" type="tel">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- E-posta Adresi -->
+                    <div class="space-y-1.5">
+                      <label class="font-label-md text-label-md font-semibold text-on-surface" for="email">E-posta Adresi *</label>
+                      <div class="relative">
+                        <input class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-secondary-container shadow-sm border border-border-muted" id="email" placeholder="ornek@eposta.com" required="" type="email">
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <!-- Ehliyet Sınıfı -->
+                      <div class="space-y-1.5">
+                        <label class="font-label-md text-label-md font-semibold text-on-surface" for="ehliyet">Ehliyet Sınıfınız *</label>
+                        <select class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-secondary-container shadow-sm border border-border-muted" id="ehliyet" required="">
+                          <option value="">Seçiniz</option>
+                          <option value="CE">CE Sınıfı (Tır / Çekici &amp; Dorse)</option>
+                          <option value="C">C Sınıfı (Kamyon)</option>
+                          <option value="D">D Sınıfı (Otobüs)</option>
+                          <option value="Diger">Diğer / Alım Aşamasında</option>
+                        </select>
+                      </div>
+                      <!-- Deneyim Yılı -->
+                      <div class="space-y-1.5">
+                        <label class="font-label-md text-label-md font-semibold text-on-surface" for="deneyim">Ağır Vasıta Tecrübesi *</label>
+                        <select class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-secondary-container shadow-sm border border-border-muted" id="deneyim" required="">
+                          <option value="">Seçiniz</option>
+                          <option value="0-1">0 - 1 Yıl Deneyim</option>
+                          <option value="1-3">1 - 3 Yıl Deneyim</option>
+                          <option value="3-5">3 - 5 Yıl Deneyim</option>
+                          <option value="5+">5+ Yıl ve Üzeri Deneyim</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- Belge Durumu Checkbox Grubu -->
+                    <div class="space-y-2 pt-2">
+                      <span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-on-surface-variant">Mevcut Belgeleriniz (Varsa İşaretleyin)</span>
+                      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <label class="flex items-center gap-2 p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+                          <input class="w-4 h-4 rounded text-secondary-container focus:ring-secondary-container accent-primary-container" type="checkbox" value="SRC 3 / SRC 4">
+                          <span class="font-label-sm text-label-sm text-on-surface font-medium">SRC 3 / SRC 4</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+                          <input class="w-4 h-4 rounded text-secondary-container focus:ring-secondary-container accent-primary-container" type="checkbox" value="Dijital Takograf">
+                          <span class="font-label-sm text-label-sm text-on-surface font-medium">Dijital Takograf</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+                          <input class="w-4 h-4 rounded text-secondary-container focus:ring-secondary-container accent-primary-container" type="checkbox" value="Pasaport (Geçerli)">
+                          <span class="font-label-sm text-label-sm text-on-surface font-medium">Pasaport (Geçerli)</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+                          <input class="w-4 h-4 rounded text-secondary-container focus:ring-secondary-container accent-primary-container" type="checkbox" value="ADR (Yanıcı)">
+                          <span class="font-label-sm text-label-sm text-on-surface font-medium">ADR (Yanıcı)</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <!-- Consent & Button -->
+                    <div class="space-y-4 pt-3">
+                      <label class="flex items-start gap-2.5 cursor-pointer">
+                        <input class="mt-1 w-4 h-4 rounded accent-primary-container shrink-0" required="" type="checkbox">
+                        <span class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+                          Başvurumun değerlendirilmesi için kişisel verilerimin KVKK kapsamında işlenmesini ve iletişim kurulmasını onaylıyorum.
+                        </span>
+                      </label>
+                      <button class="w-full h-13 py-3.5 px-6 rounded-lg bg-secondary-container text-canvas-dark font-label-lg text-label-lg font-bold tracking-wider hover:bg-warning-amber-hover transition-all shadow-md flex items-center justify-center gap-2" type="submit" id="submitBtn">
+                        <span>Ön Başvurumu Yap</span>
+                        <span class="material-symbols-outlined text-[20px]">send</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Submission Success Modal Dialog -->
+      <div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-canvas-dark/70 backdrop-blur-sm" id="formSuccessModal">
+        <div class="bg-surface-card rounded-2xl p-8 max-w-md w-full shadow-2xl text-center space-y-5">
+          <div class="w-16 h-16 rounded-full bg-status-success/20 text-status-success mx-auto flex items-center justify-center">
+            <span class="material-symbols-outlined text-[36px]">check_circle</span>
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Ön Başvurunuz Alındı!</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Talebiniz uzman sürücü danışmanlığı ekibimize iletilmiştir. Belirttiğiniz telefon numarası üzerinden en geç 24 saat içinde detaylı bilgi için dönüş yapılacaktır.
+            </p>
+          </div>
+          <button class="w-full h-11 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-canvas-dark transition-all" onclick="document.getElementById('formSuccessModal').classList.add('hidden'); document.getElementById('onBasvuruForm').reset();">
+            Tamam, Teşekkürler
+          </button>
+        </div>
       </div>
 
     </div>
-
   </main>
 
   <!-- Footer -->
-  <footer class="relative z-10 w-full max-w-6xl flex flex-col sm:flex-row items-center justify-between py-6 text-xs text-slate-500 gap-3 border-t border-slate-900">
-    <span>© 2026 avrupatirsoforu.com • Tüm Hakları Saklıdır. Avrupa Resmi Lojistik Ön Analiz Portalı.</span>
-    <div class="flex items-center gap-4">
-      <a href="basvuru.html" class="hover:text-slate-300 transition-colors">Başvuru Formu</a>
-      <span>•</span>
-      <a href="login.html" class="hover:text-slate-300 transition-colors">Giriş Yap</a>
-      <span>•</span>
-      <a href="login.html?tab=admin" class="text-slate-500 hover:text-slate-300 transition-colors font-medium">🔐 Yönetici Girişi</a>
+  <footer class="w-full bg-surface-container-low mt-auto" id="iletisim">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-16 pb-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        
+        <!-- About Column -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <img alt="Avrupa Tır Şoförü Logo" class="h-8 w-auto object-contain" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuCNwsIQASR26KQQ6m2ZIt68WIhJfRzb2w_hH7dJ4mjj-39GFYgMhBDeHvLtSB14gzTMbro24M-ItAbgKuo1yg8NfCIMs2WQmVNr8-5VHB4IOgNQ_zI7hXLIUpMaWZKCN6aSirz0Q98UpFeUmWPVI-g46oCFEBVJe6jx4cBGvDH5Jqytp3Y663sZSmHUOSxpi0Y-1C-1VSzfmTHxXQ-3t8scczHuHUdF2-xRR2y-D591CoTyBS7Lbd3S';">
+            <span class="font-label-lg text-label-lg font-bold text-on-surface">avrupatirsoforu.com</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Avrupa genelinde profesyonel ağır vasıta (TIR/HGV) sürücülerine kariyer danışmanlığı, evrak takibi ve başvuru süreçleri ve doğrudan lojistik istihdamı çözümleri sunuyoruz.
+          </p>
+          <div class="pt-2 flex items-center gap-4 text-xs">
+            <a href="login.html" class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-[16px]">account_circle</span>
+              Sürücü Girişi
+            </a>
+            <span class="text-border-muted">•</span>
+            <a href="login.html?tab=admin" class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
+              Yönetici Girişi
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Column -->
+        <div>
+          <h4 class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider mb-4">İletişim &amp; Ofis</h4>
+          <ul class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+            <li class="flex items-start gap-2.5">
+              <span class="material-symbols-outlined text-[18px] text-on-surface shrink-0 mt-0.5">location_on</span>
+              <span>Cevizli mah. Zuhal cad. 46/50 Maltepe / İstanbul</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px] text-on-surface shrink-0">mail</span>
+              <a href="mailto:info@avrupatirsoforu.com" class="hover:text-on-surface transition-colors">info@avrupatirsoforu.com</a>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px] text-on-surface shrink-0">schedule</span>
+              <span>Hafta İçi: 09:00 - 18:00</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Quick CTA Column -->
+        <div>
+          <h4 class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider mb-4">Hızlı Ön Başvuru</h4>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">CE sınıfı ehliyetiniz ve deneyiminizle Avrupa'da güvenle çalışın.</p>
+          <a class="inline-flex items-center justify-center w-full h-11 px-4 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-canvas-dark transition-colors" data-path="hemen-basvur" href="#hizli-basvuru">
+            Kayıt Formunu Başlat
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Copyright & Legal -->
+      <div class="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-border-muted">
+        <p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 avrupatirsoforu.com - Tüm Hakları Saklıdır. Uluslararası Lojistik İstihdam Portalı.</p>
+        <div class="flex items-center gap-6 font-label-sm text-label-sm text-on-surface-variant">
+          <a class="hover:text-on-surface transition-colors" data-path="gizlilik-politikasi" href="javascript:void(0)" onclick="alert('Gizlilik Politikası: Kişisel verileriniz 6698 sayılı KVKK kapsamında gizlilikle korunmakta ve yalnızca istihdam süreçleri için işlenmektedir.');">Gizlilik Politikası</a>
+          <a class="hover:text-on-surface transition-colors" data-path="kullanim-sartlari" href="javascript:void(0)" onclick="alert('Kullanım Şartları: Bu portal Avrupa tır şoförlüğü mesleki ön analiz ve kariyer danışmanlığı sunmaktadır.');">Kullanım Şartları</a>
+          <a class="hover:text-on-surface transition-colors" data-path="kvkk-aydinlatma-metni" href="javascript:void(0)" onclick="alert('KVKK Aydınlatma Metni: Başvuru verileriniz açık rızanız doğrultusunda güvenli sunucularda saklanmaktadır.');">KVKK Metni</a>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <!-- GLOBAL CLOUD DATABASE ENGINE -->
+  <!-- Submission Script & Portal Integration -->
   <script src="js/cloud-db.js?v=2.8.0"></script>
   <script src="js/app.js?v=2.8.0"></script>
-</body>
+  <script>
+    function handleQuickApplication(e) {
+      e.preventDefault();
+      const form = document.getElementById('onBasvuruForm');
+      const adSoyad = document.getElementById('adSoyad').value.trim();
+      const telefon = document.getElementById('telefon').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const ehliyet = document.getElementById('ehliyet').value;
+      const deneyim = document.getElementById('deneyim').value;
 
+      const docs = [];
+      form.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+        if (cb.value) docs.push(cb.value);
+      });
+
+      const appId = 'ATS-' + Math.floor(100000 + Math.random() * 900000);
+      const newApp = {
+        id: appId,
+        fullName: adSoyad,
+        phone: telefon,
+        email: email,
+        licenseClass: ehliyet,
+        experienceYears: deneyim,
+        documents: docs,
+        source: 'Ana Sayfa Hızlı Başvuru',
+        status: 'Yeni Başvuru',
+        paymentStatus: 'Ön İnceleme',
+        createdAt: new Date().toLocaleDateString('tr-TR')
+      };
+
+      try {
+        let existingApps = [];
+        const str = localStorage.getItem('ats_applications');
+        if (str) existingApps = JSON.parse(str);
+        existingApps.unshift(newApp);
+        localStorage.setItem('ats_applications', JSON.stringify(existingApps));
+
+        if (typeof window.syncApplicationsToCloud === 'function') {
+          window.syncApplicationsToCloud(existingApps);
+        }
+        if (typeof window.saveATSApplicationToFirebase === 'function') {
+          window.saveATSApplicationToFirebase(newApp);
+        }
+      } catch (err) {
+        console.error('Storage error:', err);
+      }
+
+      document.getElementById('formSuccessModal').classList.remove('hidden');
+    }
+  </script>
+
+</body>
 </html>
