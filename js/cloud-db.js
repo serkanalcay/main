@@ -1,96 +1,105 @@
 /* ==========================================================================
-   AVRUPA TIR ŞOFÖRÜ PORTALI - GLOBAL CLOUD DATABASE & REALTIME SYNC
+   AVRUPA TIR ŞOFÖRÜ PORTALI - GLOBAL CLOUD DATABASE & REALTIME SYNC ENGINE
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  // Shared Global Cloud Database Keys
-  const CLOUD_STORAGE_KEY = 'ats_applications_v2';
-  const CLOUD_CREDENTIALS_KEY = 'ats_driver_credentials_v2';
-  
-  // Public REST Cloud Endpoints for Instant Global Synchronization
-  // Allows accounts created in Admin Panel to be logged into from ANY phone/PC worldwide
-  const PRIMARY_CLOUD_API = 'https://api.jsonbin.io/v3/b';
-  const MASTER_KEY = '$2a$10$wN92zG6nN8V.XWfJ7jGvveU2oQWjO6J/gN1oKzL5hB6w9rK7y0ySi'; // Enterprise fallback key
-  
-  // High-availability Public Cloud Sync Bucket ID
-  const PUBLIC_SYNC_ID = 'ats_portal_avrupatirsoforu_2026';
-  const SYNC_URL = 'https://api.restful-api.dev/objects';
+  // High-availability Global Cloud Object ID (CORS-enabled REST API)
+  const CLOUD_OBJECT_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a15eb4ec723fea';
 
+  const SEED_IDS = new Set([
+    'TR-2024-0981', 'TR-2024-0980', 'TR-2024-0979', 'TR-2024-0978',
+    'TR-2024-0977', 'TR-2024-0976', 'TR-2024-0975', 'TR-2024-0974'
+  ]);
+
+  function isRealApplication(a) {
+    if (!a || typeof a !== 'object') return false;
+    const id = a.id || a.referenceNumber || '';
+    if (!id) return false;
+    if (SEED_IDS.has(id)) return false;
+    return true;
+  }
+
+  window.isRealApplication = isRealApplication;
   window.isCloudSyncActive = false;
 
   // 1. PUSH APPLICATIONS TO GLOBAL CLOUD DATABASE
   window.syncApplicationsToCloud = async function (appsList) {
     if (!appsList || !Array.isArray(appsList)) return;
+    const cleanList = appsList.filter(isRealApplication);
 
-    // 1. Update localStorage locally
+    // 1. Immediate localStorage update
     try {
-      localStorage.setItem('ats_applications', JSON.stringify(appsList));
+      localStorage.setItem('ats_applications', JSON.stringify(cleanList));
     } catch(e){}
 
-    // 2. Build normalized credentials map
-    let credsMap = {};
-    appsList.forEach(app => {
-      if (!app) return;
-      const uKey = app.username ? String(app.username).trim().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
-      const tcKey = app.tcNo ? String(app.tcNo).trim().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
-      if (uKey) credsMap[uKey] = app;
-      if (tcKey) credsMap[tcKey] = app;
-    });
-
+    // 2. Broadcast custom event across current window
     try {
-      localStorage.setItem('ats_driver_credentials', JSON.stringify(credsMap));
+      window.dispatchEvent(new CustomEvent('ats_applications_updated', { detail: cleanList }));
     } catch(e){}
 
-    // 3. Broadcast to Global Cloud Server via Fetch API
-    const payload = {
-      appId: PUBLIC_SYNC_ID,
-      timestamp: new Date().toISOString(),
-      applications: appsList,
-      credentials: credsMap
-    };
-
+    // 3. Send to Global Cloud REST API
     try {
-      // Store in Global Shared Cloud Endpoint
-      const res = await fetch('https://api.myjson.online/v1/records/ats-portal-db-2026', {
+      const payload = {
+        name: 'ats_applications_global',
+        data: {
+          list: cleanList,
+          lastUpdated: new Date().toISOString()
+        }
+      };
+
+      const res = await fetch(CLOUD_OBJECT_URL, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
+
       if (res.ok) {
         window.isCloudSyncActive = true;
-        console.log("☁️ Global Bulut Veritabanı: Tüm cihazlar için senkronize edildi!");
+        console.log('☁️ [Cloud-DB] Senkronize Edildi:', cleanList.length, 'başvuru');
       }
     } catch (err) {
-      // Fallback Cloud Push via secondary relay
-      try {
-        await fetch('https://httpbin.org/post', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-      } catch(e2){}
+      console.warn('☁️ [Cloud-DB] Bulut senkronizasyon uyarısı (yerel depolama aktif):', err.message);
     }
   };
 
-  // 2. FETCH LATEST APPLICATIONS & CREDENTIALS FROM GLOBAL CLOUD DATABASE
+  // 2. FETCH LATEST APPLICATIONS FROM GLOBAL CLOUD DATABASE
   window.fetchApplicationsFromCloud = async function () {
     try {
-      const res = await fetch('https://api.myjson.online/v1/records/ats-portal-db-2026');
+      const res = await fetch(CLOUD_OBJECT_URL + '?t=' + Date.now());
       if (res.ok) {
-        const data = await res.json();
-        const cloudData = data.data || data;
-        
-        if (cloudData && Array.isArray(cloudData.applications) && cloudData.applications.length > 0) {
-          // Merge with local storage
-          const localApps = window.getATSApplications ? window.getATSApplications() : [];
-          const mergedMap = new Map();
+        const json = await res.json();
+        const rawCloudList = json && json.data && Array.isArray(json.data.list) ? json.data.list : null;
 
-          // Put local apps first
-          localApps.forEach(a => { if (a && a.id) mergedMap.set(a.id, a); });
-          // Overwrite with cloud apps (cloud has latest admin edits)
-          cloudData.applications.forEach(a => { if (a && a.id) mergedMap.set(a.id, a); });
+        if (rawCloudList !== null) {
+          const cloudList = rawCloudList.filter(isRealApplication);
+
+          // Merge local and cloud applications
+          let localApps = [];
+          try {
+            const str = localStorage.getItem('ats_applications');
+            if (str) {
+              const parsed = JSON.parse(str);
+              if (Array.isArray(parsed)) {
+                localApps = parsed.filter(isRealApplication);
+              }
+            }
+          } catch(e){}
+
+          const mergedMap = new Map();
+          // Cloud entries
+          cloudList.forEach(a => {
+            const key = a.id || a.referenceNumber;
+            if (key) mergedMap.set(key, a);
+          });
+          // Local real entries not yet in cloud
+          localApps.forEach(a => {
+            const key = a.id || a.referenceNumber;
+            if (key && !mergedMap.has(key)) {
+              mergedMap.set(key, a);
+            }
+          });
 
           const mergedApps = Array.from(mergedMap.values());
 
@@ -98,30 +107,58 @@
             localStorage.setItem('ats_applications', JSON.stringify(mergedApps));
           } catch(e){}
 
-          if (cloudData.credentials) {
-            try {
-              let localCreds = {};
-              const stored = localStorage.getItem('ats_driver_credentials');
-              if (stored) localCreds = JSON.parse(stored);
-              const mergedCreds = Object.assign({}, localCreds, cloudData.credentials);
-              localStorage.setItem('ats_driver_credentials', JSON.stringify(mergedCreds));
-            } catch(e){}
+          // If local had new items, push merged to cloud
+          if (mergedApps.length > cloudList.length) {
+            window.syncApplicationsToCloud(mergedApps);
           }
 
           window.isCloudSyncActive = true;
-          console.log("☁️ Global Bulut Veritabanından " + mergedApps.length + " adet hesap başarıyla yüklendi!");
+          window.dispatchEvent(new CustomEvent('ats_applications_updated', { detail: mergedApps }));
           return mergedApps;
         }
       }
     } catch (err) {
-      console.warn("Bulut veritabanı okuma uyarısı (yerel mod aktif):", err.message);
+      console.warn('☁️ [Cloud-DB] Bulut okuma uyarısı:', err.message);
     }
 
     // Fallback to local storage
-    return window.getATSApplications ? window.getATSApplications() : [];
+    try {
+      const str = localStorage.getItem('ats_applications');
+      if (str) {
+        const parsed = JSON.parse(str);
+        return Array.isArray(parsed) ? parsed.filter(isRealApplication) : [];
+      }
+      return [];
+    } catch(e){
+      return [];
+    }
   };
 
-  // Auto-Fetch on DOM Loaded for instant global device synchronization
+  // 3. CONVENIENCE METHOD TO ADD APPLICATION
+  window.addApplication = async function (appData) {
+    if (!appData || !appData.id) return;
+    let apps = [];
+    try {
+      const str = localStorage.getItem('ats_applications');
+      if (str) {
+        const parsed = JSON.parse(str);
+        if (Array.isArray(parsed)) apps = parsed.filter(isRealApplication);
+      }
+    } catch(e){}
+
+    const key = appData.id || appData.referenceNumber;
+    const idx = apps.findIndex(a => (a.id || a.referenceNumber) === key);
+    if (idx !== -1) {
+      apps[idx] = appData;
+    } else {
+      apps.unshift(appData);
+    }
+
+    await window.syncApplicationsToCloud(apps);
+    return apps;
+  };
+
+  // Auto-Fetch on load
   document.addEventListener('DOMContentLoaded', function () {
     window.fetchApplicationsFromCloud();
   });

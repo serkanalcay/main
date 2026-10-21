@@ -681,8 +681,8 @@
   </footer>
 
   <!-- Submission Script & Portal Integration -->
-  <script src="js/cloud-db.js?v=2.8.0"></script>
-  <script src="js/app.js?v=2.8.0"></script>
+  <script src="js/cloud-db.js?v=3.5.0"></script>
+  <script src="js/app.js?v=3.5.0"></script>
   <script>
     function handleQuickApplication(e) {
       e.preventDefault();
@@ -719,7 +719,12 @@
       try {
         let existingApps = [];
         const str = localStorage.getItem('ats_applications');
-        if (str) existingApps = JSON.parse(str);
+        if (str) {
+          const parsed = JSON.parse(str);
+          if (Array.isArray(parsed)) {
+            existingApps = parsed.filter(a => a && a.id && !['TR-2024-0981', 'TR-2024-0980', 'TR-2024-0979', 'TR-2024-0978', 'TR-2024-0977', 'TR-2024-0976', 'TR-2024-0975', 'TR-2024-0974'].includes(a.id));
+          }
+        }
         existingApps.unshift(newApp);
         localStorage.setItem('ats_applications', JSON.stringify(existingApps));
 

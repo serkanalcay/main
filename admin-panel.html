@@ -787,202 +787,21 @@
   </div>
 
   <!-- APPLICATION SCRIPTS -->
+  <script src="js/cloud-db.js?v=3.5.0"></script>
   <script>
-    // INITIAL SEED DATA (Used if localStorage has no applications)
-    const SEED_APPLICATIONS = [
-      {
-        id: "TR-2024-0981",
-        referenceNumber: "TR-2024-0981",
-        type: "detailed",
-        applicationType: "detailed",
-        fullName: "Ahmet Yılmaz",
-        phone: "+90 532 411 89 22",
-        email: "ahmet.yilmaz@gmail.com",
-        city: "Bursa",
-        birthDate: "1988-05-14",
-        licenseClasses: ["CE", "C", "B"],
-        ceYear: "2016",
-        experienceYears: "8 Yıl Ağır Vasıta",
-        tachograph: "valid",
-        certificates: ["SRC3", "SRC4", "SRC5", "psikoteknik"],
-        code95: "eu",
-        euExp: "yes_eu",
-        routeDetails: "Balkan & Orta Avrupa Hattı (Frigo dorse tecrübesi)",
-        euDocs: "poland",
-        targetCountry: "DE",
-        extraNotes: "Uluslararası frigo ve tenteli taşımacılıkta kıdemli kaptan.",
-        status: "Filoya Sevk Aşamasında",
-        createdAt: "24.10.2024"
-      },
-      {
-        id: "TR-2024-0980",
-        referenceNumber: "TR-2024-0980",
-        type: "quick",
-        applicationType: "quick",
-        fullName: "Mehmet Kaya",
-        phone: "+90 544 329 12 34",
-        email: "mehmet.kaya@hotmail.com",
-        city: "İstanbul",
-        birthDate: "1994-08-20",
-        licenseClasses: ["CE", "C"],
-        ceYear: "2019",
-        experienceYears: "5 Yıl Yurtiçi",
-        tachograph: "valid",
-        certificates: ["SRC3", "SRC4"],
-        code95: "none",
-        euExp: "domestic_only",
-        routeDetails: "Marmara - Akdeniz tenteli nakliye hattı.",
-        euDocs: "none",
-        targetCountry: "any",
-        extraNotes: "Uluslararası hatlara geçiş için Kod 95 desteği talep ediyor.",
-        status: "Yeni Başvuru",
-        createdAt: "24.10.2024"
-      },
-      {
-        id: "TR-2024-0979",
-        referenceNumber: "TR-2024-0979",
-        type: "detailed",
-        applicationType: "detailed",
-        fullName: "Hasan Demir",
-        phone: "+90 533 874 45 67",
-        email: "hasan.demir@outlook.com",
-        city: "İzmir",
-        birthDate: "1982-11-03",
-        licenseClasses: ["CE", "C", "D", "B"],
-        ceYear: "2012",
-        experienceYears: "12 Yıl Uluslararası",
-        tachograph: "valid",
-        certificates: ["SRC3", "SRC4", "SRC5", "psikoteknik"],
-        code95: "eu",
-        euExp: "yes_eu",
-        routeDetails: "Almanya, Polonya, Çekya hatlarında konteyner ve sal kasa.",
-        euDocs: "poland",
-        targetCountry: "PL",
-        extraNotes: "Polonya Kod 95 kartı aktif, hemen göreve başlayabilir.",
-        status: "Görüşme Tamamlandı",
-        createdAt: "23.10.2024"
-      },
-      {
-        id: "TR-2024-0978",
-        referenceNumber: "TR-2024-0978",
-        type: "detailed",
-        applicationType: "detailed",
-        fullName: "Ali Çelik",
-        phone: "+90 505 119 33 44",
-        email: "ali.celik@gmail.com",
-        city: "Ankara",
-        birthDate: "1997-03-12",
-        licenseClasses: ["C", "B"],
-        ceYear: "2023",
-        experienceYears: "4 Yıl Dağıtım",
-        tachograph: "valid",
-        certificates: ["SRC3", "SRC4", "psikoteknik"],
-        code95: "none",
-        euExp: "domestic_only",
-        routeDetails: "Yurtiçi zincir market lojistiği.",
-        euDocs: "none",
-        targetCountry: "DE",
-        extraNotes: "CE sınıfına yükseltme ve denklik süreci için başvurdu.",
-        status: "Evrak İncelemede",
-        createdAt: "23.10.2024"
-      },
-      {
-        id: "TR-2024-0977",
-        referenceNumber: "TR-2024-0977",
-        type: "quick",
-        applicationType: "quick",
-        fullName: "Serkan Öztürk",
-        phone: "+90 536 902 77 88",
-        email: "serkan.ozturk@gmail.com",
-        city: "Mersin",
-        birthDate: "1989-07-25",
-        licenseClasses: ["CE", "C", "B"],
-        ceYear: "2017",
-        experienceYears: "7 Yıl Ağır Yük",
-        tachograph: "valid",
-        certificates: ["SRC3", "SRC4", "SRC5"],
-        code95: "tr",
-        euExp: "yes_eu",
-        routeDetails: "İtalya RORO Seferleri ve lowbed taşımacılık.",
-        euDocs: "none",
-        targetCountry: "IT",
-        extraNotes: "Gabari dışı ve lowbed dorse tecrübesi yüksek.",
-        status: "Evrak İncelemede",
-        createdAt: "22.10.2024"
-      },
-      {
-        id: "TR-2024-0976",
-        referenceNumber: "TR-2024-0976",
-        type: "detailed",
-        applicationType: "detailed",
-        fullName: "Burak Güler",
-        phone: "+90 542 556 21 09",
-        email: "burak.guler@gmail.com",
-        city: "Kocaeli",
-        birthDate: "1985-02-18",
-        licenseClasses: ["CE", "C", "B"],
-        ceYear: "2014",
-        experienceYears: "10 Yıl ADR Tanker",
-        tachograph: "valid",
-        certificates: ["SRC3", "SRC4", "SRC5", "psikoteknik"],
-        code95: "eu",
-        euExp: "yes_eu",
-        routeDetails: "Benelüks & Almanya Hatları (Kimyasal & Akaryakıt Tankeri).",
-        euDocs: "germany",
-        targetCountry: "DE",
-        extraNotes: "Almanya BKF ve sürücü kartı mevcut. Öncelikli aday.",
-        status: "Filoya Sevk Aşamasında",
-        createdAt: "21.10.2024"
-      },
-      {
-        id: "TR-2024-0975",
-        referenceNumber: "TR-2024-0975",
-        type: "quick",
-        applicationType: "quick",
-        fullName: "Mustafa Şahin",
-        phone: "+90 538 412 90 11",
-        email: "mustafa.sahin@gmail.com",
-        city: "Hatay",
-        birthDate: "1991-09-09",
-        licenseClasses: ["CE", "C"],
-        ceYear: "2018",
-        experienceYears: "6 Yıl Ortadoğu",
-        tachograph: "valid",
-        certificates: ["SRC3", "SRC4"],
-        code95: "none",
-        euExp: "other_intl",
-        routeDetails: "Ortadoğu & Türki Cumhuriyetler hattı.",
-        euDocs: "none",
-        targetCountry: "any",
-        extraNotes: "Avrupa rotalarına geçiş yapmak istiyor.",
-        status: "Yeni Başvuru",
-        createdAt: "20.10.2024"
-      },
-      {
-        id: "TR-2024-0974",
-        referenceNumber: "TR-2024-0974",
-        type: "detailed",
-        applicationType: "detailed",
-        fullName: "Emre Karaca",
-        phone: "+90 530 198 54 32",
-        email: "emre.karaca@gmail.com",
-        city: "Tekirdağ",
-        birthDate: "1993-06-15",
-        licenseClasses: ["CE", "C", "B"],
-        ceYear: "2021",
-        experienceYears: "3 Yıl Uluslararası",
-        tachograph: "valid",
-        certificates: ["SRC3", "SRC4", "psikoteknik"],
-        code95: "eu",
-        euExp: "yes_eu",
-        routeDetails: "Baltık & İskandinavya Hattı (Oto Taşıyıcı Lohr).",
-        euDocs: "other_eu",
-        targetCountry: "NL",
-        extraNotes: "Litvanya Kod 95 kartı mevcut. Oto taşıyıcı uzmanı.",
-        status: "Görüşme Tamamlandı",
-        createdAt: "19.10.2024"
-      }
-    ];
+    // SEED FILTER HELPER
+    const SEED_IDS = new Set([
+      'TR-2024-0981', 'TR-2024-0980', 'TR-2024-0979', 'TR-2024-0978',
+      'TR-2024-0977', 'TR-2024-0976', 'TR-2024-0975', 'TR-2024-0974'
+    ]);
+
+    function isRealApplication(a) {
+      if (!a || typeof a !== 'object') return false;
+      const id = a.id || a.referenceNumber || '';
+      if (!id) return false;
+      if (SEED_IDS.has(id)) return false;
+      return true;
+    }
 
     // STATE VARIABLES
     let allApplications = [];
@@ -997,6 +816,16 @@
     document.addEventListener('DOMContentLoaded', function () {
       initDatabase();
       applyFilters();
+
+      // Fetch fresh data from global cloud on load
+      if (typeof window.fetchApplicationsFromCloud === 'function') {
+        window.fetchApplicationsFromCloud().then(apps => {
+          if (Array.isArray(apps)) {
+            allApplications = apps.filter(isRealApplication);
+            applyFilters();
+          }
+        });
+      }
 
       // Outside click handler for bulk actions dropdown
       window.addEventListener('click', function(e) {
@@ -1017,33 +846,66 @@
       }
     });
 
+    // REAL-TIME SYNC LISTENERS
+    window.addEventListener('ats_applications_updated', function (e) {
+      if (e.detail && Array.isArray(e.detail)) {
+        allApplications = e.detail.filter(isRealApplication);
+        applyFilters();
+      }
+    });
+
+    window.addEventListener('storage', function (e) {
+      if (e.key === 'ats_applications') {
+        try {
+          const updated = JSON.parse(e.newValue || '[]');
+          if (Array.isArray(updated)) {
+            allApplications = updated.filter(isRealApplication);
+            applyFilters();
+          }
+        } catch(err){}
+      }
+    });
+
+    // Cloud polling every 3.5 seconds for instant cross-tab / cross-device updates
+    setInterval(async function () {
+      if (typeof window.fetchApplicationsFromCloud === 'function') {
+        const cloudApps = await window.fetchApplicationsFromCloud();
+        if (Array.isArray(cloudApps)) {
+          const cleanApps = cloudApps.filter(isRealApplication);
+          if (cleanApps.length !== allApplications.length || JSON.stringify(cleanApps) !== JSON.stringify(allApplications)) {
+            allApplications = cleanApps;
+            applyFilters();
+          }
+        }
+      }
+    }, 3500);
+
     // DATABASE MANAGER
     function initDatabase() {
       try {
         const stored = localStorage.getItem('ats_applications');
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            const existingIds = new Set(parsed.map(a => a.id || a.referenceNumber));
-            const missingSeeds = SEED_APPLICATIONS.filter(s => !existingIds.has(s.id));
-            allApplications = [...parsed, ...missingSeeds];
+          if (Array.isArray(parsed)) {
+            allApplications = parsed.filter(isRealApplication);
             localStorage.setItem('ats_applications', JSON.stringify(allApplications));
           } else {
-            allApplications = SEED_APPLICATIONS;
-            localStorage.setItem('ats_applications', JSON.stringify(SEED_APPLICATIONS));
+            allApplications = [];
           }
         } else {
-          allApplications = SEED_APPLICATIONS;
-          localStorage.setItem('ats_applications', JSON.stringify(SEED_APPLICATIONS));
+          allApplications = [];
         }
       } catch (e) {
-        allApplications = SEED_APPLICATIONS;
+        allApplications = [];
       }
     }
 
     function saveDatabase() {
       try {
         localStorage.setItem('ats_applications', JSON.stringify(allApplications));
+        if (typeof window.syncApplicationsToCloud === 'function') {
+          window.syncApplicationsToCloud(allApplications);
+        }
       } catch (e) {}
     }
 
@@ -1178,13 +1040,13 @@
       const quick = allApplications.filter(a => a.type === 'quick' || a.applicationType === 'quick').length;
       const reviewed = allApplications.filter(a => a.status === 'Evrak İncelemede' || a.status === 'Görüşme Tamamlandı' || a.status === 'Filoya Sevk Aşamasında').length;
 
-      const detailedPct = total > 0 ? ((detailed / total) * 100).toFixed(1) : 0;
-      const quickPct = total > 0 ? ((quick / total) * 100).toFixed(1) : 0;
-      const reviewedPct = total > 0 ? ((reviewed / total) * 100).toFixed(1) : 0;
+      const detailedPct = total > 0 ? Math.round((detailed / total) * 100) : 0;
+      const quickPct = total > 0 ? Math.round((quick / total) * 100) : 0;
+      const reviewedPct = total > 0 ? Math.round((reviewed / total) * 100) : 0;
 
       document.getElementById('metric-total').textContent = total;
       document.getElementById('metric-detailed').textContent = detailed;
-      document.getElementById('metric-detailed-pct').textContent = `Portföyün %${detailedPct}`;
+      document.getElementById('metric-detailed-pct').textContent = total > 0 ? `Portföyün %${detailedPct}` : '%0';
       document.getElementById('metric-detailed-bar').style.width = `${detailedPct}%`;
 
       document.getElementById('metric-quick').textContent = quick;
@@ -1206,7 +1068,7 @@
       if (!tbody) return;
 
       const totalItems = filteredApplications.length;
-      const totalPages = Math.ceil(totalItems / pageSize) || 1;
+      const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
       if (currentPage > totalPages) currentPage = totalPages;
 
       const startIndex = (currentPage - 1) * pageSize;
@@ -1217,14 +1079,28 @@
       paginationInfo.textContent = `(Toplam ${totalItems} dosya, ${totalPages} sayfa)`;
 
       if (paginatedItems.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="8" class="py-12 text-center text-on-surface-variant">
-              <span class="material-symbols-outlined text-[36px] text-outline block mb-2">inbox</span>
-              Arama kriterlerine uygun aday kaydı bulunamadı.
-            </td>
-          </tr>
-        `;
+        if (allApplications.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="py-16 text-center text-on-surface-variant">
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-[48px] text-outline opacity-40 block">inbox</span>
+                  <span class="font-label-lg text-label-lg font-bold text-on-surface">Henüz Kayıtlı Başvuru Bulunmamaktadır</span>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">Web sitesindeki 'Hemen Başvur' veya hızlı başvuru ekranlarından adaylar bilgi gönderdiğinde anlık olarak burada listelenecektir.</p>
+                </div>
+              </td>
+            </tr>
+          `;
+        } else {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="py-12 text-center text-on-surface-variant">
+                <span class="material-symbols-outlined text-[36px] text-outline block mb-2">search_off</span>
+                Arama kriterlerine uygun aday kaydı bulunamadı.
+              </td>
+            </tr>
+          `;
+        }
         renderPaginationButtons(totalPages);
         return;
       }
@@ -1367,6 +1243,11 @@
     function renderPaginationButtons(totalPages) {
       const container = document.getElementById('pagination-buttons');
       if (!container) return;
+
+      if (filteredApplications.length === 0) {
+        container.innerHTML = `<span class="text-xs text-on-surface-variant font-medium">Sayfa 0 / 0</span>`;
+        return;
+      }
 
       let btnHtml = `
         <button class="w-9 h-9 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container flex items-center justify-center transition-colors disabled:opacity-40 cursor-pointer" onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>
@@ -1534,7 +1415,7 @@
 
     function deleteCandidate(appId) {
       if (confirm('Bu başvuru kaydını arşivlemek / silmek istediğinize emin misiniz?')) {
-        allApplications = allApplications.filter(a => a.id !== appId);
+        allApplications = allApplications.filter(a => a.id !== appId && a.referenceNumber !== appId);
         saveDatabase();
         applyFilters();
       }

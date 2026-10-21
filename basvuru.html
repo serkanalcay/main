@@ -923,8 +923,8 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/cloud-db.js?v=2.8.0"></script>
-  <script src="js/app.js?v=2.8.0"></script>
+  <script src="js/cloud-db.js?v=3.5.0"></script>
+  <script src="js/app.js?v=3.5.0"></script>
   <script>
     let uploadedFileNames = [];
 
@@ -999,17 +999,24 @@
         createdAt: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'})
       };
 
-      // Save to localStorage & CloudDB if available
+      // Save to localStorage & CloudDB
+      let apps = [];
       try {
-        let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
-        apps.unshift(applicationData);
+        const stored = localStorage.getItem('ats_applications');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            apps = parsed.filter(a => a && a.id && !['TR-2024-0981', 'TR-2024-0980', 'TR-2024-0979', 'TR-2024-0978', 'TR-2024-0977', 'TR-2024-0976', 'TR-2024-0975', 'TR-2024-0974'].includes(a.id));
+          }
+        }
+      } catch(e) {}
+      apps.unshift(applicationData);
+      try {
         localStorage.setItem('ats_applications', JSON.stringify(apps));
       } catch(e) {}
 
-      if (window.CloudDB && typeof window.CloudDB.addApplication === 'function') {
-        try {
-          window.CloudDB.addApplication(applicationData);
-        } catch(e) {}
+      if (typeof window.syncApplicationsToCloud === 'function') {
+        window.syncApplicationsToCloud(apps);
       }
 
       // Loading State
