@@ -1458,23 +1458,27 @@
       };
     }
 
-      // 5. Firebase Realtime Firestore Live Sync Listener
-      if (typeof window.listenATSApplications === 'function') {
-        window.listenATSApplications(function (liveApps) {
-          if (Array.isArray(liveApps) && liveApps.length > 0) {
-            allApplications = liveApps.filter(isRealApplication);
-            applyFilters();
-            applyQuickFilters();
-            if (currentTab === 'aday-havuzu') renderPoolDashboard();
+      // 5. Kendi Hosting Veritabanı Canlı Senkronizasyon Döngüsü (Her 15 saniyede bir kontrol eder)
+      setInterval(async function () {
+        if (typeof window.fetchApplicationsFromCloud === 'function') {
+          const hostingApps = await window.fetchApplicationsFromCloud();
+          if (Array.isArray(hostingApps) && hostingApps.length > 0) {
+            const cleanApps = hostingApps.filter(isRealApplication);
+            if (cleanApps.length !== allApplications.length || JSON.stringify(cleanApps) !== JSON.stringify(allApplications)) {
+              allApplications = cleanApps;
+              applyFilters();
+              applyQuickFilters();
+              if (currentTab === 'aday-havuzu') renderPoolDashboard();
+            }
           }
-        });
-      }
+        }
+      }, 15000);
 
       // 6. Tab Focus (Visibility Change) Listener
       document.addEventListener('visibilitychange', function () {
         if (!document.hidden) {
-          if (typeof window.fetchATSApplicationsFromFirebase === 'function') {
-            window.fetchATSApplicationsFromFirebase().then(apps => {
+          if (typeof window.fetchApplicationsFromCloud === 'function') {
+            window.fetchApplicationsFromCloud().then(apps => {
               if (Array.isArray(apps) && apps.length > 0) {
                 allApplications = apps.filter(isRealApplication);
                 applyFilters();
@@ -2548,8 +2552,8 @@
           app.extraNotes = (app.extraNotes ? app.extraNotes + '\n' : '') + `[${new Date().toLocaleDateString('tr-TR')} Operatör Notu]: ${note}`;
         }
         saveDatabase();
-        if (typeof window.saveATSApplicationToFirebase === 'function') {
-          window.saveATSApplicationToFirebase(app);
+        if (typeof window.updateApplicationOnHosting === 'function') {
+          window.updateApplicationOnHosting(app);
         }
         renderDashboard();
         applyQuickFilters();
@@ -2561,8 +2565,8 @@
     function deleteCandidate(appId) {
       if (confirm('Bu başvuru kaydını arşivlemek / silmek istediğinize emin misiniz?')) {
         allApplications = allApplications.filter(a => a.id !== appId && a.referenceNumber !== appId);
-        if (typeof window.deleteATSApplicationFromFirebase === 'function') {
-          window.deleteATSApplicationFromFirebase(appId);
+        if (typeof window.deleteApplicationFromHosting === 'function') {
+          window.deleteApplicationFromHosting(appId);
         }
         saveDatabase();
         applyFilters();
@@ -3003,8 +3007,8 @@
           app.isApproved = false;
           app.inPool = false;
           saveDatabase();
-          if (typeof window.saveATSApplicationToFirebase === 'function') {
-            window.saveATSApplicationToFirebase(app);
+          if (typeof window.updateApplicationOnHosting === 'function') {
+            window.updateApplicationOnHosting(app);
           }
           renderPoolDashboard();
           applyFilters();
@@ -3026,8 +3030,8 @@
             app.status = 'Evrak İncelemede';
             app.isApproved = false;
             app.inPool = false;
-            if (typeof window.saveATSApplicationToFirebase === 'function') {
-              window.saveATSApplicationToFirebase(app);
+            if (typeof window.updateApplicationOnHosting === 'function') {
+              window.updateApplicationOnHosting(app);
             }
           }
         });
@@ -3084,8 +3088,8 @@
 
       allApplications.unshift(newCandidate);
       saveDatabase();
-      if (typeof window.saveATSApplicationToFirebase === 'function') {
-        window.saveATSApplicationToFirebase(newCandidate);
+      if (typeof window.saveApplicationToHosting === 'function') {
+        window.saveApplicationToHosting(newCandidate);
       }
       if (typeof window.broadcastApplication === 'function') {
         window.broadcastApplication(newCandidate);

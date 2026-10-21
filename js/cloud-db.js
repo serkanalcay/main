@@ -1,12 +1,21 @@
 /* ==========================================================================
-   AVRUPA TIR ŞOFÖRÜ PORTALI - GLOBAL CLOUD DATABASE & REALTIME SYNC ENGINE
+   AVRUPA TIR ŞOFÖRÜ PORTALI - KENDİ HOSTING VERİTABANI SENKRONİZASYON MOTORU
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  // High-availability Global Cloud Object ID (CORS-enabled REST API)
-  const CLOUD_OBJECT_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a15eb4ec723fea';
+  // Canlı Hosting API Adresi Belirleme
+  function getApiEndpoint() {
+    if (typeof window !== 'undefined' && window.location) {
+      // Eğer avrupatirsoforu.com üzerinde çalışıyorsa bağıl URL kullan
+      if (window.location.host && window.location.host.includes('avrupatirsoforu.com')) {
+        return window.location.origin + '/api/applications.php';
+      }
+    }
+    // Localhost, file:/// veya harici ortamlar için canlı endpoint
+    return 'https://avrupatirsoforu.com/api/applications.php';
+  }
 
   const SEED_IDS = new Set([
     'TR-2024-0981', 'TR-2024-0980', 'TR-2024-0979', 'TR-2024-0978',
@@ -22,9 +31,10 @@
   }
 
   window.isRealApplication = isRealApplication;
-  window.isCloudSyncActive = false;
+  window.isHostingDbActive = true;
+  window.getHostingApiEndpoint = getApiEndpoint;
 
-  // Cross-Tab Real-time Broadcast Channel
+  // Cross-Tab Real-time Broadcast Channel (Aynı cihazdaki açık sekmeler için 0ms senkron)
   const broadcastChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('ats_portal_sync') : null;
 
   window.broadcastApplication = function(app) {
@@ -35,149 +45,189 @@
     }
   };
 
-  // 1. PUSH APPLICATIONS TO GLOBAL CLOUD DATABASE & LOCAL STORAGE
-  window.syncApplicationsToCloud = async function (appsList) {
-    if (!appsList || !Array.isArray(appsList)) return;
-    const cleanList = appsList.filter(isRealApplication);
+  // 1. TEKİL BAŞVURUYU KENDİ HOSTİNG VERİTABANINA GÖNDER (POST)
+  window.saveApplicationToHosting = async function (appData) {
+    if (!appData) return false;
+    const endpoint = getApiEndpoint();
 
-    // 1. Immediate localStorage update
+    // 1. Anında yerel localStorage'a ekle (Hızlı UI tepkisi)
+    try {
+      let localApps = [];
+      const str = localStorage.getItem('ats_applications');
+      if (str) {
+        const parsed = JSON.parse(str);
+        if (Array.isArray(parsed)) localApps = parsed.filter(isRealApplication);
+      }
+      const appId = appData.id || appData.referenceNumber;
+      const idx = localApps.findIndex(a => (a.id || a.referenceNumber) === appId);
+      if (idx !== -1) {
+        localApps[idx] = appData;
+      } else {
+        localApps.unshift(appData);
+      }
+      localStorage.setItem('ats_applications', JSON.stringify(localApps));
+      window.dispatchEvent(new CustomEvent('ats_applications_updated', { detail: localApps }));
+    } catch (e) {}
+
+    // 2. Sekmeler arası yayınla
+    window.broadcastApplication(appData);
+
+    // 3. Kendi Hosting API'sine POST isteği at
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(appData)
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        console.log('✅ [Hosting DB] Başvuru başarıyla hosting veritabanına kaydedildi:', json);
+        return true;
+      } else {
+        console.warn('⚠️ [Hosting DB] API Yanıt Hatası:', res.status);
+      }
+    } catch (err) {
+      console.warn('⚠️ [Hosting DB] İletişim Hatası (Hosting API):', err.message);
+    }
+    return false;
+  };
+
+  // 2. TÜM LİSTEYİ SENKRONİZE ET (Geriye Dönük Uyumluluk)
+  window.syncApplicationsToCloud = async function (appsList) {
+    if (!appsList) return;
+    const items = Array.isArray(appsList) ? appsList : [appsList];
+    const cleanList = items.filter(isRealApplication);
+
     try {
       localStorage.setItem('ats_applications', JSON.stringify(cleanList));
-    } catch(e){}
-
-    // 2. Broadcast custom event across current window
-    try {
       window.dispatchEvent(new CustomEvent('ats_applications_updated', { detail: cleanList }));
     } catch(e){}
 
-    // 3. Broadcast across tabs via BroadcastChannel
     if (broadcastChannel) {
       try {
         broadcastChannel.postMessage({ type: 'APPLICATIONS_SYNCED', data: cleanList });
       } catch(e){}
     }
 
-    // 4. Send to Global Cloud REST API (asynchronous, non-blocking)
-    try {
-      const payload = {
-        name: 'ats_applications_global',
-        data: {
-          list: cleanList,
-          lastUpdated: new Date().toISOString()
-        }
-      };
-
-      const res = await fetch(CLOUD_OBJECT_URL, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (res.ok) {
-        window.isCloudSyncActive = true;
-        console.log('☁️ [Cloud-DB] Senkronize Edildi:', cleanList.length, 'başvuru');
-      }
-    } catch (err) {
-      // Cloud warning; local storage and BroadcastChannel remain fully active
+    // En son eklenen başvuru varsa hostinge gönder
+    if (cleanList.length > 0) {
+      const latest = cleanList[0];
+      return window.saveApplicationToHosting(latest);
     }
   };
 
-  // 2. FETCH LATEST APPLICATIONS FROM GLOBAL CLOUD DATABASE
+  // 3. HOSTİNG VERİTABANINDAN TÜM BAŞVURULARI ÇEK (GET)
   window.fetchApplicationsFromCloud = async function () {
+    const endpoint = getApiEndpoint() + '?t=' + Date.now();
     try {
-      const res = await fetch(CLOUD_OBJECT_URL + '?t=' + Date.now());
+      const res = await fetch(endpoint, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
       if (res.ok) {
         const json = await res.json();
-        const rawCloudList = json && json.data && Array.isArray(json.data.list) ? json.data.list : null;
+        const serverList = (json && Array.isArray(json.data)) ? json.data : (Array.isArray(json) ? json : null);
 
-        if (rawCloudList !== null) {
-          const cloudList = rawCloudList.filter(isRealApplication);
+        if (serverList !== null) {
+          const cleanServerList = serverList.filter(isRealApplication);
 
-          // Merge local and cloud applications
+          // Yerel depodaki yeni kayıtlarla sunucu kayıtlarını harmanla
           let localApps = [];
           try {
             const str = localStorage.getItem('ats_applications');
             if (str) {
               const parsed = JSON.parse(str);
-              if (Array.isArray(parsed)) {
-                localApps = parsed.filter(isRealApplication);
-              }
+              if (Array.isArray(parsed)) localApps = parsed.filter(isRealApplication);
             }
           } catch(e){}
 
           const mergedMap = new Map();
-          // Cloud entries
-          cloudList.forEach(a => {
+          // Sunucudan gelenleri ekle
+          cleanServerList.forEach(a => {
             const key = a.id || a.referenceNumber;
             if (key) mergedMap.set(key, a);
           });
-          // Local real entries not yet in cloud
+          // Henüz sunucuya gitmemiş yerel kayıtları koru
           localApps.forEach(a => {
             const key = a.id || a.referenceNumber;
             if (key && !mergedMap.has(key)) {
               mergedMap.set(key, a);
+              // Sunucuya da asenkron kaydet
+              window.saveApplicationToHosting(a);
             }
           });
 
-          const mergedApps = Array.from(mergedMap.values());
-
+          const mergedList = Array.from(mergedMap.values());
           try {
-            localStorage.setItem('ats_applications', JSON.stringify(mergedApps));
+            localStorage.setItem('ats_applications', JSON.stringify(mergedList));
           } catch(e){}
 
-          // If local had new items, push merged to cloud
-          if (mergedApps.length > cloudList.length) {
-            window.syncApplicationsToCloud(mergedApps);
-          }
-
-          window.isCloudSyncActive = true;
-          window.dispatchEvent(new CustomEvent('ats_applications_updated', { detail: mergedApps }));
-          return mergedApps;
+          window.dispatchEvent(new CustomEvent('ats_applications_updated', { detail: mergedList }));
+          console.log('📥 [Hosting DB] Veriler güncellendi:', mergedList.length, 'başvuru');
+          return mergedList;
         }
       }
     } catch (err) {
-      // Offline fallback
+      console.warn('⚠️ [Hosting DB] Veri çekme uyarısı:', err.message);
     }
 
-    // Fallback to local storage
+    // Fallback: Yerel depoyu dön
     try {
       const str = localStorage.getItem('ats_applications');
       if (str) {
         const parsed = JSON.parse(str);
         return Array.isArray(parsed) ? parsed.filter(isRealApplication) : [];
       }
-      return [];
-    } catch(e){
-      return [];
-    }
-  };
-
-  // 3. CONVENIENCE METHOD TO ADD APPLICATION
-  window.addApplication = async function (appData) {
-    if (!appData || !appData.id) return;
-    let apps = [];
-    try {
-      const str = localStorage.getItem('ats_applications');
-      if (str) {
-        const parsed = JSON.parse(str);
-        if (Array.isArray(parsed)) apps = parsed.filter(isRealApplication);
-      }
     } catch(e){}
-
-    const key = appData.id || appData.referenceNumber;
-    const idx = apps.findIndex(a => (a.id || a.referenceNumber) === key);
-    if (idx !== -1) {
-      apps[idx] = appData;
-    } else {
-      apps.unshift(appData);
-    }
-
-    await window.syncApplicationsToCloud(apps);
-    window.broadcastApplication(appData);
-    return apps;
+    return [];
   };
 
-  // Auto-Fetch on load
+  // 4. HOSTING ÜZERİNDE BAŞVURU GÜNCELLE (PUT - Statü/Onay Değişikliği)
+  window.updateApplicationOnHosting = async function (appData) {
+    if (!appData || (!appData.id && !appData.referenceNumber)) return false;
+    const endpoint = getApiEndpoint();
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(appData)
+      });
+      return res.ok;
+    } catch(e) {
+      return false;
+    }
+  };
+
+  // 5. HOSTING ÜZERİNDEN BAŞVURU SİL (DELETE)
+  window.deleteApplicationFromHosting = async function (appId) {
+    if (!appId) return false;
+    const endpoint = getApiEndpoint() + '?id=' + encodeURIComponent(appId);
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      return res.ok;
+    } catch(e) {
+      return false;
+    }
+  };
+
+  // Sayfa yüklendiğinde otomatik verileri kontrol et
   document.addEventListener('DOMContentLoaded', function () {
     window.fetchApplicationsFromCloud();
   });

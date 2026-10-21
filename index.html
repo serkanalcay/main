@@ -731,14 +731,13 @@
         existingApps.unshift(newApp);
         localStorage.setItem('ats_applications', JSON.stringify(existingApps));
 
-        if (typeof window.syncApplicationsToCloud === 'function') {
+        if (typeof window.saveApplicationToHosting === 'function') {
+          window.saveApplicationToHosting(newApp);
+        } else if (typeof window.syncApplicationsToCloud === 'function') {
           window.syncApplicationsToCloud(existingApps);
         }
         if (typeof window.broadcastApplication === 'function') {
           window.broadcastApplication(newApp);
-        }
-        if (typeof window.saveATSApplicationToFirebase === 'function') {
-          window.saveATSApplicationToFirebase(newApp);
         }
       } catch (err) {
         console.error('Storage error:', err);

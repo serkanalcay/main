@@ -1,0 +1,5 @@
+# Block direct browser access to JSON data files
+<Files ~ "\.(json|log|txt)$">
+    Order allow,deny
+    Deny from all
+</Files>
