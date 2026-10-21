@@ -1326,7 +1326,10 @@
   </div>
 
   <!-- APPLICATION SCRIPTS -->
-  <script src="js/cloud-db.js?v=3.5.0"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="js/firebase-db.js?v=4.0.0"></script>
+  <script src="js/cloud-db.js?v=4.0.0"></script>
   <script>
     // SEED FILTER HELPER
     const SEED_IDS = new Set([
@@ -1455,31 +1458,33 @@
       };
     }
 
-    // 4. Tab Focus (Visibility Change) Listener
-    document.addEventListener('visibilitychange', function () {
-      if (!document.hidden) {
-        initDatabase();
-        applyFilters();
-        applyQuickFilters();
-        if (currentTab === 'aday-havuzu') renderPoolDashboard();
-      }
-    });
-
-    // 5. Gentle periodic cloud sync (every 25 seconds)
-    setInterval(async function () {
-      if (typeof window.fetchApplicationsFromCloud === 'function') {
-        const cloudApps = await window.fetchApplicationsFromCloud();
-        if (Array.isArray(cloudApps)) {
-          const cleanApps = cloudApps.filter(isRealApplication);
-          if (cleanApps.length !== allApplications.length || JSON.stringify(cleanApps) !== JSON.stringify(allApplications)) {
-            allApplications = cleanApps;
+      // 5. Firebase Realtime Firestore Live Sync Listener
+      if (typeof window.listenATSApplications === 'function') {
+        window.listenATSApplications(function (liveApps) {
+          if (Array.isArray(liveApps) && liveApps.length > 0) {
+            allApplications = liveApps.filter(isRealApplication);
             applyFilters();
             applyQuickFilters();
             if (currentTab === 'aday-havuzu') renderPoolDashboard();
           }
-        }
+        });
       }
-    }, 25000);
+
+      // 6. Tab Focus (Visibility Change) Listener
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) {
+          if (typeof window.fetchATSApplicationsFromFirebase === 'function') {
+            window.fetchATSApplicationsFromFirebase().then(apps => {
+              if (Array.isArray(apps) && apps.length > 0) {
+                allApplications = apps.filter(isRealApplication);
+                applyFilters();
+                applyQuickFilters();
+                if (currentTab === 'aday-havuzu') renderPoolDashboard();
+              }
+            });
+          }
+        }
+      });
 
     // RESET ALL APPLICATIONS TO CLEAN 0 STATE
     function clearAllApplications() {
@@ -2543,6 +2548,9 @@
           app.extraNotes = (app.extraNotes ? app.extraNotes + '\n' : '') + `[${new Date().toLocaleDateString('tr-TR')} Operatör Notu]: ${note}`;
         }
         saveDatabase();
+        if (typeof window.saveATSApplicationToFirebase === 'function') {
+          window.saveATSApplicationToFirebase(app);
+        }
         renderDashboard();
         applyQuickFilters();
         renderPoolDashboard();
@@ -2553,6 +2561,9 @@
     function deleteCandidate(appId) {
       if (confirm('Bu başvuru kaydını arşivlemek / silmek istediğinize emin misiniz?')) {
         allApplications = allApplications.filter(a => a.id !== appId && a.referenceNumber !== appId);
+        if (typeof window.deleteATSApplicationFromFirebase === 'function') {
+          window.deleteATSApplicationFromFirebase(appId);
+        }
         saveDatabase();
         applyFilters();
         applyQuickFilters();
@@ -2992,6 +3003,9 @@
           app.isApproved = false;
           app.inPool = false;
           saveDatabase();
+          if (typeof window.saveATSApplicationToFirebase === 'function') {
+            window.saveATSApplicationToFirebase(app);
+          }
           renderPoolDashboard();
           applyFilters();
         }
@@ -3012,6 +3026,9 @@
             app.status = 'Evrak İncelemede';
             app.isApproved = false;
             app.inPool = false;
+            if (typeof window.saveATSApplicationToFirebase === 'function') {
+              window.saveATSApplicationToFirebase(app);
+            }
           }
         });
         saveDatabase();
@@ -3067,6 +3084,9 @@
 
       allApplications.unshift(newCandidate);
       saveDatabase();
+      if (typeof window.saveATSApplicationToFirebase === 'function') {
+        window.saveATSApplicationToFirebase(newCandidate);
+      }
       if (typeof window.broadcastApplication === 'function') {
         window.broadcastApplication(newCandidate);
       }

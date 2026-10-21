@@ -6,9 +6,8 @@
   'use strict';
 
   // 1. FIREBASE CONFIGURATION (Google Firebase Web App Configuration)
-  // Siz kendi Firebase Konsolunuzdan (console.firebase.google.com) aldığınız 
-  // proje ayarlarını buraya yapıştırabilirsiniz.
-  const firebaseConfig = {
+  // Firebase Konsolunuzdan (console.firebase.google.com) aldığınız proje ayarları:
+  let firebaseConfig = {
     apiKey: "AIzaSyB_ATS_PORTAL_FIREBASE_KEY_2026",
     authDomain: "avrupatirsoforu.firebaseapp.com",
     projectId: "avrupatirsoforu-db",
@@ -16,6 +15,21 @@
     messagingSenderId: "987654321012",
     appId: "1:987654321012:web:a1b2c3d4e5f6g7h8i9j0"
   };
+
+  // Support runtime config override via window or localStorage
+  if (typeof window !== 'undefined' && window.ATS_FIREBASE_CONFIG) {
+    firebaseConfig = window.ATS_FIREBASE_CONFIG;
+  } else {
+    try {
+      const storedCfg = localStorage.getItem('ats_firebase_config');
+      if (storedCfg) {
+        const parsedCfg = JSON.parse(storedCfg);
+        if (parsedCfg && parsedCfg.apiKey && parsedCfg.projectId) {
+          firebaseConfig = parsedCfg;
+        }
+      }
+    } catch (e) {}
+  }
 
   let db = null;
   let isFirebaseReady = false;

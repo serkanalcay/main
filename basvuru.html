@@ -923,8 +923,11 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/cloud-db.js?v=3.5.0"></script>
-  <script src="js/app.js?v=3.5.0"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="js/firebase-db.js?v=4.0.0"></script>
+  <script src="js/cloud-db.js?v=4.0.0"></script>
+  <script src="js/app.js?v=4.0.0"></script>
   <script>
     let uploadedFileNames = [];
 
@@ -1017,6 +1020,9 @@
 
       if (typeof window.syncApplicationsToCloud === 'function') {
         window.syncApplicationsToCloud(apps);
+      }
+      if (typeof window.saveATSApplicationToFirebase === 'function') {
+        window.saveATSApplicationToFirebase(applicationData);
       }
       if (typeof window.broadcastApplication === 'function') {
         window.broadcastApplication(applicationData);
