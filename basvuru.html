@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <title>Avrupa Tır Şoförlüğü Ön Analiz &amp; Evrak Değerlendirme Başvurusu | Avrupa Tır Şoförü</title>
-  <meta name="description" content="Avrupa Birliği ve Mobility Package mevzuatına göre ehliyet, takograf, tecrübe ve e-Devlet evraklarınızın ön değerlendirmesi için başvuru formunu doldurun." />
-  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
-  <!-- MAINTENANCE & DEVELOPER PREVIEW GUARD -->
-  <script src="js/maintenance-guard.js?v=2.7.0"></script>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_standard" name="shell-type">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Ön Başvuru &amp; Dosya İnceleme Formu | Avrupa Tır Şoförü İstihdam &amp; Evrak Danışmanlığı</title>
+  <meta name="description" content="Avrupa Birliği standartlarında tır şoförlüğü ve lojistik istihdamı için mesleki ve evrak uygunluğunuz uzmanlarımız tarafından ücretsiz olarak incelenir.">
+  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
   <style>
     @layer base {
-      html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
-      body { overscroll-behavior: none; }
-      main>:first-child { margin-top: 0 !important; }
-      main>:last-child { margin-bottom: 0 !important; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
     }
-    ::-webkit-scrollbar { display: none; }
+    ::-webkit-scrollbar {
+      display: none;
+    }
   </style>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -36,1088 +47,811 @@
       theme: {
         extend: {
           "colors": {
-            "on-secondary-fixed": "#2f1500",
+            "on-tertiary": "#ffffff",
+            "canvas-dark": "#020617",
+            "inverse-primary": "#bec6e0",
+            "on-secondary-fixed-variant": "#653e00",
+            "on-error-container": "#93000a",
+            "on-secondary-container": "#684000",
+            "surface-container-lowest": "#ffffff",
+            "primary-container": "#131b2e",
+            "secondary-container": "#fea619",
+            "primary-fixed": "#dae2fd",
+            "secondary": "#855300",
+            "on-secondary-fixed": "#2a1700",
+            "tertiary-container": "#00174b",
+            "surface-container": "#e5eeff",
+            "surface-card": "#FFFFFF",
+            "surface-bright": "#f8f9ff",
             "surface-tint": "#565e74",
             "on-primary-fixed": "#131b2e",
-            "secondary-container": "#fe932c",
-            "secondary-fixed-dim": "#ffb77d",
-            "outline-variant": "#c6c6cd",
-            "amber-vibrant": "#FE932C",
-            "error-container": "#ffdad6",
-            "on-surface-variant": "#45464d",
-            "error": "#ba1a1a",
-            "slate-border": "#E2E8F0",
-            "inverse-surface": "#213145",
-            "secondary": "#904d00",
-            "on-background": "#0b1c30",
-            "on-error-container": "#93000a",
-            "surface-variant": "#d3e4fe",
-            "tertiary-container": "#00174b",
-            "on-tertiary-fixed": "#00174b",
-            "primary-fixed": "#dae2fd",
-            "on-secondary": "#ffffff",
-            "amber-high-vis": "#F59E0B",
-            "on-secondary-container": "#663500",
-            "primary-fixed-dim": "#bec6e0",
             "surface-container-highest": "#d3e4fe",
-            "on-primary": "#ffffff",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "border-muted": "#E2E8F0",
+            "inverse-surface": "#213145",
+            "on-primary-container": "#7c839b",
+            "primary": "#000000",
+            "secondary-fixed": "#ffddb8",
             "on-error": "#ffffff",
-            "surface-canvas": "#F8FAFC",
+            "on-primary": "#ffffff",
+            "surface-variant": "#d3e4fe",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-surface-variant": "#45464d",
+            "surface-dim": "#cbdbf5",
+            "inverse-on-surface": "#eaf1ff",
+            "on-tertiary-fixed": "#00174b",
+            "surface-subtle": "#F8FAFC",
+            "surface-container-low": "#eff4ff",
+            "on-background": "#0b1c30",
             "background": "#f8f9ff",
+            "status-success": "#34D399",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#dce9ff",
+            "primary-fixed-dim": "#bec6e0",
             "outline": "#76777d",
-            "surface-bright": "#f8f9ff",
+            "warning-amber-hover": "#D97706",
             "on-primary-fixed-variant": "#3f465c",
-            "secondary-fixed": "#ffdcc3",
-            "on-tertiary": "#ffffff",
-            "surface": "#f8f9ff",
-            "tertiary-fixed": "#dbe1ff",
-            "surface-card": "#FFFFFF",
-            "inverse-primary": "#bec6e0",
             "tertiary": "#000000",
             "on-tertiary-container": "#497cff",
-            "tertiary-fixed-dim": "#b4c5ff",
-            "inverse-on-surface": "#eaf1ff",
+            "tertiary-fixed": "#dbe1ff",
+            "outline-variant": "#c6c6cd",
             "on-surface": "#0b1c30",
-            "surface-container-lowest": "#ffffff",
-            "primary": "#000000",
-            "surface-dim": "#cbdbf5",
-            "primary-container": "#131b2e",
-            "surface-container": "#e5eeff",
-            "status-alert": "#DC2626",
-            "surface-container-low": "#eff4ff",
-            "on-secondary-fixed-variant": "#6e3900",
-            "surface-container-high": "#dce9ff",
-            "status-success": "#059669",
-            "navy-deep": "#0B1C30",
-            "on-tertiary-fixed-variant": "#003ea8",
-            "on-primary-container": "#7c839b"
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "surface": "#f8f9ff",
+            "secondary-fixed-dim": "#ffb95f"
           },
           "borderRadius": {
-            "DEFAULT": "0.125rem",
-            "lg": "0.25rem",
-            "xl": "0.5rem",
-            "full": "0.75rem"
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
           },
           "spacing": {
-            "margin": "2rem",
-            "space-xl": "2.5rem",
-            "gutter": "1.5rem",
-            "space-sm": "0.5rem",
-            "margin-mobile": "1rem",
-            "margin-desktop-max": "80rem",
             "space-lg": "1.5rem",
-            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "gutter-mobile": "1rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem",
             "space-md": "1rem",
-            "gutter-mobile": "1rem"
+            "space-xl": "2.5rem",
+            "space-xs": "0.25rem"
           },
           "fontFamily": {
-            "label-lg": ["Inter"],
-            "display-hero-mobile": ["Plus Jakarta Sans"],
-            "headline-sm": ["Plus Jakarta Sans"],
-            "body-md": ["Inter"],
-            "label-md": ["Inter"],
-            "headline-lg": ["Plus Jakarta Sans"],
-            "headline-xl": ["Plus Jakarta Sans"],
-            "label-sm": ["Inter"],
-            "body-lg": ["Inter"],
-            "headline-xl-mobile": ["Plus Jakarta Sans"],
-            "headline-md": ["Plus Jakarta Sans"],
-            "body-sm": ["Inter"],
-            "display-hero": ["Plus Jakarta Sans"]
+            "headline-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
+            "display-mobile": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "label-md": ["Space Grotesk", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "sans-serif"],
+            "label-sm": ["Space Grotesk", "sans-serif"],
+            "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "label-lg": ["Space Grotesk", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "display": ["Plus Jakarta Sans", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"]
           },
           "fontSize": {
-            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
-            "display-hero-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
-            "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
-            "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
-            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
-            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
-            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
-            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
-            "headline-xl-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
-            "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
-            "display-hero": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-mobile": ["34px", { "lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "display": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
           }
         }
       }
     };
   </script>
+
+  <!-- MAINTENANCE & GUARD -->
+  <script src="js/maintenance-guard.js?v=2.8.0"></script>
 </head>
 
-<body class="bg-surface font-body-md text-on-surface antialiased">
-  <!-- HEADER -->
-  <header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-    <!-- Top Announcement Bar -->
-    <div class="bg-navy-deep text-on-primary py-space-xs px-margin-mobile lg:px-margin">
-      <div class="max-w-margin-desktop-max mx-auto flex items-center justify-between font-label-md text-label-md">
-        <div class="flex items-center gap-space-sm">
-          <span class="flex h-2 w-2 rounded-full bg-amber-vibrant animate-pulse"></span>
-          <span class="text-on-primary tracking-wide">Avrupa Yetkili Lojistik İstihdamı &amp; Şoför Vize Bilgilendirme Merkezi</span>
-          <span class="text-on-primary-container hidden md:inline">|</span>
-          <span class="text-amber-vibrant font-semibold hidden md:inline">Güncel kotalar açıklandı</span>
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- Fixed Header -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between gap-6">
+      
+      <!-- Brand Logo -->
+      <a class="flex items-center gap-3 shrink-0" data-path="anasayfa" href="index.html">
+        <img alt="Avrupa Tır Şoförü Logo" class="h-8 w-auto object-contain" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuCNwsIQASR26KQQ6m2ZIt68WIhJfRzb2w_hH7dJ4mjj-39GFYgMhBDeHvLtSB14gzTMbro24M-ItAbgKuo1yg8NfCIMs2WQmVNr8-5VHB4IOgNQ_zI7hXLIUpMaWZKCN6aSirz0Q98UpFeUmWPVI-g46oCFEBVJe6jx4cBGvDH5Jqytp3Y663sZSmHUOSxpi0Y-1C-1VSzfmTHxXQ-3t8scczHuHUdF2-xRR2y-D591CoTyBS7Lbd3S';">
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm text-on-surface font-extrabold tracking-tight">avrupatirsoforu.com</span>
+          <span class="font-label-sm text-label-sm text-on-secondary-container tracking-wider font-semibold uppercase">AVRUPA TIR ŞOFÖRÜ İSTİHDAM &amp; EVRAK DANIŞMANLIĞI</span>
         </div>
-        <div class="hidden md:flex items-center gap-space-md text-label-sm font-label-sm">
-          <span class="text-on-primary-container flex items-center gap-space-xs">
-            <span class="material-symbols-outlined text-[14px]">verified</span>AB Resmi Mevzuat Uyumu
-          </span>
-        </div>
-      </div>
-    </div>
+      </a>
 
-    <!-- Main Navigation Bar -->
-    <div class="h-20 max-w-margin-desktop-max mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md">
-      <div class="flex items-center gap-space-lg">
-        <a class="flex items-center gap-space-sm py-space-xs" data-path="ana-sayfa" href="index.html">
-          <img alt="Avrupa Tır Şoförü Logo" class="h-9 w-9 rounded-full object-cover border border-amber-vibrant" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1U16mn9a3n_4tV50zHQmDkkAFmlM2JmRraNMKh2IzzP1XDe3HEl6s60v2AS_I-Ldjm-xhCl5oK8jIgIZz-q9DPtS2bR_YWl3itzt65SDjQTDFx2imueVOK5rw7KJGH1l5xLafa41I7SSpOz2-GLJusY0HOupypaqDhC1rm1XFBU-A79ZVt3jVxnEZ3sSm-0d9JALL5Xij7qT6bOE5TWrig1Tr4IIQ5lQq-AysUhQvm958PNeB89NUWh_w';" />
-          <div class="flex flex-col">
-            <span class="font-headline-sm text-headline-sm tracking-tight text-navy-deep font-bold">AVRUPA TIR ŞOFÖRÜ</span>
-            <span class="font-label-sm text-label-sm tracking-widest text-on-surface-variant uppercase">Lojistik İstihdam Portalı</span>
-          </div>
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="hizmetler" href="hizmetler.html?v=3.2">Hizmetler</a>
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="hakkimizda" href="hakkimizda.html?v=3.2">Hakkımızda</a>
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="iletisim" href="iletisim.html?v=3.2">İletişim</a>
+      </nav>
+
+      <!-- CTA Button & Mobile Menu Toggle -->
+      <div class="flex items-center gap-3">
+        <a class="inline-flex items-center justify-center h-11 px-6 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-lg text-label-lg font-bold shadow-[0_2px_4px_rgba(0,0,0,0.08)] transition-all" data-path="basvuru-formu" href="basvuru.html?v=3.2">
+          HEMEN BAŞVUR
         </a>
-
-        <!-- Desktop Nav -->
-        <nav class="hidden xl:flex items-center gap-space-lg">
-          <a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-space-xs" data-path="ana-sayfa" href="index.html">Ana Sayfa</a>
-          <div class="relative group flex items-center">
-            <a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-space-xs flex items-center gap-space-xs" data-path="ulke-rehberi" href="index.html#ulke-analizleri">
-              <span>Ülke Rehberi</span>
-              <span class="material-symbols-outlined text-[16px] transition-transform group-hover:rotate-180">expand_more</span>
-            </a>
-            <div class="absolute top-full left-0 hidden group-hover:block w-56 bg-surface-card rounded-xl shadow-[0_20px_25px_-5px_rgba(15,23,42,0.12)] p-space-sm mt-1 border border-slate-border">
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="index.html#ulke-analizleri">Almanya</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="index.html#ulke-analizleri">Bulgaristan</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="index.html#ulke-analizleri">Romanya</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="index.html#ulke-analizleri">Polonya</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="index.html#ulke-analizleri">Litvanya</a>
-              <a class="block px-space-md py-space-sm rounded-lg hover:bg-surface-container font-label-md text-label-md text-on-surface hover:text-navy-deep transition-colors" href="index.html#ulke-analizleri">Belçika</a>
-            </div>
-          </div>
-          <a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-space-xs" data-path="is-analizi-ve-sartlar" href="index.html#kriterler">İş Analizi &amp; Şartlar</a>
-          <a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-space-xs" data-path="haberler-ve-mevzuat" href="index.html#haberler">Haberler &amp; Mevzuat</a>
-          <a class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors py-space-xs" data-path="nasil-calisir" href="index.html#surec-nasil-calisir">Nasıl Çalışır?</a>
-        </nav>
-      </div>
-
-      <div class="flex items-center gap-space-md">
-        <div class="hidden lg:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-full text-navy-deep font-label-sm text-label-sm border border-slate-border">
-          <span class="material-symbols-outlined text-[16px] text-status-success">verified_user</span>
-          <span>Admin Onaylı Kayıt Sistemi</span>
-        </div>
-        <a aria-current="page" class="flex items-center gap-space-xs bg-amber-vibrant hover:bg-amber-high-vis text-navy-deep font-label-lg text-label-lg px-space-lg py-space-sm rounded-xl font-bold transition-all shadow-[0_1px_3px_0_rgba(15,23,42,0.05)]" data-path="basvuru-yap" href="basvuru.html">
-          <span class="material-symbols-outlined text-[20px]">local_shipping</span>
-          <span>Başvuru Yap</span>
-        </a>
-        <a href="login.html" title="Sürücü Girişi" class="w-8 h-8 rounded-full bg-navy-deep text-on-primary flex items-center justify-center hover:bg-amber-vibrant hover:text-navy-deep transition-all">
-          <span class="material-symbols-outlined text-[18px]">person</span>
-        </a>
-
-        <!-- Mobile Menu Hamburger Button -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="xl:hidden p-2 text-navy-deep hover:text-amber-vibrant focus:outline-none">
-          <span class="material-symbols-outlined text-[28px]">menu</span>
+        <button type="button" class="lg:hidden p-2 text-on-surface rounded-lg hover:bg-surface-container-high" onclick="document.getElementById('mobileNavBasvuru').classList.toggle('hidden');" aria-label="Menü">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
         </button>
       </div>
+
     </div>
 
     <!-- Mobile Navigation Dropdown -->
-    <div id="mobile-menu" class="hidden xl:hidden bg-surface-card border-b border-slate-border px-margin-mobile py-space-md flex flex-col gap-space-sm">
-      <a class="py-space-xs text-on-surface-variant hover:text-navy-deep pl-2" href="index.html">Ana Sayfa</a>
-      <a class="py-space-xs text-on-surface-variant hover:text-navy-deep pl-2" href="index.html#ulke-analizleri">Ülke Rehberi</a>
-      <a class="py-space-xs text-on-surface-variant hover:text-navy-deep pl-2" href="index.html#kriterler">İş Analizi &amp; Şartlar</a>
-      <a class="py-space-xs text-on-surface-variant hover:text-navy-deep pl-2" href="index.html#haberler">Haberler &amp; Mevzuat</a>
-      <a class="py-space-xs text-on-surface-variant hover:text-navy-deep pl-2" href="index.html#surec-nasil-calisir">Nasıl Çalışır?</a>
-      <div class="pt-space-xs border-t border-slate-border flex flex-col gap-space-xs">
-        <a class="flex items-center justify-center gap-space-xs bg-amber-vibrant text-navy-deep font-bold py-space-sm rounded-xl" href="basvuru.html">
-          <span class="material-symbols-outlined text-[20px]">local_shipping</span> Başvuru Yap
-        </a>
+    <div id="mobileNavBasvuru" class="hidden lg:hidden bg-surface-container-lowest border-b border-border-muted px-6 py-4 space-y-2">
+      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="hizmetler.html?v=3.2">Hizmetler</a>
+      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="hakkimizda.html?v=3.2">Hakkımızda</a>
+      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="iletisim.html?v=3.2">İletişim</a>
+      <div class="pt-2 border-t border-border-muted">
+        <a href="basvuru.html?v=3.2" class="w-full text-center py-2 text-label-md font-bold bg-secondary-container text-on-secondary-fixed rounded-lg block">HEMEN BAŞVUR</a>
       </div>
     </div>
   </header>
 
-  <main class="w-full pt-28 bg-surface-canvas min-h-screen">
+  <!-- Main Content -->
+  <main class="w-full pt-20 bg-background flex-1">
     <div class="flex flex-col w-full">
-      <!-- TOP CONTEXT / HERO BANNER -->
-      <section class="relative w-full bg-navy-deep text-on-primary py-space-xl overflow-hidden">
-        <!-- Subtle Highway Grid Pattern Overlay -->
-        <div class="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#dae2fd_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-amber-vibrant/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-margin-desktop-max mx-auto px-margin-mobile lg:px-margin relative z-10">
-          <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-lg">
-            <div class="max-w-3xl">
-              <div class="flex flex-wrap items-center gap-space-sm mb-space-sm">
-                <span class="inline-flex items-center gap-space-xs bg-amber-vibrant text-navy-deep px-space-sm py-0.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider font-bold">
-                  <span class="material-symbols-outlined text-[14px]">shield</span>
-                  Resmi Ön Analiz Portalı
-                </span>
-                <span class="inline-flex items-center gap-space-xs bg-surface-container-highest/10 text-tertiary-fixed px-space-sm py-0.5 rounded-full font-label-sm text-label-sm">
-                  <span class="material-symbols-outlined text-[14px]">event_repeat</span>
-                  2025 AB Uyum Standartları
-                </span>
+      <!-- Progress Indicator Bar -->
+      <div class="w-full bg-surface-container-low py-3 px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm font-bold">1</span>
+            <span class="font-label-md text-label-md text-on-surface font-semibold tracking-wide uppercase">Ön Değerlendirme Süreci:</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">Evrak &amp; Mesleki Yeterlilik Analizi</span>
+          </div>
+          <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2 text-status-success font-label-sm text-label-sm font-bold">
+              <span class="material-symbols-outlined text-[18px]">verified_user</span>
+              <span>256-Bit SSL Şifreli Protokol</span>
+            </div>
+            <div class="hidden sm:flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+              <span class="material-symbols-outlined text-[18px]">schedule</span>
+              <span>Ortalama Süre: 4 Dakika</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero / Introduction Banner -->
+      <section class="w-full bg-surface-container-low py-10 lg:py-14">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-8 flex flex-col gap-4">
+              <div class="inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-lg bg-surface-container-highest text-primary-container font-label-sm text-label-sm font-bold uppercase tracking-wider">
+                <span class="material-symbols-outlined text-[16px]">verified</span>
+                RESMİ ÖN DEĞERLENDİRME MASASI
               </div>
-              <h1 class="font-headline-xl text-headline-xl text-on-primary tracking-tight mb-space-xs">
-                Avrupa Tır Şoförlüğü Ön Analiz &amp; Evrak Değerlendirme Başvurusu
+              <h1 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
+                Avrupa Tır Şoförlüğü Ön Başvuru &amp; Dosya İnceleme Formu
               </h1>
-              <p class="font-body-md text-body-md text-on-primary-container leading-relaxed">
-                Avrupa Birliği ve Mobility Package mevzuatına göre ehliyet, takograf, uluslararası tecrübe ve resmi e-Devlet evraklarınızın uzman danışmanlarımızca ön incelemeye alınması için aşağıdaki başvuru adımlarını eksiksiz tamamlayınız.
+              <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+                Avrupa Birliği standartlarında tır şoförlüğü ve lojistik istihdamı için mesleki ve evrak uygunluğunuz uzmanlarımız tarafından ücretsiz olarak incelenir.
               </p>
+              
+              <div class="flex flex-wrap items-center gap-3 pt-2">
+                <div class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-card shadow-sm text-on-surface font-label-md text-label-md">
+                  <span class="material-symbols-outlined text-secondary-container text-[18px]">task_alt</span>
+                  <span>Ücretsiz Ön İnceleme</span>
+                </div>
+                <div class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-card shadow-sm text-on-surface font-label-md text-label-md">
+                  <span class="material-symbols-outlined text-secondary-container text-[18px]">electric_bolt</span>
+                  <span>24 Saat İçinde Dosya Analizi</span>
+                </div>
+                <div class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-card shadow-sm text-on-surface font-label-md text-label-md">
+                  <span class="material-symbols-outlined text-secondary-container text-[18px]">lock</span>
+                  <span>%100 KVKK &amp; Kurumsal Gizlilik</span>
+                </div>
+              </div>
             </div>
 
-            <!-- Portal Authority Card -->
-            <div class="bg-surface-container-highest/10 backdrop-blur-md p-space-md rounded-xl max-w-sm w-full border border-white/10">
-              <div class="flex items-center gap-space-sm mb-space-xs text-amber-vibrant">
-                <span class="material-symbols-outlined text-[20px]">verified_user</span>
-                <span class="font-headline-sm text-headline-sm font-bold">Admin Kontrollü İnceleme</span>
-              </div>
-              <p class="font-body-sm text-body-sm text-on-primary-container leading-relaxed">
-                Kişisel verileriniz 6698 sayılı KVKK kapsamında korunmakta olup doğrudan üçüncü partilerle paylaşılmaz. Başvuru formunuz 24-48 saat içerisinde incelenir.
-              </p>
-              <div class="mt-space-sm pt-space-xs flex items-center justify-between font-label-sm text-label-sm text-on-primary border-t border-white/10">
-                <span class="flex items-center gap-1"><span class="h-2 w-2 rounded-full bg-status-success inline-block"></span> Sistem Aktif</span>
-                <span class="text-on-primary-container">Ort. İnceleme: 36 Saat</span>
+            <div class="lg:col-span-4">
+              <div class="bg-surface-card p-6 rounded-xl shadow-md flex flex-col gap-3 relative overflow-hidden">
+                <div class="w-full h-1 bg-secondary-container absolute top-0 left-0"></div>
+                <div class="flex items-center gap-2 text-secondary font-label-sm text-label-sm uppercase font-bold tracking-wider">
+                  <span class="material-symbols-outlined text-[20px]">info</span>
+                  Sürücü Önemli Hatırlatma
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Lütfen bilgilerinizi eksiksiz ve doğru doldurunuz. Bu form yalnızca CE sınıfı ehliyet sahibi veya denkliği planlanan profesyonel sürücüler içindir. Verilen bilgiler Avrupa nakliye firmaları denklik kriterlerine göre elenmektedir.
+                </p>
               </div>
             </div>
-          </div>
 
-          <!-- Mandatory Legal & Transparency Notice (Alert Box) -->
-          <div class="mt-space-lg bg-surface-card text-navy-deep p-space-md rounded-xl shadow-md flex flex-col md:flex-row items-start md:items-center gap-space-md border border-slate-border">
-            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-vibrant/20 text-secondary flex items-center justify-center">
-              <span class="material-symbols-outlined text-[24px]">gavel</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center gap-space-xs mb-0.5">
-                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">Yasal Bilgilendirme &amp; Bağımsız Danışmanlık Beyanı</span>
-              </div>
-              <p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
-                Platformumuz <strong>kesinlikle vize veren bir merci veya konsolosluk yetkilisi değildir</strong>. Hiçbir adaya garantili vize veya kesin istihdam taahhüdü verilmez. Hizmetimiz; ağır vasıta sürücülerinin evrak uygunluklarının incelenmesi, AB taşımacılık mevzuatı rehberliği ve bağımsız dosya hazırlık danışmanlığı ile sınırlıdır.
-              </p>
-            </div>
-            <div class="flex-shrink-0">
-              <span class="inline-flex items-center gap-1 font-label-md text-label-md text-navy-deep bg-surface-container px-space-sm py-1 rounded-md font-bold">
-                <span class="material-symbols-outlined text-[16px] text-status-success">check_circle</span>
-                Mevzuat Şeffaflığı
-              </span>
-            </div>
           </div>
         </div>
       </section>
 
-      <!-- STEP PROGRESS INDICATOR -->
-      <section class="w-full bg-surface-card shadow-sm sticky top-20 z-30 border-b border-slate-border">
-        <div class="max-w-margin-desktop-max mx-auto px-margin-mobile lg:px-margin py-space-sm">
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm">
-            <!-- Step 1 -->
-            <div class="flex items-center gap-space-xs p-space-xs rounded-lg bg-surface-container">
-              <div class="w-7 h-7 rounded-full bg-navy-deep text-on-primary flex items-center justify-center font-label-md text-label-md flex-shrink-0 font-bold">
-                1
-              </div>
-              <div class="min-w-0">
-                <div class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-bold">Adım 1</div>
-                <div class="font-label-md text-label-md text-navy-deep truncate font-bold">Kişisel Bilgiler</div>
-              </div>
-            </div>
-            <!-- Step 2 -->
-            <div class="flex items-center gap-space-xs p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
-              <div class="w-7 h-7 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-label-md text-label-md flex-shrink-0 font-bold">
-                2
-              </div>
-              <div class="min-w-0">
-                <div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Adım 2</div>
-                <div class="font-label-md text-label-md text-navy-deep truncate">Ehliyet &amp; Takograf</div>
-              </div>
-            </div>
-            <!-- Step 3 -->
-            <div class="flex items-center gap-space-xs p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
-              <div class="w-7 h-7 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-label-md text-label-md flex-shrink-0 font-bold">
-                3
-              </div>
-              <div class="min-w-0">
-                <div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Adım 3</div>
-                <div class="font-label-md text-label-md text-navy-deep truncate">Pasaport &amp; SGK / Sicil</div>
-              </div>
-            </div>
-            <!-- Step 4 -->
-            <div class="flex items-center gap-space-xs p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
-              <div class="w-7 h-7 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-label-md text-label-md flex-shrink-0 font-bold">
-                4
-              </div>
-              <div class="min-w-0">
-                <div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Adım 4</div>
-                <div class="font-label-md text-label-md text-navy-deep truncate">Hedefler &amp; KVKK Onayı</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- MAIN WORKSPACE: Form (70%) + Guidance Sidebar (30%) -->
-      <section class="max-w-margin-desktop-max mx-auto px-margin-mobile lg:px-margin py-space-xl w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
-
-          <!-- LEFT COLUMN: FORM ENGINE (8 cols) -->
-          <form class="lg:col-span-8 flex flex-col gap-space-xl" id="evaluationForm" onsubmit="return false;">
-
-            <!-- SECTION 1: KİŞİSEL BİLGİLER -->
-            <div class="bg-surface-card p-space-lg md:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg border border-slate-border">
-              <div class="flex items-center justify-between pb-space-sm bg-surface-container-low -mx-space-lg md:-mx-space-xl -mt-space-lg md:-mt-space-xl px-space-lg md:px-space-xl pt-space-lg md:pt-space-xl rounded-t-xl border-b border-slate-border">
-                <div class="flex items-center gap-space-sm">
-                  <div class="w-9 h-9 rounded-lg bg-navy-deep text-on-primary flex items-center justify-center">
-                    <span class="material-symbols-outlined text-[20px]">badge</span>
+      <!-- Main Content: Form & Informative Sidebar -->
+      <section class="w-full py-12 lg:py-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            <!-- Left: Multi-Section Form (8 Columns) -->
+            <div class="lg:col-span-8 flex flex-col gap-8">
+              <form class="flex flex-col gap-8" id="driverApplicationForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+                
+                <!-- SECTION A: Kişisel ve İletişim Bilgileri -->
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                  <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
+                    <div class="flex items-center gap-3">
+                      <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">A</span>
+                      <div>
+                        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Kişisel ve İletişim Bilgileri</h2>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Değerlendirme sonucunuzun tarafınıza iletileceği resmi iletişim kanalları</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline text-[24px]">person</span>
                   </div>
-                  <div>
-                    <h2 class="font-headline-md text-headline-md text-navy-deep font-bold">1. Kişisel Bilgiler &amp; İletişim</h2>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Resmi evraklarınız ile birebir eşleşen kimlik bilgilerinizi giriniz.</p>
-                  </div>
-                </div>
-                <span class="font-label-sm text-label-sm uppercase tracking-wider bg-surface-card text-navy-deep px-space-sm py-1 rounded font-bold border border-slate-border">Zorunlu Alanlar</span>
-              </div>
 
-              <!-- Biyometrik Fotoğraf Yükleme -->
-              <div class="bg-surface p-space-md rounded-xl flex flex-col sm:flex-row items-center gap-space-md border border-slate-border">
-                <div class="w-24 h-28 rounded-lg bg-surface-container flex flex-col items-center justify-center text-on-surface-variant relative overflow-hidden flex-shrink-0 group border border-slate-border">
-                  <div class="flex flex-col items-center justify-center p-2 text-center" id="photoPreviewPlaceholder">
-                    <span class="material-symbols-outlined text-[32px] text-outline">account_box</span>
-                    <span class="font-label-sm text-label-sm mt-1">Vesikalık</span>
-                  </div>
-                  <img alt="Vesikalık Önizleme" class="hidden absolute inset-0 w-full h-full object-cover" id="photoPreviewImg" />
-                </div>
-                <div class="flex-1 flex flex-col gap-space-xs text-center sm:text-left">
-                  <label class="font-label-md text-label-md text-navy-deep font-bold">Biyometrik / Vesikalık Fotoğraf</label>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant">
-                    Son 6 ay içerisinde beyaz fonda çekilmiş net portre fotoğrafı. (JPG, PNG – Maks 5 MB)
-                  </p>
-                  <div class="flex flex-wrap items-center gap-space-sm mt-space-xs justify-center sm:justify-start">
-                    <label class="cursor-pointer inline-flex items-center gap-space-xs bg-navy-deep hover:bg-slate-800 text-on-primary px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-colors font-bold" for="biometricPhotoInput">
-                      <span class="material-symbols-outlined text-[16px]">upload_file</span>
-                      <span>Fotoğraf Seç</span>
-                    </label>
-                    <input accept="image/jpeg,image/png" class="hidden" id="biometricPhotoInput" onchange="previewProfilePhoto(this)" type="file" />
-                    <span class="font-body-sm text-body-sm text-outline" id="photoFileName">Dosya seçilmedi</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Kimlik Grid -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="fullName">Ad Soyad (Kimlikteki gibi) *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="fullName" placeholder="Örn: Ahmet Yılmaz" required="" type="text" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="tcNo">T.C. Kimlik Numarası *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="tcNo" maxlength="11" placeholder="11 haneli T.C. No" required="" type="text" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="birthDate">Doğum Tarihi *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="birthDate" required="" type="date" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="birthPlace">Doğum Yeri (İl / İlçe) *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="birthPlace" placeholder="Örn: Bolu / Gerede" required="" type="text" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="phone">Telefon Numarası (WhatsApp Uyumlu) *</label>
-                  <div class="flex items-center bg-surface-canvas rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-navy-deep focus-within:bg-surface-card transition-all border border-slate-border">
-                    <span class="px-space-md font-label-md text-label-md text-on-surface-variant bg-surface-container py-3 font-bold border-r border-slate-border">+90</span>
-                    <input class="h-11 px-space-md w-full bg-transparent text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none" id="phone" placeholder="5XX XXX XX XX" required="" type="tel" />
-                  </div>
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="email">E-posta Adresi *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="email" placeholder="ornek@alanadi.com" required="" type="email" />
-                </div>
-              </div>
-
-              <!-- Adres -->
-              <div class="flex flex-col gap-1">
-                <label class="font-label-md text-label-md text-navy-deep font-semibold" for="residenceAddress">İkametgah ve Açık Adres (İl, İlçe ve Adres) *</label>
-                <textarea class="p-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all resize-none border border-slate-border" id="residenceAddress" placeholder="e-Devlet yerleşim yeri belgenizle uyumlu mahalle, cadde, sokak, ilçe ve il bilgisi..." required="" rows="2"></textarea>
-              </div>
-            </div>
-
-            <!-- SECTION 2: EHLİYET & TAKOGRAF BİLGİLERİ -->
-            <div class="bg-surface-card p-space-lg md:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg border border-slate-border">
-              <div class="flex items-center justify-between pb-space-sm bg-surface-container-low -mx-space-lg md:-mx-space-xl -mt-space-lg md:-mt-space-xl px-space-lg md:px-space-xl pt-space-lg md:pt-space-xl rounded-t-xl border-b border-slate-border">
-                <div class="flex items-center gap-space-sm">
-                  <div class="w-9 h-9 rounded-lg bg-navy-deep text-on-primary flex items-center justify-center">
-                    <span class="material-symbols-outlined text-[20px]">directions_bus</span>
-                  </div>
-                  <div>
-                    <h2 class="font-headline-md text-headline-md text-navy-deep font-bold">2. Ehliyet, Takograf &amp; Mesleki Belgeler</h2>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">CE çekici ehliyeti, dijital sürücü kartı ve SRC belgesi durumunuzu beyan ediniz.</p>
-                  </div>
-                </div>
-                <span class="font-label-sm text-label-sm uppercase tracking-wider bg-amber-vibrant/20 text-secondary font-bold px-space-sm py-1 rounded">Kritik Evraklar</span>
-              </div>
-
-              <!-- Ehliyet Sınıfı Seçimi -->
-              <div class="flex flex-col gap-space-xs">
-                <label class="font-label-md text-label-md text-navy-deep font-semibold">Mevcut Ehliyet Sınıflarınız (Çoklu Seçim) *</label>
-                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-space-sm">
-                  <label class="cursor-pointer flex items-center justify-center p-space-sm rounded-lg bg-surface-canvas hover:bg-surface-container text-navy-deep font-label-md text-label-md font-bold transition-colors has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input checked="" class="hidden" name="licenseClass" type="checkbox" value="CE" />
-                    <span>CE (Çekici/Tır)</span>
-                  </label>
-                  <label class="cursor-pointer flex items-center justify-center p-space-sm rounded-lg bg-surface-canvas hover:bg-surface-container text-navy-deep font-label-md text-label-md font-bold transition-colors has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input checked="" class="hidden" name="licenseClass" type="checkbox" value="C" />
-                    <span>C (Kamyon)</span>
-                  </label>
-                  <label class="cursor-pointer flex items-center justify-center p-space-sm rounded-lg bg-surface-canvas hover:bg-surface-container text-navy-deep font-label-md text-label-md font-bold transition-colors has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input class="hidden" name="licenseClass" type="checkbox" value="D" />
-                    <span>D (Otobüs)</span>
-                  </label>
-                  <label class="cursor-pointer flex items-center justify-center p-space-sm rounded-lg bg-surface-canvas hover:bg-surface-container text-navy-deep font-label-md text-label-md font-bold transition-colors has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input checked="" class="hidden" name="licenseClass" type="checkbox" value="B" />
-                    <span>B (Otomobil)</span>
-                  </label>
-                  <label class="cursor-pointer flex items-center justify-center p-space-sm rounded-lg bg-surface-canvas hover:bg-surface-container text-navy-deep font-label-md text-label-md font-bold transition-colors has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input class="hidden" name="licenseClass" type="checkbox" value="DE" />
-                    <span>DE</span>
-                  </label>
-                  <label class="cursor-pointer flex items-center justify-center p-space-sm rounded-lg bg-surface-canvas hover:bg-surface-container text-navy-deep font-label-md text-label-md font-bold transition-colors has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input class="hidden" name="licenseClass" type="checkbox" value="C1E" />
-                    <span>C1E</span>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Ehliyet Seri & Tarih Bilgileri -->
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="licenseSerial">Sürücü Belgesi Seri / No *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="licenseSerial" placeholder="Örn: 999999" required="" type="text" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="firstLicenseDate">İlk Ehliyet Alış Tarihi *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="firstLicenseDate" required="" type="date" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="ceLicenseDate">CE Sınıfı Alış Tarihi *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="ceLicenseDate" required="" type="date" />
-                </div>
-              </div>
-
-              <!-- Ehliyet Dosya Yükleme Dropzone (Ön ve Arka Yüz) -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
-                <!-- Ehliyet Ön -->
-                <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-all flex flex-col items-center text-center border border-slate-border">
-                  <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-navy-deep mb-space-xs">
-                    <span class="material-symbols-outlined text-[26px]">credit_card</span>
-                  </div>
-                  <div class="font-label-md text-label-md text-navy-deep font-bold">Ehliyet Ön Yüz Fotoğrafı *</div>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant my-1">
-                    Net, parlamasız fotoğraf (JPG, PNG, PDF)
-                  </p>
-                  <label class="mt-space-xs cursor-pointer inline-flex items-center gap-space-xs bg-navy-deep text-on-primary px-space-md py-space-xs rounded-lg font-label-sm text-label-sm hover:bg-slate-800 transition-colors font-bold" for="licenseFrontInput">
-                    <span class="material-symbols-outlined text-[16px]">cloud_upload</span>
-                    <span>Ön Yüz Seç</span>
-                  </label>
-                  <input accept=".jpg,.jpeg,.png,.pdf" class="hidden" id="licenseFrontInput" onchange="updateFileName(this, 'licenseFrontName')" type="file" />
-                  <span class="font-label-sm text-label-sm text-outline mt-2 truncate max-w-full" id="licenseFrontName">Yükleme bekleniyor</span>
-                </div>
-                <!-- Ehliyet Arka -->
-                <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-all flex flex-col items-center text-center border border-slate-border">
-                  <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-navy-deep mb-space-xs">
-                    <span class="material-symbols-outlined text-[26px]">contact_page</span>
-                  </div>
-                  <div class="font-label-md text-label-md text-navy-deep font-bold">Ehliyet Arka Yüz Fotoğrafı *</div>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant my-1">
-                    Kategori sınıfları ve kodların net olduğu arka yüz
-                  </p>
-                  <label class="mt-space-xs cursor-pointer inline-flex items-center gap-space-xs bg-navy-deep text-on-primary px-space-md py-space-xs rounded-lg font-label-sm text-label-sm hover:bg-slate-800 transition-colors font-bold" for="licenseBackInput">
-                    <span class="material-symbols-outlined text-[16px]">cloud_upload</span>
-                    <span>Arka Yüz Seç</span>
-                  </label>
-                  <input accept=".jpg,.jpeg,.png,.pdf" class="hidden" id="licenseBackInput" onchange="updateFileName(this, 'licenseBackName')" type="file" />
-                  <span class="font-label-sm text-label-sm text-outline mt-2 truncate max-w-full" id="licenseBackName">Yükleme bekleniyor</span>
-                </div>
-              </div>
-
-              <!-- Dijital Takograf Kartı & SRC Grubu -->
-              <div class="p-space-md rounded-xl bg-surface flex flex-col gap-space-md border border-slate-border">
-                <div class="flex items-center gap-space-xs">
-                  <span class="material-symbols-outlined text-[20px] text-amber-vibrant">memory</span>
-                  <h3 class="font-headline-sm text-headline-sm text-navy-deep font-bold">Dijital Takograf &amp; Mesleki Yeterlilik (SRC)</h3>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
-                  <div class="flex flex-col gap-1">
-                    <label class="font-label-md text-label-md text-navy-deep font-semibold" for="tachographNo">Dijital Takograf Sürücü Kartı No *</label>
-                    <input class="h-11 px-space-md bg-surface-card rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="tachographNo" placeholder="Örn: T000000000" required="" type="text" />
-                  </div>
-                  <!-- Takograf Kartı Ön Yüz -->
-                  <div class="flex flex-col gap-1">
-                    <label class="font-label-md text-label-md text-navy-deep font-semibold">Takograf Kartı Görseli (Ön Yüz) *</label>
-                    <div class="flex items-center gap-space-sm bg-surface-card p-space-xs rounded-lg border border-slate-border">
-                      <label class="cursor-pointer bg-surface-container px-space-sm py-space-xs rounded font-label-sm text-label-sm text-navy-deep font-bold hover:bg-surface-container-high transition-colors flex-shrink-0" for="tachographInput">
-                        Dosya Seç
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
+                    <!-- Ad Soyad -->
+                    <div class="sm:col-span-2 flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1" for="fullName">
+                        Ad ve Soyad <span class="text-error">*</span>
                       </label>
-                      <input accept=".jpg,.jpeg,.png,.pdf" class="hidden" id="tachographInput" onchange="updateFileName(this, 'tachographFileName')" type="file" />
-                      <span class="font-body-sm text-body-sm text-outline truncate flex-1" id="tachographFileName">Takograf kartı ön yüzünü seçiniz...</span>
+                      <input class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="fullName" placeholder="Örn: Ahmet Yılmaz" required="" type="text">
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Pasaport veya kimlik kartınızda yer alan isimle birebir aynı olmalıdır.</span>
+                    </div>
+
+                    <!-- E-posta -->
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1" for="email">
+                        E-posta Adresi <span class="text-error">*</span>
+                      </label>
+                      <input class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="email" placeholder="Örn: ahmet.yilmaz@ornek.com" required="" type="email">
+                    </div>
+
+                    <!-- Telefon / WhatsApp -->
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1" for="phone">
+                        Telefon Numarası / WhatsApp <span class="text-error">*</span>
+                      </label>
+                      <div class="relative flex items-center">
+                        <span class="absolute left-3 font-label-md text-label-md text-on-surface-variant font-bold">+90</span>
+                        <input class="w-full h-12 pl-14 pr-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="phone" placeholder="5XX XXX XX XX" required="" type="tel">
+                      </div>
+                    </div>
+
+                    <!-- Şehir -->
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1" for="city">
+                        İkamet Edilen İl / Şehir <span class="text-error">*</span>
+                      </label>
+                      <select class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="city" required="">
+                        <option disabled="" selected="" value="">Şehir seçiniz</option>
+                        <option value="Istanbul">İstanbul</option>
+                        <option value="Ankara">Ankara</option>
+                        <option value="Izmir">İzmir</option>
+                        <option value="Bursa">Bursa</option>
+                        <option value="Kocaeli">Kocaeli</option>
+                        <option value="Mersin">Mersin</option>
+                        <option value="Hatay">Hatay</option>
+                        <option value="Gaziantep">Gaziantep</option>
+                        <option value="Konya">Konya</option>
+                        <option value="Antalya">Antalya</option>
+                        <option value="Adana">Adana</option>
+                        <option value="Samsun">Samsun</option>
+                        <option value="Trabzon">Trabzon</option>
+                        <option value="Kayseri">Kayseri</option>
+                        <option value="Diger">Diğer İl</option>
+                      </select>
+                    </div>
+
+                    <!-- Doğum Tarihi / Yaş -->
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1" for="birthDate">
+                        Doğum Tarihi <span class="text-error">*</span>
+                      </label>
+                      <input class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="birthDate" required="" type="date">
                     </div>
                   </div>
                 </div>
 
-                <!-- SRC Seçenekleri -->
-                <div class="flex flex-col gap-space-xs pt-space-xs">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold">Mevcut SRC ve Mesleki Belgeleriniz</label>
-                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
-                    <label class="cursor-pointer flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-card hover:bg-surface-container-low transition-colors border border-slate-border">
-                      <input checked="" class="w-4 h-4 rounded text-navy-deep focus:ring-0" name="srcDocs" type="checkbox" value="SRC3" />
-                      <span class="font-label-md text-label-md text-navy-deep">SRC 3 (Uluslararası Yük)</span>
+                <!-- SECTION B: Ehliyet & Sürüş Tecrübesi -->
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                  <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
+                    <div class="flex items-center gap-3">
+                      <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">B</span>
+                      <div>
+                        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Ehliyet &amp; Sürüş Tecrübesi</h2>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Ağır vasıta ehliyet sınıflarınız ve operasyonel yol tecrübeniz</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline text-[24px]">local_shipping</span>
+                  </div>
+
+                  <!-- Ehliyet Sınıfları -->
+                  <div class="flex flex-col gap-3">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1">
+                      Sahip Olunan Ehliyet Sınıfları <span class="text-error">*</span>
+                      <span class="text-on-surface-variant font-normal">(Birden fazla seçilebilir)</span>
                     </label>
-                    <label class="cursor-pointer flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-card hover:bg-surface-container-low transition-colors border border-slate-border">
-                      <input checked="" class="w-4 h-4 rounded text-navy-deep focus:ring-0" name="srcDocs" type="checkbox" value="SRC4" />
-                      <span class="font-label-md text-label-md text-navy-deep">SRC 4 (Yurtiçi Yük)</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input checked="" class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="CE">
+                        <div class="flex flex-col">
+                          <span class="font-label-lg text-label-lg font-bold text-on-surface">CE</span>
+                          <span class="font-label-sm text-label-sm text-on-surface-variant">TIR / Çekici</span>
+                        </div>
+                      </label>
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input checked="" class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="C">
+                        <div class="flex flex-col">
+                          <span class="font-label-lg text-label-lg font-bold text-on-surface">C</span>
+                          <span class="font-label-sm text-label-sm text-on-surface-variant">Kamyon</span>
+                        </div>
+                      </label>
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="D">
+                        <div class="flex flex-col">
+                          <span class="font-label-lg text-label-lg font-bold text-on-surface">D</span>
+                          <span class="font-label-sm text-label-sm text-on-surface-variant">Otobüs</span>
+                        </div>
+                      </label>
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input checked="" class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="B">
+                        <div class="flex flex-col">
+                          <span class="font-label-lg text-label-lg font-bold text-on-surface">B</span>
+                          <span class="font-label-sm text-label-sm text-on-surface-variant">Otomobil</span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- CE Alış Yılı & Aktif Tecrübe -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1" for="ceYear">
+                        CE Sınıfı Ehliyet Alış Yılı <span class="text-error">*</span>
+                      </label>
+                      <select class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="ceYear" required="">
+                        <option disabled="" selected="" value="">Yıl seçiniz</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2018-2019">2018 - 2019</option>
+                        <option value="2015-2017">2015 - 2017</option>
+                        <option value="2010-2014">2010 - 2014</option>
+                        <option value="2010-oncesi">2010 ve Öncesi</option>
+                      </select>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1" for="experienceYears">
+                        Ağır Vasıta / TIR Aktif Sürüş Tecrübesi <span class="text-error">*</span>
+                      </label>
+                      <select class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="experienceYears" required="">
+                        <option disabled="" selected="" value="">Tecrübe aralığı seçiniz</option>
+                        <option value="under1">1 Yıldan Az (Yeni Mezun / Çaylak)</option>
+                        <option value="1-3">1 - 3 Yıl Aktif Sürüş</option>
+                        <option value="3-5">3 - 5 Yıl Aktif Sürüş</option>
+                        <option value="5-10">5 - 10 Yıl Profesyonel Tecrübe</option>
+                        <option value="10plus">10+ Yıl Kıdemli Kaptan</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Aktif Dijital Takograf Kartı Durumu -->
+                  <div class="flex flex-col gap-2 pt-2">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1">
+                      Aktif Dijital Takograf Kartı Durumu <span class="text-error">*</span>
                     </label>
-                    <label class="cursor-pointer flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-card hover:bg-surface-container-low transition-colors border border-slate-border">
-                      <input class="w-4 h-4 rounded text-navy-deep focus:ring-0" name="srcDocs" type="checkbox" value="SRC5_ADR" />
-                      <span class="font-label-md text-label-md text-navy-deep">SRC 5 (Tehlikeli Madde/ADR)</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input checked="" class="w-4 h-4 text-secondary-container accent-secondary-container" name="tachograph" type="radio" value="valid">
+                        <span class="font-body-sm text-body-sm text-on-surface font-medium">Mevcut &amp; Geçerli</span>
+                      </label>
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input class="w-4 h-4 text-secondary-container accent-secondary-container" name="tachograph" type="radio" value="expired">
+                        <span class="font-body-sm text-body-sm text-on-surface font-medium">Süresi Dolmuş / Yenilenecek</span>
+                      </label>
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input class="w-4 h-4 text-secondary-container accent-secondary-container" name="tachograph" type="radio" value="none">
+                        <span class="font-body-sm text-body-sm text-on-surface font-medium">Mevcut Değil / Başvuruda</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SECTION C: Mesleki Yeterlilik Belgeleri -->
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                  <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
+                    <div class="flex items-center gap-3">
+                      <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">C</span>
+                      <div>
+                        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Mesleki Yeterlilik Belgeleri</h2>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">SRC, Psikoteknik ve Avrupa Kod 95 yeterlilik durumu</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline text-[24px]">assignment_turned_in</span>
+                  </div>
+
+                  <!-- Interactive Document Selection Cards -->
+                  <div class="flex flex-col gap-3">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold">
+                      Mevcut Belgelerinizi İşaretleyiniz:
                     </label>
-                    <label class="cursor-pointer flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-card hover:bg-surface-container-low transition-colors border border-slate-border">
-                      <input checked="" class="w-4 h-4 rounded text-navy-deep focus:ring-0" name="srcDocs" type="checkbox" value="PSIKOTEKNIK" />
-                      <span class="font-label-md text-label-md text-navy-deep">Psikoteknik Belgesi</span>
+                    <div class="space-y-3">
+                      <!-- SRC 3 -->
+                      <label class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all shadow-sm">
+                        <input checked="" class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="SRC3">
+                        <div class="flex-1">
+                          <div class="flex items-center justify-between">
+                            <span class="font-label-lg text-label-lg font-bold text-on-surface">SRC 3</span>
+                            <span class="font-label-sm text-label-sm bg-surface-container-highest px-2 py-0.5 rounded text-on-surface font-semibold">Uluslararası Taşımacılık</span>
+                          </div>
+                          <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Uluslararası Eşya ve Kargo Taşımacılığı Sürücü Mesleki Yeterlilik Belgesi.</p>
+                        </div>
+                      </label>
+                      <!-- SRC 4 -->
+                      <label class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all shadow-sm">
+                        <input checked="" class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="SRC4">
+                        <div class="flex-1">
+                          <div class="flex items-center justify-between">
+                            <span class="font-label-lg text-label-lg font-bold text-on-surface">SRC 4</span>
+                            <span class="font-label-sm text-label-sm bg-surface-container-highest px-2 py-0.5 rounded text-on-surface font-semibold">Yurtiçi Taşımacılık</span>
+                          </div>
+                          <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Yurtiçi Eşya ve Kargo Taşımacılığı Sürücü Yeterlilik Belgesi.</p>
+                        </div>
+                      </label>
+                      <!-- SRC 5 / ADR -->
+                      <label class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all shadow-sm relative overflow-hidden">
+                        <div class="w-1 bg-secondary-container absolute left-0 top-0 bottom-0"></div>
+                        <input class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="SRC5">
+                        <div class="flex-1">
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                              <span class="font-label-lg text-label-lg font-bold text-on-surface">SRC 5 / ADR</span>
+                              <span class="font-label-sm text-label-sm bg-secondary-container text-on-secondary-fixed px-2 py-0.5 rounded-full font-bold">Öncelikli İstihdam Kriteri</span>
+                            </div>
+                            <span class="font-label-sm text-label-sm bg-surface-container-highest px-2 py-0.5 rounded text-on-surface font-semibold">Tehlikeli Madde</span>
+                          </div>
+                          <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Tehlikeli Madde (Tanker / Paket / Dökme) Taşımacılığı Belgesi. Avrupa filolarında yüksek maaş skalası avantajı sağlar.</p>
+                        </div>
+                      </label>
+                      <!-- Psikoteknik Raporu -->
+                      <label class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all shadow-sm">
+                        <input checked="" class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="psikoteknik">
+                        <div class="flex-1">
+                          <div class="flex items-center justify-between">
+                            <span class="font-label-lg text-label-lg font-bold text-on-surface">Psikoteknik Değerlendirme Raporu</span>
+                            <span class="font-label-sm text-label-sm bg-status-success/20 text-on-surface px-2 py-0.5 rounded font-semibold">Aktif &amp; e-Devlet Onaylı</span>
+                          </div>
+                          <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Son 5 yıl içinde alınmış, geçerli psikoteknik muayene raporu.</p>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Kod 95 Durumu -->
+                  <div class="flex flex-col gap-2 pt-2">
+                    <div class="flex items-center justify-between">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1">
+                        Kod 95 (Code 95) Sürücü Mesleki Yeterlilik Durumu <span class="text-error">*</span>
+                      </label>
+                      <span class="font-label-sm text-label-sm text-secondary font-semibold">AB Zorunlu Belgesi</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <label class="flex flex-col gap-1 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <div class="flex items-center gap-2">
+                          <input checked="" class="w-4 h-4 text-secondary-container accent-secondary-container" name="code95" type="radio" value="eu">
+                          <span class="font-label-md text-label-md text-on-surface font-bold">Mevcut (AB Ülkesi)</span>
+                        </div>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Polonya, Almanya vb. AB onaylı Kod 95</span>
+                      </label>
+                      <label class="flex flex-col gap-1 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <div class="flex items-center gap-2">
+                          <input class="w-4 h-4 text-secondary-container accent-secondary-container" name="code95" type="radio" value="none">
+                          <span class="font-label-md text-label-md text-on-surface font-bold">Henüz Yok</span>
+                        </div>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Denklik ve eğitim süreci talep ediyorum</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SECTION D: Avrupa & Yurt Dışı Tecrübe Geçmişi -->
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                  <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
+                    <div class="flex items-center gap-3">
+                      <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">D</span>
+                      <div>
+                        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Avrupa &amp; Yurt Dışı Tecrübe Geçmişi</h2>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Sınır ötesi operasyonlar, sefer hatları ve ülke tercihleriniz</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline text-[24px]">public</span>
+                  </div>
+
+                  <!-- Daha önce Avrupa tecrübesi -->
+                  <div class="flex flex-col gap-2">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1">
+                      Daha önce uluslararası veya Avrupa tecrübeniz var mı? <span class="text-error">*</span>
+                    </label>
+                    <div class="grid grid-cols-1 gap-2.5">
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input checked="" class="w-4 h-4 text-secondary-container accent-secondary-container" name="euExp" type="radio" value="yes_eu">
+                        <span class="font-body-md text-body-md text-on-surface font-medium">Evet, Avrupa Birliği ülkelerinde uluslararası nakliye / hat tecrübem var</span>
+                      </label>
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input class="w-4 h-4 text-secondary-container accent-secondary-container" name="euExp" type="radio" value="other_intl">
+                        <span class="font-body-md text-body-md text-on-surface font-medium">Türki cumhuriyetler / Balkanlar / Orta Doğu hatlarında uluslararası çalıştım</span>
+                      </label>
+                      <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
+                        <input class="w-4 h-4 text-secondary-container accent-secondary-container" name="euExp" type="radio" value="domestic_only">
+                        <span class="font-body-md text-body-md text-on-surface font-medium">Hayır, şu ana kadar yalnızca Türkiye yurtiçi lojistik hatlarında çalıştım</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Çalışılan güzergahlar -->
+                  <div class="flex flex-col gap-1.5 pt-2">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="routeDetails">
+                      Tecrübeniz ile alakalı eklemek istediğiniz ekstra bilgiler:
+                    </label>
+                    <textarea class="w-full p-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="routeDetails" placeholder="Örn: Kapıkule - Bulgaristan - Sırbistan - Macaristan - Almanya hattında tenteli dorse ile çalıştım..." rows="2"></textarea>
+                  </div>
+
+                  <!-- Avrupa belgesi var mı? -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1" for="euDocs">
+                        Avrupa Menşeli Belge veya Ehliyet <span class="text-error">*</span>
+                      </label>
+                      <select class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="euDocs" required="">
+                        <option value="none">Hayır, tüm evraklarım Türkiye menşeli</option>
+                        <option value="poland">Evet, Polonya (Świadectwo Kwalifikacji vb.)</option>
+                        <option value="germany">Evet, Almanya (Fahrerkarte / BKF)</option>
+                        <option value="other_eu">Evet, Diğer bir AB ülkesi</option>
+                      </select>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1" for="targetCountry">
+                        Tercih Edilen Ülke / Filo Odağı <span class="text-error">*</span>
+                      </label>
+                      <select class="w-full h-12 px-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="targetCountry" required="">
+                        <option value="any">Fark Etmez / Şartları En Uygun İşveren</option>
+                        <option value="DE">Almanya Odaklı Filolar</option>
+                        <option value="PL">Polonya Odaklı Filolar</option>
+                        <option value="NL">Hollanda / Benelüks Filoları</option>
+                        <option value="FR">Fransa &amp; Batı Avrupa Hatları</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SECTION E: Ek Notlar & Belge Yükleme (Opsiyonel) -->
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                  <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
+                    <div class="flex items-center gap-3">
+                      <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">E</span>
+                      <div>
+                        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Ek Notlar &amp; Belge Yükleme <span class="font-normal text-on-surface-variant font-body-sm text-body-sm">(Opsiyonel)</span></h2>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Varsa CV'niz, ehliyet veya takograf kopyalarınızı ekleyerek süreci hızlandırabilirsiniz</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline text-[24px]">upload_file</span>
+                  </div>
+
+                  <!-- Textarea Note -->
+                  <div class="flex flex-col gap-1.5">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="extraNotes">
+                      Dosyanıza Eklemek İstediğiniz Özel Not veya Sorularınız
+                    </label>
+                    <textarea class="w-full p-4 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="extraNotes" placeholder="Örn: İngilizce / Almanca başlangıç seviyesinde konuşabiliyorum, soğuk zincir (frigo) taşımacılıkta 4 yıl tecrübem var..." rows="3"></textarea>
+                  </div>
+
+                  <!-- Drag & Drop Upload Zone -->
+                  <div class="flex flex-col gap-2">
+                    <span class="font-label-md text-label-md text-on-surface font-semibold">Belge / CV Yükleme (PDF, JPG, PNG)</span>
+                    <div class="p-8 rounded-xl bg-surface-subtle hover:bg-surface-container-low transition-colors flex flex-col items-center justify-center text-center cursor-pointer shadow-inner relative group border-2 border-dashed border-border-muted hover:border-secondary-container" onclick="document.getElementById('fileInput').click()">
+                      <input accept=".pdf,.jpg,.jpeg,.png" class="hidden" id="fileInput" multiple="" onchange="handleFileSelect(event)" type="file">
+                      <div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface mb-3 group-hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined text-[28px]">cloud_upload</span>
+                      </div>
+                      <p class="font-label-lg text-label-lg text-on-surface font-bold">Dosyaları buraya sürükleyip bırakın veya cihazınızdan seçin</p>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Ehliyet ön/arka yüzü, Takograf kartı kopyası veya CV (Maks. 15MB)</p>
+                      <div class="mt-3 flex flex-wrap gap-2 items-center justify-center" id="fileUploadFeedback"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SECTION F: Onay & Gönderim -->
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                  <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
+                    <div class="flex items-center gap-3">
+                      <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">F</span>
+                      <div>
+                        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Onay &amp; Güvenli Gönderim</h2>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Veri koruma mevzuatı ve dosya inceleme onayı</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline text-[24px]">verified</span>
+                  </div>
+
+                  <div class="space-y-3">
+                    <label class="flex items-start gap-3 cursor-pointer">
+                      <input class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" required="" type="checkbox">
+                      <span class="font-body-sm text-body-sm text-on-surface leading-snug">
+                        <a class="font-semibold text-secondary hover:underline" href="javascript:void(0)" onclick="alert('KVKK Metni: Başvuru verileriniz açık rızanız doğrultusunda güvenli sunucularda saklanmaktadır.');">KVKK Aydınlatma Metni</a>'ni ve <a class="font-semibold text-secondary hover:underline" href="javascript:void(0)" onclick="alert('Gizlilik Politikası: Kişisel verileriniz 6698 sayılı KVKK kapsamında gizlilikle korunmakta ve yalnızca istihdam süreçleri için işlenmektedir.');">Gizlilik Sözleşmesi</a>'ni okudum, kişisel verilerimin istihdam ve ehliyet denklik değerlendirmesi kapsamında işlenmesini kabul ediyorum. <span class="text-error">*</span>
+                      </span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer">
+                      <input class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" required="" type="checkbox">
+                      <span class="font-body-sm text-body-sm text-on-surface leading-snug">
+                        Formda beyan ettiğim tüm ehliyet, belge ve sürüş tecrübesi bilgilerinin doğru ve şahsıma ait olduğunu taahhüt ederim. <span class="text-error">*</span>
+                      </span>
                     </label>
                   </div>
+
+                  <!-- Secure Notice Box -->
+                  <div class="p-4 rounded-lg bg-surface-subtle flex items-start gap-3">
+                    <span class="material-symbols-outlined text-status-success text-[22px] mt-0.5">security</span>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">
+                      <strong>Güvenlik &amp; Gizlilik Güvencesi:</strong> Gönderilen tüm bilgiler gizlilik politikamız ve KVKK kapsamında korunmakta olup, izniniz olmadan üçüncü şahıs ve yetkisiz komisyoncularla asla paylaşılmaz.
+                    </p>
+                  </div>
+
+                  <!-- Submit Action Button -->
+                  <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+                      <span class="material-symbols-outlined text-[18px]">verified</span>
+                      <span>SSL Korumalı Doğrudan İletim</span>
+                    </div>
+                    <button class="w-full sm:w-auto min-w-[260px] h-14 px-8 rounded-xl bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-lg text-label-lg font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-3 cursor-pointer" id="submitBtn" type="submit">
+                      <span class="material-symbols-outlined text-[20px]">send</span>
+                      <span>BAŞVURUMU İNCELEMEYE GÖNDER</span>
+                    </button>
+                  </div>
+
+                  <!-- Success Feedback Box (Hidden by default) -->
+                  <div class="hidden p-6 rounded-xl bg-status-success/10 text-on-surface flex flex-col gap-3" id="formSuccessMessage">
+                    <div class="flex items-center gap-2 text-on-surface font-headline-sm text-headline-sm font-bold">
+                      <span class="material-symbols-outlined text-status-success text-[28px]">check_circle</span>
+                      <span>Başvurunuz Başarıyla Alındı!</span>
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                      Dosyanız sisteme kaydedildi. Dosya Kayıt No: <strong class="text-on-surface font-mono" id="trackingCodeDisplay">AVR-2025-7842</strong>. Uzman danışmanlarımız 24 saat içinde evrak uygunluğunuzu ve sürücü kriterlerinizi analiz ederek telefon/WhatsApp üzerinden sizinle iletişime geçecektir.
+                    </p>
+                  </div>
+
                 </div>
-              </div>
+              </form>
             </div>
 
-            <!-- SECTION 3: PASAPORT & RESMİ E-DEVLET BELGELERİ -->
-            <div class="bg-surface-card p-space-lg md:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg border border-slate-border">
-              <div class="flex items-center justify-between pb-space-sm bg-surface-container-low -mx-space-lg md:-mx-space-xl -mt-space-lg md:-mt-space-xl px-space-lg md:px-space-xl pt-space-lg md:pt-space-xl rounded-t-xl border-b border-slate-border">
-                <div class="flex items-center gap-space-sm">
-                  <div class="w-9 h-9 rounded-lg bg-navy-deep text-on-primary flex items-center justify-center">
-                    <span class="material-symbols-outlined text-[20px]">description</span>
-                  </div>
-                  <div>
-                    <h2 class="font-headline-md text-headline-md text-navy-deep font-bold">3. Pasaport &amp; e-Devlet Barkodlu Belgeler</h2>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Ön analiz için karekodlu / barkodlu resmi evrakların yüklenmesi esastır.</p>
-                  </div>
+            <!-- Right: Informative Logistics Sticky Sidebar (4 Columns) -->
+            <div class="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-28">
+              
+              <!-- How It Works Step Card -->
+              <div class="bg-surface-card p-6 rounded-xl shadow-sm flex flex-col gap-5 relative overflow-hidden">
+                <div class="w-full h-1 bg-secondary-container absolute top-0 left-0"></div>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-secondary-container text-[24px]">timeline</span>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Başvuru Sonrası Süreç Nasıl İşler?</h3>
                 </div>
-                <span class="font-label-sm text-label-sm uppercase tracking-wider bg-status-success/15 text-status-success font-bold px-space-sm py-1 rounded flex items-center gap-1">
-                  <span class="material-symbols-outlined text-[14px]">qr_code_scanner</span>
-                  Barkod Zorunlu
-                </span>
-              </div>
-
-              <!-- Pasaport Bilgileri -->
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="passportType">Pasaport Türü *</label>
-                  <select class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="passportType" required="">
-                    <option value="bordo">Bordo (Umuma Mahsus)</option>
-                    <option value="yesil">Yeşil (Hususi Damgalı)</option>
-                    <option value="gri">Gri (Hizmet)</option>
-                    <option value="yok">Pasaportum Henüz Yok (Çıkarılacak)</option>
-                  </select>
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="passportNo">Pasaport Seri No *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="passportNo" placeholder="Örn: U12345678" required="" type="text" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="passportExpiry">Geçerlilik Bitiş Tarihi *</label>
-                  <input class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="passportExpiry" required="" type="date" />
-                </div>
-              </div>
-
-              <!-- Pasaport Sayfası Yükle -->
-              <div class="p-space-md rounded-xl bg-surface-canvas flex flex-col sm:flex-row items-center justify-between gap-space-md border border-slate-border">
-                <div class="flex items-center gap-space-md">
-                  <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-navy-deep flex-shrink-0">
-                    <span class="material-symbols-outlined text-[22px]">import_contacts</span>
-                  </div>
-                  <div>
-                    <div class="font-label-md text-label-md text-navy-deep font-bold">Pasaport Fotoğraflı Sayfa (Resimli Sayfa) *</div>
-                    <div class="font-body-sm text-body-sm text-on-surface-variant">Kimlik ve geçerlilik bilgilerinin okunduğu ana sayfa</div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
-                  <label class="cursor-pointer inline-flex items-center gap-space-xs bg-navy-deep text-on-primary px-space-md py-space-xs rounded-lg font-label-sm text-label-sm hover:bg-slate-800 transition-colors font-bold" for="passportFileInput">
-                    <span class="material-symbols-outlined text-[16px]">upload</span>
-                    <span>Belge Yükle</span>
-                  </label>
-                  <input accept=".jpg,.jpeg,.png,.pdf" class="hidden" id="passportFileInput" onchange="updateFileName(this, 'passportFileName')" type="file" />
-                  <span class="font-label-sm text-label-sm text-outline max-w-[140px] truncate" id="passportFileName">Yüklenmedi</span>
-                </div>
-              </div>
-
-              <!-- E-DEVLET 1: BARKODLU ADLİ SİCİL -->
-              <div class="p-space-md rounded-xl bg-surface flex flex-col gap-space-sm border border-slate-border">
-                <div class="flex items-start justify-between gap-space-sm">
-                  <div class="flex items-center gap-space-sm">
-                    <div class="w-10 h-10 rounded-lg bg-surface-card flex items-center justify-center text-navy-deep shadow-sm border border-slate-border">
-                      <span class="material-symbols-outlined text-[22px]">verified</span>
+                <!-- Steps Component -->
+                <div class="flex flex-col gap-4 relative">
+                  <!-- Step 1 -->
+                  <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-full bg-secondary-container text-on-secondary-fixed flex items-center justify-center font-label-sm text-label-sm font-bold shrink-0 mt-0.5">
+                      1
                     </div>
-                    <div>
-                      <h3 class="font-headline-sm text-headline-sm text-navy-deep font-bold">e-Devlet Barkodlu Sabıka Kaydı Belgesi (PDF) *</h3>
-                      <p class="font-body-sm text-body-sm text-on-surface-variant">
-                        e-Devlet üzerinden <strong>"Resmi Kurum / Yurt Dışı"</strong> seçeneği işaretlenerek oluşturulmuş barkodlu PDF.
-                      </p>
+                    <div class="flex flex-col">
+                      <span class="font-label-lg text-label-lg font-bold text-on-surface">Dosya &amp; Evrak Ön İncelemesi</span>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Belgeleriniz AB taşımacılık mevzuatına göre taranır.</span>
                     </div>
                   </div>
-                  <span class="hidden md:inline-block font-label-sm text-label-sm bg-surface-container text-navy-deep px-space-xs py-0.5 rounded font-bold">PDF Formatı</span>
-                </div>
-                <!-- Dropzone Area -->
-                <div class="p-space-md rounded-xl bg-surface-card hover:bg-surface-container-low transition-all flex flex-col items-center justify-center text-center border border-slate-border">
-                  <span class="material-symbols-outlined text-[32px] text-amber-vibrant mb-1">picture_as_pdf</span>
-                  <span class="font-label-md text-label-md text-navy-deep font-bold">Barkodlu Adli Sicil Kaydını Yükleyin</span>
-                  <p class="font-body-sm text-body-sm text-outline mb-space-sm">Barkod ve karekod alanının net olması zorunludur (Maks 10MB)</p>
-                  <label class="cursor-pointer inline-flex items-center gap-space-xs bg-navy-deep text-on-primary px-space-md py-space-xs rounded-lg font-label-sm text-label-sm hover:bg-slate-800 transition-colors font-bold" for="criminalRecordInput">
-                    <span class="material-symbols-outlined text-[16px]">file_open</span>
-                    <span>PDF Seç veya Buraya Sürükle</span>
-                  </label>
-                  <input accept=".pdf" class="hidden" id="criminalRecordInput" onchange="updateFileName(this, 'criminalFileName')" type="file" />
-                  <span class="font-label-sm text-label-sm text-status-success font-semibold mt-2" id="criminalFileName"></span>
-                </div>
-              </div>
-
-              <!-- E-DEVLET 2: BARKODLU SGK HİZMET DÖKÜMÜ -->
-              <div class="p-space-md rounded-xl bg-surface flex flex-col gap-space-sm border border-slate-border">
-                <div class="flex items-start justify-between gap-space-sm">
-                  <div class="flex items-center gap-space-sm">
-                    <div class="w-10 h-10 rounded-lg bg-surface-card flex items-center justify-center text-navy-deep shadow-sm border border-slate-border">
-                      <span class="material-symbols-outlined text-[22px]">history_edu</span>
+                  <!-- Step 2 -->
+                  <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-sm text-label-sm font-bold shrink-0 mt-0.5">
+                      2
                     </div>
-                    <div>
-                      <h3 class="font-headline-sm text-headline-sm text-navy-deep font-bold">e-Devlet Barkodlu SGK Tescil ve Hizmet Dökümü (PDF) *</h3>
-                      <p class="font-body-sm text-body-sm text-on-surface-variant">
-                        Tüm sigortalılık geçmişinizi (4A / 4B) gösteren karekodlu/barkodlu resmi SGK döküm belgesi.
-                      </p>
+                    <div class="flex flex-col">
+                      <span class="font-label-lg text-label-lg font-bold text-on-surface">Uygunluk &amp; Denklik Bilgilendirmesi</span>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Eksik evrak veya Kod 95 süreci hakkında yol haritası sunulur.</span>
                     </div>
                   </div>
-                  <span class="hidden md:inline-block font-label-sm text-label-sm bg-surface-container text-navy-deep px-space-xs py-0.5 rounded font-bold">PDF Formatı</span>
-                </div>
-                <!-- Dropzone Area -->
-                <div class="p-space-md rounded-xl bg-surface-card hover:bg-surface-container-low transition-all flex flex-col items-center justify-center text-center border border-slate-border">
-                  <span class="material-symbols-outlined text-[32px] text-amber-vibrant mb-1">picture_as_pdf</span>
-                  <span class="font-label-md text-label-md text-navy-deep font-bold">Barkodlu SGK Döküm Belgesini Yükleyin</span>
-                  <p class="font-body-sm text-body-sm text-outline mb-space-sm">Mesleki tecrübe kodlarının incelenebilmesi için tam döküm gereklidir</p>
-                  <label class="cursor-pointer inline-flex items-center gap-space-xs bg-navy-deep text-on-primary px-space-md py-space-xs rounded-lg font-label-sm text-label-sm hover:bg-slate-800 transition-colors font-bold" for="sgkDocInput">
-                    <span class="material-symbols-outlined text-[16px]">file_open</span>
-                    <span>PDF Seç veya Buraya Sürükle</span>
-                  </label>
-                  <input accept=".pdf" class="hidden" id="sgkDocInput" onchange="updateFileName(this, 'sgkFileName')" type="file" />
-                  <span class="font-label-sm text-label-sm text-status-success font-semibold mt-2" id="sgkFileName"></span>
-                </div>
-              </div>
-            </div>
-
-            <!-- SECTION 4: TECRÜBE & HEDEF ÜLKE TERCİHİ -->
-            <div class="bg-surface-card p-space-lg md:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg border border-slate-border">
-              <div class="flex items-center justify-between pb-space-sm bg-surface-container-low -mx-space-lg md:-mx-space-xl -mt-space-lg md:-mt-space-xl px-space-lg md:px-space-xl pt-space-lg md:pt-space-xl rounded-t-xl border-b border-slate-border">
-                <div class="flex items-center gap-space-sm">
-                  <div class="w-9 h-9 rounded-lg bg-navy-deep text-on-primary flex items-center justify-center">
-                    <span class="material-symbols-outlined text-[20px]">public</span>
-                  </div>
-                  <div>
-                    <h2 class="font-headline-md text-headline-md text-navy-deep font-bold">4. Tecrübe &amp; Hedef Ülke Tercihi</h2>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Sürüş tecrübeniz, dorse türleri ve mevzuat analizi istediğiniz Avrupa ülkeleri.</p>
+                  <!-- Step 3 -->
+                  <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-sm text-label-sm font-bold shrink-0 mt-0.5">
+                      3
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-label-lg text-label-lg font-bold text-on-surface">İşveren Eşleştirmesi &amp; Sözleşme</span>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Uygun lojistik filolarıyla resmi sözleşme aşamasına geçilir.</span>
+                    </div>
                   </div>
                 </div>
-                <span class="font-label-sm text-label-sm uppercase tracking-wider bg-surface-card text-navy-deep px-space-sm py-1 rounded font-bold border border-slate-border">Profil Eşleşmesi</span>
-              </div>
 
-              <!-- Uluslararası / Ağır Vasıta Tecrübe Yılı -->
-              <div class="flex flex-col gap-space-xs">
-                <label class="font-label-md text-label-md text-navy-deep font-semibold">Ağır Vasıta (CE) Tecrübe Süreniz *</label>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
-                  <label class="cursor-pointer flex items-center justify-between p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">1 - 3 Yıl</div>
-                      <div class="font-body-sm text-body-sm text-outline">Başlangıç / Gelişim</div>
-                    </div>
-                    <input class="text-amber-vibrant focus:ring-0" name="expYears" type="radio" value="1-3" />
-                  </label>
-                  <label class="cursor-pointer flex items-center justify-between p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">3 - 5 Yıl</div>
-                      <div class="font-body-sm text-body-sm text-outline">Orta Tecrübe</div>
-                    </div>
-                    <input checked="" class="text-amber-vibrant focus:ring-0" name="expYears" type="radio" value="3-5" />
-                  </label>
-                  <label class="cursor-pointer flex items-center justify-between p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">5 - 10 Yıl</div>
-                      <div class="font-body-sm text-body-sm text-outline">Kıdemli Sürücü</div>
-                    </div>
-                    <input class="text-amber-vibrant focus:ring-0" name="expYears" type="radio" value="5-10" />
-                  </label>
-                  <label class="cursor-pointer flex items-center justify-between p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">10+ Yıl</div>
-                      <div class="font-body-sm text-body-sm text-outline">Usta Kaptan</div>
-                    </div>
-                    <input class="text-amber-vibrant focus:ring-0" name="expYears" type="radio" value="10plus" />
-                  </label>
+                <div class="pt-2 bg-surface-subtle p-3 rounded-lg flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+                  <span class="material-symbols-outlined text-status-success text-[18px]">verified</span>
+                  <span>Resmi Lojistik Sendikaları &amp; İşveren Standartları</span>
                 </div>
               </div>
 
-              <!-- Dorse / Taşıma Türleri -->
-              <div class="flex flex-col gap-space-xs">
-                <label class="font-label-md text-label-md text-navy-deep font-semibold">Kullandığınız / Deneyimli Olduğunuz Dorse Tipleri</label>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-space-sm">
-                  <label class="cursor-pointer flex items-center gap-space-xs p-space-sm rounded-lg bg-surface hover:bg-surface-container transition-colors font-label-md text-label-md text-navy-deep border border-slate-border">
-                    <input checked="" class="w-4 h-4 rounded text-navy-deep focus:ring-0" name="trailerType" type="checkbox" value="tenteli" />
-                    <span>Tenteli / Kayar Perde</span>
-                  </label>
-                  <label class="cursor-pointer flex items-center gap-space-xs p-space-sm rounded-lg bg-surface hover:bg-surface-container transition-colors font-label-md text-label-md text-navy-deep border border-slate-border">
-                    <input checked="" class="w-4 h-4 rounded text-navy-deep focus:ring-0" name="trailerType" type="checkbox" value="frigo" />
-                    <span>Frigo / Termoking</span>
-                  </label>
-                  <label class="cursor-pointer flex items-center gap-space-xs p-space-sm rounded-lg bg-surface hover:bg-surface-container transition-colors font-label-md text-label-md text-navy-deep border border-slate-border">
-                    <input class="w-4 h-4 rounded text-navy-deep focus:ring-0" name="trailerType" type="checkbox" value="konteyner" />
-                    <span>Konteyner Taşıyıcı</span>
-                  </label>
-                  <label class="cursor-pointer flex items-center gap-space-xs p-space-sm rounded-lg bg-surface hover:bg-surface-container transition-colors font-label-md text-label-md text-navy-deep border border-slate-border">
-                    <input class="w-4 h-4 rounded text-navy-deep focus:ring-0" name="trailerType" type="checkbox" value="damper" />
-                    <span>Damper / Silobas</span>
-                  </label>
-                  <label class="cursor-pointer flex items-center gap-space-xs p-space-sm rounded-lg bg-surface hover:bg-surface-container transition-colors font-label-md text-label-md text-navy-deep border border-slate-border">
-                    <input class="w-4 h-4 rounded text-navy-deep focus:ring-0" name="trailerType" type="checkbox" value="tanker" />
-                    <span>ADR / Kimyasal Tanker</span>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Hedef Avrupa Ülkeleri (Danışmanlık ve Analiz Tercihi) -->
-              <div class="flex flex-col gap-space-xs">
-                <div class="flex items-center justify-between">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold">Ön Analiz İstenen Hedef Avrupa Ülkeleri (Çoklu Seçim) *</label>
-                  <span class="font-body-sm text-body-sm text-outline">En az 1 ülke seçiniz</span>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm">
-                  <!-- Almanya -->
-                  <label class="cursor-pointer flex items-center gap-space-sm p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input checked="" class="w-4 h-4 rounded text-amber-vibrant focus:ring-0" name="targetCountry" type="checkbox" value="Almanya" />
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">Almanya</div>
-                      <div class="font-body-sm text-body-sm text-outline">Batı Avrupa Koridoru</div>
-                    </div>
-                  </label>
-                  <!-- Polonya -->
-                  <label class="cursor-pointer flex items-center gap-space-sm p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input checked="" class="w-4 h-4 rounded text-amber-vibrant focus:ring-0" name="targetCountry" type="checkbox" value="Polonya" />
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">Polonya</div>
-                      <div class="font-body-sm text-body-sm text-outline">Hızlı Dosya Süreci (Kod 95)</div>
-                    </div>
-                  </label>
-                  <!-- Litvanya -->
-                  <label class="cursor-pointer flex items-center gap-space-sm p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input class="w-4 h-4 rounded text-amber-vibrant focus:ring-0" name="targetCountry" type="checkbox" value="Litvanya" />
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">Litvanya</div>
-                      <div class="font-body-sm text-body-sm text-outline">Baltık &amp; İskandinavya Hatları</div>
-                    </div>
-                  </label>
-                  <!-- Belçika -->
-                  <label class="cursor-pointer flex items-center gap-space-sm p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input class="w-4 h-4 rounded text-amber-vibrant focus:ring-0" name="targetCountry" type="checkbox" value="Belcika" />
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">Belçika</div>
-                      <div class="font-body-sm text-body-sm text-outline">Benelüks Dağıtım Ağı</div>
-                    </div>
-                  </label>
-                  <!-- Romanya -->
-                  <label class="cursor-pointer flex items-center gap-space-sm p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input class="w-4 h-4 rounded text-amber-vibrant focus:ring-0" name="targetCountry" type="checkbox" value="Romanya" />
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">Romanya</div>
-                      <div class="font-body-sm text-body-sm text-outline">Balkan &amp; Doğu AB Geçişi</div>
-                    </div>
-                  </label>
-                  <!-- Bulgaristan -->
-                  <label class="cursor-pointer flex items-center gap-space-sm p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container transition-all has-[:checked]:bg-navy-deep has-[:checked]:text-on-primary border border-slate-border">
-                    <input class="w-4 h-4 rounded text-amber-vibrant focus:ring-0" name="targetCountry" type="checkbox" value="Bulgaristan" />
-                    <div>
-                      <div class="font-headline-sm text-headline-sm font-bold">Bulgaristan</div>
-                      <div class="font-body-sm text-body-sm text-outline">TR Sınır Komşusu / Transit</div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Yabancı Dil Bilgisi -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="foreignLang1">İngilizce Seviyesi</label>
-                  <select class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="foreignLang1">
-                    <option value="none">Dil Bilgim Yok / Temel Kelimeler</option>
-                    <option value="basic">A1 - A2 (Yol &amp; Yük İletişimi)</option>
-                    <option value="intermediate">B1 (Rampa &amp; Gümrük Konuşabilen)</option>
-                    <option value="advanced">B2 ve Üzeri (İleri Seviye)</option>
-                  </select>
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="font-label-md text-label-md text-navy-deep font-semibold" for="foreignLang2">Diğer Diller (Almanca / Rusça vb.)</label>
-                  <select class="h-11 px-space-md bg-surface-canvas rounded-lg text-on-surface font-body-md text-body-md focus:bg-surface-card focus:outline-none focus:ring-2 focus:ring-navy-deep transition-all border border-slate-border" id="foreignLang2">
-                    <option value="none">Yok</option>
-                    <option value="de_basic">Almanca (Başlangıç / A1-A2)</option>
-                    <option value="ru_basic">Rusça (Doğu Bloğu Tecrübesi)</option>
-                    <option value="other">Diğer Slav Dilleri / Farsça</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- SECTION 5: KVKK, YASAL BEYAN & ZORUNLU ONAY ALANI -->
-            <div class="bg-surface-card p-space-lg md:p-space-xl rounded-xl shadow-sm flex flex-col gap-space-md border border-slate-border">
-              <div class="flex items-center gap-space-sm pb-space-xs border-b border-slate-border">
-                <div class="w-9 h-9 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
-                  <span class="material-symbols-outlined text-[20px]">policy</span>
-                </div>
-                <div>
-                  <h2 class="font-headline-md text-headline-md text-navy-deep font-bold">5. Yasal Beyanlar, Sözleşmeler &amp; Onaylar</h2>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant">Başvurunuzun değerlendirilmesi için yasal onay kutucuklarının tamamının işaretlenmesi zorunludur.</p>
-                </div>
-              </div>
-
-              <!-- Checkbox 1: Mesafeli Satış Sözleşmesi ve Ön Bilgilendirme Formu -->
-              <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
-                <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="mssCheck" required="" type="checkbox" />
-                <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="mssCheck">
-                  <strong class="text-navy-deep">Mesafeli Satış Sözleşmesi &amp; Ön Bilgilendirme Formu:</strong>
-                  Hizmet şartlarını, 
-                  <a class="text-secondary underline font-semibold hover:text-navy-deep" href="javascript:void(0)" onclick="openLegalModal('mss')">Mesafeli Satış Sözleşmesi</a>'ni ve 
-                  <a class="text-secondary underline font-semibold hover:text-navy-deep" href="javascript:void(0)" onclick="openLegalModal('obf')">Ön Bilgilendirme Formu</a>'nu okudum, şartları kabul ediyorum.
-                </label>
-              </div>
-
-              <!-- Checkbox 2: Anında Teslimat & Cayma Hakkı Feragat Beyanı (TKHK m.15/1-ğ) -->
-              <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
-                <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="withdrawalCheck" required="" type="checkbox" />
-                <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="withdrawalCheck">
-                  <strong class="text-navy-deep">Dijital İçerik Anında Teslimat &amp; Cayma Hakkı Feragatnamesi:</strong>
-                  6502 sayılı TKHK Mesafeli Sözleşmeler Yönetmeliği m.15/1-ğ uyarınca, elektronik ortamda anında teslim edilen Dijital Analiz Raporu hizmetinde <strong>14 günlük cayma hakkının kullanılamayacağını</strong> ve ifanın başlamasıyla cayma hakkımdan feragat ettiğimi kabul ederim.
-                </label>
-              </div>
-
-              <!-- Checkbox 3: KVKK & Özel Nitelikli Kişisel Veri Açık Rıza -->
-              <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
-                <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="kvkkCheck" required="" type="checkbox" />
-                <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="kvkkCheck">
-                  <strong class="text-navy-deep">KVKK Özel Nitelikli Kişisel Veri Açık Rıza Metni:</strong>
-                  6698 sayılı KVKK kapsamında ehliyet, takograf, pasaport, adli sicil ve SGK belgelerimin analiz raporu hazırlanması ve mevzuat değerlendirmesi amacıyla işlenmesine açık rıza veriyorum. 
-                  <a class="text-secondary underline font-semibold hover:text-navy-deep ml-1" href="javascript:void(0)" onclick="openLegalModal('kvkk')">KVKK Aydınlatma Metnini Okuyun</a>
-                </label>
-              </div>
-
-              <!-- Checkbox 4: İŞKUR & Bağımsız Danışmanlık Feragat Beyanı -->
-              <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
-                <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="disclaimerCheck" required="" type="checkbox" />
-                <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="disclaimerCheck">
-                  <strong class="text-navy-deep">İŞKUR &amp; Bağımsız Danışmanlık Sorumluluk Reddi:</strong>
-                  Platformun bir İŞKUR Özel İstihdam Bürosu veya vize mercii olmadığını, kesin iş/vize garantisi vermediğini; sunulan hizmetin bağımsız ön evrak analizi ve sektör bilgilendirmesi olduğunu kabul ediyorum.
-                </label>
-              </div>
-
-              <!-- Checkbox 5: Bilgi Doğruluğu Beyanı -->
-              <div class="p-space-md rounded-xl bg-surface-canvas hover:bg-surface-container/50 transition-colors flex items-start gap-space-md border border-slate-border">
-                <input class="mt-1 w-5 h-5 rounded text-navy-deep focus:ring-0 flex-shrink-0 cursor-pointer" id="accuracyCheck" required="" type="checkbox" />
-                <label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none leading-relaxed" for="accuracyCheck">
-                  <strong class="text-navy-deep">Evrak ve Bilgi Doğruluğu Beyanı:</strong>
-                  Form üzerinden beyan ettiğim tüm bilgilerin ve e-Devlet belgelerinin kendime ait ve gerçeğe uygun olduğunu beyan ederim.
-                </label>
-              </div>
-            </div>
-
-            <!-- SECTION 6: GÖNDERME & BİLGİLENDİRME PANELİ -->
-            <div class="bg-navy-deep text-on-primary p-space-lg md:p-space-xl rounded-xl shadow-lg flex flex-col gap-space-md border border-white/10">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
-                <div>
-                  <div class="flex items-center gap-space-xs text-amber-vibrant mb-1">
-                    <span class="material-symbols-outlined text-[20px]">send_and_archive</span>
-                    <span class="font-label-sm text-label-sm uppercase tracking-wider font-bold">Resmi Analiz &amp; Raporlama Talebi</span>
+              <!-- Quick Evaluation Criteria Matrix -->
+              <div class="bg-surface-card p-6 rounded-xl shadow-sm flex flex-col gap-4">
+                <h3 class="font-label-lg text-label-lg text-on-surface font-bold uppercase tracking-wider">Temel Denklik Kriterleri</h3>
+                <div class="space-y-3 font-body-sm text-body-sm">
+                  <div class="flex items-center justify-between pb-2 bg-surface-subtle p-2 rounded">
+                    <span class="text-on-surface-variant font-medium">Asgari Ehliyet:</span>
+                    <span class="font-label-md text-label-md font-bold text-on-surface">CE Sınıfı</span>
                   </div>
-                  <h3 class="font-headline-md text-headline-md text-on-primary font-bold">
-                    Analiz Dosyanızı İletmeye Hazır mısınız?
-                  </h3>
-                  <p class="font-body-sm text-body-sm text-on-primary-container max-w-xl leading-relaxed">
-                    Gönderilen evraklar şifreli güvenli sunucuya yüklenir. Raporunuz tamamlandıktan sonra üye panelinizden erişim sağlayabilirsiniz.
-                  </p>
-                </div>
-
-                <!-- Submit Button with Financial Obligation Clarification -->
-                <button class="w-full sm:w-auto flex-shrink-0 bg-amber-vibrant hover:bg-amber-high-vis text-navy-deep px-space-xl py-space-md rounded-xl font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-sm transition-all transform active:scale-95 shadow-md" id="submitBtn" onclick="handleApplicationSubmit()" type="button">
-                  <span class="material-symbols-outlined text-[24px]">verified</span>
-                  <span>Ödemeyi Tamamla ve Raporu Al (<span class="cmsReportPriceDisplay">65 €</span>)</span>
-                </button>
-              </div>
-
-              <!-- Submission Feedback Box -->
-              <div class="hidden p-space-md rounded-lg bg-status-success/20 text-on-primary flex items-start gap-space-sm border border-status-success/40" id="submissionAlert">
-                <span class="material-symbols-outlined text-[22px] text-amber-vibrant shrink-0 mt-0.5">check_circle</span>
-                <div class="font-body-sm text-body-sm">
-                  <strong>Başvurunuz Başarıyla Alındı!</strong> Evraklarınız inceleme kuyruğuna aktarılmıştır. Dosya Takip Kodunuz: <span class="font-mono font-bold text-amber-vibrant">ATS-2026-9841</span>.
-                </div>
-              </div>
-            </div>
-
-          </form>
-
-          <!-- RIGHT COLUMN: SIDEBAR GUIDANCE & TRUST PANELS (4 cols) -->
-          <aside class="lg:col-span-4 flex flex-col gap-space-lg lg:sticky lg:top-36">
-
-            <!-- Evrak Yükleme Rehberi -->
-            <div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md border border-slate-border">
-              <div class="flex items-center gap-space-xs text-navy-deep">
-                <span class="material-symbols-outlined text-amber-vibrant text-[22px]">lightbulb</span>
-                <h3 class="font-headline-sm text-headline-sm font-bold">Evrak Yükleme Rehberi</h3>
-              </div>
-              <div class="flex flex-col gap-space-sm font-body-sm text-body-sm text-on-surface-variant">
-                <div class="flex items-start gap-space-sm p-space-xs rounded-lg bg-surface border border-slate-border">
-                  <span class="material-symbols-outlined text-[18px] text-navy-deep flex-shrink-0 mt-0.5">crop_free</span>
-                  <span><strong>4 Köşe Kuralı:</strong> Ehliyet ve kimlik fotoğraflarının 4 köşesi kadrajda tam görünmeli, parmakla kapatılmamalıdır.</span>
-                </div>
-                <div class="flex items-start gap-space-sm p-space-xs rounded-lg bg-surface border border-slate-border">
-                  <span class="material-symbols-outlined text-[18px] text-navy-deep flex-shrink-0 mt-0.5">qr_code</span>
-                  <span><strong>Okunabilir Barkod:</strong> e-Devletten indirilen SGK ve Adli Sicil PDF'lerindeki barkod alanının net olduğundan emin olunuz.</span>
-                </div>
-                <div class="flex items-start gap-space-sm p-space-xs rounded-lg bg-surface border border-slate-border">
-                  <span class="material-symbols-outlined text-[18px] text-navy-deep flex-shrink-0 mt-0.5">calendar_month</span>
-                  <span><strong>Pasaport Süresi:</strong> Pasaport geçerliliğinizin en az 6 ay (tercihen 1 yıl ve üzeri) olması önerilmektedir.</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Analiz Süreci Nasıl İlerler? -->
-            <div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md border border-slate-border">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-space-xs text-navy-deep">
-                  <span class="material-symbols-outlined text-[22px] text-secondary">timeline</span>
-                  <h3 class="font-headline-sm text-headline-sm font-bold">Analiz Süreci Nasıl İlerler?</h3>
-                </div>
-                <span class="font-label-sm text-label-sm text-on-surface-variant font-bold">3 Adım</span>
-              </div>
-              <div class="relative pl-6 space-y-space-md">
-                <!-- Timeline Line -->
-                <div class="absolute left-2.5 top-2 bottom-2 w-0.5 bg-surface-container"></div>
-                <!-- Step 1 -->
-                <div class="relative flex items-start gap-space-sm">
-                  <div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-navy-deep text-on-primary flex items-center justify-center font-label-sm text-label-sm font-bold">
-                    1
+                  <div class="flex items-center justify-between pb-2 bg-surface-subtle p-2 rounded">
+                    <span class="text-on-surface-variant font-medium">Asgari Deneyim:</span>
+                    <span class="font-label-md text-label-md font-bold text-on-surface">1+ Yıl Ağır Vasıta</span>
                   </div>
-                  <div>
-                    <h4 class="font-label-md text-label-md text-navy-deep font-bold">Form &amp; Evrak İletimi</h4>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Yukarıdaki form aracılığıyla bilgileriniz admin sistemine güvenli şifreleme ile iletilir.</p>
+                  <div class="flex items-center justify-between pb-2 bg-surface-subtle p-2 rounded">
+                    <span class="text-on-surface-variant font-medium">AB Mesleki Kartı:</span>
+                    <span class="font-label-md text-label-md font-bold text-on-surface">Kod 95 (Veya Destek)</span>
                   </div>
-                </div>
-                <!-- Step 2 -->
-                <div class="relative flex items-start gap-space-sm">
-                  <div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-surface-container text-navy-deep flex items-center justify-center font-label-sm text-label-sm font-bold">
-                    2
-                  </div>
-                  <div>
-                    <h4 class="font-label-md text-label-md text-navy-deep font-bold">Uzman Danışman Ön Taraması</h4>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Mobility Package, Kod 95 ve hedef ülke kota şartlarına göre evraklarınız taranır.</p>
-                  </div>
-                </div>
-                <!-- Step 3 -->
-                <div class="relative flex items-start gap-space-sm">
-                  <div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-surface-container text-navy-deep flex items-center justify-center font-label-sm text-label-sm font-bold">
-                    3
-                  </div>
-                  <div>
-                    <h4 class="font-label-md text-label-md text-navy-deep font-bold">Aday Bilgilendirmesi &amp; Eşleşme</h4>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Uygun profillere telefon ve WhatsApp ile bireysel geri bildirim sağlanır.</p>
+                  <div class="flex items-center justify-between pb-2 bg-surface-subtle p-2 rounded">
+                    <span class="text-on-surface-variant font-medium">Ön İnceleme Ücreti:</span>
+                    <span class="font-label-md text-label-md font-bold text-status-success">0 TL (Ücretsiz)</span>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- İletişim & Canlı Danışma Destek Kutusu -->
-            <div class="bg-navy-deep text-on-primary p-space-lg rounded-xl shadow-md flex flex-col gap-space-md border border-white/10">
-              <div class="flex items-center gap-space-xs text-amber-vibrant">
-                <span class="material-symbols-outlined text-[22px]">support_agent</span>
-                <span class="font-label-sm text-label-sm uppercase tracking-wider font-bold">Sürücü Danışma Hattı</span>
-              </div>
-              <div>
-                <h4 class="font-headline-sm text-headline-sm text-on-primary font-bold">Evrak Yüklerken Sorun mu Yaşıyorsunuz?</h4>
-                <p class="font-body-sm text-body-sm text-on-primary-container mt-1 leading-relaxed">
-                  e-Devlet barkod indirme veya dosya formatları konusunda destek ekibimiz mesai saatlerinde yardımcı olmaktadır.
+              <!-- Contact & Direct Assistance -->
+              <div class="bg-surface-container-low p-6 rounded-xl shadow-sm flex flex-col gap-4">
+                <div class="flex items-center gap-2 text-on-surface">
+                  <span class="material-symbols-outlined text-[22px]">support_agent</span>
+                  <h3 class="font-headline-sm text-headline-sm font-bold">Uzman Desteği</h3>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Başvuru formu veya evraklarınızla ilgili aklınıza takılan sorular için uzmanlarımızla doğrudan iletişim kurabilirsiniz.
                 </p>
-              </div>
-              <div class="flex flex-col gap-space-xs">
-                <a class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-highest/10 hover:bg-surface-container-highest/20 transition-colors border border-white/10" href="tel:+908508400000">
-                  <div class="flex items-center gap-space-xs font-label-md text-label-md text-on-primary font-bold">
-                    <span class="material-symbols-outlined text-[18px] text-amber-vibrant">call</span>
-                    <span>+90 (850) 840 00 00</span>
+                <div class="space-y-2.5 pt-1">
+                  <a class="flex items-center gap-3 p-3 rounded-lg bg-surface-card hover:bg-surface-container transition-colors text-on-surface font-label-md text-label-md" href="mailto:info@avrupatirsoforu.com">
+                    <span class="material-symbols-outlined text-secondary-container text-[20px]">mail</span>
+                    <span>info@avrupatirsoforu.com</span>
+                  </a>
+                  <div class="flex items-center gap-3 p-3 rounded-lg bg-surface-card text-on-surface font-label-md text-label-md">
+                    <span class="material-symbols-outlined text-secondary-container text-[20px]">schedule</span>
+                    <span>Pzt - Cmt: 09:00 - 18:00</span>
                   </div>
-                  <span class="font-label-sm text-label-sm text-on-primary-container">Ücretsiz Hat</span>
-                </a>
-                <a class="flex items-center justify-between p-space-sm rounded-lg bg-status-success/20 hover:bg-status-success/30 transition-colors border border-status-success/30" href="https://wa.me/908508400000" rel="noopener noreferrer" target="_blank">
-                  <div class="flex items-center gap-space-xs font-label-md text-label-md text-on-primary font-bold">
-                    <span class="material-symbols-outlined text-[18px] text-status-success">chat</span>
-                    <span>WhatsApp Evrak Destek</span>
+                  <div class="flex items-center gap-3 p-3 rounded-lg bg-surface-card text-on-surface font-label-md text-label-md">
+                    <span class="material-symbols-outlined text-secondary-container text-[20px]">location_on</span>
+                    <span>Merkez: Maltepe / İstanbul</span>
                   </div>
-                  <span class="font-label-sm text-label-sm text-status-success font-bold">Çevrimiçi</span>
-                </a>
-              </div>
-              <!-- Güvenlik & Standart Rozetleri -->
-              <div class="pt-space-xs grid grid-cols-2 gap-space-xs font-label-sm text-label-sm text-on-primary-container border-t border-white/10">
-                <div class="flex items-center gap-1">
-                  <span class="material-symbols-outlined text-[16px] text-status-success">lock</span>
-                  <span>256-Bit SSL Şifreleme</span>
-                </div>
-                <div class="flex items-center gap-1">
-                  <span class="material-symbols-outlined text-[16px] text-status-success">security</span>
-                  <span>KVKK Uyumlu Arşiv</span>
                 </div>
               </div>
+
+              <!-- Mini FAQ Box -->
+              <div class="bg-surface-card p-6 rounded-xl shadow-sm flex flex-col gap-4">
+                <h3 class="font-label-lg text-label-lg text-on-surface font-bold uppercase tracking-wider">Sık Sorulan Sorular</h3>
+                <div class="space-y-3">
+                  <div class="p-3 bg-surface-subtle rounded-lg flex flex-col gap-1">
+                    <span class="font-label-md text-label-md font-bold text-on-surface">Yabancı dil bilmek zorunlu mu?</span>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Çoğu hat için temel seviye yol/navigasyon İngilizcesi veya temel terimler yeterlidir. Birçok lojistik firmasında Türkçe bilen filo koordinatörleri bulunmaktadır.</p>
+                  </div>
+                  <div class="p-3 bg-surface-subtle rounded-lg flex flex-col gap-1">
+                    <span class="font-label-md text-label-md font-bold text-on-surface">Kod 95 belgem yoksa başvurabilir miyim?</span>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Evet. Kod 95 ile ilgili tüm mevzuat ve süreç adaylarımıza danışmanlarımız tarafından iletilir ve süreç ile ilgili tam destek sağlanır.</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
-            <!-- Yasal Sorumluluk Hatırlatıcısı -->
-            <div class="p-space-md rounded-xl bg-surface-container-low text-navy-deep flex items-start gap-space-xs border border-slate-border">
-              <span class="material-symbols-outlined text-[20px] text-secondary flex-shrink-0 mt-0.5">info</span>
-              <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                Bu portal yalnızca sürücülerin evrak ön kontrolünü sağlayan bağımsız bir bilgilendirme platformudur. Konsolosluk başvuruları sürücünün kendi adına resmi randevu merkezlerince yürütülür.
-              </p>
-            </div>
-
-          </aside>
-
-        </div>
-      </section>
-
-      <!-- BOTTOM TRUST / FAQ STRIP -->
-      <section class="w-full bg-surface-card py-space-xl border-t border-slate-border">
-        <div class="max-w-margin-desktop-max mx-auto px-margin-mobile lg:px-margin">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
-            <div class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-canvas border border-slate-border">
-              <div class="w-12 h-12 rounded-xl bg-navy-deep text-amber-vibrant flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-[28px]">local_shipping</span>
-              </div>
-              <div>
-                <h4 class="font-headline-sm text-headline-sm text-navy-deep font-bold">Doğrulanmış Filo Ağları</h4>
-                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
-                  Ön analizi onaylanan adayların evrakları, Avrupa'nın resmi lojistik federasyonlarına kayıtlı filoların standartlarına göre değerlendirilir.
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-canvas border border-slate-border">
-              <div class="w-12 h-12 rounded-xl bg-navy-deep text-amber-vibrant flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-[28px]">speed</span>
-              </div>
-              <div>
-                <h4 class="font-headline-sm text-headline-sm text-navy-deep font-bold">Hızlı Dosya Uygunluk Raporu</h4>
-                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
-                  Eksik veya süresi dolmuş evraklar önceden tespit edilerek gereksiz vize randevusu reddi risklerinin önüne geçilir.
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-canvas border border-slate-border">
-              <div class="w-12 h-12 rounded-xl bg-navy-deep text-amber-vibrant flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-[28px]">folder_special</span>
-              </div>
-              <div>
-                <h4 class="font-headline-sm text-headline-sm text-navy-deep font-bold">Kod 95 &amp; Takograf Danışmanlığı</h4>
-                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
-                  Polonya, Romanya veya Litvanya üzerinden Avrupa sürücü kartı ve Kod 95 yeterlilik süreçleri hakkında kapsamlı mevzuat desteği.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -1125,310 +859,169 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="w-full bg-navy-deep text-on-primary pt-space-xl pb-space-lg border-t border-white/10">
-    <div class="max-w-margin-desktop-max mx-auto px-margin-mobile lg:px-margin">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl pb-space-xl">
-        <div class="flex flex-col gap-space-md">
-          <div class="flex items-center gap-space-sm">
-            <img alt="Avrupa Tır Şoförü Logo" class="h-9 w-9 rounded-full object-cover border border-amber-vibrant" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1U16mn9a3n_4tV50zHQmDkkAFmlM2JmRraNMKh2IzzP1XDe3HEl6s60v2AS_I-Ldjm-xhCl5oK8jIgIZz-q9DPtS2bR_YWl3itzt65SDjQTDFx2imueVOK5rw7KJGH1l5xLafa41I7SSpOz2-GLJusY0HOupypaqDhC1rm1XFBU-A79ZVt3jVxnEZ3sSm-0d9JALL5Xij7qT6bOE5TWrig1Tr4IIQ5lQq-AysUhQvm958PNeB89NUWh_w';" />
-            <span class="font-headline-sm text-headline-sm text-on-primary tracking-tight font-bold">AVRUPA TIR ŞOFÖRÜ</span>
-          </div>
-          <p class="font-body-sm text-body-sm text-on-primary-container leading-relaxed">
-            Avrupa genelinde profesyonel tır şoförlüğü kariyer yolculuğunuzda resmi süreçler, vize danışmanlığı ve güvenilir filo yerleştirmeleri.
+  <!-- Footer -->
+  <footer class="w-full bg-surface-container-low text-on-surface mt-space-xl shadow-[0_-1px_4px_rgba(0,0,0,0.03)]">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- About -->
+        <div class="flex flex-col gap-3">
+          <a href="index.html" class="flex items-center gap-2">
+            <img alt="Avrupa Tır Şoförü Logo" class="h-7 w-auto object-contain" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuCNwsIQASR26KQQ6m2ZIt68WIhJfRzb2w_hH7dJ4mjj-39GFYgMhBDeHvLtSB14gzTMbro24M-ItAbgKuo1yg8NfCIMs2WQmVNr8-5VHB4IOgNQ_zI7hXLIUpMaWZKCN6aSirz0Q98UpFeUmWPVI-g46oCFEBVJe6jx4cBGvDH5Jqytp3Y663sZSmHUOSxpi0Y-1C-1VSzfmTHxXQ-3t8scczHuHUdF2-xRR2y-D591CoTyBS7Lbd3S';">
+            <span class="font-headline-sm text-headline-sm font-bold text-on-surface">avrupatirsoforu.com</span>
+          </a>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            Avrupa Birliği genelinde ağır vasıta (TIR/HGV) sürücüleri için resmi vize kolaylaştırma, ehliyet denklik, takograf ve kurumsal istihdam danışmanlığı.
           </p>
-          <div class="flex items-center gap-space-xs text-status-success font-label-sm text-label-sm">
-            <span class="material-symbols-outlined text-[16px]">gavel</span>
-            <span>Resmi AB Çalışma ve Vize Mevzuatı</span>
+        </div>
+
+        <!-- Contact & Location -->
+        <div class="flex flex-col gap-3">
+          <div class="font-label-lg text-label-lg font-bold text-on-surface">İletişim &amp; Konum</div>
+          <div class="flex items-start gap-2 text-on-surface-variant font-body-sm text-body-sm">
+            <span class="material-symbols-outlined text-[20px] text-on-surface-variant mt-0.5">location_on</span>
+            <span>Maltepe / İstanbul, Türkiye</span>
+          </div>
+          <div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+            <span class="material-symbols-outlined text-[20px] text-on-surface-variant">mail</span>
+            <a class="hover:text-on-surface transition-colors" href="mailto:info@avrupatirsoforu.com">info@avrupatirsoforu.com</a>
+          </div>
+          <div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+            <span class="material-symbols-outlined text-[20px] text-on-surface-variant">schedule</span>
+            <span>Çalışma Saatleri: 09:00 - 18:00 (Pzt - Cmt)</span>
           </div>
         </div>
 
-        <div class="flex flex-col gap-space-sm">
-          <h4 class="font-headline-sm text-headline-sm text-on-primary mb-space-xs font-bold">Ülke Rehberi</h4>
-          <ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-primary-container">
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#ulke-analizleri"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">chevron_right</span>Almanya Tır Şoförlüğü &amp; Vize</a></li>
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#ulke-analizleri"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">chevron_right</span>Bulgaristan Lojistik Hatları</a></li>
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#ulke-analizleri"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">chevron_right</span>Romanya Taşımacılık İstihdamı</a></li>
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#ulke-analizleri"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">chevron_right</span>Polonya Uluslararası Sürücü Şartları</a></li>
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#ulke-analizleri"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">chevron_right</span>Litvanya Doğu Avrupa Koridoru</a></li>
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#ulke-analizleri"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">chevron_right</span>Belçika Batı Avrupa Rotaları</a></li>
-          </ul>
+        <!-- Fast Links -->
+        <div class="flex flex-col gap-3">
+          <div class="font-label-lg text-label-lg font-bold text-on-surface">Hızlı Bağlantılar</div>
+          <nav class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
+            <a class="hover:text-on-surface transition-colors" data-path="hizmetler" href="hizmetler.html?v=3.2">Hizmetler</a>
+            <a class="hover:text-on-surface transition-colors" data-path="hakkimizda" href="hakkimizda.html?v=3.2">Hakkımızda</a>
+            <a class="hover:text-on-surface transition-colors" data-path="iletisim" href="iletisim.html?v=3.2">İletişim &amp; Lokasyon</a>
+            <a class="hover:text-on-surface font-semibold text-secondary transition-colors" data-path="basvuru-formu" href="basvuru.html?v=3.2">Online Başvuru</a>
+          </nav>
         </div>
 
-        <div class="flex flex-col gap-space-sm">
-          <h4 class="font-headline-sm text-headline-sm text-on-primary mb-space-xs font-bold">Önemli Bilgiler</h4>
-          <ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-primary-container">
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#kriterler"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">arrow_right_alt</span>Ehliyet &amp; SRC Şartları</a></li>
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#haberler"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">arrow_right_alt</span>Takograf Mevzuatı</a></li>
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#haberler"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">arrow_right_alt</span>Vize &amp; Denklik Süreçleri</a></li>
-            <li><a class="hover:text-amber-vibrant transition-colors flex items-center gap-space-xs" href="index.html#surec-nasil-calisir"><span class="material-symbols-outlined text-[14px] text-amber-vibrant">arrow_right_alt</span>Sıkça Sorulan Sorular</a></li>
-          </ul>
+        <!-- Legal -->
+        <div class="flex flex-col gap-3">
+          <div class="font-label-lg text-label-lg font-bold text-on-surface">Yasal &amp; Uyumluluk</div>
+          <nav class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
+            <a class="hover:text-on-surface transition-colors" data-path="kvkk-aydinlatma-metni" href="javascript:void(0)" onclick="alert('KVKK Metni: Başvuru verileriniz açık rızanız doğrultusunda güvenli sunucularda saklanmaktadır.');">KVKK Aydınlatma Metni</a>
+            <a class="hover:text-on-surface transition-colors" data-path="gizlilik-sozlesmesi" href="javascript:void(0)" onclick="alert('Gizlilik Politikası: Kişisel verileriniz 6698 sayılı KVKK kapsamında gizlilikle korunmaktadır.');">Gizlilik Politikası</a>
+            <a class="hover:text-on-surface transition-colors" data-path="kullanim-kosullari" href="javascript:void(0)" onclick="alert('Kullanım Koşulları: Bu portal Avrupa tır şoförlüğü mesleki ön analiz ve kariyer danışmanlığı sunmaktadır.');">Kullanım Koşulları</a>
+          </nav>
         </div>
 
-        <div class="flex flex-col gap-space-sm">
-          <h4 class="font-headline-sm text-headline-sm text-on-primary mb-space-xs font-bold">İletişim &amp; Danışma</h4>
-          <p class="font-body-sm text-body-sm text-on-primary-container">Kurumsal filo başvuruları ve sürücü vize danışma hattı:</p>
-          <div class="flex items-center gap-space-sm text-on-primary font-label-lg text-label-lg font-bold">
-            <span class="material-symbols-outlined text-amber-vibrant">call</span>
-            <span>+90 (850) 840 00 00</span>
-          </div>
-          <div class="flex items-center gap-space-sm text-on-primary-container font-body-sm text-body-sm">
-            <span class="material-symbols-outlined text-[18px]">mail</span>
-            <span>info@avrupatirsoforu.com</span>
-          </div>
-          <div class="mt-space-sm p-space-sm bg-surface-card/10 rounded-lg border border-white/10">
-            <p class="font-label-sm text-label-sm text-amber-vibrant font-semibold uppercase tracking-wider">Önemli Bilgilendirme</p>
-            <p class="font-body-sm text-body-sm text-on-primary-container mt-1 leading-relaxed">
-              Kullanıcı hesapları doğrudan genel kayda açık olmayıp, aday başvurularının yönetici değerlendirmesi neticesinde provizyonlanmaktadır.
-            </p>
-          </div>
-        </div>
       </div>
 
-      <div class="border-t border-on-primary-container/20 pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-on-primary-container">
-        <p>© 2026 avrupatirsoforu.com. Tüm hakları saklıdır. Avrupa Resmi Lojistik İstihdam Sistemi.</p>
-        <div class="flex flex-wrap items-center gap-space-lg">
-          <a class="hover:text-on-primary transition-colors cursor-pointer" href="javascript:void(0)" onclick="openLegalModal('mss')">Mesafeli Satış Sözleşmesi</a>
-          <a class="hover:text-on-primary transition-colors cursor-pointer" href="javascript:void(0)" onclick="openLegalModal('obf')">Ön Bilgilendirme Formu</a>
-          <a class="hover:text-on-primary transition-colors cursor-pointer" href="javascript:void(0)" onclick="openLegalModal('kvkk')">KVKK Aydınlatma Metni</a>
-        </div>
+      <div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-body-sm text-body-sm text-on-surface-variant border-t border-border-muted">
+        <p>© 2025 avrupatirsoforu.com. Tüm hakları saklıdır.</p>
+        <p class="font-label-sm text-label-sm uppercase tracking-wide">Uluslararası Taşımacılık &amp; Sürücü İstihdam Çözümleri</p>
       </div>
     </div>
   </footer>
 
+  <!-- Scripts -->
+  <script src="js/cloud-db.js?v=2.8.0"></script>
+  <script src="js/app.js?v=2.8.0"></script>
   <script>
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      if (menu) {
-        menu.classList.toggle('hidden');
-      }
-    }
+    let uploadedFileNames = [];
 
-    // Profile Photo Preview Helper
-    function previewProfilePhoto(input) {
-      if (input.files && input.files[0]) {
-        const file = input.files[0];
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const preview = document.getElementById('photoPreviewImg');
-          const placeholder = document.getElementById('photoPreviewPlaceholder');
-          if (preview && placeholder) {
-            preview.src = e.target.result;
-            preview.classList.remove('hidden');
-            placeholder.classList.add('hidden');
-          }
-          const label = document.getElementById('photoFileName');
-          if (label) {
-            label.textContent = file.name + ' (' + (file.size / (1024*1024)).toFixed(2) + ' MB)';
-          }
-        }
-        reader.readAsDataURL(file);
-      }
-    }
-
-    // File Name Update Helper
-    function updateFileName(input, targetId) {
-      const target = document.getElementById(targetId);
-      if (!target) return;
-      if (input.files && input.files[0]) {
-        const file = input.files[0];
-        target.textContent = '✓ ' + file.name;
-        target.classList.remove('text-outline');
-        target.classList.add('text-status-success');
-      } else {
-        target.textContent = 'Dosya seçilmedi';
-        target.classList.remove('text-status-success');
-        target.classList.add('text-outline');
-      }
-    }
-
-    // Legal Modal Dialog Handler
-    function openLegalModal(type) {
-      let title = '';
-      let content = '';
-
-      if (type === 'mss') {
-        title = '📜 Mesafeli Satış Sözleşmesi';
-        content = `
-          <h4 class="font-bold text-navy-deep text-sm mb-2">1. TARAFLAR VE KONU</h4>
-          <p class="text-xs text-slate-600 mb-3">İşbu sözleşme avrupatirsoforu.com (Şirket) ile platform üzerinden Dijital Analiz Raporu ve Sektörel İlan Topluluk erişimi satın alan Tüketici (Kullanıcı) arasında akdedilmiştir.</p>
-          <h4 class="font-bold text-navy-deep text-sm mb-2">2. HİZMETİN NİTELİĞİ VE İFA</h4>
-          <p class="text-xs text-slate-600 mb-3">Satın alınan Dijital Analiz Raporu elektronik ortamda anında hazırlanarak kullanıcının üyelik paneline iletilir. İlan erişimi ise abonelik bazlı dijital içerik hizmetidir.</p>
-          <h4 class="font-bold text-navy-deep text-sm mb-2">3. CAYMA HAKKI İSTİSNASI (TKHK m.15/1-ğ)</h4>
-          <p class="text-xs text-slate-600 mb-3">6502 sayılı Tüketicinin Korunması Hakkında Kanun Mesafeli Sözleşmeler Yönetmeliği m.15/1-ğ uyarınca elektronik ortamda anında teslim edilen gayrimaddi mallarda <strong>cayma hakkı kullanılamaz</strong>.</p>
-          <h4 class="font-bold text-navy-deep text-sm mb-2">4. İŞKUR VE İŞ GARANTİSİ FERAGATNAMESİ</h4>
-          <p class="text-xs text-slate-600 mb-1">Şirket bir Özel İstihdam Bürosu değildir ve iş garantisi taahhüt etmez.</p>
-        `;
-      } else if (type === 'obf') {
-        title = '📄 Ön Bilgilendirme Formu';
-        content = `
-          <h4 class="font-bold text-navy-deep text-sm mb-2">SATICI BİLGİLERİ</h4>
-          <p class="text-xs text-slate-600 mb-2">Unvan: Avrupa Tır Şoförü Lojistik ve Kariyer Danışmanlığı A.Ş.<br>E-posta: info@avrupatirsoforu.com | Çağrı Merkezi: +90 (850) 840 00 00</p>
-          <h4 class="font-bold text-navy-deep text-sm mb-2">HİZMET VE ÖDEME BİLGİLERİ</h4>
-          <p class="text-xs text-slate-600 mb-2">Hizmet Adı: Dijital Uygunluk ve Evrak Analiz Raporu<br>Toplam Fiyat: Vergiler Dahil <span class="cmsReportPriceDisplay">65 €</span><br>Teslimat Usulü: Anında Dijital İfa (Üye Paneli)</p>
-        `;
-      } else if (type === 'kvkk') {
-        title = '🛡️ KVKK Aydınlatma & Özel Nitelikli Veri Metni';
-        content = `
-          <p class="text-xs text-slate-600 mb-2">6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca, ehliyet, takograf, pasaport, SGK ve adli sicil belgeleriniz veri sorumlusu sıfatıyla yalnızca raporlama ve analiz amacıyla işlenir.</p>
-          <p class="text-xs text-slate-600 mb-2">Verileriniz 256-Bit SSL ve AES-256 algoritması ile veritabanında saklanır, onayınız olmadan üçüncü taraflarla paylaşılmaz.</p>
-        `;
-      }
-
-      let modal = document.getElementById('legalModal');
-      if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'legalModal';
-        modal.className = 'fixed inset-0 z-[99999] bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4';
-        document.body.appendChild(modal);
-      }
-
-      modal.innerHTML = `
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 relative animate-in fade-in duration-200">
-          <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
-            <h3 class="font-bold text-lg text-slate-900">${title}</h3>
-            <button onclick="document.getElementById('legalModal').remove()" class="text-slate-400 hover:text-slate-700 text-xl font-bold p-1">&times;</button>
-          </div>
-          <div class="max-h-[60vh] overflow-y-auto pr-2 text-left font-sans">
-            ${content}
-          </div>
-          <div class="mt-6 border-t border-slate-100 pt-4 text-right">
-            <button onclick="document.getElementById('legalModal').remove()" class="px-5 py-2 bg-navy-deep text-white font-bold text-xs rounded-xl hover:bg-slate-800 transition-all">Anladım, Kapat</button>
-          </div>
-        </div>
-      `;
-    }
-
-    // Application Submission Handler
-    function handleApplicationSubmit() {
-      const mss = document.getElementById('mssCheck');
-      const withdrawal = document.getElementById('withdrawalCheck');
-      const kvkk = document.getElementById('kvkkCheck');
-      const disclaimer = document.getElementById('disclaimerCheck');
-      const accuracy = document.getElementById('accuracyCheck');
-      const fullName = document.getElementById('fullName');
-      const tcNo = document.getElementById('tcNo');
-      const phone = document.getElementById('phone');
-
-      // Validation
-      if (!fullName.value.trim() || !tcNo.value.trim() || !phone.value.trim()) {
-        alert('Lütfen Ad Soyad, T.C. Kimlik No ve Telefon bilgilerinizi eksiksiz doldurunuz.');
-        fullName.focus();
-        return;
-      }
-
-      if (!mss.checked || !withdrawal.checked || !kvkk.checked || !disclaimer.checked || !accuracy.checked) {
-        alert('Lütfen başvurunuzu tamamlamak için 5 zorunlu yasal onay kutucuğunun (Mesafeli Satış, Cayma Hakkı Feragati, KVKK Açık Rıza, İŞKUR Feragatnamesi ve Doğruluk Beyanı) tamamını işaretleyiniz.');
-        return;
-      }
-
-      // Submit UI State
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span><span>Evraklar Aktarılıyor...</span>';
-
-      // Read form data
-      const birthDate = document.getElementById('birthDate') ? document.getElementById('birthDate').value : '';
-      const birthPlace = document.getElementById('birthPlace') ? document.getElementById('birthPlace').value.trim() : '';
-      const email = (document.getElementById('email') ? document.getElementById('email').value.trim() : '') || 'iletisim@aday.com';
-      const address = document.getElementById('residenceAddress') ? document.getElementById('residenceAddress').value.trim() : '';
+    function handleFileSelect(event) {
+      const feedback = document.getElementById('fileUploadFeedback');
+      const files = event.target.files;
+      if (!files.length) return;
       
-      const licenseSerial = document.getElementById('licenseSerial') ? document.getElementById('licenseSerial').value.trim() : '';
-      const firstLicenseDate = document.getElementById('firstLicenseDate') ? document.getElementById('firstLicenseDate').value : '';
-      const ceLicenseDate = document.getElementById('ceLicenseDate') ? document.getElementById('ceLicenseDate').value : '';
+      feedback.innerHTML = '';
+      uploadedFileNames = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        uploadedFileNames.push(file.name);
+        const pill = document.createElement('span');
+        pill.className = 'inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container text-on-surface rounded-lg font-label-sm text-label-sm font-semibold shadow-sm';
+        pill.innerHTML = `<span class="material-symbols-outlined text-[16px] text-secondary">check</span> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+        feedback.appendChild(pill);
+      }
+    }
 
-      const passportType = document.getElementById('passportType') ? document.getElementById('passportType').value : 'bordo';
-      const passportNo = document.getElementById('passportNo') ? document.getElementById('passportNo').value.trim() : '';
-      const passportExpiry = document.getElementById('passportExpiry') ? document.getElementById('passportExpiry').value : '';
+    function handleFormSubmit() {
+      const btn = document.getElementById('submitBtn');
+      const successMsg = document.getElementById('formSuccessMessage');
+      const trackingDisplay = document.getElementById('trackingCodeDisplay');
+      
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const city = document.getElementById('city').value;
+      const birthDate = document.getElementById('birthDate').value;
+      
+      const licenseClasses = Array.from(document.querySelectorAll('input[name="licenseClass"]:checked')).map(cb => cb.value);
+      const ceYear = document.getElementById('ceYear').value;
+      const experienceYears = document.getElementById('experienceYears').value;
+      const tachograph = document.querySelector('input[name="tachograph"]:checked')?.value || '';
+      
+      const certificates = Array.from(document.querySelectorAll('input[name="certificates"]:checked')).map(cb => cb.value);
+      const code95 = document.querySelector('input[name="code95"]:checked')?.value || '';
+      
+      const euExp = document.querySelector('input[name="euExp"]:checked')?.value || '';
+      const routeDetails = document.getElementById('routeDetails').value.trim();
+      const euDocs = document.getElementById('euDocs').value;
+      const targetCountry = document.getElementById('targetCountry').value;
+      const extraNotes = document.getElementById('extraNotes').value.trim();
 
-      // Target country & experience
-      let targetCountry = 'Almanya & Polonya';
-      const selectedCountryRadio = document.querySelector('input[name="targetCountry"]:checked');
-      if (selectedCountryRadio) targetCountry = selectedCountryRadio.value;
-
-      let expYears = '3-5 Yıl';
-      const selectedExpRadio = document.querySelector('input[name="expYears"]:checked');
-      if (selectedExpRadio) expYears = selectedExpRadio.value + ' Yıl';
-
-      const appId = '#ATS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
-
-      const applicationObj = {
-        id: appId,
-        fullName: fullName.value.trim(),
-        tcNo: tcNo.value.trim(),
-        phone: phone.value.trim(),
+      const refNumber = 'AVR-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+      
+      const applicationData = {
+        id: refNumber,
+        referenceNumber: refNumber,
+        fullName: fullName,
         email: email,
-        city: birthPlace || 'Kocaeli / Gebze',
-        address: address,
+        phone: phone ? ('+90 ' + phone) : '',
+        city: city,
         birthDate: birthDate,
-        licenseSerial: licenseSerial,
-        firstLicenseDate: firstLicenseDate,
-        ceLicenseDate: ceLicenseDate,
-        passportType: passportType,
-        passportNo: passportNo,
-        passportExpiry: passportExpiry,
-        experienceYears: expYears,
+        licenseClasses: licenseClasses,
+        ceYear: ceYear,
+        experienceYears: experienceYears,
+        tachograph: tachograph,
+        certificates: certificates,
+        code95: code95,
+        euExp: euExp,
+        routeDetails: routeDetails,
+        euDocs: euDocs,
         targetCountry: targetCountry,
-        matchScore: '%92 Uyum',
-        docCount: '0 / 6 Onaylı',
-        docs: {
-          ehliyet: 'İnceleme Bekliyor',
-          takograf: 'İnceleme Bekliyor',
-          pasaport: 'İnceleme Bekliyor',
-          sicil: 'İnceleme Bekliyor',
-          sgk: 'İnceleme Bekliyor',
-          adr: 'İnceleme Bekliyor'
-        },
-        status: 'İnceleme Bekliyor',
-        statusBadge: 'Onay Bekliyor',
-        service: 'Ücretsiz Ön Uygunluk Formu',
-        paymentStatus: '65 € Rapor Bekliyor',
-        createdAt: new Date().toLocaleDateString('tr-TR')
+        extraNotes: extraNotes,
+        uploadedFiles: uploadedFileNames,
+        status: 'Yeni Başvuru',
+        createdAt: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'})
       };
 
-      // Save to localStorage ats_applications
-      let existingApps = [];
+      // Save to localStorage & CloudDB if available
       try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) existingApps = JSON.parse(str);
-      } catch(e){}
+        let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
+        apps.unshift(applicationData);
+        localStorage.setItem('ats_applications', JSON.stringify(apps));
+      } catch(e) {}
 
-      existingApps.unshift(applicationObj);
-      localStorage.setItem('ats_applications', JSON.stringify(existingApps));
-
-      // Save to Google Firebase Firestore
-      if (typeof window.saveATSApplicationToFirebase === 'function') {
-        window.saveATSApplicationToFirebase(applicationObj);
+      if (window.CloudDB && typeof window.CloudDB.addApplication === 'function') {
+        try {
+          window.CloudDB.addApplication(applicationData);
+        } catch(e) {}
       }
 
-      // Clear any previous driver session to prevent auto-login
-      sessionStorage.removeItem('user_session');
-      localStorage.removeItem('user_session');
-
-      setTimeout(function() {
-        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">done_all</span><span>Başvurunuz Alındı (İncelemede)</span>';
-        btn.classList.remove('bg-amber-vibrant', 'hover:bg-amber-high-vis');
-        btn.classList.add('bg-amber-600', 'text-white');
-
-        alert(
-          '✅ BAŞVURUNUZ BAŞARIYLA ALINDI VE VERİTABANINA KAYDEDİLDİ!\n\n' +
-          'Başvuru Takip No: ' + appId + '\n' +
-          'Aday: ' + fullName.value.trim() + '\n\n' +
-          'Başvurunuz ve evraklarınız yönetici inceleme ve değerlendirme aşamasındadır.\n' +
-          'Yönetici onayından sonra giriş yapabilirsiniz.'
-        );
-
-        window.location.href = 'index.html';
+      // Loading State
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">sync</span><span>DOSYA İNCELENİYOR...</span>`;
+      
+      setTimeout(() => {
+        btn.classList.add('hidden');
+        if (trackingDisplay) {
+          trackingDisplay.textContent = refNumber;
+        }
+        successMsg.classList.remove('hidden');
+        successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }, 1200);
     }
   </script>
-  <!-- GLOBAL CLOUD DATABASE & REALTIME SYNC ENGINE -->
-  <script src="js/cloud-db.js?v=2.6.0"></script>
-  <!-- GOOGLE FIREBASE SDK (COMPAT MODULES) -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script src="js/firebase-db.js?v=2.6.0"></script>
-  <script src="js/app.js?v=2.6.0"></script>
 </body>
 </html>
