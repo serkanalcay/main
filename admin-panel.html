@@ -253,7 +253,7 @@
 
     <!-- MAIN BODY -->
     <main class="w-full pt-16 bg-background flex-1 p-space-lg">
-      <div class="flex flex-col w-full gap-space-lg">
+      <div class="flex flex-col w-full gap-space-lg" id="view-basvurular">
 
         <!-- Top Title & Action Bar -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
@@ -280,7 +280,7 @@
                 <span>Toplu İşlemler</span>
                 <span class="material-symbols-outlined text-[16px]">expand_more</span>
               </button>
-              <div class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-surface-card shadow-xl p-space-xs z-30 border border-border-muted" id="bulk-dropdown">
+              <div class="hidden absolute right-0 mt-2 w-60 rounded-xl bg-surface-card shadow-xl p-space-xs z-30 border border-border-muted" id="bulk-dropdown">
                 <button class="w-full text-left px-3 py-2 rounded-lg text-on-surface hover:bg-surface-container-low font-body-sm text-body-sm flex items-center gap-space-xs cursor-pointer" type="button" onclick="handleBulkAction('sevk')">
                   <span class="material-symbols-outlined text-status-success text-[18px]">check_circle</span>
                   Toplu: Filoya Sevk Et
@@ -292,6 +292,11 @@
                 <button class="w-full text-left px-3 py-2 rounded-lg text-error hover:bg-error-container/20 font-body-sm text-body-sm flex items-center gap-space-xs cursor-pointer" type="button" onclick="handleBulkAction('arsiv')">
                   <span class="material-symbols-outlined text-error text-[18px]">archive</span>
                   Toplu: Arşive Kaldır
+                </button>
+                <div class="my-1 border-t border-border-muted"></div>
+                <button class="w-full text-left px-3 py-2 rounded-lg text-error hover:bg-error/10 font-body-sm text-body-sm font-semibold flex items-center gap-space-xs cursor-pointer" type="button" onclick="clearAllApplications()">
+                  <span class="material-symbols-outlined text-error text-[18px]">delete_sweep</span>
+                  Tüm Kayıtları Sıfırla (0 Yap)
                 </button>
               </div>
             </div>
@@ -521,6 +526,317 @@
         </div>
 
       </div>
+      <!-- END VIEW: BASVURULAR -->
+
+      <!-- VIEW: HIZLI BAŞVURULAR MASASI -->
+      <div class="flex flex-col w-full gap-space-lg hidden" id="view-hizli-basvurular">
+        <!-- Operational Header & Action Toolbar -->
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+          <div class="flex flex-col">
+            <div class="flex items-center gap-space-sm">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-secondary-container/20 text-warning-amber-hover font-semibold">
+                <span class="material-symbols-outlined text-[20px]">bolt</span>
+              </span>
+              <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight font-bold">Hızlı Başvurular Masası</h1>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-secondary-container/15 text-warning-amber-hover border-0">
+                Canlı Çağrı Kuyruğu
+              </span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Web form, WhatsApp ve santralden gelen ön çağrı kayıtları için anlık operasyon ve dönüşüm takibi
+            </p>
+          </div>
+          <!-- Actions -->
+          <div class="flex flex-wrap items-center gap-space-sm">
+            <button class="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-surface-card text-on-surface hover:bg-surface-container transition-all shadow-sm font-label-md text-label-md cursor-pointer" type="button" onclick="exportQuickApplications()">
+              <span class="material-symbols-outlined text-[18px]">download</span>
+              <span>Arama Listesi (Excel)</span>
+            </button>
+            <button class="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-surface-card text-on-surface hover:bg-surface-container transition-all shadow-sm font-label-md text-label-md cursor-pointer" type="button" onclick="openBulkMessageModal()">
+              <span class="material-symbols-outlined text-[18px] text-status-success">mark_chat_unread</span>
+              <span>Toplu SMS / WhatsApp</span>
+            </button>
+            <button class="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-secondary-container text-on-secondary-fixed hover:bg-warning-amber-hover transition-all shadow-sm font-label-md text-label-md font-bold cursor-pointer" type="button" onclick="openModal('add-manual-quick-modal')">
+              <span class="material-symbols-outlined text-[20px]">add_call</span>
+              <span>Manuel Hızlı Çağrı Ekle</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+          <!-- KPI 1 -->
+          <div class="relative bg-surface-card rounded-xl p-space-md shadow-sm overflow-hidden flex flex-col justify-between">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Bekleyen Hızlı Aday</span>
+                <div class="font-display text-display text-on-surface font-extrabold leading-none mt-2" id="kpi-quick-pending">0</div>
+              </div>
+              <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-warning-amber-hover">
+                <span class="material-symbols-outlined text-[24px]">ring_volume</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center gap-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-error-container text-error" id="kpi-quick-pending-tag">
+                <span class="material-symbols-outlined text-[14px] mr-1">timer_off</span> <span id="kpi-quick-pending-text">0 dosya bekliyor</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- KPI 2 -->
+          <div class="relative bg-surface-card rounded-xl p-space-md shadow-sm overflow-hidden flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Bugün Ulaşılan</span>
+                <div class="font-display text-display text-on-surface font-extrabold leading-none mt-2" id="kpi-quick-contacted">0</div>
+              </div>
+              <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface">
+                <span class="material-symbols-outlined text-[24px]">phone_in_talk</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+              <span>Ort. İlk Yanıt:</span>
+              <span class="font-semibold text-on-surface font-label-md" id="kpi-quick-avg-resp">14 Dakika</span>
+            </div>
+          </div>
+
+          <!-- KPI 3 -->
+          <div class="relative bg-surface-card rounded-xl p-space-md shadow-sm overflow-hidden flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Detaylı Forma Dönüşüm</span>
+                <div class="font-display text-display text-on-surface font-extrabold leading-none mt-2" id="kpi-quick-converted">0</div>
+              </div>
+              <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-status-success">
+                <span class="material-symbols-outlined text-[24px]">trending_up</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+              <span>Dönüşüm Oranı:</span>
+              <span class="font-semibold text-status-success font-label-md" id="kpi-quick-converted-pct">%0 (Bugün)</span>
+            </div>
+          </div>
+
+          <!-- KPI 4 -->
+          <div class="relative bg-surface-card rounded-xl p-space-md shadow-sm overflow-hidden flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Eksik Evrak / Ulaşılamadı</span>
+                <div class="font-display text-display text-on-surface font-extrabold leading-none mt-2" id="kpi-quick-unreached">0</div>
+              </div>
+              <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-error">
+                <span class="material-symbols-outlined text-[24px]">phone_missed</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+              <span>Tekrar Aranacak:</span>
+              <span class="font-semibold text-error font-label-md" id="kpi-quick-retry-count">0 Şoför</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Operational Filter & Fast Search Row -->
+        <div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
+          <div class="flex-1 relative flex items-center">
+            <span class="material-symbols-outlined absolute left-3.5 text-outline text-[20px]">search</span>
+            <input class="w-full h-11 pl-11 pr-4 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="quick-filter-search" placeholder="İsim soyisim, cep telefonu veya kayıt kodu..." type="text" oninput="applyQuickFilters()">
+          </div>
+          <!-- Quick Pill Filters -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Status Filter Buttons -->
+            <div class="flex items-center bg-surface-container-low rounded-lg p-1 text-label-md font-label-md" id="quick-status-group">
+              <button class="px-3 py-1.5 rounded-md bg-canvas-dark text-on-primary font-bold shadow-xs cursor-pointer quick-pill-btn" type="button" data-status="all" onclick="setQuickPillStatus('all', this)">Tümü (<span id="pill-quick-all">0</span>)</button>
+              <button class="px-3 py-1.5 rounded-md text-on-surface hover:text-canvas-dark transition-all cursor-pointer quick-pill-btn" type="button" data-status="urgent" onclick="setQuickPillStatus('urgent', this)">Acil (<span id="pill-quick-urgent">0</span>)</button>
+              <button class="px-3 py-1.5 rounded-md text-on-surface hover:text-canvas-dark transition-all cursor-pointer quick-pill-btn" type="button" data-status="gorusuldu" onclick="setQuickPillStatus('gorusuldu', this)">Görüşüldü</button>
+              <button class="px-3 py-1.5 rounded-md text-on-surface hover:text-canvas-dark transition-all cursor-pointer quick-pill-btn" type="button" data-status="cevapsiz" onclick="setQuickPillStatus('cevapsiz', this)">Cevapsız (<span id="pill-quick-cevapsiz">0</span>)</button>
+            </div>
+            <!-- License Dropdown Styled Button -->
+            <div class="relative">
+              <select class="h-10 px-3.5 pr-8 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container font-label-md text-label-md cursor-pointer border-0 outline-none focus:ring-2 focus:ring-secondary-container appearance-none" id="quick-filter-license" onchange="applyQuickFilters()">
+                <option value="">Ehliyet: Tümü</option>
+                <option value="CE">Ehliyet: CE / C</option>
+                <option value="C">Ehliyet: C</option>
+                <option value="D">Ehliyet: D</option>
+              </select>
+              <span class="material-symbols-outlined text-[18px] text-outline absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+            </div>
+            <!-- Code 95 Filter -->
+            <div class="relative">
+              <select class="h-10 px-3.5 pr-8 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container font-label-md text-label-md cursor-pointer border-0 outline-none focus:ring-2 focus:ring-secondary-container appearance-none" id="quick-filter-code95" onchange="applyQuickFilters()">
+                <option value="">Kod 95: Tümü</option>
+                <option value="var">Kod 95: Var</option>
+                <option value="yok">Kod 95: Yok</option>
+              </select>
+              <span class="material-symbols-outlined text-[18px] text-outline absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+            </div>
+            <!-- Date Period -->
+            <div class="relative">
+              <select class="h-10 pl-8 pr-8 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container font-label-md text-label-md cursor-pointer border-0 outline-none focus:ring-2 focus:ring-secondary-container appearance-none" id="quick-filter-period" onchange="applyQuickFilters()">
+                <option value="all">Tüm Zamanlar</option>
+                <option value="today" selected="">Bugün</option>
+                <option value="week">Bu Hafta</option>
+              </select>
+              <span class="material-symbols-outlined text-[18px] text-outline absolute left-2.5 top-2.5 pointer-events-none">calendar_today</span>
+              <span class="material-symbols-outlined text-[18px] text-outline absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Operational Queue Table (Full Width matching screenshot) -->
+        <div class="bg-surface-card rounded-xl shadow-sm overflow-hidden">
+          <!-- Table Header Bar -->
+          <div class="p-space-md bg-surface-container-low flex items-center justify-between border-b border-border-muted/50">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[20px] text-on-surface">contacts</span>
+              <span class="font-headline-sm text-headline-sm text-on-surface font-bold">Aday Arama Listesi</span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant" id="quick-table-badge">0 Kayıt Gösteriliyor</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="p-1.5 rounded-md text-on-surface-variant hover:bg-surface-container transition-all cursor-pointer" onclick="refreshQuickTable()" title="Yenile" type="button">
+                <span class="material-symbols-outlined text-[20px]">refresh</span>
+              </button>
+              <button class="p-1.5 rounded-md text-on-surface-variant hover:bg-surface-container transition-all cursor-pointer" onclick="resetQuickFilters()" title="Filtreleri Temizle" type="button">
+                <span class="material-symbols-outlined text-[20px]">filter_alt_off</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Interactive Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md border-b border-border-muted/50">
+                  <th class="py-3 px-4 font-semibold">Aday &amp; İletişim</th>
+                  <th class="py-3 px-4 font-semibold">Ehliyet &amp; Tecrübe</th>
+                  <th class="py-3 px-4 font-semibold">Kod 95 &amp; Hat</th>
+                  <th class="py-3 px-4 font-semibold">Notlar / Kaynak</th>
+                  <th class="py-3 px-4 text-right font-semibold">Aksiyonlar</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border-muted/30 text-body-sm font-body-sm" id="quick-table-body">
+                <!-- Injected dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer / Pagination -->
+          <div class="p-space-md bg-surface-card flex flex-col sm:flex-row items-center justify-between gap-space-sm border-t border-border-muted/50">
+            <span class="text-xs text-on-surface-variant font-medium" id="quick-pagination-info">Toplam 0 hızlı kayıt arasından 0 gösteriliyor</span>
+            <div class="flex items-center gap-1" id="quick-pagination-btns">
+              <!-- Pagination buttons injected by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END VIEW: HIZLI BAŞVURULAR MASASI -->
+
+      <!-- VIEW: ADAY HAVUZU -->
+      <div class="flex flex-col w-full hidden" id="view-aday-havuzu">
+        <!-- Üst Başlık & Aksiyon Alanı -->
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md mb-space-lg">
+          <div>
+            <div class="flex items-center gap-space-xs mb-1">
+              <span class="inline-block w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+            </div>
+            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">Aday Havuzu</h1>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Ön inceleme ve denklik süreçlerinden geçerek havuza dahil edilen onaylı tır şoförü adayları.</p>
+          </div>
+          <!-- Sağ Üst: Arama & Aday Ekle / Çıkart Butonları -->
+          <div class="flex flex-wrap items-center gap-space-sm">
+            <!-- Hızlı Filtre Arama -->
+            <div class="relative w-64 md:w-72">
+              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+              <input class="w-full h-11 pl-10 pr-3 rounded-lg bg-surface-container-lowest text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="candidateFilterInput" oninput="filterCandidates(this.value)" placeholder="İsim, e-posta veya telefon ile ara..." type="text">
+            </div>
+            <!-- Çıkart / Kaldır Butonu -->
+            <button class="h-11 px-space-md rounded-lg bg-surface-container-lowest hover:bg-error-container text-on-surface hover:text-on-error-container font-label-md text-label-md transition-all shadow-sm flex items-center gap-1.5 opacity-60 cursor-not-allowed" disabled="" id="bulkRemoveBtn" onclick="confirmBulkRemove()" title="Seçili adayları havuzdan çıkart" type="button">
+              <span class="material-symbols-outlined text-[19px]">person_remove</span>
+              <span>Aday Çıkart</span>
+            </button>
+            <!-- Birincil: Aday Ekle Butonu -->
+            <button class="h-11 px-space-lg rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-md text-label-md font-bold transition-all shadow-sm flex items-center gap-2 cursor-pointer" onclick="openAddCandidateModal()" type="button">
+              <span class="material-symbols-outlined text-[20px]">person_add</span>
+              <span>+ Aday Ekle</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Havuz İstatistik Mini Barı (Modern, Minimal) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md mb-space-lg">
+          <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Toplam Havuz Kapasitesi</span>
+              <span class="font-headline-md text-headline-md text-on-surface font-extrabold mt-0.5" id="totalCandidateCount">0</span>
+            </div>
+            <div class="w-11 h-11 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container">
+              <span class="material-symbols-outlined text-[24px]">groups</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aday Listesi Tablosu Kartı -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+          <!-- Tablo Kontrol / Bilgi Üst Bandı -->
+          <div class="p-space-md bg-surface-container-low/60 flex items-center justify-between border-b border-border-muted/40">
+            <div class="flex items-center gap-space-sm">
+              <span class="font-label-md text-label-md text-on-surface font-bold tracking-tight">Onaylı Şoför Listesi</span>
+              <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">Aktif Havuz</span>
+            </div>
+            <span class="font-body-sm text-body-sm text-on-surface-variant font-medium" id="matchSummaryText">0 kayıt listeleniyor</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left" id="candidateTable">
+              <thead>
+                <tr class="bg-surface-container-low text-on-surface font-label-md text-label-md uppercase tracking-wider border-b border-border-muted/50">
+                  <th class="py-4 pl-space-md pr-2 w-12 text-center" scope="col">
+                    <input class="w-4 h-4 rounded text-secondary-container focus:ring-secondary-container cursor-pointer accent-canvas-dark" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)" type="checkbox">
+                  </th>
+                  <th class="py-4 px-space-md font-semibold" scope="col">İsim Soyisim</th>
+                  <th class="py-4 px-space-md font-semibold" scope="col">Onaylı Hesap Bilgisi</th>
+                  <th class="py-4 px-space-md font-semibold" scope="col">Telefon Numarası</th>
+                  <th class="py-4 px-space-md font-semibold" scope="col">E-posta Adresi</th>
+                  <th class="py-4 pr-space-md pl-2 text-right font-semibold" scope="col">İşlemler</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border-muted/30" id="candidateTableBody">
+                <!-- Injected dynamically via JS -->
+              </tbody>
+            </table>
+
+            <!-- Sonuç Bulunamadı Görünümü -->
+            <div class="hidden py-16 flex-col items-center justify-center text-center px-4" id="noResultsState">
+              <div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-outline mb-3">
+                <span class="material-symbols-outlined text-[32px]">search_off</span>
+              </div>
+              <p class="font-headline-sm text-headline-sm text-on-surface font-bold" id="noResultsTitle">Aradığınız kriterlere uygun onaylı aday bulunamadı.</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1" id="noResultsDesc">Lütfen isim, e-posta veya telefon bilgisini kontrol ediniz.</p>
+              <button class="mt-4 px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all cursor-pointer" onclick="resetSearch()" type="button" id="resetSearchBtn">
+                Aramayı Temizle
+              </button>
+            </div>
+          </div>
+
+          <!-- Alt Bilgilendirme ve Sayfalama -->
+          <div class="p-space-md bg-surface-container-lowest flex flex-col sm:flex-row items-center justify-between gap-space-sm border-t border-border-muted/50">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-status-success"></span>
+              <span class="font-label-sm text-label-sm text-outline">Tüm adaylar onaylı statüde olup havuzda aktif eşleşmeye açıktır.</span>
+            </div>
+            <div class="flex items-center gap-1" id="poolPagination">
+              <button class="w-8 h-8 rounded flex items-center justify-center text-outline hover:bg-surface-container hover:text-on-surface transition-all cursor-pointer" disabled="" type="button">
+                <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+              </button>
+              <span class="px-3 py-1 rounded bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm font-bold">1</span>
+              <button class="w-8 h-8 rounded flex items-center justify-center text-outline hover:bg-surface-container hover:text-on-surface transition-all cursor-pointer" disabled="" type="button">
+                <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END VIEW: ADAY HAVUZU -->
     </main>
   </div>
 
@@ -786,6 +1102,229 @@
     </div>
   </div>
 
+  <!-- MODAL 3: MANUEL HIZLI ÇAĞRI EKLE -->
+  <div class="fixed inset-0 z-50 hidden flex items-center justify-center bg-canvas-dark/60 backdrop-blur-sm p-4" id="add-manual-quick-modal">
+    <div class="bg-surface-card rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-border-muted">
+      <div class="px-space-lg py-space-md bg-primary-container text-on-primary flex items-center justify-between">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-secondary-container text-[20px]">add_call</span>
+          <span class="font-label-lg text-label-lg font-bold">Manuel Hızlı Çağrı / Aday Ekle</span>
+        </div>
+        <button class="text-on-primary/70 hover:text-white cursor-pointer" onclick="closeModal('add-manual-quick-modal')" type="button">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <form class="p-space-lg flex flex-col gap-space-md overflow-y-auto" id="manualQuickAddForm" onsubmit="handleManualQuickSubmit(event)">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-fullName">Ad Soyad *</label>
+            <input class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="quick-add-fullName" placeholder="Örn: Murat Korkmaz" required="" type="text">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-phone">Telefon Numarası *</label>
+            <input class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="quick-add-phone" placeholder="+90 532 000 00 00" required="" type="tel">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-city">İkamet Şehri</label>
+            <input class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="quick-add-city" placeholder="Örn: Konya" type="text">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-license">Ehliyet Sınıfı *</label>
+            <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="quick-add-license">
+              <option value="CE">CE (Tır / Çekici)</option>
+              <option value="C">C (Kamyon)</option>
+              <option value="D">D (Otobüs)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-exp">Tecrübe</label>
+            <input class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="quick-add-exp" placeholder="Örn: 6 Yıl" type="text">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-code95">Kod 95 Durumu</label>
+            <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="quick-add-code95">
+              <option value="none">Kod 95 Yok</option>
+              <option value="eu">Kod 95 Var (AB)</option>
+              <option value="tr">Kod 95 Var (TR)</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-fleet">Hedef Hat / Filo</label>
+            <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="quick-add-fleet">
+              <option value="Almanya Filosu">Almanya Filosu</option>
+              <option value="Polonya / Çekya">Polonya / Çekya</option>
+              <option value="Litvanya / Letonya">Litvanya / Letonya</option>
+              <option value="Hollanda / Belçika">Hollanda / Belçika</option>
+              <option value="Genel Avrupa">Genel Avrupa</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-source">Çağrı Kaynağı</label>
+            <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="quick-add-source">
+              <option value="Santral Çağrısı">Santral Çağrısı</option>
+              <option value="WhatsApp Hızlı">WhatsApp Hızlı</option>
+              <option value="Web Hızlı Form">Web Hızlı Form</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-status">Dosya Durumu</label>
+            <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="quick-add-status">
+              <option value="Yeni Başvuru">Yeni Başvuru (Bekliyor)</option>
+              <option value="Görüşüldü">Görüşüldü</option>
+              <option value="Cevapsız">Cevapsız / Ulaşılamadı</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="font-label-md text-label-md text-on-surface font-semibold" for="quick-add-notes">Görüşme / Ön İnceleme Notu</label>
+          <textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="quick-add-notes" placeholder="Avrupa hattında çalışmak istiyor, pasaport hazır..." rows="2"></textarea>
+        </div>
+
+        <div class="px-space-lg py-space-md bg-surface-container-lowest flex items-center justify-end gap-space-sm -mx-6 -mb-6 border-t border-border-muted mt-2">
+          <button class="px-4 h-10 rounded-lg hover:bg-surface-container text-on-surface-variant font-label-md text-label-md cursor-pointer" onclick="closeModal('add-manual-quick-modal')" type="button">İptal</button>
+          <button class="px-5 h-10 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-md text-label-md font-bold shadow-md cursor-pointer" type="submit">Çağrıyı Kuyruğa Ekle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: TOPLU SMS / WHATSAPP -->
+  <div class="fixed inset-0 z-50 hidden flex items-center justify-center bg-canvas-dark/60 backdrop-blur-sm p-4" id="bulk-message-modal">
+    <div class="bg-surface-card rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col border border-border-muted">
+      <div class="px-space-lg py-space-md bg-primary-container text-on-primary flex items-center justify-between">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-status-success text-[20px]">mark_chat_unread</span>
+          <span class="font-label-lg text-label-lg font-bold">Toplu SMS / WhatsApp İletişim Masası</span>
+        </div>
+        <button class="text-on-primary/70 hover:text-white cursor-pointer" onclick="closeModal('bulk-message-modal')" type="button">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <div class="p-space-lg flex flex-col gap-space-md">
+        <p class="text-body-sm text-on-surface-variant">Listelenen hızlı başvuru adaylarına toplu bilgilendirme mesajı iletebilir veya telefon numaralarını panoya kopyalayabilirsiniz.</p>
+        <div class="flex flex-col gap-1">
+          <label class="font-label-md text-label-md text-on-surface font-semibold">Hazır Mesaj Şablonu</label>
+          <textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="bulk-msg-text" rows="4">Sayın Adayımız, Avrupa Tır Şoförü istihdam programına yapmış olduğunuz ön başvuru kaydınız operasyon masamız tarafından incelenmiştir. Detaylı dosya inceleme ve evrak tamamlama süreci için lütfen bizimle iletişime geçiniz. https://avrupatirsoforu.com</textarea>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low text-body-sm">
+          <span class="text-on-surface-variant font-medium">Hedef Aday Sayısı:</span>
+          <span class="font-bold text-on-surface font-label-md" id="bulk-candidate-count">0 Aday</span>
+        </div>
+      </div>
+      <div class="px-space-lg py-space-md bg-surface-container-lowest flex items-center justify-end gap-space-sm border-t border-border-muted">
+        <button class="px-4 h-10 rounded-lg hover:bg-surface-container text-on-surface-variant font-label-md text-label-md cursor-pointer" onclick="closeModal('bulk-message-modal')" type="button">Kapat</button>
+        <button class="px-4 h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1.5 cursor-pointer" onclick="copyBulkPhoneNumbers()" type="button">
+          <span class="material-symbols-outlined text-[18px]">content_copy</span>
+          <span>Numaraları Kopyala</span>
+        </button>
+        <button class="px-5 h-10 rounded-lg bg-status-success hover:bg-status-success/90 text-white font-label-md text-label-md font-bold shadow-md flex items-center gap-1.5 cursor-pointer" onclick="sendBulkWhatsApp()" type="button">
+          <span class="material-symbols-outlined text-[18px]">send</span>
+          <span>WhatsApp İlet</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: ADAY HAVUZU - YENİ ONAYLI ADAY EKLE -->
+  <div class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-canvas-dark/60 backdrop-blur-sm" id="addCandidateModal">
+    <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-150 border border-border-muted">
+      <div class="p-space-lg bg-primary-container text-on-primary flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary-container">person_add</span>
+          <h2 class="font-headline-sm text-headline-sm font-bold text-white">Yeni Onaylı Aday Ekle</h2>
+        </div>
+        <button class="text-on-primary-container hover:text-white transition-all cursor-pointer" onclick="closeAddCandidateModal()" type="button">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form class="p-space-lg flex flex-col gap-space-md" id="newCandidateForm" onsubmit="handlePoolCandidateSubmit(event)">
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-1.5 font-semibold" for="inputFullName">İsim Soyisim *</label>
+          <input class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="inputFullName" placeholder="Örn: Ahmet Yılmaz" required="" type="text">
+        </div>
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-1.5 font-semibold" for="inputPhone">Telefon Numarası *</label>
+          <input class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="inputPhone" placeholder="Örn: +90 532 000 00 00" required="" type="tel">
+        </div>
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-1.5 font-semibold" for="inputEmail">E-posta Adresi *</label>
+          <input class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="inputEmail" placeholder="Örn: ahmet.yilmaz@posta.com" required="" type="email">
+        </div>
+        <div class="p-3 rounded-lg bg-surface-container-low flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-status-success text-[20px] mt-0.5">verified</span>
+          <div class="text-left">
+            <span class="block font-label-sm text-label-sm font-bold text-on-surface">Onaylı Hesap Kriteri</span>
+            <span class="block font-body-sm text-body-sm text-on-surface-variant text-xs">Bu ekrandan eklenen şoför adayı doğrudan onaylı teyit rozetiyle havuza kaydedilir.</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-end gap-space-sm mt-space-sm">
+          <button class="h-11 px-space-md rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all cursor-pointer" onclick="closeAddCandidateModal()" type="button">
+            İptal
+          </button>
+          <button class="h-11 px-space-lg rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-md text-label-md font-bold transition-all shadow-sm flex items-center gap-2 cursor-pointer" type="submit">
+            <span class="material-symbols-outlined text-[18px]">check_circle</span>
+            <span>Havuza Ekle</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 6: ADAY HAVUZU - ADAY BİLGİLERİ DETAY MODAL -->
+  <div class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-canvas-dark/60 backdrop-blur-sm" id="candidateDetailModal">
+    <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-150 border border-border-muted">
+      <div class="p-space-lg bg-canvas-dark text-on-primary flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary-container">assignment_ind</span>
+          <h2 class="font-headline-sm text-headline-sm font-bold text-white">Aday Bilgileri</h2>
+        </div>
+        <button class="text-on-primary-container hover:text-white transition-all cursor-pointer" onclick="closeDetailModal()" type="button">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="p-space-lg flex flex-col gap-space-md">
+        <div class="flex items-center gap-4 pb-space-sm">
+          <div class="w-14 h-14 rounded-full bg-primary-container text-on-primary font-headline-md text-headline-md flex items-center justify-center font-bold" id="detailAvatar">
+            --
+          </div>
+          <div class="flex flex-col">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold" id="detailName">--</h3>
+            <div class="inline-flex items-center gap-1 text-status-success font-label-sm text-label-sm font-bold mt-0.5">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              Onaylı Hesap (Havuzda)
+            </div>
+          </div>
+        </div>
+        <div class="space-y-3 bg-surface-container-low p-space-md rounded-xl">
+          <div>
+            <span class="font-label-sm text-label-sm text-outline uppercase font-semibold">Telefon Numarası</span>
+            <p class="font-body-md text-body-md text-on-surface font-medium mt-0.5" id="detailPhone">--</p>
+          </div>
+          <div>
+            <span class="font-label-sm text-label-sm text-outline uppercase font-semibold">E-posta Adresi</span>
+            <p class="font-body-md text-body-md text-on-surface font-medium mt-0.5" id="detailEmail">--</p>
+          </div>
+          <div>
+            <span class="font-label-sm text-label-sm text-outline uppercase font-semibold">Onay Tarihi</span>
+            <p class="font-body-md text-body-md text-on-surface font-medium mt-0.5" id="detailDate">--</p>
+          </div>
+        </div>
+        <div class="flex justify-end pt-2">
+          <button class="h-10 px-space-lg rounded-lg bg-canvas-dark text-on-primary font-label-md text-label-md font-semibold hover:bg-slate-800 transition-all cursor-pointer" onclick="closeDetailModal()" type="button">
+            Kapat
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- APPLICATION SCRIPTS -->
   <script src="js/cloud-db.js?v=3.5.0"></script>
   <script>
@@ -803,6 +1342,11 @@
       return true;
     }
 
+    function isQuickApplication(a) {
+      if (!a) return false;
+      return a.type === 'quick' || a.applicationType === 'quick' || a.source === 'Hızlı Başvuru' || (typeof a.source === 'string' && (a.source.includes('Hızlı') || a.source.includes('Santral')));
+    }
+
     // STATE VARIABLES
     let allApplications = [];
     let filteredApplications = [];
@@ -812,10 +1356,19 @@
     let pageSize = 15;
     let selectedDriverId = null;
 
+    // Quick applications desk state
+    let quickFilteredApplications = [];
+    let quickCurrentPage = 1;
+    let quickPageSize = 10;
+    let quickStatusPill = 'all';
+
     // INITIALIZATION
     document.addEventListener('DOMContentLoaded', function () {
       initDatabase();
+      ensurePoolSeedData();
       applyFilters();
+      applyQuickFilters();
+      renderPoolDashboard();
 
       // Fetch fresh data from global cloud on load
       if (typeof window.fetchApplicationsFromCloud === 'function') {
@@ -823,6 +1376,8 @@
           if (Array.isArray(apps)) {
             allApplications = apps.filter(isRealApplication);
             applyFilters();
+            applyQuickFilters();
+            renderPoolDashboard();
           }
         });
       }
@@ -840,20 +1395,24 @@
       const selectAll = document.getElementById('select-all-top');
       if (selectAll) {
         selectAll.addEventListener('change', function () {
-          const checkboxes = document.querySelectorAll('.row-checkbox');
+          const checkboxes = document.querySelectorAll('#applications-table-body .row-checkbox');
           checkboxes.forEach(cb => cb.checked = selectAll.checked);
         });
       }
     });
 
     // REAL-TIME SYNC LISTENERS
+    // 1. In-Window Custom Event Listener
     window.addEventListener('ats_applications_updated', function (e) {
       if (e.detail && Array.isArray(e.detail)) {
         allApplications = e.detail.filter(isRealApplication);
         applyFilters();
+        applyQuickFilters();
+        if (currentTab === 'aday-havuzu') renderPoolDashboard();
       }
     });
 
+    // 2. Cross-Tab Storage Event Listener
     window.addEventListener('storage', function (e) {
       if (e.key === 'ats_applications') {
         try {
@@ -861,12 +1420,52 @@
           if (Array.isArray(updated)) {
             allApplications = updated.filter(isRealApplication);
             applyFilters();
+            applyQuickFilters();
+            if (currentTab === 'aday-havuzu') renderPoolDashboard();
           }
         } catch(err){}
       }
     });
 
-    // Cloud polling every 3.5 seconds for instant cross-tab / cross-device updates
+    // 3. Cross-Tab BroadcastChannel Listener (Instant 0ms sync)
+    if (typeof BroadcastChannel !== 'undefined') {
+      const channel = new BroadcastChannel('ats_portal_sync');
+      channel.onmessage = function (event) {
+        if (event.data) {
+          if (event.data.type === 'APPLICATION_SUBMITTED') {
+            const newApp = event.data.data;
+            if (newApp && isRealApplication(newApp)) {
+              const idx = allApplications.findIndex(a => (a.id || a.referenceNumber) === (newApp.id || newApp.referenceNumber));
+              if (idx !== -1) {
+                allApplications[idx] = newApp;
+              } else {
+                allApplications.unshift(newApp);
+              }
+              applyFilters();
+              applyQuickFilters();
+              if (currentTab === 'aday-havuzu') renderPoolDashboard();
+            }
+          } else if (event.data.type === 'APPLICATIONS_SYNCED' && Array.isArray(event.data.data)) {
+            allApplications = event.data.data.filter(isRealApplication);
+            applyFilters();
+            applyQuickFilters();
+            if (currentTab === 'aday-havuzu') renderPoolDashboard();
+          }
+        }
+      };
+    }
+
+    // 4. Tab Focus (Visibility Change) Listener
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) {
+        initDatabase();
+        applyFilters();
+        applyQuickFilters();
+        if (currentTab === 'aday-havuzu') renderPoolDashboard();
+      }
+    });
+
+    // 5. Gentle periodic cloud sync (every 25 seconds)
     setInterval(async function () {
       if (typeof window.fetchApplicationsFromCloud === 'function') {
         const cloudApps = await window.fetchApplicationsFromCloud();
@@ -875,10 +1474,29 @@
           if (cleanApps.length !== allApplications.length || JSON.stringify(cleanApps) !== JSON.stringify(allApplications)) {
             allApplications = cleanApps;
             applyFilters();
+            applyQuickFilters();
+            if (currentTab === 'aday-havuzu') renderPoolDashboard();
           }
         }
       }
-    }, 3500);
+    }, 25000);
+
+    // RESET ALL APPLICATIONS TO CLEAN 0 STATE
+    function clearAllApplications() {
+      if (confirm('Paneldeki tüm aday kayıtlarını sıfırlamak ve portföyü 0 yapmak istediğinize emin misiniz?')) {
+        allApplications = [];
+        localStorage.setItem('ats_pool_cleared', 'true');
+        localStorage.setItem('ats_applications', JSON.stringify([]));
+        if (typeof window.syncApplicationsToCloud === 'function') {
+          window.syncApplicationsToCloud([]);
+        }
+        applyFilters();
+        applyQuickFilters();
+        renderPoolDashboard();
+        toggleDropdown('bulk-dropdown');
+        alert('Tüm aday başvuruları başarıyla temizlendi. Panel sayaçları 0 olarak güncellendi.');
+      }
+    }
 
     // DATABASE MANAGER
     function initDatabase() {
@@ -922,32 +1540,45 @@
         }
       });
 
-      const breadcrumb = document.getElementById('breadcrumb-current');
-      const pageTitle = document.getElementById('page-main-title');
-      const filterTypeSelect = document.getElementById('filter-type');
+      const viewBasvurular = document.getElementById('view-basvurular');
+      const viewHizliBasvurular = document.getElementById('view-hizli-basvurular');
+      const viewAdayHavuzu = document.getElementById('view-aday-havuzu');
 
-      if (tabId === 'basvurular') {
-        breadcrumb.textContent = 'Tüm Dosyalar (Başvurular)';
-        pageTitle.textContent = 'Aday Başvuru Yönetim Masası';
-        if (filterTypeSelect) filterTypeSelect.value = '';
-      } else if (tabId === 'hizli-basvurular') {
-        breadcrumb.textContent = 'Hızlı Başvurular';
-        pageTitle.textContent = 'Hızlı Ön Form Başvuruları';
-        if (filterTypeSelect) filterTypeSelect.value = 'quick';
+      if (tabId === 'hizli-basvurular') {
+        if (viewBasvurular) viewBasvurular.classList.add('hidden');
+        if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
+        if (viewHizliBasvurular) viewHizliBasvurular.classList.remove('hidden');
+        quickCurrentPage = 1;
+        applyQuickFilters();
       } else if (tabId === 'aday-havuzu') {
-        breadcrumb.textContent = 'Aday Havuzu & Onaylı Kaptanlar';
-        pageTitle.textContent = 'Mülakatı Geçen ve Sevk Edilen Sürücüler';
-        if (filterTypeSelect) filterTypeSelect.value = '';
-      } else if (tabId === 'ayarlar') {
-        breadcrumb.textContent = 'Sistem & Veri Ayarları';
-        pageTitle.textContent = 'Veri Yönetimi & Sistem Ayarları';
-      }
+        if (viewBasvurular) viewBasvurular.classList.add('hidden');
+        if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
+        if (viewAdayHavuzu) viewAdayHavuzu.classList.remove('hidden');
+        renderPoolDashboard();
+      } else {
+        if (viewBasvurular) viewBasvurular.classList.remove('hidden');
+        if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
+        if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
 
-      currentPage = 1;
-      applyFilters();
+        const breadcrumb = document.getElementById('breadcrumb-current');
+        const pageTitle = document.getElementById('page-main-title');
+        const filterTypeSelect = document.getElementById('filter-type');
+
+        if (tabId === 'basvurular') {
+          if (breadcrumb) breadcrumb.textContent = 'Tüm Dosyalar (Başvurular)';
+          if (pageTitle) pageTitle.textContent = 'Aday Başvuru Yönetim Masası';
+          if (filterTypeSelect) filterTypeSelect.value = '';
+        } else if (tabId === 'ayarlar') {
+          if (breadcrumb) breadcrumb.textContent = 'Sistem & Veri Ayarları';
+          if (pageTitle) pageTitle.textContent = 'Veri Yönetimi & Sistem Ayarları';
+        }
+
+        currentPage = 1;
+        applyFilters();
+      }
     }
 
-    // FILTER LOGIC
+    // FILTER LOGIC FOR DETAILED APPLICATIONS (Başvurular Masası)
     function applyFilters() {
       const search = (document.getElementById('filter-search')?.value || '').toLowerCase().trim();
       const topSearch = (document.getElementById('top-search')?.value || '').toLowerCase().trim();
@@ -960,11 +1591,10 @@
       const statusFilter = document.getElementById('filter-status')?.value || '';
 
       filteredApplications = allApplications.filter(app => {
-        // Tab-specific constraints
-        if (currentTab === 'hizli-basvurular') {
-          if (app.type !== 'quick' && app.applicationType !== 'quick') return false;
-        } else if (currentTab === 'aday-havuzu') {
-          if (app.status !== 'Filoya Sevk Aşamasında' && app.status !== 'Görüşme Tamamlandı') return false;
+        // Tab-specific constraints:
+        // 'basvurular' desk ONLY displays detailed applications (not quick ones)
+        if (currentTab === 'basvurular') {
+          if (isQuickApplication(app)) return false;
         }
 
         // Search text check
@@ -978,7 +1608,7 @@
 
         // Type filter
         if (typeFilter) {
-          const isQuick = app.type === 'quick' || app.applicationType === 'quick';
+          const isQuick = isQuickApplication(app);
           if (typeFilter === 'quick' && !isQuick) return false;
           if (typeFilter === 'detailed' && isQuick) return false;
         }
@@ -1018,9 +1648,19 @@
     }
 
     function handleGlobalSearch(val) {
-      const mainSearch = document.getElementById('filter-search');
-      if (mainSearch) mainSearch.value = val;
-      applyFilters();
+      if (currentTab === 'hizli-basvurular') {
+        const quickSearch = document.getElementById('quick-filter-search');
+        if (quickSearch) quickSearch.value = val;
+        applyQuickFilters();
+      } else if (currentTab === 'aday-havuzu') {
+        const poolSearch = document.getElementById('candidateFilterInput');
+        if (poolSearch) poolSearch.value = val;
+        filterCandidates(val);
+      } else {
+        const mainSearch = document.getElementById('filter-search');
+        if (mainSearch) mainSearch.value = val;
+        applyFilters();
+      }
     }
 
     function resetFilters() {
@@ -1033,28 +1673,41 @@
       applyFilters();
     }
 
-    // METRICS CALCULATION
+    // METRICS CALCULATION (FOR DETAILED DESK)
     function updateMetrics() {
-      const total = allApplications.length;
-      const detailed = allApplications.filter(a => a.type === 'detailed' || a.applicationType === 'detailed').length;
-      const quick = allApplications.filter(a => a.type === 'quick' || a.applicationType === 'quick').length;
+      const detailedApps = allApplications.filter(a => !isQuickApplication(a));
+      const quickApps = allApplications.filter(isQuickApplication);
+
+      const totalDetailed = detailedApps.length;
+      const totalQuick = quickApps.length;
+      const totalOverall = allApplications.length;
       const reviewed = allApplications.filter(a => a.status === 'Evrak İncelemede' || a.status === 'Görüşme Tamamlandı' || a.status === 'Filoya Sevk Aşamasında').length;
 
-      const detailedPct = total > 0 ? Math.round((detailed / total) * 100) : 0;
-      const quickPct = total > 0 ? Math.round((quick / total) * 100) : 0;
-      const reviewedPct = total > 0 ? Math.round((reviewed / total) * 100) : 0;
+      const detailedPct = totalOverall > 0 ? Math.round((totalDetailed / totalOverall) * 100) : 0;
+      const quickPct = totalOverall > 0 ? Math.round((totalQuick / totalOverall) * 100) : 0;
+      const reviewedPct = totalOverall > 0 ? Math.round((reviewed / totalOverall) * 100) : 0;
 
-      document.getElementById('metric-total').textContent = total;
-      document.getElementById('metric-detailed').textContent = detailed;
-      document.getElementById('metric-detailed-pct').textContent = total > 0 ? `Portföyün %${detailedPct}` : '%0';
-      document.getElementById('metric-detailed-bar').style.width = `${detailedPct}%`;
+      const elTotal = document.getElementById('metric-total');
+      const elDetailed = document.getElementById('metric-detailed');
+      const elDetailedPct = document.getElementById('metric-detailed-pct');
+      const elDetailedBar = document.getElementById('metric-detailed-bar');
+      const elQuick = document.getElementById('metric-quick');
+      const elQuickBar = document.getElementById('metric-quick-bar');
+      const elReviewed = document.getElementById('metric-reviewed');
+      const elReviewedBar = document.getElementById('metric-reviewed-bar');
 
-      document.getElementById('metric-quick').textContent = quick;
-      document.getElementById('metric-quick-bar').style.width = `${quickPct}%`;
+      if (elTotal) elTotal.textContent = totalDetailed;
+      if (elDetailed) elDetailed.textContent = totalDetailed;
+      if (elDetailedPct) elDetailedPct.textContent = totalOverall > 0 ? `Portföyün %${detailedPct}` : '%0';
+      if (elDetailedBar) elDetailedBar.style.width = `${detailedPct}%`;
 
-      document.getElementById('metric-reviewed').textContent = reviewed;
-      document.getElementById('metric-reviewed-bar').style.width = `${reviewedPct}%`;
+      if (elQuick) elQuick.textContent = totalQuick;
+      if (elQuickBar) elQuickBar.style.width = `${quickPct}%`;
+
+      if (elReviewed) elReviewed.textContent = reviewed;
+      if (elReviewedBar) elReviewedBar.style.width = `${reviewedPct}%`;
     }
+
 
     // TABLE RENDERER
     function renderDashboard() {
@@ -1298,6 +1951,478 @@
       renderDashboard();
     }
 
+    // =========================================================================
+    // HIZLI BAŞVURULAR MASASI (QUICK APPLICATIONS DESK) CONTROLLER
+    // =========================================================================
+
+    function setQuickPillStatus(status, btn) {
+      quickStatusPill = status;
+      document.querySelectorAll('#quick-status-group .quick-pill-btn').forEach(b => {
+        b.className = 'px-3 py-1.5 rounded-md text-on-surface hover:text-canvas-dark transition-all cursor-pointer quick-pill-btn';
+      });
+      btn.className = 'px-3 py-1.5 rounded-md bg-canvas-dark text-on-primary font-bold shadow-xs cursor-pointer quick-pill-btn';
+      quickCurrentPage = 1;
+      applyQuickFilters();
+    }
+
+    function applyQuickFilters() {
+      const search = (document.getElementById('quick-filter-search')?.value || '').toLowerCase().trim();
+      const topSearch = (document.getElementById('top-search')?.value || '').toLowerCase().trim();
+      const activeSearch = search || topSearch;
+
+      const licenseFilter = document.getElementById('quick-filter-license')?.value || '';
+      const code95Filter = document.getElementById('quick-filter-code95')?.value || '';
+      const periodFilter = document.getElementById('quick-filter-period')?.value || '';
+
+      const allQuick = allApplications.filter(isQuickApplication);
+
+      quickFilteredApplications = allQuick.filter(app => {
+        // Search filter
+        if (activeSearch) {
+          const matchName = (app.fullName || '').toLowerCase().includes(activeSearch);
+          const matchPhone = (app.phone || '').toLowerCase().includes(activeSearch);
+          const matchCode = (app.id || app.referenceNumber || '').toLowerCase().includes(activeSearch);
+          const matchCity = (app.city || '').toLowerCase().includes(activeSearch);
+          const matchNotes = (app.extraNotes || app.notes || '').toLowerCase().includes(activeSearch);
+          if (!matchName && !matchPhone && !matchCode && !matchCity && !matchNotes) return false;
+        }
+
+        // Status pill filter
+        if (quickStatusPill === 'urgent') {
+          const isUrgent = app.status === 'Yeni Başvuru' || app.status === 'Acil' || !app.status;
+          if (!isUrgent) return false;
+        } else if (quickStatusPill === 'gorusuldu') {
+          const isContacted = app.status === 'Görüşüldü' || app.status === 'Görüşme Tamamlandı' || app.status === 'Evrak İncelemede';
+          if (!isContacted) return false;
+        } else if (quickStatusPill === 'cevapsiz') {
+          const isMissed = app.status === 'Cevapsız' || app.status === 'Ulaşılamadı' || app.status === 'Eksik Evrak';
+          if (!isMissed) return false;
+        }
+
+        // License filter
+        if (licenseFilter) {
+          const classes = Array.isArray(app.licenseClasses) ? app.licenseClasses.join(' ') : (app.licenseClass || '');
+          if (!classes.toUpperCase().includes(licenseFilter.toUpperCase())) return false;
+        }
+
+        // Code 95 filter
+        if (code95Filter) {
+          const c95 = (app.code95 || '').toLowerCase();
+          const hasCode95 = c95 && c95 !== 'none' && c95 !== 'yok' && !c95.includes('talep') && !c95.includes('gerekli');
+          if (code95Filter === 'var' && !hasCode95) return false;
+          if (code95Filter === 'yok' && hasCode95) return false;
+        }
+
+        // Period filter
+        if (periodFilter === 'today') {
+          const todayStr = new Date().toLocaleDateString('tr-TR');
+          if (app.createdAt && !app.createdAt.includes(todayStr) && (!app.timestamp || (Date.now() - app.timestamp) > 86400000)) {
+            return false;
+          }
+        } else if (periodFilter === 'week') {
+          if (app.timestamp && (Date.now() - app.timestamp) > 7 * 86400000) return false;
+        }
+
+        return true;
+      });
+
+      renderQuickDashboard();
+    }
+
+    function updateQuickKPIs() {
+      const allQuick = allApplications.filter(isQuickApplication);
+      const totalQuick = allQuick.length;
+
+      // Pending
+      const pending = allQuick.filter(a => !a.status || a.status === 'Yeni Başvuru' || a.status === 'Acil').length;
+
+      // Contacted
+      const contacted = allQuick.filter(a => a.status === 'Görüşüldü' || a.status === 'Görüşme Tamamlandı' || a.status === 'Evrak İncelemede').length;
+
+      // Converted to detailed form
+      const converted = allApplications.filter(a => a.upgradedFromQuick || a.status === 'Detaylı Forma Yükseltildi').length;
+
+      // Unreached
+      const unreached = allQuick.filter(a => a.status === 'Cevapsız' || a.status === 'Ulaşılamadı' || a.status === 'Eksik Evrak').length;
+
+      const conversionPct = (totalQuick + converted) > 0 ? Math.round((converted / (totalQuick + converted)) * 100) : 0;
+
+      const elPending = document.getElementById('kpi-quick-pending');
+      const elPendingText = document.getElementById('kpi-quick-pending-text');
+      const elContacted = document.getElementById('kpi-quick-contacted');
+      const elConverted = document.getElementById('kpi-quick-converted');
+      const elConvertedPct = document.getElementById('kpi-quick-converted-pct');
+      const elUnreached = document.getElementById('kpi-quick-unreached');
+      const elRetryCount = document.getElementById('kpi-quick-retry-count');
+
+      if (elPending) elPending.textContent = pending;
+      if (elPendingText) elPendingText.textContent = `${pending} dosya bekliyor`;
+      if (elContacted) elContacted.textContent = contacted;
+      if (elConverted) elConverted.textContent = converted;
+      if (elConvertedPct) elConvertedPct.textContent = `%${conversionPct} (Bugün)`;
+      if (elUnreached) elUnreached.textContent = unreached;
+      if (elRetryCount) elRetryCount.textContent = `${unreached} Şoför`;
+
+      // Update pills
+      const pillAll = document.getElementById('pill-quick-all');
+      const pillUrgent = document.getElementById('pill-quick-urgent');
+      const pillMissed = document.getElementById('pill-quick-cevapsiz');
+      if (pillAll) pillAll.textContent = totalQuick;
+      if (pillUrgent) pillUrgent.textContent = pending;
+      if (pillMissed) pillMissed.textContent = unreached;
+    }
+
+    function renderQuickDashboard() {
+      updateQuickKPIs();
+
+      const tbody = document.getElementById('quick-table-body');
+      const badge = document.getElementById('quick-table-badge');
+      const paginationInfo = document.getElementById('quick-pagination-info');
+
+      if (!tbody) return;
+
+      const totalItems = quickFilteredApplications.length;
+      const totalPages = Math.max(1, Math.ceil(totalItems / quickPageSize));
+      if (quickCurrentPage > totalPages) quickCurrentPage = totalPages;
+
+      const startIndex = (quickCurrentPage - 1) * quickPageSize;
+      const paginatedItems = quickFilteredApplications.slice(startIndex, startIndex + quickPageSize);
+
+      if (badge) badge.textContent = `${totalItems} Kayıt Gösteriliyor`;
+      if (paginationInfo) {
+        const endCount = Math.min(startIndex + quickPageSize, totalItems);
+        paginationInfo.textContent = totalItems === 0 
+          ? 'Toplam 0 hızlı kayıt arasından 0 gösteriliyor'
+          : `Toplam ${totalItems} hızlı kayıt arasından ${startIndex + 1} - ${endCount} gösteriliyor`;
+      }
+
+      if (paginatedItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-16 text-center text-on-surface-variant">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <div class="w-12 h-12 rounded-full bg-secondary-container/10 flex items-center justify-center text-warning-amber-hover mb-1">
+                  <span class="material-symbols-outlined text-[28px]">ring_volume</span>
+                </div>
+                <span class="font-label-lg text-label-lg font-bold text-on-surface">Bekleyen Hızlı Başvuru Bulunmamaktadır</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">
+                  Web sitemizin mini hızlı başvuru formlarından veya 'Manuel Hızlı Çağrı Ekle' butonundan eklenen çağrılar anlık olarak burada listelenecektir.
+                </p>
+              </div>
+            </td>
+          </tr>
+        `;
+        renderQuickPagination(totalPages);
+        return;
+      }
+
+      let html = '';
+      paginatedItems.forEach(app => {
+        const initials = getInitials(app.fullName || 'Aday');
+        const isUrgent = app.status === 'Yeni Başvuru' || app.status === 'Acil' || !app.status;
+        const rowClass = isUrgent
+          ? 'bg-secondary-container/10 hover:bg-secondary-container/15 transition-colors cursor-pointer group'
+          : 'bg-surface-card hover:bg-surface-container-low transition-colors cursor-pointer group';
+
+        const rawPhone = app.phone || '';
+        const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+        let waPhone = cleanPhone;
+        if (waPhone.startsWith('0')) waPhone = '90' + waPhone.substring(1);
+        else if (!waPhone.startsWith('90') && waPhone.length === 10) waPhone = '90' + waPhone;
+
+        // Time display
+        let timeHtml = '';
+        if (app.timestamp) {
+          const diffMs = Date.now() - app.timestamp;
+          const diffMins = Math.floor(diffMs / 60000);
+          if (diffMins < 60) {
+            timeHtml = `<span class="text-[11px] text-error font-semibold flex items-center gap-1 mt-0.5"><span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> ${diffMins <= 1 ? 'Az önce başvurdu' : diffMins + ' dk önce başvurdu'}</span>`;
+          } else if (diffMins < 1440) {
+            const diffHrs = Math.floor(diffMins / 60);
+            timeHtml = `<span class="text-[11px] text-error font-semibold flex items-center gap-1 mt-0.5"><span class="w-1.5 h-1.5 rounded-full bg-error"></span> ${diffHrs} saat önce başvurdu</span>`;
+          } else {
+            timeHtml = `<span class="text-[11px] text-outline font-medium mt-0.5">${app.createdAt || 'Bugün'}</span>`;
+          }
+        } else {
+          timeHtml = `<span class="text-[11px] text-outline font-medium mt-0.5">${app.createdAt || 'Bugün'}</span>`;
+        }
+
+        // License
+        let licClass = 'CE';
+        if (Array.isArray(app.licenseClasses) && app.licenseClasses.length > 0) licClass = app.licenseClasses[0];
+        else if (app.licenseClass) licClass = app.licenseClass.includes('C') ? app.licenseClass : 'CE';
+        if (licClass.includes('CE')) licClass = 'CE';
+        else if (licClass.includes('C')) licClass = 'C';
+
+        let expText = '3 Yıl Tecrübe';
+        if (app.experienceYears) {
+          let eStr = String(app.experienceYears).trim();
+          if (eStr.toLowerCase().includes('tecrübe')) {
+            expText = eStr;
+          } else if (eStr.toLowerCase().includes('yıl') || eStr.toLowerCase().includes('yil')) {
+            expText = `${eStr} Tecrübe`;
+          } else {
+            expText = `${eStr} Yıl Tecrübe`;
+          }
+        }
+
+        // Documents
+        const docs = Array.isArray(app.documents) ? app.documents : (Array.isArray(app.certificates) ? app.certificates : []);
+        let docsText = 'SRC 3, 4 Belgeli';
+        if (docs.length > 0) {
+          docsText = docs.slice(0, 2).join(', ');
+        }
+
+        // Code 95
+        const c95 = (app.code95 || '').toLowerCase();
+        const hasCode95 = c95 && c95 !== 'none' && c95 !== 'yok' && !c95.includes('talep') && !c95.includes('gerekli');
+        const code95Badge = hasCode95
+          ? `<span class="px-1.5 py-0.5 rounded text-[11px] font-semibold bg-status-success/20 text-on-surface">Kod 95 Var</span>`
+          : `<span class="px-1.5 py-0.5 rounded text-[11px] font-semibold bg-surface-container-highest text-on-surface-variant">Kod 95 Yok</span>`;
+
+        const fleetText = app.targetCountry || 'Almanya Filosu';
+        const noteText = app.extraNotes || app.notes || 'Avrupa hattında çalışmak istiyor, evrak danışmanlığı talep ediyor.';
+        const sourceText = app.source || 'Kayıt: Web Form';
+
+        html += `
+          <tr class="${rowClass}" onclick="openDriverDrawer('${app.id}')">
+            <td class="py-3.5 px-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full ${isUrgent ? 'bg-canvas-dark text-on-primary' : 'bg-surface-container-high text-on-surface'} flex items-center justify-center font-bold text-xs uppercase shadow-xs">
+                  ${initials}
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-label-lg text-label-lg text-on-surface font-bold group-hover:text-warning-amber-hover transition-colors">${app.fullName || 'Aday'}</span>
+                  <span class="text-xs text-on-surface-variant font-medium">${app.city || 'Belirtilmedi'} · ${app.phone || '-'}</span>
+                  ${timeHtml}
+                </div>
+              </div>
+            </td>
+            <td class="py-3.5 px-4">
+              <div class="flex flex-col">
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded text-xs font-bold bg-canvas-dark text-on-primary">${licClass}</span>
+                  <span class="font-label-md text-label-md text-on-surface">${expText}</span>
+                </div>
+                <span class="text-xs text-on-surface-variant mt-1">${docsText}</span>
+              </div>
+            </td>
+            <td class="py-3.5 px-4">
+              <div class="flex flex-col">
+                <div class="flex items-center gap-1.5">
+                  ${code95Badge}
+                </div>
+                <span class="text-xs text-on-surface font-semibold mt-1">${fleetText}</span>
+              </div>
+            </td>
+            <td class="py-3.5 px-4 max-w-[220px]">
+              <p class="text-xs text-on-surface-variant truncate" title="${noteText}">
+                ${noteText}
+              </p>
+              <span class="text-[11px] text-outline">${sourceText}</span>
+            </td>
+            <td class="py-3.5 px-4 text-right" onclick="event.stopPropagation()">
+              <div class="flex items-center justify-end gap-1.5">
+                <a href="tel:${cleanPhone}" class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-canvas-dark hover:text-on-primary transition-all flex items-center justify-center shadow-xs cursor-pointer" title="Hemen Ara">
+                  <span class="material-symbols-outlined text-[18px]">call</span>
+                </a>
+                <a href="https://wa.me/${waPhone}?text=${encodeURIComponent('Merhaba Sayın ' + (app.fullName || 'Adayımız') + ', Avrupa Tır Şoförü istihdam başvurunuz hakkında görüşmek için iletişime geçiyoruz.')}" target="_blank" class="w-8 h-8 rounded-lg bg-status-success/15 text-status-success hover:bg-status-success hover:text-white transition-all flex items-center justify-center shadow-xs cursor-pointer" title="WhatsApp Mesajı Aç">
+                  <span class="material-symbols-outlined text-[18px]">chat</span>
+                </a>
+                <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-warning-amber-hover hover:bg-secondary-container hover:text-on-secondary-fixed transition-all flex items-center justify-center shadow-xs cursor-pointer" title="Detaylı Forma Yükselt" onclick="upgradeQuickToDetailed('${app.id}')" type="button">
+                  <span class="material-symbols-outlined text-[18px]">upgrade</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+      renderQuickPagination(totalPages);
+    }
+
+    function renderQuickPagination(totalPages) {
+      const container = document.getElementById('quick-pagination-btns');
+      if (!container) return;
+
+      if (quickFilteredApplications.length === 0) {
+        container.innerHTML = `<span class="text-xs text-on-surface-variant font-medium">Sayfa 0 / 0</span>`;
+        return;
+      }
+
+      let html = `
+        <button class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-container-low text-on-surface hover:bg-surface-container cursor-pointer transition-colors disabled:opacity-40" onclick="goToQuickPage(${quickCurrentPage - 1})" ${quickCurrentPage === 1 ? 'disabled' : ''}>Önceki</button>
+      `;
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === quickCurrentPage) {
+          html += `<button class="px-3 py-1.5 rounded-lg text-xs font-bold bg-canvas-dark text-on-primary">${i}</button>`;
+        } else if (i <= 3 || i === totalPages || Math.abs(i - quickCurrentPage) <= 1) {
+          html += `<button class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-container-low text-on-surface hover:bg-surface-container cursor-pointer" onclick="goToQuickPage(${i})">${i}</button>`;
+        } else if (i === 4 && totalPages > 5) {
+          html += `<span class="px-1 text-outline">...</span>`;
+        }
+      }
+
+      html += `
+        <button class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-container-low text-on-surface hover:bg-surface-container cursor-pointer transition-colors disabled:opacity-40" onclick="goToQuickPage(${quickCurrentPage + 1})" ${quickCurrentPage === totalPages ? 'disabled' : ''}>Sonraki</button>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    function goToQuickPage(p) {
+      quickCurrentPage = p;
+      renderQuickDashboard();
+    }
+
+    function refreshQuickTable() {
+      applyQuickFilters();
+    }
+
+    function resetQuickFilters() {
+      const search = document.getElementById('quick-filter-search');
+      const license = document.getElementById('quick-filter-license');
+      const code95 = document.getElementById('quick-filter-code95');
+      const period = document.getElementById('quick-filter-period');
+      if (search) search.value = '';
+      if (license) license.value = '';
+      if (code95) code95.value = '';
+      if (period) period.value = 'all';
+
+      quickStatusPill = 'all';
+      document.querySelectorAll('#quick-status-group .quick-pill-btn').forEach(b => {
+        if (b.getAttribute('data-status') === 'all') {
+          b.className = 'px-3 py-1.5 rounded-md bg-canvas-dark text-on-primary font-bold shadow-xs cursor-pointer quick-pill-btn';
+        } else {
+          b.className = 'px-3 py-1.5 rounded-md text-on-surface hover:text-canvas-dark transition-all cursor-pointer quick-pill-btn';
+        }
+      });
+
+      quickCurrentPage = 1;
+      applyQuickFilters();
+    }
+
+    function upgradeQuickToDetailed(appId) {
+      const app = allApplications.find(a => (a.id === appId || a.referenceNumber === appId));
+      if (!app) return;
+
+      if (confirm(`"${app.fullName || 'Aday'}" adlı adayın hızlı başvurusu Detaylı Başvurular Masası'na yükseltilsin mi?`)) {
+        app.type = 'detailed';
+        app.applicationType = 'detailed';
+        app.upgradedFromQuick = true;
+        app.status = 'Evrak İncelemede';
+        
+        saveDatabase();
+        applyQuickFilters();
+        applyFilters();
+        alert(`"${app.fullName || 'Aday'}" başarıyla Detaylı Başvurular masasına taşındı. Dosya durumu 'Evrak İncelemede' olarak güncellendi.`);
+      }
+    }
+
+    function exportQuickApplications() {
+      const quickApps = allApplications.filter(isQuickApplication);
+      if (quickApps.length === 0) {
+        alert('Dışa aktarılacak kayıtlı hızlı başvuru bulunmamaktadır.');
+        return;
+      }
+      let csv = '\uFEFFKayıt Kodu,Ad Soyad,Telefon,Şehir,Ehliyet,Tecrübe,Kod 95,Hedef Hat,Durum,Kayıt Tarihi,Kaynak,Notlar\n';
+      quickApps.forEach(a => {
+        csv += `"${a.id || a.referenceNumber || ''}","${a.fullName || ''}","${a.phone || ''}","${a.city || ''}","${a.licenseClass || ''}","${a.experienceYears || ''}","${a.code95 || ''}","${a.targetCountry || ''}","${a.status || ''}","${a.createdAt || ''}","${a.source || ''}","${(a.extraNotes || a.notes || '').replace(/"/g, '""')}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `hizli_basvurular_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function openBulkMessageModal() {
+      const quickApps = allApplications.filter(isQuickApplication);
+      const countEl = document.getElementById('bulk-candidate-count');
+      if (countEl) countEl.textContent = `${quickApps.length} Aday`;
+      openModal('bulk-message-modal');
+    }
+
+    function copyBulkPhoneNumbers() {
+      const quickApps = allApplications.filter(isQuickApplication);
+      const phones = quickApps.map(a => a.phone).filter(Boolean);
+      if (phones.length === 0) {
+        alert('Kayıtlı telefon numarası bulunamadı.');
+        return;
+      }
+      navigator.clipboard.writeText(phones.join('\n')).then(() => {
+        alert(`${phones.length} adet aday telefon numarası panoya kopyalandı.`);
+      });
+    }
+
+    function sendBulkWhatsApp() {
+      const quickApps = allApplications.filter(isQuickApplication);
+      if (quickApps.length === 0) {
+        alert('İletişime geçilecek aday bulunmamaktadır.');
+        return;
+      }
+      const firstApp = quickApps[0];
+      const rawPhone = firstApp.phone || '';
+      const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+      let waPhone = cleanPhone;
+      if (waPhone.startsWith('0')) waPhone = '90' + waPhone.substring(1);
+      else if (!waPhone.startsWith('90') && waPhone.length === 10) waPhone = '90' + waPhone;
+      const msg = document.getElementById('bulk-msg-text')?.value || '';
+      window.open(`https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function handleManualQuickSubmit(e) {
+      e.preventDefault();
+      const fullName = document.getElementById('quick-add-fullName').value.trim();
+      const phone = document.getElementById('quick-add-phone').value.trim();
+      const city = document.getElementById('quick-add-city').value.trim() || 'Belirtilmedi';
+      const license = document.getElementById('quick-add-license').value;
+      const exp = document.getElementById('quick-add-exp').value.trim() || '3 Yıl';
+      const code95 = document.getElementById('quick-add-code95').value;
+      const fleet = document.getElementById('quick-add-fleet').value;
+      const source = document.getElementById('quick-add-source').value;
+      const status = document.getElementById('quick-add-status').value;
+      const notes = document.getElementById('quick-add-notes').value.trim();
+
+      const appId = 'ATS-' + Math.floor(100000 + Math.random() * 900000);
+      const newQuickApp = {
+        id: appId,
+        referenceNumber: appId,
+        type: 'quick',
+        applicationType: 'quick',
+        fullName: fullName,
+        phone: phone,
+        city: city,
+        licenseClass: license,
+        licenseClasses: [license],
+        experienceYears: exp,
+        code95: code95,
+        targetCountry: fleet,
+        source: source,
+        status: status,
+        notes: notes,
+        extraNotes: notes,
+        createdAt: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'}),
+        timestamp: Date.now()
+      };
+
+      allApplications.unshift(newQuickApp);
+      saveDatabase();
+      if (typeof window.broadcastApplication === 'function') {
+        window.broadcastApplication(newQuickApp);
+      }
+      closeModal('add-manual-quick-modal');
+      document.getElementById('manualQuickAddForm').reset();
+      applyQuickFilters();
+      applyFilters();
+      alert(`Yeni hızlı çağrı kaydı başarıyla eklendi (${appId}).`);
+    }
+
     // SLIDE-OVER DRAWER
     function openDriverDrawer(appId) {
       const app = allApplications.find(a => a.id === appId || a.referenceNumber === appId);
@@ -1399,16 +2524,28 @@
 
     function saveStatusChange() {
       if (!selectedDriverId) return;
-      const app = allApplications.find(a => a.id === selectedDriverId);
+      const app = allApplications.find(a => a.id === selectedDriverId || a.referenceNumber === selectedDriverId);
       if (app) {
         const newStatus = document.getElementById('modal-status-select').value;
         const note = document.getElementById('modal-status-notes').value.trim();
         app.status = newStatus;
+        if (newStatus === 'Görüşme Tamamlandı' || newStatus === 'Filoya Sevk Aşamasında') {
+          app.isApproved = true;
+          app.inPool = true;
+          if (!app.approvalDate) {
+            app.approvalDate = new Date().toLocaleDateString('tr-TR');
+          }
+        } else {
+          app.isApproved = false;
+          app.inPool = false;
+        }
         if (note) {
           app.extraNotes = (app.extraNotes ? app.extraNotes + '\n' : '') + `[${new Date().toLocaleDateString('tr-TR')} Operatör Notu]: ${note}`;
         }
         saveDatabase();
         renderDashboard();
+        applyQuickFilters();
+        renderPoolDashboard();
       }
       closeModal('quick-status-modal');
     }
@@ -1418,12 +2555,14 @@
         allApplications = allApplications.filter(a => a.id !== appId && a.referenceNumber !== appId);
         saveDatabase();
         applyFilters();
+        applyQuickFilters();
+        renderPoolDashboard();
       }
     }
 
     // BULK ACTIONS
     function handleBulkAction(action) {
-      const selectedIds = Array.from(document.querySelectorAll('.row-checkbox:checked')).map(cb => cb.value);
+      const selectedIds = Array.from(document.querySelectorAll('#applications-table-body .row-checkbox:checked')).map(cb => cb.value);
       if (selectedIds.length === 0) {
         alert('Lütfen işlem yapmak için en az bir aday seçiniz.');
         return;
@@ -1435,13 +2574,22 @@
       else if (action === 'arsiv') newStatus = 'Arşiv / Uygun Değil';
 
       allApplications.forEach(app => {
-        if (selectedIds.includes(app.id)) {
+        if (selectedIds.includes(app.id) || selectedIds.includes(app.referenceNumber)) {
           app.status = newStatus;
+          if (newStatus === 'Filoya Sevk Aşamasında' || newStatus === 'Görüşme Tamamlandı') {
+            app.isApproved = true;
+            app.inPool = true;
+            if (!app.approvalDate) app.approvalDate = new Date().toLocaleDateString('tr-TR');
+          } else {
+            app.isApproved = false;
+            app.inPool = false;
+          }
         }
       });
 
       saveDatabase();
       applyFilters();
+      renderPoolDashboard();
       toggleDropdown('bulk-dropdown');
       alert(`${selectedIds.length} adet dosya güncellendi: ${newStatus}`);
     }
@@ -1497,6 +2645,463 @@
       closeModal('add-manual-modal');
       applyFilters();
       alert(`Yeni aday başarıyla kaydedildi: ${fullName} (${newId})`);
+    }
+
+    // ==========================================
+    // ADAY HAVUZU (CANDIDATE POOL) ENGINE
+    // ==========================================
+
+    const INITIAL_POOL_CANDIDATES = [
+      {
+        id: 'AVR-8492',
+        referenceNumber: 'AVR-8492',
+        fullName: 'Murat Demir',
+        phone: '+90 532 418 90 23',
+        email: 'murat.demir@lojistikpostasi.com',
+        status: 'Görüşme Tamamlandı',
+        isApproved: true,
+        inPool: true,
+        approvalDate: '14.10.2024',
+        createdAt: '14.10.2024',
+        city: 'İstanbul',
+        licenseClasses: ['CE'],
+        experienceYears: '8 Yıl',
+        type: 'detailed'
+      },
+      {
+        id: 'AVR-8488',
+        referenceNumber: 'AVR-8488',
+        fullName: 'Emre Korkmaz',
+        phone: '+90 544 612 45 88',
+        email: 'emre.korkmaz77@gmail.com',
+        status: 'Görüşme Tamamlandı',
+        isApproved: true,
+        inPool: true,
+        approvalDate: '12.10.2024',
+        createdAt: '12.10.2024',
+        city: 'Bursa',
+        licenseClasses: ['CE'],
+        experienceYears: '6 Yıl',
+        type: 'detailed'
+      },
+      {
+        id: 'AVR-8480',
+        referenceNumber: 'AVR-8480',
+        fullName: 'Serkan Yıldız',
+        phone: '+90 530 892 11 04',
+        email: 'serkan.yildiz@outlook.com',
+        status: 'Görüşme Tamamlandı',
+        isApproved: true,
+        inPool: true,
+        approvalDate: '09.10.2024',
+        createdAt: '09.10.2024',
+        city: 'Ankara',
+        licenseClasses: ['CE'],
+        experienceYears: '10 Yıl',
+        type: 'detailed'
+      },
+      {
+        id: 'AVR-8472',
+        referenceNumber: 'AVR-8472',
+        fullName: 'Halil İbrahim Taş',
+        phone: '+90 535 220 73 99',
+        email: 'hitashofer@yandex.com',
+        status: 'Görüşme Tamamlandı',
+        isApproved: true,
+        inPool: true,
+        approvalDate: '06.10.2024',
+        createdAt: '06.10.2024',
+        city: 'İzmir',
+        licenseClasses: ['CE'],
+        experienceYears: '7 Yıl',
+        type: 'detailed'
+      },
+      {
+        id: 'AVR-8461',
+        referenceNumber: 'AVR-8461',
+        fullName: 'Cemil Özkan',
+        phone: '+90 552 740 18 65',
+        email: 'cemil.ozkan@hotmail.com',
+        status: 'Görüşme Tamamlandı',
+        isApproved: true,
+        inPool: true,
+        approvalDate: '01.10.2024',
+        createdAt: '01.10.2024',
+        city: 'Kocaeli',
+        licenseClasses: ['CE'],
+        experienceYears: '9 Yıl',
+        type: 'detailed'
+      },
+      {
+        id: 'AVR-8455',
+        referenceNumber: 'AVR-8455',
+        fullName: 'Oğuzhan Aydın',
+        phone: '+90 536 991 30 52',
+        email: 'o.aydin.transport@gmail.com',
+        status: 'Görüşme Tamamlandı',
+        isApproved: true,
+        inPool: true,
+        approvalDate: '28.09.2024',
+        createdAt: '28.09.2024',
+        city: 'Samsun',
+        licenseClasses: ['CE'],
+        experienceYears: '5 Yıl',
+        type: 'detailed'
+      },
+      {
+        id: 'AVR-8449',
+        referenceNumber: 'AVR-8449',
+        fullName: 'Bülent Şimşek',
+        phone: '+90 541 333 82 19',
+        email: 'bulentsimsek@tirportali.net',
+        status: 'Görüşme Tamamlandı',
+        isApproved: true,
+        inPool: true,
+        approvalDate: '25.09.2024',
+        createdAt: '25.09.2024',
+        city: 'Adana',
+        licenseClasses: ['CE'],
+        experienceYears: '12 Yıl',
+        type: 'detailed'
+      }
+    ];
+
+    function isPoolCandidate(app) {
+      if (!app || typeof app !== 'object') return false;
+      const id = app.id || app.referenceNumber || '';
+      if (SEED_IDS.has(id)) return false;
+
+      const status = (app.status || '').trim();
+      const isInterviewDone = status === 'Görüşme Tamamlandı' ||
+                              status === 'Filoya Sevk Aşamasında' ||
+                              status === 'Görüşme Yapıldı & Onaylandı' ||
+                              status.toLowerCase().includes('görüşme tamam') ||
+                              status.toLowerCase().includes('onaylan');
+      const isApprovedFlag = app.isApproved === true || app.inPool === true;
+
+      return isInterviewDone || isApprovedFlag;
+    }
+
+    function ensurePoolSeedData() {
+      const hasApproved = allApplications.some(isPoolCandidate);
+      if (!hasApproved && !localStorage.getItem('ats_pool_cleared')) {
+        INITIAL_POOL_CANDIDATES.forEach(c => {
+          if (!allApplications.some(a => (a.id || a.referenceNumber) === c.id)) {
+            allApplications.push(c);
+          }
+        });
+        saveDatabase();
+      }
+    }
+
+    function renderPoolDashboard(customList) {
+      let poolCandidates = customList;
+      if (!poolCandidates) {
+        poolCandidates = allApplications.filter(isPoolCandidate);
+        const q = (document.getElementById('candidateFilterInput')?.value || '').trim().toLowerCase();
+        if (q) {
+          poolCandidates = poolCandidates.filter(c => {
+            const name = (c.fullName || '').toLowerCase();
+            const phone = (c.phone || '').toLowerCase();
+            const email = (c.email || '').toLowerCase();
+            const code = (c.id || c.referenceNumber || '').toLowerCase();
+            return name.includes(q) || phone.includes(q) || email.includes(q) || code.includes(q);
+          });
+        }
+      }
+
+      const totalApproved = allApplications.filter(isPoolCandidate).length;
+      const totalCountEl = document.getElementById('totalCandidateCount');
+      if (totalCountEl) totalCountEl.textContent = totalApproved;
+
+      const summaryText = document.getElementById('matchSummaryText');
+      if (summaryText) summaryText.textContent = `${poolCandidates.length} kayıt listeleniyor`;
+
+      const tbody = document.getElementById('candidateTableBody');
+      const noResults = document.getElementById('noResultsState');
+      const tableHead = document.querySelector('#candidateTable thead');
+
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (poolCandidates.length === 0) {
+        if (noResults) {
+          noResults.classList.remove('hidden');
+          noResults.classList.add('flex');
+        }
+        if (tableHead) tableHead.classList.add('hidden');
+        if (summaryText) summaryText.textContent = 'Eşleşen kayıt bulunamadı';
+        return;
+      }
+
+      if (noResults) {
+        noResults.classList.add('hidden');
+        noResults.classList.remove('flex');
+      }
+      if (tableHead) tableHead.classList.remove('hidden');
+
+      const avatarStyles = [
+        'bg-primary-container text-on-primary',
+        'bg-secondary-fixed text-on-secondary-fixed',
+        'bg-surface-container-high text-on-surface',
+        'bg-primary-container text-on-primary',
+        'bg-secondary-container text-on-secondary-fixed',
+        'bg-surface-container-high text-on-surface',
+        'bg-primary-container text-on-primary'
+      ];
+
+      poolCandidates.forEach((cand, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-surface-subtle transition-colors candidate-row group border-b border-border-muted/30';
+        tr.setAttribute('data-id', cand.id || cand.referenceNumber || idx);
+
+        const name = cand.fullName || 'İsimsiz Aday';
+        const initials = getInitials(name);
+        const code = cand.referenceNumber || cand.id || ('AVR-' + (8400 + idx));
+        const codeFormatted = code.startsWith('#') ? code : `#${code}`;
+        const date = cand.approvalDate || cand.createdAt || new Date().toLocaleDateString('tr-TR');
+        const phone = cand.phone || '-';
+        const email = cand.email || '-';
+        const avatarClass = avatarStyles[idx % avatarStyles.length];
+
+        tr.innerHTML = `
+          <td class="py-4 pl-space-md pr-2 text-center">
+            <input 
+              type="checkbox" 
+              class="row-checkbox w-4 h-4 rounded text-secondary-container cursor-pointer accent-canvas-dark"
+              data-id="${cand.id || cand.referenceNumber}"
+              onchange="handleRowSelect()"
+            />
+          </td>
+          <td class="py-4 px-space-md">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full ${avatarClass} font-label-md text-label-md flex items-center justify-center font-bold shadow-sm">
+                ${initials}
+              </div>
+              <div class="flex flex-col min-w-0">
+                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold candidate-name truncate">${name}</span>
+                <span class="font-label-sm text-label-sm text-outline">Kayıt No: ${codeFormatted}</span>
+              </div>
+            </div>
+          </td>
+          <td class="py-4 px-space-md">
+            <div class="flex flex-col items-start gap-1">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/15 text-[#065F46] font-label-sm text-label-sm font-bold">
+                <span class="material-symbols-outlined text-[16px]">verified</span>
+                Onaylı Hesap
+              </span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant pl-0.5">Onay: ${date}</span>
+            </div>
+          </td>
+          <td class="py-4 px-space-md">
+            <span class="font-body-md text-body-md text-on-surface font-medium candidate-phone">${phone}</span>
+          </td>
+          <td class="py-4 px-space-md">
+            <span class="font-body-md text-body-md text-on-surface-variant candidate-email">${email}</span>
+          </td>
+          <td class="py-4 pr-space-md pl-2 text-right">
+            <div class="inline-flex items-center gap-1">
+              <button 
+                type="button" 
+                onclick="viewCandidateDetail('${encodeURIComponent(name)}', '${encodeURIComponent(email)}', '${encodeURIComponent(phone)}', '${encodeURIComponent(date)}')" 
+                title="Aday Detayı" 
+                class="w-9 h-9 rounded-lg hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-all cursor-pointer"
+              >
+                <span class="material-symbols-outlined text-[20px]">visibility</span>
+              </button>
+              <button 
+                type="button" 
+                onclick="removeCandidate('${cand.id || cand.referenceNumber}', '${encodeURIComponent(name)}')" 
+                title="Havuzdan Çıkart" 
+                class="w-9 h-9 rounded-lg hover:bg-error-container flex items-center justify-center text-outline hover:text-error transition-all cursor-pointer"
+              >
+                <span class="material-symbols-outlined text-[20px]">person_remove</span>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const selectAll = document.getElementById('selectAllCheckbox');
+      if (selectAll) selectAll.checked = false;
+      updateSelectionState();
+    }
+
+    function filterCandidates(query) {
+      const q = (query || '').trim().toLowerCase();
+      const pool = allApplications.filter(isPoolCandidate);
+      if (!q) {
+        renderPoolDashboard(pool);
+        return;
+      }
+      const filtered = pool.filter(c => {
+        const name = (c.fullName || '').toLowerCase();
+        const phone = (c.phone || '').toLowerCase();
+        const email = (c.email || '').toLowerCase();
+        const code = (c.id || c.referenceNumber || '').toLowerCase();
+        return name.includes(q) || phone.includes(q) || email.includes(q) || code.includes(q);
+      });
+      renderPoolDashboard(filtered);
+    }
+
+    function resetSearch() {
+      const input = document.getElementById('candidateFilterInput');
+      if (input) input.value = '';
+      renderPoolDashboard();
+    }
+
+    function toggleSelectAll(isChecked) {
+      const rowCheckboxes = document.querySelectorAll('#candidateTableBody .row-checkbox');
+      rowCheckboxes.forEach(cb => {
+        cb.checked = isChecked;
+      });
+      updateSelectionState();
+    }
+
+    function handleRowSelect() {
+      const rowCheckboxes = Array.from(document.querySelectorAll('#candidateTableBody .row-checkbox'));
+      const allChecked = rowCheckboxes.length > 0 && rowCheckboxes.every(cb => cb.checked);
+      const selectAll = document.getElementById('selectAllCheckbox');
+      if (selectAll) selectAll.checked = allChecked;
+      updateSelectionState();
+    }
+
+    function updateSelectionState() {
+      const checkedBoxes = document.querySelectorAll('#candidateTableBody .row-checkbox:checked');
+      const count = checkedBoxes.length;
+      const bulkRemoveBtn = document.getElementById('bulkRemoveBtn');
+      if (!bulkRemoveBtn) return;
+
+      if (count > 0) {
+        bulkRemoveBtn.disabled = false;
+        bulkRemoveBtn.className = 'h-11 px-space-md rounded-lg bg-surface-container-lowest hover:bg-error-container text-error font-label-md text-label-md transition-all shadow-sm flex items-center gap-1.5 opacity-100 cursor-pointer border border-error/30';
+      } else {
+        bulkRemoveBtn.disabled = true;
+        bulkRemoveBtn.className = 'h-11 px-space-md rounded-lg bg-surface-container-lowest hover:bg-error-container text-on-surface hover:text-on-error-container font-label-md text-label-md transition-all shadow-sm flex items-center gap-1.5 opacity-60 cursor-not-allowed';
+      }
+    }
+
+    function removeCandidate(appId, nameEncoded) {
+      const name = decodeURIComponent(nameEncoded);
+      const confirmed = window.confirm(`"${name}" isimli onaylı adayı havuzdan çıkartmak istediğinize emin misiniz?`);
+      if (confirmed) {
+        const app = allApplications.find(a => (a.id || a.referenceNumber) === appId);
+        if (app) {
+          app.status = 'Evrak İncelemede';
+          app.isApproved = false;
+          app.inPool = false;
+          saveDatabase();
+          renderPoolDashboard();
+          applyFilters();
+        }
+      }
+    }
+
+    function confirmBulkRemove() {
+      const checkedBoxes = document.querySelectorAll('#candidateTableBody .row-checkbox:checked');
+      if (checkedBoxes.length === 0) return;
+
+      const count = checkedBoxes.length;
+      const confirmed = window.confirm(`Seçilen ${count} adayı havuzdan çıkartmak istediğinize emin misiniz?`);
+      if (confirmed) {
+        checkedBoxes.forEach(cb => {
+          const appId = cb.getAttribute('data-id');
+          const app = allApplications.find(a => (a.id || a.referenceNumber) === appId);
+          if (app) {
+            app.status = 'Evrak İncelemede';
+            app.isApproved = false;
+            app.inPool = false;
+          }
+        });
+        saveDatabase();
+        renderPoolDashboard();
+        applyFilters();
+      }
+    }
+
+    function openAddCandidateModal() {
+      const modal = document.getElementById('addCandidateModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeAddCandidateModal() {
+      const modal = document.getElementById('addCandidateModal');
+      if (modal) modal.classList.add('hidden');
+      const form = document.getElementById('newCandidateForm');
+      if (form) form.reset();
+    }
+
+    function handlePoolCandidateSubmit(e) {
+      e.preventDefault();
+      const name = (document.getElementById('inputFullName')?.value || '').trim();
+      const phone = (document.getElementById('inputPhone')?.value || '').trim();
+      const email = (document.getElementById('inputEmail')?.value || '').trim();
+
+      if (!name || !phone || !email) {
+        alert('Lütfen tüm zorunlu alanları doldurunuz.');
+        return;
+      }
+
+      const randomNum = Math.floor(1000 + Math.random() * 9000);
+      const newId = `AVR-${randomNum}`;
+      const today = new Date().toLocaleDateString('tr-TR');
+
+      const newCandidate = {
+        id: newId,
+        referenceNumber: newId,
+        type: 'detailed',
+        applicationType: 'detailed',
+        fullName: name,
+        phone: phone,
+        email: email,
+        city: 'Türkiye Geneli',
+        licenseClasses: ['CE'],
+        experienceYears: '5+ Yıl',
+        status: 'Görüşme Tamamlandı',
+        isApproved: true,
+        inPool: true,
+        approvalDate: today,
+        createdAt: today
+      };
+
+      allApplications.unshift(newCandidate);
+      saveDatabase();
+      if (typeof window.broadcastApplication === 'function') {
+        window.broadcastApplication(newCandidate);
+      }
+      closeAddCandidateModal();
+      renderPoolDashboard();
+      applyFilters();
+    }
+
+    window.handleCandidateSubmit = handlePoolCandidateSubmit;
+
+    function viewCandidateDetail(nameEncoded, emailEncoded, phoneEncoded, dateEncoded) {
+      const name = decodeURIComponent(nameEncoded);
+      const email = decodeURIComponent(emailEncoded);
+      const phone = decodeURIComponent(phoneEncoded);
+      const date = decodeURIComponent(dateEncoded);
+      const initials = getInitials(name);
+
+      const avatar = document.getElementById('detailAvatar');
+      if (avatar) avatar.textContent = initials;
+      const nameEl = document.getElementById('detailName');
+      if (nameEl) nameEl.textContent = name;
+      const emailEl = document.getElementById('detailEmail');
+      if (emailEl) emailEl.textContent = email;
+      const phoneEl = document.getElementById('detailPhone');
+      if (phoneEl) phoneEl.textContent = phone;
+      const dateEl = document.getElementById('detailDate');
+      if (dateEl) dateEl.textContent = date;
+
+      const modal = document.getElementById('candidateDetailModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById('candidateDetailModal');
+      if (modal) modal.classList.add('hidden');
     }
 
     // EXCEL / CSV EXPORT

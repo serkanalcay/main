@@ -1018,6 +1018,9 @@
       if (typeof window.syncApplicationsToCloud === 'function') {
         window.syncApplicationsToCloud(apps);
       }
+      if (typeof window.broadcastApplication === 'function') {
+        window.broadcastApplication(applicationData);
+      }
 
       // Loading State
       btn.disabled = true;

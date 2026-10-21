@@ -712,8 +712,8 @@
         documents: docs,
         source: 'Hızlı Başvuru',
         status: 'Yeni Başvuru',
-        paymentStatus: 'Ön İnceleme',
-        createdAt: new Date().toLocaleDateString('tr-TR')
+        createdAt: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'}),
+        timestamp: Date.now()
       };
 
       try {
@@ -730,6 +730,9 @@
 
         if (typeof window.syncApplicationsToCloud === 'function') {
           window.syncApplicationsToCloud(existingApps);
+        }
+        if (typeof window.broadcastApplication === 'function') {
+          window.broadcastApplication(newApp);
         }
         if (typeof window.saveATSApplicationToFirebase === 'function') {
           window.saveATSApplicationToFirebase(newApp);

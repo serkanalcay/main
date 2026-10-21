@@ -24,7 +24,18 @@
   window.isRealApplication = isRealApplication;
   window.isCloudSyncActive = false;
 
-  // 1. PUSH APPLICATIONS TO GLOBAL CLOUD DATABASE
+  // Cross-Tab Real-time Broadcast Channel
+  const broadcastChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('ats_portal_sync') : null;
+
+  window.broadcastApplication = function(app) {
+    if (broadcastChannel && app) {
+      try {
+        broadcastChannel.postMessage({ type: 'APPLICATION_SUBMITTED', data: app });
+      } catch(e){}
+    }
+  };
+
+  // 1. PUSH APPLICATIONS TO GLOBAL CLOUD DATABASE & LOCAL STORAGE
   window.syncApplicationsToCloud = async function (appsList) {
     if (!appsList || !Array.isArray(appsList)) return;
     const cleanList = appsList.filter(isRealApplication);
@@ -39,7 +50,14 @@
       window.dispatchEvent(new CustomEvent('ats_applications_updated', { detail: cleanList }));
     } catch(e){}
 
-    // 3. Send to Global Cloud REST API
+    // 3. Broadcast across tabs via BroadcastChannel
+    if (broadcastChannel) {
+      try {
+        broadcastChannel.postMessage({ type: 'APPLICATIONS_SYNCED', data: cleanList });
+      } catch(e){}
+    }
+
+    // 4. Send to Global Cloud REST API (asynchronous, non-blocking)
     try {
       const payload = {
         name: 'ats_applications_global',
@@ -60,7 +78,7 @@
         console.log('☁️ [Cloud-DB] Senkronize Edildi:', cleanList.length, 'başvuru');
       }
     } catch (err) {
-      console.warn('☁️ [Cloud-DB] Bulut senkronizasyon uyarısı (yerel depolama aktif):', err.message);
+      // Cloud warning; local storage and BroadcastChannel remain fully active
     }
   };
 
@@ -118,7 +136,7 @@
         }
       }
     } catch (err) {
-      console.warn('☁️ [Cloud-DB] Bulut okuma uyarısı:', err.message);
+      // Offline fallback
     }
 
     // Fallback to local storage
@@ -155,6 +173,7 @@
     }
 
     await window.syncApplicationsToCloud(apps);
+    window.broadcastApplication(appData);
     return apps;
   };
 
