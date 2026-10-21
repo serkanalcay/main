@@ -608,7 +608,7 @@
             <span class="material-symbols-outlined text-[36px]">check_circle</span>
           </div>
           <div class="space-y-2">
-            <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Ön Başvurunuz Alındı!</h3>
+            <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Başvurunuz İletildi! En Kısa Sürede Dönüş Yapılacaktır</h3>
             <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
               Talebiniz uzman sürücü danışmanlığı ekibimize iletilmiştir. Belirttiğiniz telefon numarası üzerinden en geç 24 saat içinde detaylı bilgi için dönüş yapılacaktır.
             </p>
@@ -701,13 +701,16 @@
       const appId = 'ATS-' + Math.floor(100000 + Math.random() * 900000);
       const newApp = {
         id: appId,
+        referenceNumber: appId,
+        type: 'quick',
+        applicationType: 'quick',
         fullName: adSoyad,
         phone: telefon,
         email: email,
         licenseClass: ehliyet,
         experienceYears: deneyim,
         documents: docs,
-        source: 'Ana Sayfa Hızlı Başvuru',
+        source: 'Hızlı Başvuru',
         status: 'Yeni Başvuru',
         paymentStatus: 'Ön İnceleme',
         createdAt: new Date().toLocaleDateString('tr-TR')

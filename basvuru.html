@@ -726,7 +726,7 @@
                   <div class="hidden p-6 rounded-xl bg-status-success/10 text-on-surface flex flex-col gap-3" id="formSuccessMessage">
                     <div class="flex items-center gap-2 text-on-surface font-headline-sm text-headline-sm font-bold">
                       <span class="material-symbols-outlined text-status-success text-[28px]">check_circle</span>
-                      <span>Başvurunuz Başarıyla Alındı!</span>
+                      <span>Başvurunuz İletildi! En Kısa Sürede Dönüş Yapılacaktır</span>
                     </div>
                     <p class="font-body-md text-body-md text-on-surface-variant">
                       Dosyanız sisteme kaydedildi. Dosya Kayıt No: <strong class="text-on-surface font-mono" id="trackingCodeDisplay">AVR-2025-7842</strong>. Uzman danışmanlarımız 24 saat içinde evrak uygunluğunuzu ve sürücü kriterlerinizi analiz ederek telefon/WhatsApp üzerinden sizinle iletişime geçecektir.
@@ -975,6 +975,9 @@
       const applicationData = {
         id: refNumber,
         referenceNumber: refNumber,
+        type: 'detailed',
+        applicationType: 'detailed',
+        source: 'Detaylı Başvuru Formu',
         fullName: fullName,
         email: email,
         phone: phone ? ('+90 ' + phone) : '',

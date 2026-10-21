@@ -1,8 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /admin-panel
+Disallow: /admin-panel.html
 
 # LLM & AI Search Engine Optimizations
 Allow: /llms.txt
 Allow: /llms-full.txt
 
-Sitemap: https://almanyatirsoforlugu.com/sitemap.xml
+Sitemap: https://avrupatirsoforu.com/sitemap.xml

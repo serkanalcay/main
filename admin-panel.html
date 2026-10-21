@@ -1,1826 +1,1667 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <title>Avrupa Tır Şoförü - Yönetim Merkezi / Süper Admin</title>
-  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png" />
-  <!-- MAINTENANCE & DEVELOPER PREVIEW GUARD -->
-  <script src="js/maintenance-guard.js?v=2.7.0"></script>
-  
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_dashboard" name="shell-type">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Avrupa Tır Şoförü - Yönetim Paneli</title>
+  <link rel="icon" href="assets/avrupa_tir_soforu_logo.png">
+
   <!-- GOOGLE FONTS & MATERIAL SYMBOLS -->
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
   <style>
     @layer base {
-      html, body { margin: 0; padding: 0; }
-      body { overscroll-behavior: none; }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
     }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
   </style>
 
-  <!-- TAILWIND CSS & CONFIG -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
-          colors: {
-            "navy-deep": "#0b1c30",
-            "navy-dark": "#0f172a",
-            "navy-slate": "#1e293b",
-            "primary-blue": "#2563eb",
+          "colors": {
+            "primary-fixed": "#dae2fd",
+            "on-secondary-fixed-variant": "#653e00",
+            "tertiary-fixed": "#dbe1ff",
+            "error": "#ba1a1a",
+            "on-surface": "#0b1c30",
+            "on-secondary": "#ffffff",
             "primary-container": "#131b2e",
-            "surface-canvas": "#f8fafc",
-            "surface-card": "#ffffff",
-            "surface-container-low": "#f1f5f9",
-            "surface-container-high": "#e2e8f0",
-            "amber-vibrant": "#fe932c",
-            "amber-high-vis": "#f59e0b",
-            "status-success": "#059669",
-            "status-alert": "#dc2626",
-            "slate-border": "#e2e8f0"
+            "outline": "#76777d",
+            "warning-amber-hover": "#D97706",
+            "surface-container-low": "#eff4ff",
+            "surface-variant": "#d3e4fe",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "on-surface-variant": "#45464d",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-background": "#0b1c30",
+            "on-primary-container": "#7c839b",
+            "surface-container-highest": "#d3e4fe",
+            "surface-dim": "#cbdbf5",
+            "canvas-dark": "#020617",
+            "on-tertiary-fixed": "#00174b",
+            "on-tertiary": "#ffffff",
+            "secondary-fixed": "#ffddb8",
+            "surface-subtle": "#F8FAFC",
+            "surface-tint": "#565e74",
+            "on-primary": "#ffffff",
+            "on-error-container": "#93000a",
+            "surface-bright": "#f8f9ff",
+            "primary-fixed-dim": "#bec6e0",
+            "surface": "#f8f9ff",
+            "on-secondary-fixed": "#2a1700",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-secondary-container": "#684000",
+            "on-tertiary-container": "#497cff",
+            "background": "#f8f9ff",
+            "status-success": "#34D399",
+            "surface-container-high": "#dce9ff",
+            "inverse-surface": "#213145",
+            "outline-variant": "#c6c6cd",
+            "secondary": "#855300",
+            "border-muted": "#E2E8F0",
+            "error-container": "#ffdad6",
+            "tertiary": "#000000",
+            "inverse-on-surface": "#eaf1ff",
+            "on-error": "#ffffff",
+            "surface-card": "#FFFFFF",
+            "on-primary-fixed": "#131b2e",
+            "tertiary-container": "#00174b",
+            "surface-container": "#e5eeff",
+            "inverse-primary": "#bec6e0",
+            "primary": "#000000",
+            "secondary-container": "#fea619",
+            "secondary-fixed-dim": "#ffb95f"
           },
-          fontFamily: {
-            sans: ["Inter", "sans-serif"],
-            display: ["Plus Jakarta Sans", "sans-serif"]
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-mobile": "1rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "body-md": ["Plus Jakarta Sans", "sans-serif"],
+            "display-mobile": ["Plus Jakarta Sans", "sans-serif"],
+            "label-lg": ["Space Grotesk", "sans-serif"],
+            "label-md": ["Space Grotesk", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "display": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "label-sm": ["Space Grotesk", "sans-serif"]
+          },
+          "fontSize": {
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-mobile": ["34px", { "lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+            "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }]
           }
         }
       }
     };
   </script>
 </head>
-<body class="bg-surface-canvas font-sans text-slate-800 antialiased min-h-screen">
 
-  <!-- 2-COLUMN APP LAYOUT: SIDEBAR + FULL-WIDTH EXPANSIVE CONTENT -->
-  
-  <!-- 1. SOL MENÜ (ZENGİN & DÜZENLİ KATEGORİZASYON) -->
-  <aside class="fixed left-0 top-0 h-full w-72 bg-navy-dark text-slate-300 z-50 flex flex-col justify-between shadow-2xl border-r border-slate-800 select-none">
-    <div class="flex flex-col h-full overflow-hidden">
+<body class="bg-background font-body-md text-body-md text-on-surface antialiased min-h-screen">
+
+  <!-- LEFT ASIDE: OPERASYON MENÜSÜ -->
+  <aside class="fixed left-0 top-0 h-full w-72 bg-canvas-dark text-on-primary z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.2)] select-none">
+    <div class="flex flex-col">
       
-      <!-- LOGO & ÜST ALAN -->
-      <a href="index.html" class="h-20 px-5 flex items-center gap-3 border-b border-slate-800/80 bg-slate-950/40 group transition-colors hover:bg-slate-900/60" title="Ana Sayfaya Git">
-        <img alt="Avrupa Tır Şoförü Logo" class="h-10 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105" src="assets/avrupa_tir_soforu_logo.png" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida/AEtjO1U16mn9a3n_4tV50zHQmDkkAFmlM2JmRraNMKh2IzzP1XDe3HEl6s60v2AS_I-Ldjm-xhCl5oK8jIgIZz-q9DPtS2bR_YWl3itzt65SDjQTDFx2imueVOK5rw7KJGH1l5xLafa41I7SSpOz2-GLJusY0HOupypaqDhC1rm1XFBU-A79ZVt3jVxnEZ3sSm-0d9JALL5Xij7qT6bOE5TWrig1Tr4IIQ5lQq-AysUhQvm958PNeB89NUWh_w';"/>
-        <div class="flex flex-col min-w-0">
-          <span class="font-display font-bold text-white text-[15px] leading-tight tracking-tight truncate">Avrupa Tır Şoförü</span>
-          <span class="font-sans text-[11px] font-semibold text-amber-vibrant uppercase tracking-wider">Yönetim Merkezi / Süper Admin</span>
+      <!-- Brand Logo Header -->
+      <div class="h-16 flex items-center gap-space-sm px-space-lg bg-primary-container">
+        <div class="w-9 h-9 rounded-lg bg-secondary-container flex items-center justify-center text-on-primary-fixed font-headline-sm text-headline-sm">
+          <span class="material-symbols-outlined text-[20px]">local_shipping</span>
         </div>
-      </a>
-
-      <!-- DURUM ROZETİ -->
-      <div class="px-5 py-3 bg-slate-900/60 border-b border-slate-800/50 flex items-center justify-between text-xs">
-        <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-slate-200 font-medium">Sistem &amp; Kuyruk Çevrimiçi</span>
+        <div class="flex flex-col">
+          <span class="font-label-lg text-label-lg tracking-tight text-white leading-none">avrupatirsoforu</span>
+          <span class="font-label-sm text-label-sm text-secondary-container mt-0.5 tracking-wider uppercase font-semibold">Yönetim Paneli</span>
         </div>
-        <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold font-mono text-[11px]">EU-SLA &lt;24h</span>
       </div>
 
-      <!-- ANA MENÜ LİSTESİ -->
-      <nav class="flex-1 overflow-y-auto px-3.5 py-4 space-y-5 text-[13.5px]">
+      <!-- Menu Section Title -->
+      <div class="px-space-md py-space-sm mt-space-md">
+        <span class="px-space-sm font-label-sm text-label-sm uppercase tracking-wider text-outline text-opacity-80 font-bold">Operasyon Menüsü</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex flex-col gap-1 px-space-md" id="sidebar-nav">
+        <!-- Başvurular (Ana Sayfa) -->
+        <a class="flex items-center gap-space-sm px-space-md py-3 rounded-lg text-on-secondary-fixed bg-secondary-container font-semibold shadow-md transition-all cursor-pointer nav-item" data-tab="basvurular" onclick="switchTab('basvurular')">
+          <span class="material-symbols-outlined text-[20px]">assignment_ind</span>
+          <span class="font-label-lg text-label-lg">Başvurular</span>
+        </a>
         
-        <!-- GRUP 1: MERKEZİ YÖNETİM -->
-        <div>
-          <span class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Merkezi Yönetim</span>
-          <div class="mt-1.5 space-y-0.5">
-            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="filterTable('all')">
-              <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-blue-400">dashboard</span>
-              <span class="font-medium">Genel Bakış &amp; Canlı Akış</span>
-            </a>
-            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="filterTable('65-euro')">
-              <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-emerald-400">account_balance_wallet</span>
-                <span class="font-medium">Gelirler &amp; Kasa</span>
-              </div>
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">65 € / 3.000 ₺</span>
-            </a>
-            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="https://wa.me/908508400000" target="_blank">
-              <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-emerald-400">chat</span>
-                <span class="font-medium">WhatsApp VIP Yönetimi</span>
-              </div>
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            </a>
-            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="scrollToCMS()">
-              <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-blue-400">language</span>
-                <span class="font-medium">Web Sitesi &amp; CMS</span>
-              </div>
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-400">v2.4</span>
-            </a>
-          </div>
-        </div>
+        <!-- Hızlı Başvurular -->
+        <a class="flex items-center gap-space-sm px-space-md py-3 rounded-lg text-inverse-on-surface hover:bg-surface-variant/20 hover:text-white transition-all cursor-pointer nav-item" data-tab="hizli-basvurular" onclick="switchTab('hizli-basvurular')">
+          <span class="material-symbols-outlined text-[20px]">bolt</span>
+          <span class="font-label-lg text-label-lg">Hızlı Başvurular</span>
+        </a>
 
-        <!-- GRUP 2: OPERASYONEL İŞLEMLER -->
-        <div>
-          <span class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Operasyon &amp; Dosyalar</span>
-          <div class="mt-1.5 space-y-0.5">
-            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="filterTable('all')">
-              <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-amber-400">groups</span>
-                <span class="font-medium">Kullanıcılar &amp; Şoför Profilleri</span>
-              </div>
-              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-slate-800 text-slate-300" id="sidebarUserCount">0</span>
-            </a>
-            
-            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/20" href="javascript:void(0)">
-              <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-[20px]">folder_shared</span>
-                <span>Başvuru &amp; Dosya Yönetimi</span>
-              </div>
-              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-white text-blue-700" id="sidebarBadgeCount">0</span>
-            </a>
-            
-            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="filterTable('evrak-bekleyen')">
-              <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-red-400">verified</span>
-                <span class="font-medium">Evrak &amp; Barkod Onay</span>
-              </div>
-              <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-red-500/20 text-red-400" id="sidebarPendingCount">0</span>
-            </a>
-          </div>
-        </div>
+        <!-- Aday Havuzu -->
+        <a class="flex items-center gap-space-sm px-space-md py-3 rounded-lg text-inverse-on-surface hover:bg-surface-variant/20 hover:text-white transition-all cursor-pointer nav-item" data-tab="aday-havuzu" onclick="switchTab('aday-havuzu')">
+          <span class="material-symbols-outlined text-[20px]">group</span>
+          <span class="font-label-lg text-label-lg">Aday Havuzu</span>
+        </a>
 
-        <!-- GRUP 3: SİSTEM -->
-        <div>
-          <span class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Konfigürasyon</span>
-          <div class="mt-1.5 space-y-0.5">
-            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all group" href="javascript:void(0)" onclick="scrollToCMS()">
-              <span class="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-slate-200">settings</span>
-              <span class="font-medium">Sistem &amp; Rol Ayarları</span>
-            </a>
-          </div>
-        </div>
-
+        <!-- Ayarlar -->
+        <a class="flex items-center gap-space-sm px-space-md py-3 rounded-lg text-inverse-on-surface hover:bg-surface-variant/20 hover:text-white transition-all cursor-pointer nav-item" data-tab="ayarlar" onclick="switchTab('ayarlar')">
+          <span class="material-symbols-outlined text-[20px]">settings</span>
+          <span class="font-label-lg text-label-lg">Ayarlar</span>
+        </a>
       </nav>
 
-      <!-- ALT KULLANICI & GÜVENLİK ÇIKIŞI -->
-      <div class="p-3.5 bg-slate-950/70 border-t border-slate-800">
-        <div class="flex items-center justify-between mb-3 px-1.5">
-          <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs adminInitialsDisplay">SA</div>
-            <div class="flex flex-col">
-              <span class="text-xs font-bold text-white leading-none adminNameDisplay">Serkan Alçay</span>
-              <span class="text-[10px] text-emerald-400 mt-1">Süper Admin / Aktif</span>
-            </div>
-          </div>
-          <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono">v2.4 AB</span>
+    </div>
+
+    <!-- Bottom Version Pill -->
+    <div class="p-space-md bg-canvas-dark">
+      <div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-primary-container">
+        <span class="material-symbols-outlined text-secondary-container text-[20px]">verified_user</span>
+        <div class="flex flex-col">
+          <span class="font-label-sm text-label-sm text-white font-semibold">AB Sürücü Vize Portali</span>
+          <span class="font-label-sm text-label-sm text-outline">v2.4 Production</span>
         </div>
-        <button onclick="handleAdminLogout()" class="w-full py-2 px-3 rounded-lg bg-slate-900 hover:bg-red-950/40 hover:text-red-300 text-slate-400 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-800 cursor-pointer">
-          <span class="material-symbols-outlined text-[16px] text-red-400">logout</span>
-          <span>Güvenli Oturumu Kapat</span>
-        </button>
       </div>
     </div>
   </aside>
 
-  <!-- 2. ANA ÇALIŞMA ALANI -->
+  <!-- MAIN APP CONTAINER (OFFSET BY 72) -->
   <div class="pl-72 flex flex-col min-h-screen">
     
-    <!-- TOP NAVBAR -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 h-16 px-8 flex items-center justify-between shadow-sm">
-      <div class="flex items-center gap-4 flex-1 max-w-2xl">
-        <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
-          <span class="text-slate-800 font-bold">Admin Masası</span>
-          <span>/</span>
-          <span class="text-blue-600 font-semibold">Başvuru &amp; Dosya Yönetimi</span>
+    <!-- TOP HEADER -->
+    <header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg">
+      <div class="flex items-center w-96">
+        <div class="relative w-full flex items-center">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">search</span>
+          <input class="w-full h-10 pl-10 pr-4 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="top-search" placeholder="Aday no, ehliyet sınıfı, vize durumu ara..." type="text" oninput="handleGlobalSearch(this.value)">
         </div>
       </div>
-      
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200">
-          <span class="material-symbols-outlined text-[16px] text-slate-500">calendar_today</span>
-          <span id="currentDateDisplay">Canlı Mesai</span>
-        </div>
-        
-        <button aria-label="Bildirimler" onclick="alert('Bildirimler: Sistem aktif, yeni başvurular bekleniyor.')" class="relative p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors border border-slate-200 cursor-pointer" type="button">
+
+      <div class="flex items-center gap-space-md">
+        <!-- Live Alert Notification -->
+        <button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all flex items-center justify-center cursor-pointer" type="button" title="Bildirimler">
           <span class="material-symbols-outlined text-[20px]">notifications</span>
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-emerald-500 rounded-full ring-2 ring-white"></span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary-container ring-2 ring-surface-container-lowest animate-pulse"></span>
         </button>
-        
-        <div class="h-6 w-px bg-slate-200"></div>
-        
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shadow-sm adminInitialsDisplay">
-            SA
-          </div>
-          <div class="flex flex-col text-left">
-            <span class="text-xs font-bold text-slate-900 adminNameDisplay">Serkan Alçay</span>
-            <span class="text-[11px] text-slate-500">Süper Admin</span>
+
+        <!-- Admin Profile -->
+        <div class="flex items-center gap-space-sm pl-space-sm border-l border-outline-variant/30">
+          <div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">YA</div>
+          <div class="flex flex-col text-right">
+            <span class="font-label-md text-label-md text-on-surface leading-tight font-semibold">Yönetici Admin</span>
+            <span class="text-[11px] text-on-surface-variant">Operasyon Masası</span>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- CONTENT BODY -->
-    <main class="flex-1 p-8 space-y-6">
-      
-      <!-- RESMİ MEVZUAT BİLGİLENDİRME BANNERI -->
-      <div class="bg-blue-50/70 border border-blue-200/80 rounded-xl px-5 py-3 flex items-center justify-between gap-4 shadow-xs">
-        <div class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-blue-600 text-[22px]">verified_user</span>
-          <div>
-            <span class="text-xs font-bold text-blue-950">Resmi AB Mevzuatı &amp; Danışmanlık Prosedürü:</span>
-            <span class="text-xs text-blue-900/80 ml-1">Doğrudan vize satışı yapılmaz; teknik dosya analizi, SGK &amp; takograf denetimi, 18 sayfalık yol haritası ve filo İK koordinasyonu sağlanır.</span>
-          </div>
-        </div>
-        <span class="px-2.5 py-1 bg-white rounded-md text-[11px] font-bold text-blue-700 shadow-sm border border-blue-100 whitespace-nowrap">
-          SLA Süresi: &lt; 24 Saat
-        </span>
-      </div>
+    <!-- MAIN BODY -->
+    <main class="w-full pt-16 bg-background flex-1 p-space-lg">
+      <div class="flex flex-col w-full gap-space-lg">
 
-      <!-- WEB SİTESİ HIZLI KONTROL & CMS DURUM BARI -->
-      <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
-        <div class="flex items-center gap-6 flex-wrap">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <span class="text-xs font-bold text-slate-900">Ana Sayfa:</span>
-            <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Yayında &amp; Aktif</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-[18px] text-amber-vibrant">sell</span>
-            <span class="text-xs font-bold text-slate-900">65 € Rapor Satışı:</span>
-            <span class="text-xs font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Ödeme Ağ Geçidi Aktif (Stripe/3D)</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-[18px] text-emerald-600">chat</span>
-            <span class="text-xs font-bold text-slate-900">WhatsApp API:</span>
-            <span class="text-xs font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Bağlantı Sorunsuz</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-[18px] text-blue-600">policy</span>
-            <span class="text-xs font-bold text-slate-900">KVKK &amp; Mevzuat Metni:</span>
-            <span class="text-xs font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">v2.4 Güncel</span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-2 w-full xl:w-auto justify-end">
-          <button onclick="scrollToCMS()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-colors border border-slate-300 flex items-center gap-1.5 cursor-pointer" type="button">
-            <span class="material-symbols-outlined text-[16px]">edit_note</span>
-            <span>Site Ayarlarını Düzenle</span>
-          </button>
-          <button onclick="exportCSV()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-colors border border-slate-300 flex items-center gap-1.5 cursor-pointer" type="button">
-            <span class="material-symbols-outlined text-[16px]">download</span>
-            <span>Excel / CSV Dışa Aktar</span>
-          </button>
-          <button onclick="openCreateAccountModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer" type="button">
-            <span class="material-symbols-outlined text-[18px]">key</span>
-            <span>Sürücü Hesabı Tanımla (Kullanıcı Adı &amp; Şifre)</span>
-          </button>
-          <button onclick="openNewUserModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer" type="button">
-            <span class="material-symbols-outlined text-[18px]">add_circle</span>
-            <span>+ Yeni Başvuru Ekle</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- ARAMA & FİLTRELEME ÇUBUĞU -->
-      <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-        <!-- Geniş Arama Kutusu -->
-        <div class="relative w-full md:w-96 flex-1">
-          <span class="material-symbols-outlined absolute left-3.5 top-2.5 text-slate-400 text-[20px]">search</span>
-          <input id="searchInput" oninput="handleSearch()" class="w-full h-10 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-blue-500 transition-all" placeholder="T.C. Kimlik No, İsim, Telefon veya #ATS Ref No Ara..." type="text"/>
-        </div>
-        
-        <!-- Filtre Sekmeleri -->
-        <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
-          <button id="filterBtn-all" onclick="filterTable('all')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs shadow-sm whitespace-nowrap cursor-pointer" type="button">
-            Tümü (0 Dosya)
-          </button>
-          <button id="filterBtn-on-inceleme" onclick="filterTable('on-inceleme')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs whitespace-nowrap transition-colors border border-slate-200 cursor-pointer" type="button">
-            Ön İnceleme (0)
-          </button>
-          <button id="filterBtn-evrak-bekleyen" onclick="filterTable('evrak-bekleyen')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs whitespace-nowrap transition-colors border border-slate-200 cursor-pointer" type="button">
-            Evrak Bekleyen (0)
-          </button>
-          <button id="filterBtn-65-euro" onclick="filterTable('65-euro')" class="filterTabBtn px-3.5 py-2 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap transition-colors border border-amber-200 flex items-center gap-1.5 cursor-pointer" type="button">
-            <span>65 € Rapor Satın Alanlar</span>
-            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-          </button>
-        </div>
-      </div>
-
-      <!-- CANLI VERİ TABLOSU (SAHTE İSİMLER KALDIRILDI) -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-          <div>
-            <h2 class="font-display font-bold text-base text-slate-900">Aday &amp; Başvuru Yönetim Masası (Canlı Başvurular)</h2>
-            <p class="text-xs text-slate-500 mt-0.5">Ön Analiz Başvuru Formu (`basvuru.html`) üzerinden yapılan tüm başvurular burada anında listelenir.</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-semibold text-slate-500">Canlı Senkronizasyon:</span>
-            <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono text-xs font-bold">Aktif (30s)</span>
-          </div>
-        </div>
-        
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse" id="candidateTable">
-            <thead>
-              <tr class="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-600">
-                <th class="py-3.5 px-6" scope="col">Aday Bilgisi &amp; T.C. / Ref No</th>
-                <th class="py-3.5 px-6" scope="col">İletişim &amp; WhatsApp</th>
-                <th class="py-3.5 px-6" scope="col">Hedef Ülke &amp; Uyum Skoru</th>
-                <th class="py-3.5 px-6" scope="col">Evrak Durumu (e-Devlet)</th>
-                <th class="py-3.5 px-6" scope="col">Satın Alınan Hizmet &amp; Kasa</th>
-                <th class="py-3.5 px-6 text-right" scope="col">Hızlı Müdahale &amp; Yönetim</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-100 text-xs" id="candidateTableBody">
-              <!-- Dynamically populated via renderApplicationsTable() -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- TABLO SAYFALAMA & ÖZET -->
-        <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 font-medium">
-          <span id="tableSummaryText">Canlı başvurular yükleniyor...</span>
-          <div class="flex items-center gap-1.5">
-            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-500 font-semibold cursor-not-allowed text-xs" disabled type="button">Önceki</button>
-            <button class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold text-xs shadow-sm" type="button">1</button>
-            <button class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-500 font-semibold cursor-not-allowed text-xs" disabled type="button">Sonraki</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- CMS VE DANIŞMAN KONTROL MODÜLLERİ -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="cmsModuleSection">
-        
-        <!-- CMS CANLI DÜZENLEME KARTI -->
-        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2.5">
-              <span class="material-symbols-outlined text-blue-600 text-[24px]">tune</span>
-              <div>
-                <h3 class="font-display font-bold text-slate-900 text-sm">Web Sitesi &amp; Fiyatlandırma Yönetimi (CMS Canlı Düzenleme)</h3>
-                <span class="text-xs text-slate-500">Ana sayfa fiyatlandırma, başlık ve WhatsApp karşılama parametreleri</span>
-              </div>
+        <!-- Top Title & Action Bar -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+          <div class="flex flex-col">
+            <div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+              <span>Filo İstihdam Operasyonları</span>
+              <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+              <span class="text-secondary font-semibold" id="breadcrumb-current">Tüm Dosyalar (Başvurular)</span>
             </div>
-            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[11px] font-bold">Canlı Yayında</span>
+            <h1 class="font-headline-md text-headline-md font-bold text-on-surface mt-1" id="page-main-title">Aday Başvuru Yönetim Masası</h1>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-            <div class="space-y-1.5">
-              <label class="font-bold text-slate-700">Analiz Raporu Birim Fiyatı (€)</label>
-              <div class="relative">
-                <input id="cmsReportPrice" class="w-full h-9 pl-3 pr-8 rounded-lg border border-slate-300 text-slate-900 font-bold focus:border-blue-500 focus:outline-none" type="number" value="65"/>
-                <span class="absolute right-3 top-2 font-bold text-slate-400">€</span>
-              </div>
-              <span class="text-[11px] text-slate-500">18 Sayfalık Detaylı Yol Haritası Ücreti</span>
-            </div>
-            
-            <div class="space-y-1.5">
-              <label class="font-bold text-slate-700">Yeminli Tercüme Paketi (₺)</label>
-              <div class="relative">
-                <input id="cmsTranslationPrice" class="w-full h-9 pl-3 pr-8 rounded-lg border border-slate-300 text-slate-900 font-bold focus:border-blue-500 focus:outline-none" type="number" value="3000"/>
-                <span class="absolute right-3 top-2 font-bold text-slate-400">₺</span>
-              </div>
-              <span class="text-[11px] text-slate-500">Noter tasdik ve resmi onay dahil</span>
-            </div>
-            
-            <div class="space-y-1.5 sm:col-span-2">
-              <label class="font-bold text-slate-700">Ana Sayfa Dikkat Çeken Banner Metni</label>
-              <input id="cmsBannerText" class="w-full h-9 px-3 rounded-lg border border-slate-300 text-slate-900 font-medium focus:border-blue-500 focus:outline-none" type="text" value="Avrupa Tır Şoförlüğü Ön Başvuruları Başladı! 24 Saatte Evrak &amp; Uygunluk Denetimi."/>
-            </div>
-          </div>
-
-          <div class="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
-            <button onclick="resetCMSSettings()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-colors cursor-pointer" type="button">
-              Değişiklikleri Sıfırla
+          <div class="flex flex-wrap items-center gap-space-sm">
+            <!-- Export Excel Button -->
+            <button class="flex items-center gap-space-xs px-4 h-11 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all cursor-pointer shadow-sm" type="button" onclick="exportToExcel()">
+              <span class="material-symbols-outlined text-[18px]">file_download</span>
+              <span>Excel Dışa Aktar</span>
             </button>
-            <button onclick="saveCMSSettings()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-lg transition-colors shadow-sm cursor-pointer" type="button">
-              Fiyat ve Metinleri Kaydet &amp; Yayınla
-            </button>
-          </div>
-        </div>
 
-        <!-- HIZLI EVRAK & BARKOD İNCELEME MODÜLÜ -->
-        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2.5">
-              <span class="material-symbols-outlined text-amber-500 text-[24px]">assignment_turned_in</span>
-              <div>
-                <h3 class="font-display font-bold text-slate-900 text-sm">Hızlı Evrak İnceleme &amp; Danışman Karar Modülü</h3>
-                <span class="text-xs text-slate-500">Seçili Aday: <strong id="selectedCandidateName">Aday Seçilmedi</strong></span>
-              </div>
-            </div>
-            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[11px] font-bold">65 € Rapor Onayı</span>
-          </div>
-
-          <div class="space-y-3 text-xs">
-            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <span class="material-symbols-outlined text-blue-600 text-[22px]">description</span>
-                <div>
-                  <div class="font-bold text-slate-900">SGK Tescil &amp; Hizmet Dökümü (e-Devlet Barkodlu)</div>
-                  <div class="text-[11px] text-slate-500">PDF • 2 Sayfa • Barkod: 2026-SGK-BARCODE-TR</div>
-                </div>
-              </div>
-              <button onclick="alert('e-Devlet Barkodlu SGK Belgesi Önizleniyor')" class="px-2.5 py-1 bg-white hover:bg-slate-100 text-blue-700 font-bold border border-slate-200 rounded text-[11px] shadow-sm flex items-center gap-1 cursor-pointer" type="button">
-                <span class="material-symbols-outlined text-[14px]">visibility</span>
-                <span>Belgeyi Aç</span>
+            <!-- Bulk Actions Dropdown -->
+            <div class="relative inline-block text-left" id="bulk-action-wrapper">
+              <button class="flex items-center gap-space-xs px-4 h-11 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-all cursor-pointer shadow-sm" onclick="toggleDropdown('bulk-dropdown')" type="button">
+                <span class="material-symbols-outlined text-[18px]">checklist</span>
+                <span>Toplu İşlemler</span>
+                <span class="material-symbols-outlined text-[16px]">expand_more</span>
               </button>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="space-y-1">
-                <label class="font-bold text-slate-700" for="doc-status">Evrak Kararı</label>
-                <select class="w-full h-9 px-2 rounded-lg border border-slate-300 text-slate-900 text-xs font-semibold focus:border-blue-500 focus:outline-none" id="doc-status">
-                  <option selected value="approved">Onayla (Geçerli SGK Barkodu)</option>
-                  <option value="request-update">Yeniden Yükleme İste (30 Güncel Değil)</option>
-                  <option value="reject">Reddet (Okunaksız / Hatalı)</option>
-                </select>
-              </div>
-
-              <div class="space-y-1">
-                <label class="font-bold text-slate-700">18 Sayfa Rapor Durumu</label>
-                <div class="h-9 px-3 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-between">
-                  <span class="font-bold text-emerald-800 text-xs">Otomatik Üretildi (PDF)</span>
-                  <span class="material-symbols-outlined text-emerald-600 text-[18px]">verified</span>
-                </div>
+              <div class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-surface-card shadow-xl p-space-xs z-30 border border-border-muted" id="bulk-dropdown">
+                <button class="w-full text-left px-3 py-2 rounded-lg text-on-surface hover:bg-surface-container-low font-body-sm text-body-sm flex items-center gap-space-xs cursor-pointer" type="button" onclick="handleBulkAction('sevk')">
+                  <span class="material-symbols-outlined text-status-success text-[18px]">check_circle</span>
+                  Toplu: Filoya Sevk Et
+                </button>
+                <button class="w-full text-left px-3 py-2 rounded-lg text-on-surface hover:bg-surface-container-low font-body-sm text-body-sm flex items-center gap-space-xs cursor-pointer" type="button" onclick="handleBulkAction('incelemede')">
+                  <span class="material-symbols-outlined text-secondary-container text-[18px]">sync</span>
+                  Toplu: Evrak İncelemeye Al
+                </button>
+                <button class="w-full text-left px-3 py-2 rounded-lg text-error hover:bg-error-container/20 font-body-sm text-body-sm flex items-center gap-space-xs cursor-pointer" type="button" onclick="handleBulkAction('arsiv')">
+                  <span class="material-symbols-outlined text-error text-[18px]">archive</span>
+                  Toplu: Arşive Kaldır
+                </button>
               </div>
             </div>
 
-            <div class="space-y-1">
-              <label class="font-bold text-slate-700" for="consultant-note">Şoföre İletilecek Danışman Notu &amp; SMS</label>
-              <input class="w-full h-9 px-3 rounded-lg border border-slate-300 text-slate-900 text-xs font-medium focus:border-blue-500 focus:outline-none" id="consultant-note" type="text" value="SGK dökümü kontrol edildi, barkod onaylandı. 18 sayfalık analiz raporunuz hazırlandı."/>
-            </div>
-          </div>
-
-          <div class="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
-            <button onclick="saveDecisionAndNotify()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer" type="button">
-              <span class="material-symbols-outlined text-[16px]">check</span>
-              <span>Kararı Kaydet &amp; WhatsApp ile Bildir</span>
+            <!-- Manual Add Candidate Button -->
+            <button class="flex items-center gap-space-xs px-5 h-11 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-md text-label-md font-bold transition-all shadow-md cursor-pointer" onclick="openModal('add-manual-modal')" type="button">
+              <span class="material-symbols-outlined text-[20px]">person_add</span>
+              <span>Yeni Manuel Başvuru Ekle</span>
             </button>
           </div>
         </div>
 
-      </div>
+        <!-- 4 Metric Stat Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+          <!-- Total -->
+          <div class="relative overflow-hidden rounded-xl bg-surface-card p-space-lg shadow-sm flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Toplam Başvuru</span>
+              <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container">
+                <span class="material-symbols-outlined text-[22px]">all_inbox</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-baseline justify-between">
+              <span class="font-display text-display text-on-surface tracking-tight leading-none" id="metric-total">0</span>
+              <span class="flex items-center text-status-success font-label-sm text-label-sm font-bold">
+                <span class="material-symbols-outlined text-[16px]">trending_up</span>
+                Aktif Portföy
+              </span>
+            </div>
+            <div class="mt-3 w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+              <div class="bg-primary-container h-full rounded-full" style="width: 100%"></div>
+            </div>
+          </div>
 
+          <!-- Detailed Applications -->
+          <div class="relative overflow-hidden rounded-xl bg-surface-card p-space-lg shadow-sm flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Detaylı Ön Başvuru</span>
+              <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-[22px]">fact_check</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-baseline justify-between">
+              <span class="font-display text-display text-on-surface tracking-tight leading-none" id="metric-detailed">0</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant font-medium" id="metric-detailed-pct">%0</span>
+            </div>
+            <div class="mt-3 w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+              <div class="bg-secondary-container h-full rounded-full" id="metric-detailed-bar" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <!-- Fast Applications -->
+          <div class="relative overflow-hidden rounded-xl bg-surface-card p-space-lg shadow-sm flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Hızlı Başvuru</span>
+              <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+                <span class="material-symbols-outlined text-[22px]">bolt</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-baseline justify-between">
+              <span class="font-display text-display text-on-surface tracking-tight leading-none" id="metric-quick">0</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Hızlı Form Girişi</span>
+            </div>
+            <div class="mt-3 w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+              <div class="bg-on-tertiary-container h-full rounded-full" id="metric-quick-bar" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <!-- Reviewed / In Process -->
+          <div class="relative overflow-hidden rounded-xl bg-surface-card p-space-lg shadow-sm flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">İncelenen Dosyalar</span>
+              <div class="w-10 h-10 rounded-lg bg-secondary-container/20 flex items-center justify-center text-on-secondary-fixed">
+                <span class="material-symbols-outlined text-[22px]">clinical_notes</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-baseline justify-between">
+              <span class="font-display text-display text-on-surface tracking-tight leading-none" id="metric-reviewed">0</span>
+              <span class="flex items-center text-secondary font-label-sm text-label-sm font-bold">
+                <span class="material-symbols-outlined text-[16px]">hourglass_top</span>
+                Operatör Masasında
+              </span>
+            </div>
+            <div class="mt-3 w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+              <div class="bg-status-success h-full rounded-full" id="metric-reviewed-bar" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="rounded-xl bg-surface-card p-space-lg shadow-sm flex flex-col gap-space-md">
+          <div class="flex items-center justify-between pb-2">
+            <div class="flex items-center gap-space-xs">
+              <span class="material-symbols-outlined text-secondary-container text-[20px]">filter_alt</span>
+              <span class="font-label-lg text-label-lg text-on-surface uppercase tracking-wider font-bold">Operasyonel Filtre Paneli</span>
+            </div>
+            <button class="text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-colors flex items-center gap-1 cursor-pointer" onclick="resetFilters()" type="button">
+              <span class="material-symbols-outlined text-[16px]">restart_alt</span>
+              Filtreleri Temizle
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-7 gap-space-sm items-center">
+            <!-- Search Text -->
+            <div class="sm:col-span-2 relative">
+              <span class="material-symbols-outlined absolute left-3 top-3 text-outline text-[18px]">search</span>
+              <input class="w-full h-11 pl-9 pr-3 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="filter-search" placeholder="İsim, telefon veya aday no..." type="text" oninput="applyFilters()">
+            </div>
+
+            <!-- Application Type -->
+            <div>
+              <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="filter-type" onchange="applyFilters()">
+                <option value="">Başvuru Tipi: Tümü</option>
+                <option value="detailed">Detaylı Form</option>
+                <option value="quick">Hızlı Başvuru</option>
+              </select>
+            </div>
+
+            <!-- License Class -->
+            <div>
+              <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="filter-license" onchange="applyFilters()">
+                <option value="">Ehliyet: Tümü</option>
+                <option value="CE">CE Sınıfı (TIR Çekici)</option>
+                <option value="C">C Sınıfı (Kamyon)</option>
+                <option value="D">D Sınıfı (Otobüs)</option>
+                <option value="B">B Sınıfı (Otomobil)</option>
+              </select>
+            </div>
+
+            <!-- Code 95 -->
+            <div>
+              <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="filter-code95" onchange="applyFilters()">
+                <option value="">Kod 95: Tümü</option>
+                <option value="eu">AB Mevcut / Denklik Hazır</option>
+                <option value="tr">TR Kod 95 Mevcut</option>
+                <option value="none">Denklik Talep Ediyor</option>
+              </select>
+            </div>
+
+            <!-- ADR -->
+            <div>
+              <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="filter-adr" onchange="applyFilters()">
+                <option value="">SRC 5 / ADR: Tümü</option>
+                <option value="yes">ADR Tanker Var</option>
+                <option value="no">ADR Yok / Temel SRC</option>
+              </select>
+            </div>
+
+            <!-- Status -->
+            <div>
+              <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="filter-status" onchange="applyFilters()">
+                <option value="">Dosya Durumu: Tümü</option>
+                <option value="Yeni Başvuru">Yeni Başvuru</option>
+                <option value="Evrak İncelemede">Evrak İncelemede</option>
+                <option value="Görüşme Tamamlandı">Görüşme Tamamlandı</option>
+                <option value="Filoya Sevk Aşamasında">Filoya Sevk Aşamasında</option>
+                <option value="Arşiv / Uygun Değil">Arşivlendi</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Applications Data Table Card -->
+        <div class="rounded-xl bg-surface-card shadow-sm overflow-hidden flex flex-col">
+          
+          <!-- Table Subheader -->
+          <div class="px-space-lg py-4 bg-surface-container-lowest flex flex-wrap items-center justify-between gap-space-sm border-b border-border-muted/50">
+            <div class="flex items-center gap-space-sm">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input class="w-4 h-4 rounded text-secondary-container focus:ring-secondary-container cursor-pointer" id="select-all-top" type="checkbox">
+                <span class="font-label-md text-label-md text-on-surface-variant font-medium">Tümünü Seç</span>
+              </label>
+              <span class="text-on-surface-variant font-label-sm text-label-sm">|</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant" id="table-record-count">
+                Listelenen: <strong class="text-on-surface font-semibold" id="displayed-count">0 Aday</strong>
+              </span>
+            </div>
+
+            <div class="flex items-center gap-space-sm">
+              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Tablo Düzeni:</span>
+              <button class="px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold cursor-pointer" id="view-mode-detailed" onclick="setViewMode('detailed')">Detaylı Görünüm</button>
+              <button class="px-2.5 py-1 rounded hover:bg-surface-container text-on-surface-variant font-label-sm text-label-sm cursor-pointer" id="view-mode-compact" onclick="setViewMode('compact')">Kompakt</button>
+            </div>
+          </div>
+
+          <!-- Table Container -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+                  <th class="py-3 px-4 w-12 text-center">
+                    <span class="sr-only">Seçim</span>
+                  </th>
+                  <th class="py-3 px-4 font-semibold">Aday Kimliği &amp; İletişim</th>
+                  <th class="py-3 px-4 font-semibold">Başvuru Türü</th>
+                  <th class="py-3 px-4 font-semibold">Ehliyet &amp; Tecrübe</th>
+                  <th class="py-3 px-4 font-semibold">Kod 95 &amp; SRC Belgeleri</th>
+                  <th class="py-3 px-4 font-semibold">Avrupa Sefer Deneyimi</th>
+                  <th class="py-3 px-4 font-semibold">Dosya Durumu</th>
+                  <th class="py-3 px-4 text-right font-semibold">İşlemler</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border-muted/30 font-body-sm text-body-sm text-on-surface" id="applications-table-body">
+                <!-- Rows injected dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Pagination Footer -->
+          <div class="px-space-lg py-4 bg-surface-container-lowest flex flex-col sm:flex-row items-center justify-between gap-space-md border-t border-border-muted/50">
+            <div class="flex items-center gap-space-sm font-body-sm text-body-sm text-on-surface-variant">
+              <span>Sayfa başına göster:</span>
+              <select class="h-9 px-2.5 rounded-lg bg-surface-container-low text-on-surface font-label-sm text-label-sm focus:outline-none focus:ring-1 focus:ring-secondary-container cursor-pointer" id="page-size-select" onchange="changePageSize(this.value)">
+                <option value="8">8</option>
+                <option value="15" selected="">15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+              <span id="pagination-info">(Toplam 0 kayıt)</span>
+            </div>
+
+            <div class="flex items-center gap-1" id="pagination-buttons">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
     </main>
   </div>
 
-  <!-- MODAL: ADD NEW CANDIDATE / USER -->
-  <div id="newUserModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
-    <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl p-6 space-y-4">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-blue-600 text-[24px]">person_add</span>
-          <h3 class="font-display font-bold text-slate-900 text-base">Yeni Başvuru / Aday Ekle</h3>
+  <!-- SLIDE-OVER RIGHT DRAWER (CANDIDATE DETAIL) -->
+  <div class="fixed inset-y-0 right-0 w-full max-w-lg bg-surface-card shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between border-l border-border-muted" id="driver-drawer">
+    <div class="flex flex-col h-full overflow-hidden">
+      <!-- Drawer Header -->
+      <div class="p-space-lg bg-primary-container text-on-primary flex items-center justify-between">
+        <div class="flex flex-col">
+          <span class="font-label-sm text-label-sm text-secondary-container font-mono tracking-wider uppercase" id="drawer-code">TR-2024-0000</span>
+          <span class="font-headline-md text-headline-md text-white font-bold" id="drawer-name">Aday Adı</span>
         </div>
-        <button onclick="closeNewUserModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
-          <span class="material-symbols-outlined text-[20px]">close</span>
-        </button>
-      </div>
-
-      <form onsubmit="handleCreateUser(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Ad Soyad</label>
-          <input id="newUserName" type="text" required placeholder="Örn: Caner Yılmaz" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-        </div>
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">T.C. Kimlik No</label>
-            <input id="newUserTc" type="text" maxlength="11" required placeholder="11 haneli T.C." class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Telefon / WhatsApp</label>
-            <input id="newUserPhone" type="text" required placeholder="+90 5XX XXX XX XX" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">E-posta Adresi (Opsiyonel)</label>
-            <input id="newUserEmail" type="email" placeholder="ornek@aday.com" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">İl / Şehir (Opsiyonel)</label>
-            <input id="newUserCity" type="text" placeholder="Örn: İstanbul / Kadıköy" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Ehliyet Sınıfı</label>
-            <select id="newUserLicenseClass" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-              <option value="C+CE">C+CE Sınıfı</option>
-              <option value="CE">CE Sınıfı</option>
-              <option value="C">C Sınıfı</option>
-              <option value="D">D Sınıfı</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Tecrübe Süresi</label>
-            <select id="newUserExpYears" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-              <option value="5-10 Yıl">5-10 Yıl</option>
-              <option value="3-5 Yıl">3-5 Yıl</option>
-              <option value="1-3 Yıl">1-3 Yıl</option>
-              <option value="10+ Yıl">10+ Yıl</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Hedef Ülke</label>
-          <select id="newUserCountry" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-            <option value="Almanya & Polonya">Almanya & Polonya</option>
-            <option value="Hollanda">Hollanda</option>
-            <option value="Belçika">Belçika</option>
-            <option value="Bulgaristan">Bulgaristan</option>
-          </select>
-        </div>
-        
-        <!-- OPTONAL DRIVER ACCOUNT CREDENTIALS -->
-        <div class="border-t border-slate-200 pt-2 space-y-2 bg-blue-50/50 p-2.5 rounded-xl border border-blue-100">
-          <span class="font-bold text-blue-900 block text-[11px]">Sürücü Giriş Hesabı (Opsiyonel)</span>
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="block font-bold text-slate-700 mb-0.5">Kullanıcı Adı</label>
-              <input id="newUserUsername" type="text" placeholder="Örn: caneryilmaz" class="w-full h-8 px-2.5 rounded-lg border border-slate-300 font-mono font-bold text-blue-800 focus:border-blue-500 focus:outline-none bg-white">
-            </div>
-            <div>
-              <label class="block font-bold text-slate-700 mb-0.5">Giriş Şifresi</label>
-              <input id="newUserPassword" type="text" placeholder="Örn: 123456" class="w-full h-8 px-2.5 rounded-lg border border-slate-300 font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none bg-white">
-            </div>
-          </div>
-          <span class="text-[10px] text-slate-500 block">Kullanıcı adı ve şifre girilirse sürücünün hesabı doğrudan onaylanıp aktifleştirilir.</span>
-        </div>
-
-        <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
-          <button type="button" onclick="closeNewUserModal()" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg cursor-pointer">İptal</button>
-          <button type="submit" class="px-4 py-2 bg-blue-600 text-white font-bold rounded-lg shadow cursor-pointer">Kaydet ve Başvuru Oluştur</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL: MANUEL SÜRÜCÜ HESABI TANIMLAMA (KULLANICI ADI & ŞİFRE) -->
-  <div id="createAccountModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
-    <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl p-6 space-y-4">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-emerald-600 text-[24px]">key</span>
-          <div>
-            <h3 class="font-display font-bold text-slate-900 text-base">Sürücü Giriş Hesabı Oluştur</h3>
-            <span class="text-xs text-slate-500">Adaya özel Kullanıcı Adı ve Şifre Tanımlama</span>
-          </div>
-        </div>
-        <button onclick="closeCreateAccountModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
-          <span class="material-symbols-outlined text-[20px]">close</span>
-        </button>
-      </div>
-
-      <form onsubmit="handleSaveAccountCredentials(event)" class="space-y-3.5 text-xs">
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Hesap Tanımlanacak Başvuru / Aday</label>
-          <select id="accountAppSelect" required class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-semibold text-slate-800" onchange="autoFillAccountFields(this.value)">
-            <!-- Loaded dynamically from ats_applications -->
-          </select>
-        </div>
-
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Kullanıcı Adı (Manuel)</label>
-          <input id="accountUsername" type="text" required placeholder="Örn: ahmetyilmaz veya T.C. Kimlik No" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-mono font-bold text-blue-700">
-          <span class="text-[10px] text-slate-400 mt-0.5 block">Aday sisteme giriş yaparken bu kullanıcı adını yazacaktır.</span>
-        </div>
-
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Şifre (Manuel)</label>
-          <div class="relative">
-            <input id="accountPassword" type="text" required placeholder="Örn: 123456 veya Özel Şifre" class="w-full h-9 px-3 pr-16 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-mono font-bold text-slate-800">
-            <button type="button" onclick="generateRandomPass()" class="absolute right-1 top-1 text-[10px] bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-2 py-1 rounded cursor-pointer">Rastgele</button>
-          </div>
-          <span class="text-[10px] text-slate-400 mt-0.5 block">Adayın üye paneline erişirken kullanacağı şifredir.</span>
-        </div>
-
-        <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-[11px] space-y-1">
-          <div class="font-bold flex items-center gap-1">
-            <span class="material-symbols-outlined text-[16px]">verified</span>
-            <span>Giriş Yetkisi ve Otomatik Onay</span>
-          </div>
-          <p>Bu hesabı kaydettiğinizde adayın başvurusu otomatik olarak <strong>"Onaylandı"</strong> statüsüne geçirilecek ve üye panel erişimi aktifleştirilecektir.</p>
-        </div>
-
-        <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
-          <button type="button" onclick="closeCreateAccountModal()" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg cursor-pointer">İptal</button>
-          <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow cursor-pointer flex items-center gap-1">
-            <span class="material-symbols-outlined text-[16px]">lock_reset</span>
-            <span>Hesabı Tanımla &amp; Onayla</span>
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL 1: DÜZENLE (MİNİ EVRAK DÜZENLEME SAYFASI / MODALI) -->
-  <div id="editDocModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
-    <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-amber-500 text-[24px]">edit_document</span>
-          <div>
-            <h3 class="font-display font-bold text-slate-900 text-base">Evrak &amp; Başvuru Düzenleme</h3>
-            <span class="text-xs text-slate-500" id="editModalCandidateTitle">Aday Seçilmedi</span>
-          </div>
-        </div>
-        <button onclick="closeEditDocModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
-          <span class="material-symbols-outlined text-[20px]">close</span>
-        </button>
-      </div>
-
-      <form onsubmit="handleSaveEditDoc(event)" class="space-y-3 text-xs">
-        <input type="hidden" id="editAppIndex" value="" />
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Ad Soyad</label>
-            <input id="editFullName" type="text" required class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Telefon Numarası</label>
-            <input id="editPhone" type="text" required class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Başvuru Statüsü (Onay)</label>
-            <select id="editAppStatus" class="w-full h-9 px-2 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-bold text-blue-700">
-              <option value="İnceleme Bekliyor">İnceleme Bekliyor</option>
-              <option value="Değerlendirmede">Değerlendirmede</option>
-              <option value="Onaylandı">Onaylandı (Giriş İzni)</option>
-              <option value="Reddedildi">Reddedildi</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Hedef Ülke</label>
-            <select id="editTargetCountry" class="w-full h-9 px-2 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-semibold">
-              <option value="Almanya & Polonya">Almanya & Polonya</option>
-              <option value="Hollanda">Hollanda</option>
-              <option value="Belçika">Belçika</option>
-              <option value="Bulgaristan">Bulgaristan</option>
-              <option value="Romanya">Romanya</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Uyum Skoru</label>
-            <input id="editMatchScore" type="text" class="w-full h-9 px-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none font-bold text-emerald-700">
-          </div>
-        </div>
-
-        <div class="border-t border-slate-200 pt-3">
-          <label class="block font-bold text-slate-900 mb-2 uppercase tracking-wider text-[11px]">Evrak Durumları</label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Ehliyet C+CE</label>
-              <select id="editDocEhliyet" class="w-full h-8 px-2 rounded border border-slate-300">
-                <option value="Onaylandı">Onaylandı</option>
-                <option value="Bekliyor">Bekliyor</option>
-                <option value="Eksik">Eksik</option>
-                <option value="Reddedildi">Reddedildi</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Dijital Takograf</label>
-              <select id="editDocTakograf" class="w-full h-8 px-2 rounded border border-slate-300">
-                <option value="Onaylandı">Onaylandı</option>
-                <option value="Bekliyor">Bekliyor</option>
-                <option value="Eksik">Eksik</option>
-                <option value="Reddedildi">Reddedildi</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Pasaport</label>
-              <select id="editDocPasaport" class="w-full h-8 px-2 rounded border border-slate-300">
-                <option value="Onaylandı">Onaylandı</option>
-                <option value="Bekliyor">Bekliyor</option>
-                <option value="Eksik">Eksik</option>
-                <option value="Reddedildi">Reddedildi</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Adli Sicil (e-Devlet)</label>
-              <select id="editDocSicil" class="w-full h-8 px-2 rounded border border-slate-300">
-                <option value="Onaylandı">Onaylandı</option>
-                <option value="Bekliyor">Bekliyor</option>
-                <option value="Eksik">Eksik</option>
-                <option value="Reddedildi">Reddedildi</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">SGK Dökümü (e-Devlet)</label>
-              <select id="editDocSgk" class="w-full h-8 px-2 rounded border border-slate-300">
-                <option value="Onaylandı">Onaylandı</option>
-                <option value="Güncelleme Bekleniyor">Güncelleme Bekleniyor</option>
-                <option value="Eksik">Eksik</option>
-                <option value="Reddedildi">Reddedildi</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">ADR Belgesi</label>
-              <select id="editDocAdr" class="w-full h-8 px-2 rounded border border-slate-300">
-                <option value="Henüz Eklenmedi">Henüz Eklenmedi</option>
-                <option value="Onaylandı">Onaylandı</option>
-                <option value="Eksik">Eksik</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- SÜRÜCÜ GİRİŞ HESABI BİLGİLERİ (KULLANICI ADI & ŞİFRE) -->
-        <div class="border-t border-slate-200 pt-3 bg-blue-50/60 p-3 rounded-xl border border-blue-200 space-y-2">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-1.5 font-bold text-blue-900 text-xs">
-              <span class="material-symbols-outlined text-[18px] text-blue-600">key</span>
-              <span>Sürücü Üye Giriş Hesabı (Kullanıcı Adı &amp; Şifre)</span>
-            </div>
-            <span id="editAccountBadge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">Hesap Bekliyor</span>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Kullanıcı Adı</label>
-              <input id="editUsername" type="text" placeholder="Örn: caneryilmaz veya T.C." class="w-full h-8 px-2.5 rounded-lg border border-slate-300 font-mono font-bold text-blue-800 focus:border-blue-500 focus:outline-none bg-white">
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Giriş Şifresi</label>
-              <input id="editPassword" type="text" placeholder="Giriş Şifresi" class="w-full h-8 px-2.5 rounded-lg border border-slate-300 font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none bg-white">
-            </div>
-          </div>
-          <p class="text-[10px] text-slate-500">Bu şoföre daha önce giriş hesabı açıldıysa kullanıcı adı ve şifresi yukarıda görünür. İsterseniz buradan düzenleyebilirsiniz.</p>
-        </div>
-
-        <div class="pt-3 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100">
-          <button type="button" onclick="deleteApplicationFromEditModal()" class="px-3.5 py-2 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-lg text-xs border border-red-200 cursor-pointer flex items-center gap-1">
-            <span class="material-symbols-outlined text-[16px]">delete</span>
-            <span>BAŞVURUYU SİL</span>
-          </button>
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="approveApplicationFromEditModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs shadow flex items-center gap-1 cursor-pointer">
-              <span class="material-symbols-outlined text-[16px]">check_circle</span>
-              <span>ONAYLA</span>
-            </button>
-            <button type="button" onclick="closeEditDocModal()" class="px-3 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg text-xs cursor-pointer">İptal</button>
-            <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg text-xs shadow cursor-pointer">Değişiklikleri Kaydet</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL 2: YAZIŞMA / MESAJ KUTUSU SAYFASI (CANLI CHAT) -->
-  <div id="messageModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
-    <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl p-6 space-y-4 flex flex-col max-h-[90vh]">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-emerald-600 text-[24px]">chat</span>
-          <div>
-            <h3 class="font-display font-bold text-slate-900 text-base" id="msgModalTitle">Sürücü Yazışma Kutusu</h3>
-            <span class="text-xs text-slate-500" id="msgModalSubtitle">Canlı Mesajlaşma Geçmişi</span>
-          </div>
-        </div>
-        <button onclick="closeMessageModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
-          <span class="material-symbols-outlined text-[20px]">close</span>
-        </button>
-      </div>
-
-      <!-- Message History Scroll Box -->
-      <div class="flex-1 bg-slate-50 rounded-xl p-4 overflow-y-auto space-y-3 min-h-[260px] border border-slate-200 text-xs" id="chatHistoryBox">
-        <!-- Messages loaded dynamically -->
-      </div>
-
-      <!-- New Message Input -->
-      <form onsubmit="handleSendMessage(event)" class="space-y-2 pt-2 border-t border-slate-100">
-        <input type="hidden" id="msgAppId" value="" />
-        <textarea id="newMessageInput" rows="2" required placeholder="Kullanıcının üye paneline ve WhatsApp hattına gidecek mesajınızı yazınız..." class="w-full p-2.5 rounded-lg border border-slate-300 focus:border-blue-500 focus:outline-none text-xs"></textarea>
-        <div class="flex justify-end gap-2">
-          <button type="button" onclick="closeMessageModal()" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg text-xs cursor-pointer">Kapat</button>
-          <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs shadow flex items-center gap-1 cursor-pointer">
-            <span class="material-symbols-outlined text-[16px]">send</span>
-            <span>Mesaj Gönder</span>
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL 3: İNCELE (DETAYLI ADAY DOSYA BİLGİ SAYFASI) -->
-  <div id="inspectCandidateModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-xs">
-    <div class="bg-white rounded-2xl w-full max-w-3xl shadow-2xl p-6 space-y-6 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-base" id="inspectAvatarInitials">AY</div>
-          <div>
-            <h3 class="font-display font-bold text-slate-900 text-lg" id="inspectCandidateName">Ahmet Yılmaz</h3>
-            <div class="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
-              <span>Ref: <strong class="text-slate-800" id="inspectRefId">#ATS-2025-8492</strong></span>
-              <span>•</span>
-              <span class="text-emerald-600 font-bold" id="inspectMatchScore">%92 Uyum</span>
-            </div>
-          </div>
-        </div>
-        <button onclick="closeInspectModal()" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
+        <button class="p-2 rounded-lg hover:bg-surface-variant/20 text-white cursor-pointer" onclick="closeDriverDrawer()" type="button" title="Kapat">
           <span class="material-symbols-outlined text-[24px]">close</span>
         </button>
       </div>
 
-      <!-- Candidate Full Details Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+      <!-- Drawer Content Scroll -->
+      <div class="p-space-lg flex flex-col gap-space-lg overflow-y-auto flex-1">
         
-        <!-- Personal & Contact Card -->
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-          <div class="font-bold text-navy-deep text-sm flex items-center gap-1.5 border-b border-slate-200 pb-1.5">
-            <span class="material-symbols-outlined text-[18px] text-blue-600">badge</span>
-            <span>Kişisel &amp; İletişim Bilgileri</span>
-          </div>
-          <div><span class="text-slate-500">T.C. Kimlik No:</span> <strong class="text-slate-900 font-mono" id="inspectTc">381*****402</strong></div>
-          <div><span class="text-slate-500">Telefon / WhatsApp:</span> <strong class="text-slate-900" id="inspectPhone">+90 532 410 ** **</strong></div>
-          <div><span class="text-slate-500">E-posta:</span> <strong class="text-slate-900" id="inspectEmail">ahmet@ornek.com</strong></div>
-          <div><span class="text-slate-500">Doğum Tarihi / Yeri:</span> <strong class="text-slate-900" id="inspectBirth">1988 • Kocaeli / Gebze</strong></div>
-          <div><span class="text-slate-500">İkametgah Adresi:</span> <strong class="text-slate-900" id="inspectAddress">Gebze / Kocaeli</strong></div>
-          <div class="pt-1 border-t border-slate-200 mt-1 flex items-center justify-between">
-            <span class="text-slate-500">Sürücü Giriş Hesabı:</span> 
-            <div class="font-mono text-xs">
-              <strong class="text-blue-700 font-bold" id="inspectAccountUser">Tanımlanmadı</strong> 
-              <span class="text-slate-500 text-[11px]" id="inspectAccountPass"></span>
+        <!-- Contact & Location Box -->
+        <div class="flex flex-col gap-2 bg-surface-container-low p-4 rounded-xl">
+          <span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">İletişim &amp; Temel Bilgiler</span>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <div>
+              <span class="text-on-surface-variant text-xs block">Telefon</span>
+              <a class="font-semibold text-secondary hover:underline" id="drawer-phone" href="#">-</a>
+            </div>
+            <div>
+              <span class="text-on-surface-variant text-xs block">E-Posta</span>
+              <span class="font-semibold text-on-surface" id="drawer-email">-</span>
+            </div>
+            <div>
+              <span class="text-on-surface-variant text-xs block">İkamet Şehri</span>
+              <span class="font-semibold text-on-surface" id="drawer-city">-</span>
+            </div>
+            <div>
+              <span class="text-on-surface-variant text-xs block">Doğum Tarihi / Yaş</span>
+              <span class="font-semibold text-on-surface" id="drawer-birthdate">-</span>
             </div>
           </div>
         </div>
 
-        <!-- License & Experience Card -->
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-          <div class="font-bold text-navy-deep text-sm flex items-center gap-1.5 border-b border-slate-200 pb-1.5">
-            <span class="material-symbols-outlined text-[18px] text-amber-vibrant">directions_bus</span>
-            <span>Ehliyet &amp; Mesleki Tecrübe</span>
+        <!-- Evrak Analiz & Doğruluk Özeti -->
+        <div class="flex flex-col gap-2">
+          <span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Evrak Analiz &amp; Nitelik Özeti</span>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+              <span class="text-on-surface-variant font-label-sm text-label-sm">Ehliyet Sınıfları</span>
+              <span class="font-label-lg text-label-lg font-bold text-on-surface" id="drawer-license">-</span>
+            </div>
+            <div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+              <span class="text-on-surface-variant font-label-sm text-label-sm">Sürücü Kartı (Takograf)</span>
+              <span class="font-label-lg text-label-lg font-bold text-status-success" id="drawer-tacho">-</span>
+            </div>
+            <div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+              <span class="text-on-surface-variant font-label-sm text-label-sm">Kod 95 Sertifikası</span>
+              <span class="font-label-lg text-label-lg font-bold text-on-secondary-fixed" id="drawer-code95">-</span>
+            </div>
+            <div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+              <span class="text-on-surface-variant font-label-sm text-label-sm">ADR Yetki Durumu</span>
+              <span class="font-label-lg text-label-lg font-bold text-on-surface" id="drawer-adr">-</span>
+            </div>
           </div>
-          <div><span class="text-slate-500">Ehliyet Sınıfı:</span> <strong class="text-blue-700 font-bold" id="inspectLicenseClass">C+CE Sınıfı Kaptan</strong></div>
-          <div><span class="text-slate-500">Sürücü Belgesi Seri No:</span> <strong class="text-slate-900" id="inspectLicenseSerial">999999</strong></div>
-          <div><span class="text-slate-500">İlk Ehliyet / CE Tarihi:</span> <strong class="text-slate-900" id="inspectLicenseDates">2010 / 2014</strong></div>
-          <div><span class="text-slate-500">Ağır Vasıta Tecrübe Süresi:</span> <strong class="text-slate-900" id="inspectExpYears">5-10 Yıl (Uluslararası)</strong></div>
-          <div><span class="text-slate-500">Hedef Ülke Tercihi:</span> <strong class="text-blue-700 font-bold" id="inspectTargetCountry">Almanya &amp; Polonya</strong></div>
         </div>
 
-        <!-- Passport Card -->
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-          <div class="font-bold text-navy-deep text-sm flex items-center gap-1.5 border-b border-slate-200 pb-1.5">
-            <span class="material-symbols-outlined text-[18px] text-purple-600">menu_book</span>
-            <span>Pasaport &amp; Vize Detayları</span>
+        <!-- Sefer & Deneyim Detayları -->
+        <div class="flex flex-col gap-2">
+          <span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Avrupa &amp; Güzergah Tecrübesi</span>
+          <div class="p-3.5 rounded-lg bg-surface-subtle flex flex-col gap-2 border border-border-muted">
+            <div class="flex items-center justify-between">
+              <span class="font-label-md text-label-md font-semibold text-on-surface">Uluslararası Sefer Geçmişi:</span>
+              <span class="font-label-sm text-label-sm font-bold text-on-surface" id="drawer-euexp">-</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant" id="drawer-routes">Güzergah detayı belirtilmedi.</p>
           </div>
-          <div><span class="text-slate-500">Pasaport Türü:</span> <strong class="text-slate-900" id="inspectPassportType">Bordo (Umuma Mahsus)</strong></div>
-          <div><span class="text-slate-500">Pasaport Seri No:</span> <strong class="text-slate-900" id="inspectPassportNo">U12345678</strong></div>
-          <div><span class="text-slate-500">Bitiş Tarihi:</span> <strong class="text-slate-900" id="inspectPassportExpiry">2031 (7 Yıl Geçerli)</strong></div>
         </div>
 
-        <!-- Document Statuses Card -->
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-          <div class="font-bold text-navy-deep text-sm flex items-center gap-1.5 border-b border-slate-200 pb-1.5">
-            <span class="material-symbols-outlined text-[18px] text-emerald-600">verified</span>
-            <span>Yüklü Evrak Durum Karnesi</span>
+        <!-- Tercih Edilen Ülke & Filo -->
+        <div class="flex flex-col gap-2">
+          <span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Hedef Filo &amp; Notlar</span>
+          <div class="p-3.5 rounded-lg bg-surface-subtle flex flex-col gap-2 border border-border-muted">
+            <div class="flex items-center justify-between">
+              <span class="font-label-md text-label-md font-semibold text-on-surface">Hedef Ülke / Filo:</span>
+              <span class="font-label-sm text-label-sm font-bold text-secondary" id="drawer-target-country">-</span>
+            </div>
+            <div class="pt-1">
+              <span class="text-xs text-on-surface-variant block font-semibold">Aday Özel Notu:</span>
+              <p class="font-body-sm text-body-sm text-on-surface mt-0.5" id="drawer-notes">Özel not bulunmuyor.</p>
+            </div>
+            <div class="pt-1" id="drawer-files-section">
+              <span class="text-xs text-on-surface-variant block font-semibold">Yüklenen Dosyalar:</span>
+              <div class="mt-1 flex flex-wrap gap-1.5" id="drawer-files-list"></div>
+            </div>
           </div>
-          <div class="grid grid-cols-2 gap-1.5 text-[11px]" id="inspectDocsGrid">
-            <!-- Dynamically populated -->
+        </div>
+
+        <!-- Filo Uyumluluk Eşleştirmesi -->
+        <div class="flex flex-col gap-2">
+          <span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Filo Uyumluluk Eşleştirmesi</span>
+          <div class="p-3 rounded-lg bg-surface-subtle flex flex-col gap-2 border border-border-muted">
+            <div class="flex items-center justify-between">
+              <span class="font-label-md text-label-md font-semibold text-on-surface">Almanya Frigo Lojistik Hattı</span>
+              <span class="font-label-sm text-label-sm text-status-success font-bold">%94 Uyumlu</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Adayın uluslararası frigo tecrübesi ve geçerli takograf sicili hedeflenen filo rotaları ile örtüşmektedir.</p>
+          </div>
+          <div class="p-3 rounded-lg bg-surface-subtle flex flex-col gap-2 border border-border-muted">
+            <div class="flex items-center justify-between">
+              <span class="font-label-md text-label-md font-semibold text-on-surface">Polonya &amp; Orta Avrupa Transit Filosu</span>
+              <span class="font-label-sm text-label-sm text-status-success font-bold">%88 Uyumlu</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Dorse tipi uyumu tam, çift şoför sefer gereksinimlerini karşılamaktadır.</p>
           </div>
         </div>
 
       </div>
 
-      <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
-        <div class="text-xs text-slate-500">
-          Kayıt Tarihi: <strong class="text-slate-800" id="inspectCreatedAt">18.10.2024</strong>
-        </div>
-        <div class="flex items-center gap-2">
-          <button type="button" onclick="closeInspectModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs cursor-pointer">Pencereyi Kapat</button>
-          <button type="button" id="btnInspectMsg" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs shadow flex items-center gap-1 cursor-pointer">
-            <span class="material-symbols-outlined text-[16px]">chat</span>
-            <span>Yazışma Başlat</span>
-          </button>
-          <button type="button" id="btnInspectEdit" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg text-xs shadow flex items-center gap-1 cursor-pointer">
-            <span class="material-symbols-outlined text-[16px]">edit</span>
-            <span>Evrakları Düzenle</span>
-          </button>
-        </div>
+      <!-- Drawer Footer Buttons -->
+      <div class="p-space-lg bg-surface-container-lowest flex items-center gap-space-sm border-t border-border-muted">
+        <button class="flex-1 h-11 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors cursor-pointer" onclick="window.print()" type="button">
+          Tüm Dosyayı Yazdır
+        </button>
+        <button class="flex-1 h-11 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-md text-label-md font-bold transition-colors cursor-pointer" onclick="quickStatusFromDrawer()" type="button">
+          Durumu Güncelle
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- SCRIPT SECTION FOR FULL INTERACTIVITY -->
+  <!-- MODAL 1: QUICK STATUS CHANGE -->
+  <div class="fixed inset-0 z-50 hidden flex items-center justify-center bg-canvas-dark/60 backdrop-blur-sm p-4" id="quick-status-modal">
+    <div class="bg-surface-card rounded-2xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col border border-border-muted">
+      <div class="px-space-lg py-space-md bg-primary-container text-on-primary flex items-center justify-between">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-secondary-container text-[20px]">rule</span>
+          <span class="font-label-lg text-label-lg font-bold">Hızlı Dosya Durumu Güncelle</span>
+        </div>
+        <button class="text-on-primary/70 hover:text-white cursor-pointer" onclick="closeModal('quick-status-modal')" type="button">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <div class="p-space-lg flex flex-col gap-space-md">
+        <div class="flex flex-col bg-surface-container-low p-3 rounded-xl">
+          <span class="text-on-surface-variant font-label-sm text-label-sm uppercase">Seçili Aday</span>
+          <span class="font-headline-sm text-headline-sm text-on-surface font-bold" id="modal-driver-name">Aday Adı</span>
+          <span class="text-xs text-outline font-mono mt-0.5" id="modal-driver-code">TR-000</span>
+        </div>
+        <div class="flex flex-col gap-space-xs">
+          <label class="font-label-md text-label-md text-on-surface font-semibold" for="modal-status-select">Yeni Süreç Durumu</label>
+          <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="modal-status-select">
+            <option value="Yeni Başvuru">Yeni Başvuru</option>
+            <option value="Evrak İncelemede">Evrak İncelemede</option>
+            <option value="Görüşme Tamamlandı">Görüşme Yapıldı &amp; Onaylandı</option>
+            <option value="Filoya Sevk Aşamasında">Filoya Sevk Aşamasında</option>
+            <option value="Kod 95 Denkliği Başlatıldı">Kod 95 Denkliği Başlatıldı</option>
+            <option value="Arşiv / Uygun Değil">Arşiv / Uygun Değil</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-space-xs">
+          <label class="font-label-md text-label-md text-on-surface font-semibold" for="modal-status-notes">Operasyonel Not / Açıklama</label>
+          <textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="modal-status-notes" placeholder="Sürücü ile yapılan görüşme veya evrak kontrol notu..." rows="3"></textarea>
+        </div>
+      </div>
+      <div class="px-space-lg py-space-md bg-surface-container-lowest flex items-center justify-end gap-space-sm border-t border-border-muted">
+        <button class="px-4 h-10 rounded-lg hover:bg-surface-container text-on-surface-variant font-label-md text-label-md cursor-pointer" onclick="closeModal('quick-status-modal')" type="button">Vazgeç</button>
+        <button class="px-5 h-10 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-md text-label-md font-bold shadow-md cursor-pointer" onclick="saveStatusChange()" type="button">Durumu Güncelle</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: ADD MANUAL CANDIDATE -->
+  <div class="fixed inset-0 z-50 hidden flex items-center justify-center bg-canvas-dark/60 backdrop-blur-sm p-4" id="add-manual-modal">
+    <div class="bg-surface-card rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-border-muted">
+      <div class="px-space-lg py-space-md bg-primary-container text-on-primary flex items-center justify-between">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-secondary-container text-[20px]">person_add</span>
+          <span class="font-label-lg text-label-lg font-bold">Yeni Manuel Sürücü Kaydı</span>
+        </div>
+        <button class="text-on-primary/70 hover:text-white cursor-pointer" onclick="closeModal('add-manual-modal')" type="button">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <form class="p-space-lg flex flex-col gap-space-md overflow-y-auto" id="manualAddForm" onsubmit="handleManualAddSubmit(event)">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="manual-fullName">Ad Soyad *</label>
+            <input class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="manual-fullName" placeholder="Örn: Kamil Koçak" required="" type="text">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="manual-phone">Telefon Numarası *</label>
+            <input class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="manual-phone" placeholder="+90 5XX XXX XX XX" required="" type="text">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="manual-city">İkamet Şehri *</label>
+            <input class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="manual-city" placeholder="Örn: Bolu" required="" type="text">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="manual-license">Ehliyet Sınıfı *</label>
+            <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="manual-license">
+              <option value="CE Sınıfı">CE Sınıfı (TIR Çekici)</option>
+              <option value="C Sınıfı">C Sınıfı (Kamyon)</option>
+              <option value="D Sınıfı">D Sınıfı (Otobüs)</option>
+              <option value="B Sınıfı">B Sınıfı (Otomobil)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="manual-exp">Tecrübe (Yıl)</label>
+            <input class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="manual-exp" placeholder="Örn: 6" type="number">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="manual-code95">Kod 95 Belgesi</label>
+            <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="manual-code95">
+              <option value="AB Kod 95 Mevcut">AB Kod 95 Mevcut</option>
+              <option value="TR Kod 95 Mevcut">TR Kod 95 Mevcut</option>
+              <option value="Denklik Eğitimi Gerekli">Denklik Eğitimi Gerekli</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="manual-euExp">Avrupa Sefer Tecrübesi</label>
+            <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="manual-euExp">
+              <option value="Var (Aktif Hat)">Var (Aktif Hat)</option>
+              <option value="Yok (Yalnızca TR İçi)">Yok (Yalnızca TR İçi)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <span class="font-label-md text-label-md text-on-surface font-semibold">Belge Yetkinlikleri</span>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+              <input checked="" class="w-4 h-4 text-secondary-container rounded accent-secondary-container" id="manual-src3" type="checkbox" value="SRC 3">
+              <span class="font-label-sm text-label-sm text-on-surface">SRC 3 (Uluslararası)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+              <input checked="" class="w-4 h-4 text-secondary-container rounded accent-secondary-container" id="manual-src4" type="checkbox" value="SRC 4">
+              <span class="font-label-sm text-label-sm text-on-surface">SRC 4 (Yurtiçi)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+              <input class="w-4 h-4 text-secondary-container rounded accent-secondary-container" id="manual-adr" type="checkbox" value="SRC 5 ADR">
+              <span class="font-label-sm text-label-sm text-on-surface">SRC 5 ADR (Tanker)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+              <input checked="" class="w-4 h-4 text-secondary-container rounded accent-secondary-container" id="manual-tacho" type="checkbox" value="Takograf">
+              <span class="font-label-sm text-label-sm text-on-surface">Dijital Takograf Kartı</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="font-label-md text-label-md text-on-surface font-semibold" for="manual-notes">Operatör Notları &amp; İlk İzlenim</label>
+          <textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="manual-notes" placeholder="Ön görüşme detayları, araç tercihi, dil seviyesi..." rows="2"></textarea>
+        </div>
+
+        <div class="px-space-lg py-space-md bg-surface-container-lowest flex items-center justify-end gap-space-sm -mx-6 -mb-6 border-t border-border-muted mt-2">
+          <button class="px-4 h-10 rounded-lg hover:bg-surface-container text-on-surface-variant font-label-md text-label-md cursor-pointer" onclick="closeModal('add-manual-modal')" type="button">İptal</button>
+          <button class="px-5 h-10 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-md text-label-md font-bold shadow-md cursor-pointer" type="submit">Adayı Portföye Ekle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- APPLICATION SCRIPTS -->
   <script>
-    // 1. Session Guard & Setup
-    function initAdminSession() {
-      let sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
-      let session = null;
-      if (sessionStr) {
-        try { session = JSON.parse(sessionStr); } catch(e){}
+    // INITIAL SEED DATA (Used if localStorage has no applications)
+    const SEED_APPLICATIONS = [
+      {
+        id: "TR-2024-0981",
+        referenceNumber: "TR-2024-0981",
+        type: "detailed",
+        applicationType: "detailed",
+        fullName: "Ahmet Yılmaz",
+        phone: "+90 532 411 89 22",
+        email: "ahmet.yilmaz@gmail.com",
+        city: "Bursa",
+        birthDate: "1988-05-14",
+        licenseClasses: ["CE", "C", "B"],
+        ceYear: "2016",
+        experienceYears: "8 Yıl Ağır Vasıta",
+        tachograph: "valid",
+        certificates: ["SRC3", "SRC4", "SRC5", "psikoteknik"],
+        code95: "eu",
+        euExp: "yes_eu",
+        routeDetails: "Balkan & Orta Avrupa Hattı (Frigo dorse tecrübesi)",
+        euDocs: "poland",
+        targetCountry: "DE",
+        extraNotes: "Uluslararası frigo ve tenteli taşımacılıkta kıdemli kaptan.",
+        status: "Filoya Sevk Aşamasında",
+        createdAt: "24.10.2024"
+      },
+      {
+        id: "TR-2024-0980",
+        referenceNumber: "TR-2024-0980",
+        type: "quick",
+        applicationType: "quick",
+        fullName: "Mehmet Kaya",
+        phone: "+90 544 329 12 34",
+        email: "mehmet.kaya@hotmail.com",
+        city: "İstanbul",
+        birthDate: "1994-08-20",
+        licenseClasses: ["CE", "C"],
+        ceYear: "2019",
+        experienceYears: "5 Yıl Yurtiçi",
+        tachograph: "valid",
+        certificates: ["SRC3", "SRC4"],
+        code95: "none",
+        euExp: "domestic_only",
+        routeDetails: "Marmara - Akdeniz tenteli nakliye hattı.",
+        euDocs: "none",
+        targetCountry: "any",
+        extraNotes: "Uluslararası hatlara geçiş için Kod 95 desteği talep ediyor.",
+        status: "Yeni Başvuru",
+        createdAt: "24.10.2024"
+      },
+      {
+        id: "TR-2024-0979",
+        referenceNumber: "TR-2024-0979",
+        type: "detailed",
+        applicationType: "detailed",
+        fullName: "Hasan Demir",
+        phone: "+90 533 874 45 67",
+        email: "hasan.demir@outlook.com",
+        city: "İzmir",
+        birthDate: "1982-11-03",
+        licenseClasses: ["CE", "C", "D", "B"],
+        ceYear: "2012",
+        experienceYears: "12 Yıl Uluslararası",
+        tachograph: "valid",
+        certificates: ["SRC3", "SRC4", "SRC5", "psikoteknik"],
+        code95: "eu",
+        euExp: "yes_eu",
+        routeDetails: "Almanya, Polonya, Çekya hatlarında konteyner ve sal kasa.",
+        euDocs: "poland",
+        targetCountry: "PL",
+        extraNotes: "Polonya Kod 95 kartı aktif, hemen göreve başlayabilir.",
+        status: "Görüşme Tamamlandı",
+        createdAt: "23.10.2024"
+      },
+      {
+        id: "TR-2024-0978",
+        referenceNumber: "TR-2024-0978",
+        type: "detailed",
+        applicationType: "detailed",
+        fullName: "Ali Çelik",
+        phone: "+90 505 119 33 44",
+        email: "ali.celik@gmail.com",
+        city: "Ankara",
+        birthDate: "1997-03-12",
+        licenseClasses: ["C", "B"],
+        ceYear: "2023",
+        experienceYears: "4 Yıl Dağıtım",
+        tachograph: "valid",
+        certificates: ["SRC3", "SRC4", "psikoteknik"],
+        code95: "none",
+        euExp: "domestic_only",
+        routeDetails: "Yurtiçi zincir market lojistiği.",
+        euDocs: "none",
+        targetCountry: "DE",
+        extraNotes: "CE sınıfına yükseltme ve denklik süreci için başvurdu.",
+        status: "Evrak İncelemede",
+        createdAt: "23.10.2024"
+      },
+      {
+        id: "TR-2024-0977",
+        referenceNumber: "TR-2024-0977",
+        type: "quick",
+        applicationType: "quick",
+        fullName: "Serkan Öztürk",
+        phone: "+90 536 902 77 88",
+        email: "serkan.ozturk@gmail.com",
+        city: "Mersin",
+        birthDate: "1989-07-25",
+        licenseClasses: ["CE", "C", "B"],
+        ceYear: "2017",
+        experienceYears: "7 Yıl Ağır Yük",
+        tachograph: "valid",
+        certificates: ["SRC3", "SRC4", "SRC5"],
+        code95: "tr",
+        euExp: "yes_eu",
+        routeDetails: "İtalya RORO Seferleri ve lowbed taşımacılık.",
+        euDocs: "none",
+        targetCountry: "IT",
+        extraNotes: "Gabari dışı ve lowbed dorse tecrübesi yüksek.",
+        status: "Evrak İncelemede",
+        createdAt: "22.10.2024"
+      },
+      {
+        id: "TR-2024-0976",
+        referenceNumber: "TR-2024-0976",
+        type: "detailed",
+        applicationType: "detailed",
+        fullName: "Burak Güler",
+        phone: "+90 542 556 21 09",
+        email: "burak.guler@gmail.com",
+        city: "Kocaeli",
+        birthDate: "1985-02-18",
+        licenseClasses: ["CE", "C", "B"],
+        ceYear: "2014",
+        experienceYears: "10 Yıl ADR Tanker",
+        tachograph: "valid",
+        certificates: ["SRC3", "SRC4", "SRC5", "psikoteknik"],
+        code95: "eu",
+        euExp: "yes_eu",
+        routeDetails: "Benelüks & Almanya Hatları (Kimyasal & Akaryakıt Tankeri).",
+        euDocs: "germany",
+        targetCountry: "DE",
+        extraNotes: "Almanya BKF ve sürücü kartı mevcut. Öncelikli aday.",
+        status: "Filoya Sevk Aşamasında",
+        createdAt: "21.10.2024"
+      },
+      {
+        id: "TR-2024-0975",
+        referenceNumber: "TR-2024-0975",
+        type: "quick",
+        applicationType: "quick",
+        fullName: "Mustafa Şahin",
+        phone: "+90 538 412 90 11",
+        email: "mustafa.sahin@gmail.com",
+        city: "Hatay",
+        birthDate: "1991-09-09",
+        licenseClasses: ["CE", "C"],
+        ceYear: "2018",
+        experienceYears: "6 Yıl Ortadoğu",
+        tachograph: "valid",
+        certificates: ["SRC3", "SRC4"],
+        code95: "none",
+        euExp: "other_intl",
+        routeDetails: "Ortadoğu & Türki Cumhuriyetler hattı.",
+        euDocs: "none",
+        targetCountry: "any",
+        extraNotes: "Avrupa rotalarına geçiş yapmak istiyor.",
+        status: "Yeni Başvuru",
+        createdAt: "20.10.2024"
+      },
+      {
+        id: "TR-2024-0974",
+        referenceNumber: "TR-2024-0974",
+        type: "detailed",
+        applicationType: "detailed",
+        fullName: "Emre Karaca",
+        phone: "+90 530 198 54 32",
+        email: "emre.karaca@gmail.com",
+        city: "Tekirdağ",
+        birthDate: "1993-06-15",
+        licenseClasses: ["CE", "C", "B"],
+        ceYear: "2021",
+        experienceYears: "3 Yıl Uluslararası",
+        tachograph: "valid",
+        certificates: ["SRC3", "SRC4", "psikoteknik"],
+        code95: "eu",
+        euExp: "yes_eu",
+        routeDetails: "Baltık & İskandinavya Hattı (Oto Taşıyıcı Lohr).",
+        euDocs: "other_eu",
+        targetCountry: "NL",
+        extraNotes: "Litvanya Kod 95 kartı mevcut. Oto taşıyıcı uzmanı.",
+        status: "Görüşme Tamamlandı",
+        createdAt: "19.10.2024"
+      }
+    ];
+
+    // STATE VARIABLES
+    let allApplications = [];
+    let filteredApplications = [];
+    let currentTab = 'basvurular';
+    let viewMode = 'detailed'; // 'detailed' | 'compact'
+    let currentPage = 1;
+    let pageSize = 15;
+    let selectedDriverId = null;
+
+    // INITIALIZATION
+    document.addEventListener('DOMContentLoaded', function () {
+      initDatabase();
+      renderDashboard();
+
+      // Outside click handler for bulk actions dropdown
+      window.addEventListener('click', function(e) {
+        const bulkBtn = document.getElementById('bulk-action-wrapper');
+        const bulkDropdown = document.getElementById('bulk-dropdown');
+        if (bulkBtn && bulkDropdown && !bulkBtn.contains(e.target)) {
+          bulkDropdown.classList.add('hidden');
+        }
+      });
+
+      // Select all checkboxes handler
+      const selectAll = document.getElementById('select-all-top');
+      if (selectAll) {
+        selectAll.addEventListener('change', function () {
+          const checkboxes = document.querySelectorAll('.row-checkbox');
+          checkboxes.forEach(cb => cb.checked = selectAll.checked);
+        });
+      }
+    });
+
+    // DATABASE MANAGER
+    function initDatabase() {
+      try {
+        const stored = localStorage.getItem('ats_applications');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            allApplications = parsed;
+          } else {
+            allApplications = SEED_APPLICATIONS;
+            localStorage.setItem('ats_applications', JSON.stringify(SEED_APPLICATIONS));
+          }
+        } else {
+          allApplications = SEED_APPLICATIONS;
+          localStorage.setItem('ats_applications', JSON.stringify(SEED_APPLICATIONS));
+        }
+      } catch (e) {
+        allApplications = SEED_APPLICATIONS;
+      }
+    }
+
+    function saveDatabase() {
+      try {
+        localStorage.setItem('ats_applications', JSON.stringify(allApplications));
+      } catch (e) {}
+    }
+
+    // TAB SWITCHER (Başvurular, Hızlı Başvurular, Aday Havuzu, Ayarlar)
+    function switchTab(tabId) {
+      currentTab = tabId;
+      
+      // Update sidebar visual active state
+      document.querySelectorAll('#sidebar-nav .nav-item').forEach(item => {
+        if (item.getAttribute('data-tab') === tabId) {
+          item.className = 'flex items-center gap-space-sm px-space-md py-3 rounded-lg text-on-secondary-fixed bg-secondary-container font-semibold shadow-md transition-all cursor-pointer nav-item';
+        } else {
+          item.className = 'flex items-center gap-space-sm px-space-md py-3 rounded-lg text-inverse-on-surface hover:bg-surface-variant/20 hover:text-white transition-all cursor-pointer nav-item';
+        }
+      });
+
+      const breadcrumb = document.getElementById('breadcrumb-current');
+      const pageTitle = document.getElementById('page-main-title');
+      const filterTypeSelect = document.getElementById('filter-type');
+
+      if (tabId === 'basvurular') {
+        breadcrumb.textContent = 'Tüm Dosyalar (Başvurular)';
+        pageTitle.textContent = 'Aday Başvuru Yönetim Masası';
+        if (filterTypeSelect) filterTypeSelect.value = '';
+      } else if (tabId === 'hizli-basvurular') {
+        breadcrumb.textContent = 'Hızlı Başvurular';
+        pageTitle.textContent = 'Hızlı Ön Form Başvuruları';
+        if (filterTypeSelect) filterTypeSelect.value = 'quick';
+      } else if (tabId === 'aday-havuzu') {
+        breadcrumb.textContent = 'Aday Havuzu & Onaylı Kaptanlar';
+        pageTitle.textContent = 'Mülakatı Geçen ve Sevk Edilen Sürücüler';
+        if (filterTypeSelect) filterTypeSelect.value = '';
+      } else if (tabId === 'ayarlar') {
+        breadcrumb.textContent = 'Sistem & Veri Ayarları';
+        pageTitle.textContent = 'Veri Yönetimi & Sistem Ayarları';
       }
 
-      if (!session || !session.loggedIn || session.role !== 'admin') {
-        window.location.href = 'login.html';
+      currentPage = 1;
+      applyFilters();
+    }
+
+    // FILTER LOGIC
+    function applyFilters() {
+      const search = (document.getElementById('filter-search')?.value || '').toLowerCase().trim();
+      const topSearch = (document.getElementById('top-search')?.value || '').toLowerCase().trim();
+      const activeSearch = search || topSearch;
+
+      const typeFilter = document.getElementById('filter-type')?.value || '';
+      const licenseFilter = document.getElementById('filter-license')?.value || '';
+      const code95Filter = document.getElementById('filter-code95')?.value || '';
+      const adrFilter = document.getElementById('filter-adr')?.value || '';
+      const statusFilter = document.getElementById('filter-status')?.value || '';
+
+      filteredApplications = allApplications.filter(app => {
+        // Tab-specific constraints
+        if (currentTab === 'hizli-basvurular') {
+          if (app.type !== 'quick' && app.applicationType !== 'quick') return false;
+        } else if (currentTab === 'aday-havuzu') {
+          if (app.status !== 'Filoya Sevk Aşamasında' && app.status !== 'Görüşme Tamamlandı') return false;
+        }
+
+        // Search text check
+        if (activeSearch) {
+          const matchName = (app.fullName || '').toLowerCase().includes(activeSearch);
+          const matchPhone = (app.phone || '').toLowerCase().includes(activeSearch);
+          const matchCode = (app.id || app.referenceNumber || '').toLowerCase().includes(activeSearch);
+          const matchCity = (app.city || '').toLowerCase().includes(activeSearch);
+          if (!matchName && !matchPhone && !matchCode && !matchCity) return false;
+        }
+
+        // Type filter
+        if (typeFilter) {
+          const isQuick = app.type === 'quick' || app.applicationType === 'quick';
+          if (typeFilter === 'quick' && !isQuick) return false;
+          if (typeFilter === 'detailed' && isQuick) return false;
+        }
+
+        // License filter
+        if (licenseFilter) {
+          const classes = Array.isArray(app.licenseClasses) ? app.licenseClasses : [(app.licenseClass || '')];
+          const hasClass = classes.some(c => c.toUpperCase().includes(licenseFilter.toUpperCase()));
+          if (!hasClass) return false;
+        }
+
+        // Code 95 filter
+        if (code95Filter) {
+          const c95 = (app.code95 || '').toLowerCase();
+          if (code95Filter === 'eu' && !c95.includes('eu') && !c95.includes('ab') && !c95.includes('poland') && !c95.includes('germany')) return false;
+          if (code95Filter === 'tr' && !c95.includes('tr')) return false;
+          if (code95Filter === 'none' && c95 !== 'none' && !c95.includes('gerekli') && !c95.includes('talep')) return false;
+        }
+
+        // ADR / SRC 5 filter
+        if (adrFilter) {
+          const certs = Array.isArray(app.certificates) ? app.certificates : (app.documents || []);
+          const hasAdr = certs.some(c => c.toUpperCase().includes('SRC5') || c.toUpperCase().includes('ADR'));
+          if (adrFilter === 'yes' && !hasAdr) return false;
+          if (adrFilter === 'no' && hasAdr) return false;
+        }
+
+        // Status filter
+        if (statusFilter) {
+          if (app.status !== statusFilter) return false;
+        }
+
+        return true;
+      });
+
+      renderDashboard();
+    }
+
+    function handleGlobalSearch(val) {
+      const mainSearch = document.getElementById('filter-search');
+      if (mainSearch) mainSearch.value = val;
+      applyFilters();
+    }
+
+    function resetFilters() {
+      const ids = ['filter-search', 'top-search', 'filter-type', 'filter-license', 'filter-code95', 'filter-adr', 'filter-status'];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      currentPage = 1;
+      applyFilters();
+    }
+
+    // METRICS CALCULATION
+    function updateMetrics() {
+      const total = allApplications.length;
+      const detailed = allApplications.filter(a => a.type === 'detailed' || a.applicationType === 'detailed').length;
+      const quick = allApplications.filter(a => a.type === 'quick' || a.applicationType === 'quick').length;
+      const reviewed = allApplications.filter(a => a.status === 'Evrak İncelemede' || a.status === 'Görüşme Tamamlandı' || a.status === 'Filoya Sevk Aşamasında').length;
+
+      const detailedPct = total > 0 ? ((detailed / total) * 100).toFixed(1) : 0;
+      const quickPct = total > 0 ? ((quick / total) * 100).toFixed(1) : 0;
+      const reviewedPct = total > 0 ? ((reviewed / total) * 100).toFixed(1) : 0;
+
+      document.getElementById('metric-total').textContent = total;
+      document.getElementById('metric-detailed').textContent = detailed;
+      document.getElementById('metric-detailed-pct').textContent = `Portföyün %${detailedPct}`;
+      document.getElementById('metric-detailed-bar').style.width = `${detailedPct}%`;
+
+      document.getElementById('metric-quick').textContent = quick;
+      document.getElementById('metric-quick-bar').style.width = `${quickPct}%`;
+
+      document.getElementById('metric-reviewed').textContent = reviewed;
+      document.getElementById('metric-reviewed-bar').style.width = `${reviewedPct}%`;
+    }
+
+    // TABLE RENDERER
+    function renderDashboard() {
+      updateMetrics();
+
+      const tbody = document.getElementById('applications-table-body');
+      const recordCountEl = document.getElementById('displayed-count');
+      const tableRecordCount = document.getElementById('table-record-count');
+      const paginationInfo = document.getElementById('pagination-info');
+
+      if (!tbody) return;
+
+      const totalItems = filteredApplications.length;
+      const totalPages = Math.ceil(totalItems / pageSize) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * pageSize;
+      const paginatedItems = filteredApplications.slice(startIndex, startIndex + pageSize);
+
+      recordCountEl.textContent = `${totalItems} Aday`;
+      tableRecordCount.innerHTML = `Listelenen: <strong class="text-on-surface font-semibold">${paginatedItems.length} Aday</strong> (Toplam ${allApplications.length} kayıt içerisinden)`;
+      paginationInfo.textContent = `(Toplam ${totalItems} dosya, ${totalPages} sayfa)`;
+
+      if (paginatedItems.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-12 text-center text-on-surface-variant">
+              <span class="material-symbols-outlined text-[36px] text-outline block mb-2">inbox</span>
+              Arama kriterlerine uygun aday kaydı bulunamadı.
+            </td>
+          </tr>
+        `;
+        renderPaginationButtons(totalPages);
         return;
       }
 
-      const name = session.name || 'Serkan Alçay';
-      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'SA';
+      let html = '';
+      paginatedItems.forEach(app => {
+        const initials = getInitials(app.fullName || 'Aday');
+        const isQuick = app.type === 'quick' || app.applicationType === 'quick';
+        
+        // License display
+        let licenseStr = 'CE Sınıfı';
+        if (Array.isArray(app.licenseClasses) && app.licenseClasses.length > 0) {
+          licenseStr = app.licenseClasses.join(', ') + ' Sınıfı';
+        } else if (app.licenseClass) {
+          licenseStr = app.licenseClass;
+        }
 
-      document.querySelectorAll('.adminNameDisplay').forEach(el => el.textContent = name);
-      document.querySelectorAll('.adminInitialsDisplay').forEach(el => el.textContent = initials);
+        // Experience display
+        let expStr = app.experienceYears ? `${app.experienceYears} Tecrübe` : '5 Yıl Tecrübe';
+        if (typeof app.experienceYears === 'string' && app.experienceYears.includes('Yıl')) {
+          expStr = app.experienceYears;
+        }
 
-      // Format Date
-      const now = new Date();
-      const options = { day: 'numeric', month: 'long', year: 'numeric' };
-      const dateStr = now.toLocaleDateString('tr-TR', options);
-      document.getElementById('currentDateDisplay').textContent = `${dateStr} • Canlı Mesai`;
+        // Certificates Badges
+        const certs = Array.isArray(app.certificates) ? app.certificates : (app.documents || []);
+        let certBadges = '';
+        if (certs.some(c => c.includes('SRC3') || c.includes('SRC 3'))) {
+          certBadges += `<span class="px-2 py-0.5 rounded bg-status-success/20 text-on-surface font-label-sm text-label-sm font-semibold">SRC 3-4</span> `;
+        }
+        if (certs.some(c => c.includes('SRC5') || c.includes('ADR'))) {
+          certBadges += `<span class="px-2 py-0.5 rounded bg-status-success/20 text-on-surface font-label-sm text-label-sm font-semibold">SRC 5 ADR</span> `;
+        }
+        if (app.code95 === 'eu' || (typeof app.code95 === 'string' && app.code95.includes('AB'))) {
+          certBadges += `<span class="px-2 py-0.5 rounded bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold">AB Kod 95</span> `;
+        } else if (app.code95 === 'tr' || (typeof app.code95 === 'string' && app.code95.includes('TR'))) {
+          certBadges += `<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">Kod 95 TR</span> `;
+        } else {
+          certBadges += `<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Kod 95 Talep</span> `;
+        }
 
-      loadCMSSettings();
-      renderApplicationsTable();
-    }
+        // EU Experience badge
+        let euBadge = '';
+        if (app.euExp === 'yes_eu' || (typeof app.euExp === 'string' && app.euExp.includes('Var'))) {
+          euBadge = `
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-status-success"></span>
+              <span class="font-label-md text-label-md font-semibold text-on-surface">Var</span>
+            </div>
+            <span class="text-on-surface-variant text-[12px] block mt-0.5 truncate max-w-[170px]" title="${app.routeDetails || 'Avrupa Hatları'}">${app.routeDetails || 'Aktif Avrupa Seferleri'}</span>
+          `;
+        } else {
+          euBadge = `
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-outline"></span>
+              <span class="font-label-md text-label-md text-on-surface-variant font-medium">Yok</span>
+            </div>
+            <span class="text-on-surface-variant text-[12px] block mt-0.5">Yurtiçi Hatlar</span>
+          `;
+        }
 
-    // 2. Logout Handler
-    function handleAdminLogout() {
-      if (confirm('Yönetici oturumunuz kapatılacaktır. Onaylıyor musunuz?')) {
-        sessionStorage.removeItem('user_session');
-        localStorage.removeItem('user_session');
-        window.location.href = 'login.html';
-      }
-    }
+        // Status badge
+        let statusBadge = '';
+        if (app.status === 'Filoya Sevk Aşamasında') {
+          statusBadge = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-bold"><span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span> Filoya Sevk</span>`;
+        } else if (app.status === 'Görüşme Tamamlandı') {
+          statusBadge = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-status-success/20 text-on-surface font-label-sm text-label-sm font-bold"><span class="w-2 h-2 rounded-full bg-status-success"></span> Görüşme Tamam</span>`;
+        } else if (app.status === 'Evrak İncelemede') {
+          statusBadge = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> İncelemede</span>`;
+        } else {
+          statusBadge = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold"><span class="w-2 h-2 rounded-full bg-outline"></span> Yeni Başvuru</span>`;
+        }
 
-    // 3. Render Applications Table Dynamically from localStorage
-    function renderApplicationsTable() {
-      const tbody = document.getElementById('candidateTableBody');
-      if (!tbody) return;
+        // Type badge
+        const typeBadge = isQuick 
+          ? `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold"><span class="material-symbols-outlined text-[14px]">bolt</span> Hızlı Başvuru</span>`
+          : `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold"><span class="material-symbols-outlined text-[14px]">assignment</span> Detaylı Form</span>`;
 
-      let apps = (typeof window.getATSApplications === 'function') ? window.getATSApplications() : [];
-      if (apps.length === 0) {
-        try {
-          const str = localStorage.getItem('ats_applications');
-          if (str) apps = JSON.parse(str);
-        } catch(e){}
-      }
-
-      // Update sidebar badge counts
-      const count = apps.length;
-      document.getElementById('sidebarUserCount').textContent = count;
-      document.getElementById('sidebarBadgeCount').textContent = count;
-      
-      const pendingCount = apps.filter(a => (a.status || '').includes('Bekliyor') || (a.docs && a.docs.sgk && a.docs.sgk.includes('Bekleniyor'))).length;
-      document.getElementById('sidebarPendingCount').textContent = pendingCount;
-
-      const allBtn = document.getElementById('filterBtn-all');
-      if (allBtn) allBtn.textContent = `Tümü (${count} Dosya)`;
-
-      if (apps.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="6" class="py-12 px-6 text-center text-slate-500">
-              <div class="flex flex-col items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-[48px] text-slate-300">folder_off</span>
-                <span class="font-bold text-slate-700 text-sm">Henüz Yapılmış Başvuru Bulunmamaktadır</span>
-                <span class="text-xs text-slate-400 max-w-md">Web sitesinden (Ön Analiz Başvurusu) yapılan yeni şoför başvuruları burada canlı olarak listelenecektir.</span>
+        html += `
+          <tr class="hover:bg-surface-subtle transition-colors group">
+            <td class="py-4 px-4 text-center">
+              <input class="w-4 h-4 rounded text-secondary-container row-checkbox cursor-pointer" type="checkbox" value="${app.id}">
+            </td>
+            <td class="py-4 px-4">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center font-label-md text-label-md font-bold text-on-surface">
+                  ${initials}
+                </div>
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-label-lg text-label-lg text-on-surface font-bold leading-tight">${app.fullName || 'Aday'}</span>
+                    <span class="material-symbols-outlined text-status-success text-[16px]" title="Doğrulandı">verified</span>
+                  </div>
+                  <span class="text-on-surface-variant text-[13px] leading-tight mt-0.5">${app.city || 'Belirtilmedi'} • ${app.phone || '-'}</span>
+                  <span class="font-label-sm text-label-sm text-outline mt-1 font-mono">KOD: ${app.id || app.referenceNumber || 'TR-000'} • ${app.createdAt || 'Bugün'}</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-4">
+              ${typeBadge}
+            </td>
+            <td class="py-4 px-4">
+              <div class="flex flex-col gap-0.5">
+                <span class="font-label-md text-label-md font-bold text-on-surface">${licenseStr}</span>
+                <span class="text-on-surface-variant text-[13px]">${expStr}</span>
+              </div>
+            </td>
+            <td class="py-4 px-4">
+              <div class="flex flex-wrap gap-1 max-w-[200px]">
+                ${certBadges}
+              </div>
+            </td>
+            <td class="py-4 px-4">
+              ${euBadge}
+            </td>
+            <td class="py-4 px-4">
+              ${statusBadge}
+            </td>
+            <td class="py-4 px-4 text-right">
+              <div class="flex items-center justify-end gap-1">
+                <button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface cursor-pointer" onclick="openDriverDrawer('${app.id}')" title="Detay İncele" type="button">
+                  <span class="material-symbols-outlined text-[18px]">visibility</span>
+                </button>
+                <button class="p-2 rounded-lg hover:bg-surface-container text-secondary hover:text-warning-amber-hover cursor-pointer" onclick="quickStatusChange('${app.id}')" title="Hızlı Durum Güncelle" type="button">
+                  <span class="material-symbols-outlined text-[18px]">rule</span>
+                </button>
+                <button class="p-2 rounded-lg hover:bg-error/10 text-on-surface-variant hover:text-error cursor-pointer" onclick="deleteCandidate('${app.id}')" title="Sil / Arşivle" type="button">
+                  <span class="material-symbols-outlined text-[18px]">delete</span>
+                </button>
               </div>
             </td>
           </tr>
         `;
-        document.getElementById('tableSummaryText').innerHTML = 'Henüz başvuru kaydı yok.';
+      });
+
+      tbody.innerHTML = html;
+      renderPaginationButtons(totalPages);
+    }
+
+    // PAGINATION
+    function renderPaginationButtons(totalPages) {
+      const container = document.getElementById('pagination-buttons');
+      if (!container) return;
+
+      let btnHtml = `
+        <button class="w-9 h-9 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container flex items-center justify-center transition-colors disabled:opacity-40 cursor-pointer" onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>
+          <span class="material-symbols-outlined text-[18px]">first_page</span>
+        </button>
+        <button class="w-9 h-9 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container flex items-center justify-center transition-colors disabled:opacity-40 cursor-pointer" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+          <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+        </button>
+      `;
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === currentPage) {
+          btnHtml += `<button class="w-9 h-9 rounded-lg bg-secondary-container text-on-secondary-fixed font-label-md text-label-md font-bold flex items-center justify-center shadow-sm">${i}</button>`;
+        } else if (i <= 3 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+          btnHtml += `<button class="w-9 h-9 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center cursor-pointer" onclick="goToPage(${i})">${i}</button>`;
+        } else if (i === 4 && totalPages > 5) {
+          btnHtml += `<span class="px-1 text-outline">...</span>`;
+        }
+      }
+
+      btnHtml += `
+        <button class="w-9 h-9 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors disabled:opacity-40 cursor-pointer" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+          <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+        </button>
+        <button class="w-9 h-9 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors disabled:opacity-40 cursor-pointer" onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>
+          <span class="material-symbols-outlined text-[18px]">last_page</span>
+        </button>
+      `;
+
+      container.innerHTML = btnHtml;
+    }
+
+    function goToPage(p) {
+      currentPage = p;
+      renderDashboard();
+    }
+
+    function changePageSize(sz) {
+      pageSize = parseInt(sz) || 15;
+      currentPage = 1;
+      renderDashboard();
+    }
+
+    function setViewMode(m) {
+      viewMode = m;
+      document.getElementById('view-mode-detailed').className = m === 'detailed' ? 'px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold' : 'px-2.5 py-1 rounded hover:bg-surface-container text-on-surface-variant font-label-sm text-label-sm cursor-pointer';
+      document.getElementById('view-mode-compact').className = m === 'compact' ? 'px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold' : 'px-2.5 py-1 rounded hover:bg-surface-container text-on-surface-variant font-label-sm text-label-sm cursor-pointer';
+      renderDashboard();
+    }
+
+    // SLIDE-OVER DRAWER
+    function openDriverDrawer(appId) {
+      const app = allApplications.find(a => a.id === appId || a.referenceNumber === appId);
+      if (!app) return;
+      selectedDriverId = app.id;
+
+      document.getElementById('drawer-name').textContent = app.fullName || 'Aday';
+      document.getElementById('drawer-code').textContent = app.id || app.referenceNumber || 'TR-000';
+      document.getElementById('drawer-phone').textContent = app.phone || '-';
+      document.getElementById('drawer-phone').href = 'tel:' + (app.phone || '');
+      document.getElementById('drawer-email').textContent = app.email || '-';
+      document.getElementById('drawer-city').textContent = app.city || 'Belirtilmedi';
+      document.getElementById('drawer-birthdate').textContent = app.birthDate || '-';
+
+      // License
+      const classes = Array.isArray(app.licenseClasses) ? app.licenseClasses.join(', ') : (app.licenseClass || 'CE Sınıfı');
+      document.getElementById('drawer-license').textContent = classes;
+
+      // Tachograph
+      document.getElementById('drawer-tacho').textContent = app.tachograph === 'valid' ? 'Mevcut & Doğrulandı' : 'Mevcut Değil / Süresi Dolmuş';
+
+      // Code 95
+      let c95Text = 'Henüz Yok (Denklik Gerekli)';
+      if (app.code95 === 'eu') c95Text = 'AB Kod 95 Mevcut';
+      else if (app.code95 === 'tr') c95Text = 'TR Kod 95 Mevcut';
+      document.getElementById('drawer-code95').textContent = c95Text;
+
+      // ADR
+      const certs = Array.isArray(app.certificates) ? app.certificates : (app.documents || []);
+      const hasAdr = certs.some(c => c.includes('SRC5') || c.includes('ADR'));
+      document.getElementById('drawer-adr').textContent = hasAdr ? 'SRC 5 ADR Aktif' : 'ADR Yok / Temel';
+
+      // EU Experience & Routes
+      document.getElementById('drawer-euexp').textContent = (app.euExp === 'yes_eu' || (typeof app.euExp === 'string' && app.euExp.includes('Var'))) ? 'Var (Avrupa Seferleri)' : 'Yok (Yurtiçi)';
+      document.getElementById('drawer-routes').textContent = app.routeDetails || 'Ekstra güzergah açıklaması bulunmuyor.';
+
+      // Target country & notes
+      document.getElementById('drawer-target-country').textContent = app.targetCountry === 'DE' ? 'Almanya Odaklı Filolar' : (app.targetCountry === 'PL' ? 'Polonya Odaklı Filolar' : (app.targetCountry || 'Fark Etmez / Uygun Filo'));
+      document.getElementById('drawer-notes').textContent = app.extraNotes || 'Özel not eklenmedi.';
+
+      // Uploaded files
+      const filesContainer = document.getElementById('drawer-files-list');
+      if (filesContainer) {
+        if (Array.isArray(app.uploadedFiles) && app.uploadedFiles.length > 0) {
+          filesContainer.innerHTML = app.uploadedFiles.map(f => `<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-surface-container rounded font-label-sm text-label-sm font-semibold"><span class="material-symbols-outlined text-[14px]">attach_file</span> ${f}</span>`).join('');
+        } else {
+          filesContainer.innerHTML = `<span class="text-xs text-on-surface-variant">Ek dosya yüklenmedi.</span>`;
+        }
+      }
+
+      const drawer = document.getElementById('driver-drawer');
+      if (drawer) {
+        drawer.classList.remove('translate-x-full');
+      }
+    }
+
+    function closeDriverDrawer() {
+      const drawer = document.getElementById('driver-drawer');
+      if (drawer) {
+        drawer.classList.add('translate-x-full');
+      }
+    }
+
+    function quickStatusFromDrawer() {
+      if (selectedDriverId) {
+        closeDriverDrawer();
+        quickStatusChange(selectedDriverId);
+      }
+    }
+
+    // MODAL OPERATIONS
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    }
+
+    function toggleDropdown(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('hidden');
+    }
+
+    function quickStatusChange(appId) {
+      const app = allApplications.find(a => a.id === appId || a.referenceNumber === appId);
+      if (!app) return;
+      selectedDriverId = app.id;
+
+      document.getElementById('modal-driver-name').textContent = app.fullName || 'Aday';
+      document.getElementById('modal-driver-code').textContent = app.id || app.referenceNumber || 'TR-000';
+      document.getElementById('modal-status-select').value = app.status || 'Yeni Başvuru';
+      document.getElementById('modal-status-notes').value = '';
+
+      openModal('quick-status-modal');
+    }
+
+    function saveStatusChange() {
+      if (!selectedDriverId) return;
+      const app = allApplications.find(a => a.id === selectedDriverId);
+      if (app) {
+        const newStatus = document.getElementById('modal-status-select').value;
+        const note = document.getElementById('modal-status-notes').value.trim();
+        app.status = newStatus;
+        if (note) {
+          app.extraNotes = (app.extraNotes ? app.extraNotes + '\n' : '') + `[${new Date().toLocaleDateString('tr-TR')} Operatör Notu]: ${note}`;
+        }
+        saveDatabase();
+        renderDashboard();
+      }
+      closeModal('quick-status-modal');
+    }
+
+    function deleteCandidate(appId) {
+      if (confirm('Bu başvuru kaydını arşivlemek / silmek istediğinize emin misiniz?')) {
+        allApplications = allApplications.filter(a => a.id !== appId);
+        saveDatabase();
+        applyFilters();
+      }
+    }
+
+    // BULK ACTIONS
+    function handleBulkAction(action) {
+      const selectedIds = Array.from(document.querySelectorAll('.row-checkbox:checked')).map(cb => cb.value);
+      if (selectedIds.length === 0) {
+        alert('Lütfen işlem yapmak için en az bir aday seçiniz.');
         return;
       }
 
-      tbody.innerHTML = '';
-      apps.forEach((app, index) => {
-        const tr = document.createElement('tr');
-        tr.className = 'candidateRow hover:bg-blue-50/30 transition-colors';
-        tr.setAttribute('data-filter', (app.status || 'on-inceleme').toLowerCase().replace(' ', '-'));
-        tr.setAttribute('data-search', `${app.fullName.toLowerCase()} ${app.tcNo} ${(app.id || '').toLowerCase()}`);
+      let newStatus = 'Yeni Başvuru';
+      if (action === 'sevk') newStatus = 'Filoya Sevk Aşamasında';
+      else if (action === 'incelemede') newStatus = 'Evrak İncelemede';
+      else if (action === 'arsiv') newStatus = 'Arşiv / Uygun Değil';
 
-        const initials = app.fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'AD';
-        const maskedTc = app.tcNo.length >= 11 ? app.tcNo.substring(0, 3) + '*****' + app.tcNo.substring(8) : app.tcNo;
-
-        tr.innerHTML = `
-          <td class="py-4 px-6 align-middle">
-            <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
-                ${initials}
-              </div>
-              <div class="space-y-0.5">
-                <div class="flex items-center gap-1.5">
-                  <span class="font-display font-bold text-slate-900 text-sm">${app.fullName}</span>
-                  <span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">${app.statusBadge || 'Ön Form'}</span>
-                </div>
-                <div class="font-mono text-slate-500 text-[11px]">T.C. ${maskedTc} • Ref: <strong class="text-slate-800">${app.id}</strong></div>
-                <div class="text-[11px] text-slate-500">${app.licenseClass || 'C+CE'} • ${app.city || 'Kocaeli'} (${app.experienceYears || '5 Yıl'})</div>
-              </div>
-            </div>
-          </td>
-          <td class="py-4 px-6 align-middle">
-            <div class="space-y-1">
-              <div class="font-medium text-slate-800">${app.phone}</div>
-              <div class="flex items-center gap-1 text-emerald-600 font-semibold text-[11px]">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>Aktif Aday</span>
-              </div>
-              <div class="text-[11px] text-slate-400">Kayıt: ${app.createdAt || 'Bugün'}</div>
-            </div>
-          </td>
-          <td class="py-4 px-6 align-middle">
-            <div class="space-y-1">
-              <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold border border-slate-200">
-                <span>TR</span>
-                <span class="material-symbols-outlined text-[14px] text-slate-500">arrow_forward</span>
-                <span class="text-blue-700">${app.targetCountry || 'Almanya & Polonya'}</span>
-              </div>
-              <div class="flex items-center gap-1 font-bold text-emerald-600 text-xs">
-                <span class="material-symbols-outlined text-[16px]">check_circle</span>
-                <span>${app.matchScore || '%92 Uyum'}</span>
-              </div>
-            </div>
-          </td>
-          <td class="py-4 px-6 align-middle">
-            <div class="space-y-1">
-              <span class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[11px]">
-                ${app.docCount || '5 / 6 Belge'}
-              </span>
-              <div class="text-[11px] text-slate-500">SGK: ${app.docs ? app.docs.sgk : 'Inceleniyor'}</div>
-            </div>
-          </td>
-          <td class="py-4 px-6 align-middle">
-            <div class="space-y-1">
-              <div class="font-semibold text-slate-700 text-xs">${app.service || 'Ücretsiz Ön Form'}</div>
-              <div class="text-[11px] text-amber-600 font-semibold">${app.paymentStatus || '65 € Rapor Bekliyor'}</div>
-            </div>
-          </td>
-          <td class="py-4 px-6 align-middle text-right">
-            <div class="flex items-center justify-end gap-1.5">
-              <button onclick="openMessageModal(${index})" class="p-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-colors cursor-pointer" title="Sürücü İle Yazışma">
-                <span class="material-symbols-outlined text-[18px]">chat</span>
-              </button>
-              <button onclick="openEditDocModal(${index})" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors text-xs cursor-pointer" type="button">
-                Düzenle
-              </button>
-              <button onclick="openInspectModal(${index})" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm transition-colors text-xs flex items-center gap-1 cursor-pointer" type="button">
-                <span>İncele</span>
-                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-              </button>
-            </div>
-          </td>
-        `;
-
-        tbody.appendChild(tr);
-      });
-
-      document.getElementById('tableSummaryText').innerHTML = `Toplam <strong>${apps.length}</strong> kayıtlı aday dosyası listeleniyor.`;
-    }
-
-    // 4. Search & Filter Table Logic
-    function filterTable(category) {
-      const filterBtns = document.querySelectorAll('.filterTabBtn');
-      filterBtns.forEach(btn => {
-        btn.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
-        btn.classList.add('bg-slate-100', 'text-slate-700');
-      });
-
-      const activeBtn = document.getElementById('filterBtn-' + category);
-      if (activeBtn) {
-        activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
-        activeBtn.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
-      }
-
-      const rows = document.querySelectorAll('.candidateRow');
-      let visibleCount = 0;
-
-      rows.forEach(row => {
-        const rowFilters = row.getAttribute('data-filter') || '';
-        if (category === 'all' || rowFilters.includes(category)) {
-          row.style.display = '';
-          visibleCount++;
-        } else {
-          row.style.display = 'none';
+      allApplications.forEach(app => {
+        if (selectedIds.includes(app.id)) {
+          app.status = newStatus;
         }
       });
 
-      document.getElementById('tableSummaryText').innerHTML = `Filtrelenen <strong>${visibleCount}</strong> kayıtlı aday dosyası gösteriliyor.`;
+      saveDatabase();
+      applyFilters();
+      toggleDropdown('bulk-dropdown');
+      alert(`${selectedIds.length} adet dosya güncellendi: ${newStatus}`);
     }
 
-    function handleSearch() {
-      const query = document.getElementById('searchInput').value.toLowerCase().trim();
-      const rows = document.querySelectorAll('.candidateRow');
-      let count = 0;
+    // MANUAL CANDIDATE FORM SUBMISSION
+    function handleManualAddSubmit(e) {
+      e.preventDefault();
+      const fullName = document.getElementById('manual-fullName').value.trim();
+      const phone = document.getElementById('manual-phone').value.trim();
+      const city = document.getElementById('manual-city').value.trim();
+      const license = document.getElementById('manual-license').value;
+      const exp = document.getElementById('manual-exp').value.trim() || '5';
+      const c95 = document.getElementById('manual-code95').value;
+      const euExp = document.getElementById('manual-euExp').value;
+      const notes = document.getElementById('manual-notes').value.trim();
 
-      rows.forEach(row => {
-        const searchData = row.getAttribute('data-search') || '';
-        const rowText = row.innerText.toLowerCase();
-        if (!query || searchData.includes(query) || rowText.includes(query)) {
-          row.style.display = '';
-          count++;
-        } else {
-          row.style.display = 'none';
-        }
-      });
+      const certs = [];
+      if (document.getElementById('manual-src3')?.checked) certs.push('SRC3');
+      if (document.getElementById('manual-src4')?.checked) certs.push('SRC4');
+      if (document.getElementById('manual-adr')?.checked) certs.push('SRC5');
+      if (document.getElementById('manual-tacho')?.checked) certs.push('Takograf');
 
-      document.getElementById('tableSummaryText').innerHTML = `Arama sonucu <strong>${count}</strong> aday dosyası bulundu.`;
+      const newId = 'TR-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+      const newCandidate = {
+        id: newId,
+        referenceNumber: newId,
+        type: 'detailed',
+        applicationType: 'detailed',
+        fullName: fullName,
+        phone: phone,
+        email: '',
+        city: city,
+        birthDate: '',
+        licenseClasses: [license.replace(' Sınıfı', '')],
+        ceYear: '2018',
+        experienceYears: `${exp} Yıl`,
+        tachograph: 'valid',
+        certificates: certs,
+        code95: c95.includes('AB') ? 'eu' : (c95.includes('TR') ? 'tr' : 'none'),
+        euExp: euExp.includes('Var') ? 'yes_eu' : 'domestic_only',
+        routeDetails: euExp,
+        euDocs: 'none',
+        targetCountry: 'any',
+        extraNotes: notes,
+        uploadedFiles: [],
+        status: 'Yeni Başvuru',
+        createdAt: new Date().toLocaleDateString('tr-TR')
+      };
+
+      allApplications.unshift(newCandidate);
+      saveDatabase();
+      document.getElementById('manualAddForm').reset();
+      closeModal('add-manual-modal');
+      applyFilters();
+      alert(`Yeni aday başarıyla kaydedildi: ${fullName} (${newId})`);
     }
 
-    // 5. CMS Live Settings
-    function saveCMSSettings() {
-      const reportPrice = document.getElementById('cmsReportPrice').value;
-      const translationPrice = document.getElementById('cmsTranslationPrice').value;
-      const bannerText = document.getElementById('cmsBannerText').value;
-
-      const cmsData = { reportPrice, translationPrice, bannerText };
-      localStorage.setItem('cms_settings', JSON.stringify(cmsData));
-      if (typeof window.saveCMSDataToFirebase === 'function') {
-        window.saveCMSDataToFirebase(cmsData);
-      }
-
-      alert('Tebrikler! Web sitesi fiyatlandırma ve banner ayarları canlı yayına ve Firebase veritabanına aktarıldı.');
-    }
-
-    function loadCMSSettings() {
-      const cmsStr = localStorage.getItem('cms_settings');
-      if (cmsStr) {
-        try {
-          const data = JSON.parse(cmsStr);
-          if (data.reportPrice) document.getElementById('cmsReportPrice').value = data.reportPrice;
-          if (data.translationPrice) document.getElementById('cmsTranslationPrice').value = data.translationPrice;
-          if (data.bannerText) document.getElementById('cmsBannerText').value = data.bannerText;
-        } catch(e){}
-      }
-    }
-
-    function resetCMSSettings() {
-      document.getElementById('cmsReportPrice').value = 65;
-      document.getElementById('cmsTranslationPrice').value = 3000;
-      document.getElementById('cmsBannerText').value = 'Avrupa Tır Şoförlüğü Ön Başvuruları Başladı! 24 Saatte Evrak & Uygunluk Denetimi.';
-      localStorage.removeItem('cms_settings');
-      alert('CMS ayarları varsayılan fabrika değerlerine sıfırlandı.');
-    }
-
-    function saveDecisionAndNotify() {
-      const candidate = document.getElementById('selectedCandidateName').textContent;
-      const decision = document.getElementById('doc-status').value;
-      const note = document.getElementById('consultant-note').value;
-
-      alert(`Evrak kararı kaydedildi!\n\nAday: ${candidate}\nKarar: ${decision}\nSürücüye Bildirim: "${note}"`);
-    }
-
-    function scrollToCMS() {
-      const section = document.getElementById('cmsModuleSection');
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function exportCSV() {
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
-
-      if (apps.length === 0) {
-        alert('Dışa aktarılacak kayıtlı başvuru bulunmamaktadır.');
+    // EXCEL / CSV EXPORT
+    function exportToExcel() {
+      if (filteredApplications.length === 0) {
+        alert('Dışa aktarılacak kayıt bulunmuyor.');
         return;
       }
 
-      let csvContent = "data:text/csv;charset=utf-8,ID,Ad Soyad,TC,Telefon,Email,Hedef Ulke,Uyum Skoru,Kayıt Tarihi\n";
-      apps.forEach(a => {
-        csvContent += `"${a.id}","${a.fullName}","${a.tcNo}","${a.phone}","${a.email}","${a.targetCountry}","${a.matchScore}","${a.createdAt}"\n`;
+      let csv = '\uFEFF'; // UTF-8 BOM
+      csv += 'Kayıt No,Ad Soyad,Telefon,E-posta,Şehir,Başvuru Türü,Ehliyet,Tecrübe,Kod 95,ADR,Avrupa Sefer,Durum,Tarih\n';
+
+      filteredApplications.forEach(app => {
+        const row = [
+          `"${app.id || app.referenceNumber || ''}"`,
+          `"${app.fullName || ''}"`,
+          `"${app.phone || ''}"`,
+          `"${app.email || ''}"`,
+          `"${app.city || ''}"`,
+          `"${app.type === 'quick' ? 'Hızlı Başvuru' : 'Detaylı Form'}"`,
+          `"${Array.isArray(app.licenseClasses) ? app.licenseClasses.join('-') : (app.licenseClass || '')}"`,
+          `"${app.experienceYears || ''}"`,
+          `"${app.code95 || ''}"`,
+          `"${Array.isArray(app.certificates) && app.certificates.includes('SRC5') ? 'Var' : 'Yok'}"`,
+          `"${app.euExp === 'yes_eu' ? 'Var' : 'Yok'}"`,
+          `"${app.status || ''}"`,
+          `"${app.createdAt || ''}"`
+        ];
+        csv += row.join(',') + '\n';
       });
 
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", `ats_basvurular_${new Date().toISOString().slice(0,10)}.csv`);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `ats_aday_listesi_${new Date().toISOString().slice(0,10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
 
-    // 6. Modal Controls for New User
-    function openNewUserModal() {
-      document.getElementById('newUserModal').classList.remove('hidden');
-    }
-    function closeNewUserModal() {
-      document.getElementById('newUserModal').classList.add('hidden');
-    }
-
-    function handleCreateUser(e) {
-      e.preventDefault();
-      const name = document.getElementById('newUserName').value.trim();
-      const tc = document.getElementById('newUserTc').value.trim();
-      const phone = document.getElementById('newUserPhone').value.trim();
-      const emailEl = document.getElementById('newUserEmail');
-      const email = emailEl ? emailEl.value.trim() : '';
-      const cityEl = document.getElementById('newUserCity');
-      const city = cityEl ? cityEl.value.trim() : '';
-      const licenseClassEl = document.getElementById('newUserLicenseClass');
-      const licenseClass = licenseClassEl ? licenseClassEl.value : 'C+CE';
-      const expYearsEl = document.getElementById('newUserExpYears');
-      const expYears = expYearsEl ? expYearsEl.value : '5-10 Yıl';
-      const country = document.getElementById('newUserCountry').value;
-      const usernameEl = document.getElementById('newUserUsername');
-      const username = usernameEl ? usernameEl.value.trim() : '';
-      const passwordEl = document.getElementById('newUserPassword');
-      const password = passwordEl ? passwordEl.value.trim() : '';
-
-      const isApprovedAccount = true; // Always allow immediate login when admin defines user
-      const appId = '#ATS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
-
-      const newApp = {
-        id: appId,
-        fullName: name,
-        tcNo: tc,
-        phone: phone,
-        email: email || 'Belirtilmedi',
-        city: city || 'Belirtilmedi',
-        licenseClass: licenseClass,
-        experienceYears: expYears,
-        targetCountry: country,
-        username: username || tc,
-        password: password || tc || '123456',
-        matchScore: '%90 Uyum',
-        docCount: '6 / 6 Onaylı',
-        docs: {
-          ehliyet: 'Onaylandı',
-          takograf: 'Onaylandı',
-          pasaport: 'Onaylandı',
-          sicil: 'Onaylandı',
-          sgk: 'Onaylandı',
-          adr: 'Onaylandı'
-        },
-        status: 'Onaylandı',
-        statusBadge: 'Onaylandı',
-        service: 'Manuel Yönetici Kaydı',
-        paymentStatus: 'Rapor ve Hesap Aktif',
-        createdAt: new Date().toLocaleDateString('tr-TR')
-      };
-
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(err){}
-
-      apps.unshift(newApp);
-      localStorage.setItem('ats_applications', JSON.stringify(apps));
-      syncDriverCredentialStore(newApp);
-
-      renderApplicationsTable();
-      alert(`✅ Yeni aday "${name}" ve sürücü giriş hesabı başarıyla oluşturuldu!\n\nKullanıcı Adı: ${newApp.username}\nŞifre: ${newApp.password}\nSürücü doğrudan login.html sayfasından giriş yapabilir.`);
-      closeNewUserModal();
-    }
-
-    // Helper to sync account info into ats_driver_credentials, Firebase & Global Cloud DB
-    function syncDriverCredentialStore(app) {
-      if (!app) return;
-      try {
-        let creds = {};
-        const str = localStorage.getItem('ats_driver_credentials');
-        if (str) creds = JSON.parse(str);
-
-        const normU = app.username ? String(app.username).trim().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
-        const normTc = app.tcNo ? String(app.tcNo).trim().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
-
-        if (normU) creds[normU] = app;
-        if (normTc) creds[normTc] = app;
-
-        localStorage.setItem('ats_driver_credentials', JSON.stringify(creds));
-      } catch(e){}
-
-      // Sync to Google Firebase Firestore
-      if (typeof window.saveATSApplicationToFirebase === 'function') {
-        window.saveATSApplicationToFirebase(app);
+    // HELPERS
+    function getInitials(name) {
+      const parts = name.trim().split(' ');
+      if (parts.length >= 2) {
+        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
       }
-
-      // Sync to Global Cloud Database so users on ANY device can log in instantly
-      let apps = window.getATSApplications ? window.getATSApplications() : [];
-      if (typeof window.syncApplicationsToCloud === 'function' && apps.length > 0) {
-        window.syncApplicationsToCloud(apps);
-      }
+      return name.slice(0, 2).toUpperCase();
     }
-
-    // 6.5 MANUEL SÜRÜCÜ HESABI OLUŞTURMA (KULLANICI ADI & ŞİFRE)
-    function openCreateAccountModal() {
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
-
-      const select = document.getElementById('accountAppSelect');
-      if (!select) return;
-
-      if (apps.length === 0) {
-        alert('Hesap oluşturulacak kayıtlı başvuru bulunmamaktadır.');
-        return;
-      }
-
-      select.innerHTML = '';
-      apps.forEach((app, idx) => {
-        const option = document.createElement('option');
-        option.value = idx;
-        option.textContent = `${app.fullName} (${app.id} - T.C. ${app.tcNo}) [${app.status || 'İnceleme Bekliyor'}]`;
-        select.appendChild(option);
-      });
-
-      autoFillAccountFields(0);
-      document.getElementById('createAccountModal').classList.remove('hidden');
-    }
-
-    function closeCreateAccountModal() {
-      document.getElementById('createAccountModal').classList.add('hidden');
-    }
-
-    function autoFillAccountFields(index) {
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
-
-      const app = apps[index];
-      if (!app) return;
-
-      const usernameInput = document.getElementById('accountUsername');
-      const passInput = document.getElementById('accountPassword');
-
-      if (usernameInput) {
-        usernameInput.value = app.username || app.tcNo || app.fullName.toLowerCase().replace(/[^a-z0-9]/g, '');
-      }
-      if (passInput) {
-        passInput.value = app.password || Math.floor(100000 + Math.random() * 900000).toString();
-      }
-    }
-
-    function generateRandomPass() {
-      const passInput = document.getElementById('accountPassword');
-      if (passInput) {
-        const randPass = Math.floor(100000 + Math.random() * 900000).toString();
-        passInput.value = randPass;
-      }
-    }
-
-    function handleSaveAccountCredentials(e) {
-      e.preventDefault();
-      const index = document.getElementById('accountAppSelect').value;
-      const username = document.getElementById('accountUsername').value.trim();
-      const password = document.getElementById('accountPassword').value.trim();
-
-      if (!username || !password) {
-        alert('Lütfen kullanıcı adı ve şifreyi eksiksiz giriniz.');
-        return;
-      }
-
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(err){}
-
-      if (!apps[index]) return;
-
-      apps[index].username = username;
-      apps[index].password = password;
-      apps[index].status = 'Onaylandı';
-      apps[index].statusBadge = 'Onaylandı';
-
-      localStorage.setItem('ats_applications', JSON.stringify(apps));
-      syncDriverCredentialStore(apps[index]);
-      renderApplicationsTable();
-
-      alert(
-        `✅ SÜRÜCÜ HESABI BAŞARIYLA OLUŞTURULDU VE ONAYLANDI!\n\n` +
-        `Aday: ${apps[index].fullName}\n` +
-        `Kullanıcı Adı: ${username}\n` +
-        `Şifre: ${password}\n\n` +
-        `Sürücü bu bilgilerle üye giriş sayfasından (login.html) doğrudan oturum açabilir.`
-      );
-
-      closeCreateAccountModal();
-    }
-
-    // 7. EDIT DOCUMENT MODAL (DÜZENLE, ONAYLA, SİL)
-    function openEditDocModal(index) {
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
-
-      const app = apps[index];
-      if (!app) return;
-
-      document.getElementById('editAppIndex').value = index;
-      document.getElementById('editModalCandidateTitle').textContent = `${app.fullName} (${app.id})`;
-      document.getElementById('editFullName').value = app.fullName;
-      document.getElementById('editPhone').value = app.phone;
-      document.getElementById('editAppStatus').value = app.status || 'İnceleme Bekliyor';
-      document.getElementById('editTargetCountry').value = app.targetCountry || 'Almanya & Polonya';
-      document.getElementById('editMatchScore').value = app.matchScore || '%90 Uyum';
-
-      // Load Driver Account Credentials if created
-      const usernameInput = document.getElementById('editUsername');
-      const passwordInput = document.getElementById('editPassword');
-      const accountBadge = document.getElementById('editAccountBadge');
-
-      if (usernameInput) usernameInput.value = app.username || app.tcNo || '';
-      if (passwordInput) passwordInput.value = app.password || '';
-
-      if (accountBadge) {
-        if (app.username || app.password) {
-          accountBadge.textContent = '✓ Hesabı Tanımlı';
-          accountBadge.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300';
-        } else {
-          accountBadge.textContent = '⚠️ Henüz Oluşturulmadı';
-          accountBadge.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300';
-        }
-      }
-
-      if (app.docs) {
-        document.getElementById('editDocEhliyet').value = app.docs.ehliyet || 'İnceleme Bekliyor';
-        document.getElementById('editDocTakograf').value = app.docs.takograf || 'İnceleme Bekliyor';
-        document.getElementById('editDocPasaport').value = app.docs.pasaport || 'İnceleme Bekliyor';
-        document.getElementById('editDocSicil').value = app.docs.sicil || 'İnceleme Bekliyor';
-        document.getElementById('editDocSgk').value = app.docs.sgk || 'İnceleme Bekliyor';
-        document.getElementById('editDocAdr').value = app.docs.adr || 'Henüz Eklenmedi';
-      }
-
-      document.getElementById('editDocModal').classList.remove('hidden');
-    }
-
-    function closeEditDocModal() {
-      document.getElementById('editDocModal').classList.add('hidden');
-    }
-
-    function handleSaveEditDoc(e) {
-      e.preventDefault();
-      const index = document.getElementById('editAppIndex').value;
-      
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
-
-      if (!apps[index]) return;
-
-      const editUsernameVal = document.getElementById('editUsername') ? document.getElementById('editUsername').value.trim() : '';
-      const editPasswordVal = document.getElementById('editPassword') ? document.getElementById('editPassword').value.trim() : '';
-
-      if (editUsernameVal) apps[index].username = editUsernameVal;
-      if (editPasswordVal) apps[index].password = editPasswordVal;
-
-      let newStatus = document.getElementById('editAppStatus').value;
-
-      // Always ensure username & password exist
-      if (!apps[index].username) apps[index].username = editUsernameVal || apps[index].tcNo;
-      if (!apps[index].password) apps[index].password = editPasswordVal || apps[index].tcNo || '123456';
-      
-      if (newStatus === 'İnceleme Bekliyor') {
-        newStatus = 'Onaylandı'; // Force access upon edit save
-      }
-
-      apps[index].fullName = document.getElementById('editFullName').value.trim();
-      apps[index].phone = document.getElementById('editPhone').value.trim();
-      apps[index].status = newStatus;
-      apps[index].statusBadge = newStatus;
-      apps[index].targetCountry = document.getElementById('editTargetCountry').value;
-      apps[index].matchScore = document.getElementById('editMatchScore').value.trim();
-
-      apps[index].docs = {
-        ehliyet: document.getElementById('editDocEhliyet').value,
-        takograf: document.getElementById('editDocTakograf').value,
-        pasaport: document.getElementById('editDocPasaport').value,
-        sicil: document.getElementById('editDocSicil').value,
-        sgk: document.getElementById('editDocSgk').value,
-        adr: document.getElementById('editDocAdr').value
-      };
-
-      // Count approved docs
-      const approvedCount = Object.values(apps[index].docs).filter(v => v === 'Onaylandı').length;
-      apps[index].docCount = `${approvedCount} / 6 Onaylı`;
-
-      localStorage.setItem('ats_applications', JSON.stringify(apps));
-      syncDriverCredentialStore(apps[index]);
-      renderApplicationsTable();
-      alert(`✅ Aday evrak ve sürücü hesap bilgileri güncellendi!\n\nBaşvuru Statüsü: ${newStatus}\nKullanıcı Adı: ${apps[index].username || apps[index].tcNo}\nŞifre: ${apps[index].password || 'T.C. Kimlik No'}`);
-      closeEditDocModal();
-    }
-
-    function approveApplicationFromEditModal() {
-      const index = document.getElementById('editAppIndex').value;
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
-
-      if (!apps[index]) return;
-
-      const app = apps[index];
-
-      // Ensure username & password exist upon approval
-      const editUser = document.getElementById('editUsername') ? document.getElementById('editUsername').value.trim() : '';
-      const editPass = document.getElementById('editPassword') ? document.getElementById('editPassword').value.trim() : '';
-
-      app.username = editUser || app.username || app.tcNo;
-      app.password = editPass || app.password || app.tcNo || '123456';
-      app.status = 'Onaylandı';
-      app.statusBadge = 'Onaylandı';
-      if (app.docs) {
-        app.docs.ehliyet = 'Onaylandı';
-        app.docs.takograf = 'Onaylandı';
-        app.docs.pasaport = 'Onaylandı';
-        app.docs.sicil = 'Onaylandı';
-        app.docs.sgk = 'Onaylandı';
-        app.docs.adr = 'Onaylandı';
-      }
-      app.docCount = '6 / 6 Onaylı';
-
-      apps[index] = app;
-      localStorage.setItem('ats_applications', JSON.stringify(apps));
-      syncDriverCredentialStore(app);
-      renderApplicationsTable();
-
-      alert(
-        `✅ BAŞVURU BAŞARIYLA ONAYLANDI VE ERİŞİM İZNİ VERİLDİ!\n\n` +
-        `Aday: ${app.fullName}\n` +
-        `Giriş Kullanıcı Adı: ${app.username}\n` +
-        `Giriş Şifresi: ${app.password}\n\n` +
-        `Sürücü bu bilgilerle üye giriş sayfasından (login.html) doğrudan panel erişimi sağlayabilir.`
-      );
-      closeEditDocModal();
-    }
-
-    function deleteApplicationFromEditModal() {
-      const index = document.getElementById('editAppIndex').value;
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
-
-      if (!apps[index]) return;
-
-      const appId = apps[index].id;
-      const candidateName = apps[index].fullName;
-      if (confirm(`⚠️ BAŞVURU SİLME ONAYI:\n\n"${candidateName}" isimli adayın başvurusunu tamamen silmek istediğinize emin misiniz?\n\nBu işlem geri alınamaz!`)) {
-        apps.splice(index, 1);
-        localStorage.setItem('ats_applications', JSON.stringify(apps));
-        if (typeof window.deleteATSApplicationFromFirebase === 'function') {
-          window.deleteATSApplicationFromFirebase(appId);
-        }
-        renderApplicationsTable();
-        alert(`🗑️ "${candidateName}" isimli adayın başvurusu başarıyla silindi.`);
-        closeEditDocModal();
-      }
-    }
-
-    // 8. MESSAGING MODAL (YAZIŞMA KUTUSU)
-    function openMessageModal(index) {
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
-
-      const app = apps[index];
-      if (!app) return;
-
-      document.getElementById('msgAppId').value = app.id;
-      document.getElementById('msgModalTitle').textContent = `${app.fullName} İle Yazışma`;
-      document.getElementById('msgModalSubtitle').textContent = `Telefon: ${app.phone} • Ref: ${app.id}`;
-      
-      renderChatHistory(app.id);
-      document.getElementById('messageModal').classList.remove('hidden');
-    }
-
-    function closeMessageModal() {
-      document.getElementById('messageModal').classList.add('hidden');
-    }
-
-    function renderChatHistory(appId) {
-      const box = document.getElementById('chatHistoryBox');
-      if (!box) return;
-
-      let msgs = [];
-      try {
-        const str = localStorage.getItem('ats_messages_' + appId);
-        if (str) msgs = JSON.parse(str);
-      } catch(e){}
-
-      if (msgs.length === 0) {
-        box.innerHTML = `
-          <div class="text-center text-slate-400 py-8">
-            <span class="material-symbols-outlined text-[36px] text-slate-300">chat_bubble_outline</span>
-            <p class="mt-1 font-semibold text-slate-500">Bu aday ile henüz bir mesajlaşma geçmişi bulunmuyor.</p>
-            <p class="text-[11px] text-slate-400">Aşağıdaki kutudan sürücüye ilk mesajınızı iletebilirsiniz.</p>
-          </div>
-        `;
-        return;
-      }
-
-      box.innerHTML = '';
-      msgs.forEach(m => {
-        const isMe = m.sender.includes('Admin') || m.sender.includes('Murat');
-        const div = document.createElement('div');
-        div.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'}`;
-
-        div.innerHTML = `
-          <div class="max-w-[85%] rounded-xl px-3 py-2 ${isMe ? 'bg-blue-600 text-white shadow-sm' : 'bg-white text-slate-800 border border-slate-200'}">
-            <div class="font-bold text-[10px] ${isMe ? 'text-blue-100' : 'text-slate-500'} flex items-center justify-between gap-3 mb-0.5">
-              <span>${m.sender}</span>
-              <span>${m.time}</span>
-            </div>
-            <p class="leading-relaxed">${m.text}</p>
-          </div>
-        `;
-        box.appendChild(div);
-      });
-      box.scrollTop = box.scrollHeight;
-    }
-
-    function handleSendMessage(e) {
-      e.preventDefault();
-      const appId = document.getElementById('msgAppId').value;
-      const input = document.getElementById('newMessageInput');
-      const text = input.value.trim();
-
-      if (!text) return;
-
-      let msgs = [];
-      try {
-        const str = localStorage.getItem('ats_messages_' + appId);
-        if (str) msgs = JSON.parse(str);
-      } catch(err){}
-
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-
-      msgs.push({
-        sender: 'Yönetici (Murat K.)',
-        text: text,
-        time: timeStr
-      });
-
-      localStorage.setItem('ats_messages_' + appId, JSON.stringify(msgs));
-      input.value = '';
-      renderChatHistory(appId);
-    }
-
-    // Helper for Document Status Badges
-    function getDocStatusBadge(status) {
-      const s = status || 'İnceleme Bekliyor';
-      if (s === 'Onaylandı') {
-        return `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">✓ Onaylandı</span>`;
-      } else if (s.includes('Bekliyor') || s === 'Değerlendirmede') {
-        return `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">⏳ ${s}</span>`;
-      } else if (s === 'Reddedildi' || s === 'Eksik') {
-        return `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">✕ ${s}</span>`;
-      } else {
-        return `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">${s}</span>`;
-      }
-    }
-
-    // 9. CANDIDATE INSPECTION MODAL (İNCELE)
-    function openInspectModal(index) {
-      let apps = [];
-      try {
-        const str = localStorage.getItem('ats_applications');
-        if (str) apps = JSON.parse(str);
-      } catch(e){}
-
-      const app = apps[index];
-      if (!app) return;
-
-      const initials = app.fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'AD';
-
-      document.getElementById('inspectAvatarInitials').textContent = initials;
-      document.getElementById('inspectCandidateName').textContent = app.fullName;
-      document.getElementById('inspectRefId').textContent = app.id;
-      document.getElementById('inspectMatchScore').textContent = app.matchScore || '%90 Uyum';
-
-      document.getElementById('inspectTc').textContent = app.tcNo || '-';
-      document.getElementById('inspectPhone').textContent = app.phone || '-';
-      document.getElementById('inspectEmail').textContent = app.email || 'Belirtilmedi';
-
-      const birthStr = app.birthDate ? app.birthDate : '';
-      const cityStr = app.city ? app.city : '';
-      let birthAndCity = 'Belirtilmedi';
-      if (birthStr && cityStr) birthAndCity = `${birthStr} • ${cityStr}`;
-      else if (birthStr) birthAndCity = birthStr;
-      else if (cityStr) birthAndCity = cityStr;
-
-      document.getElementById('inspectBirth').textContent = birthAndCity;
-      document.getElementById('inspectAddress').textContent = app.address || 'Belirtilmedi';
-
-      document.getElementById('inspectLicenseClass').textContent = app.licenseClass || 'C+CE';
-      document.getElementById('inspectLicenseSerial').textContent = app.licenseSerial || 'Belirtilmedi';
-
-      const datesStr = (app.firstLicenseDate || app.ceLicenseDate)
-        ? `İlk: ${app.firstLicenseDate || '-'} | CE: ${app.ceLicenseDate || '-'}`
-        : 'Belirtilmedi';
-      document.getElementById('inspectLicenseDates').textContent = datesStr;
-      document.getElementById('inspectExpYears').textContent = app.experienceYears || 'Belirtilmedi';
-      document.getElementById('inspectTargetCountry').textContent = app.targetCountry || 'Almanya & Polonya';
-
-      document.getElementById('inspectPassportType').textContent = app.passportType ? app.passportType.toUpperCase() : 'Belirtilmedi';
-      document.getElementById('inspectPassportNo').textContent = app.passportNo || 'Belirtilmedi';
-      document.getElementById('inspectPassportExpiry').textContent = app.passportExpiry || 'Belirtilmedi';
-      document.getElementById('inspectCreatedAt').textContent = app.createdAt || 'Bugün';
-
-      // Account Info
-      const accUserEl = document.getElementById('inspectAccountUser');
-      const accPassEl = document.getElementById('inspectAccountPass');
-      if (accUserEl && accPassEl) {
-        if (app.username || app.password) {
-          accUserEl.textContent = app.username || app.tcNo;
-          accPassEl.textContent = app.password ? `(Şifre: ${app.password})` : '';
-        } else {
-          accUserEl.textContent = 'Tanımlanmadı';
-          accPassEl.textContent = '';
-        }
-      }
-
-      // Docs Grid
-      const docsGrid = document.getElementById('inspectDocsGrid');
-      if (docsGrid && app.docs) {
-        docsGrid.innerHTML = `
-          <div class="p-2 rounded bg-white border border-slate-200 flex items-center justify-between col-span-1">
-            <span class="text-slate-600 font-medium">Ehliyet:</span>
-            ${getDocStatusBadge(app.docs.ehliyet)}
-          </div>
-          <div class="p-2 rounded bg-white border border-slate-200 flex items-center justify-between col-span-1">
-            <span class="text-slate-600 font-medium">Takograf:</span>
-            ${getDocStatusBadge(app.docs.takograf)}
-          </div>
-          <div class="p-2 rounded bg-white border border-slate-200 flex items-center justify-between col-span-1">
-            <span class="text-slate-600 font-medium">Pasaport:</span>
-            ${getDocStatusBadge(app.docs.pasaport)}
-          </div>
-          <div class="p-2 rounded bg-white border border-slate-200 flex items-center justify-between col-span-1">
-            <span class="text-slate-600 font-medium">Adli Sicil:</span>
-            ${getDocStatusBadge(app.docs.sicil)}
-          </div>
-          <div class="p-2 rounded bg-white border border-slate-200 flex items-center justify-between col-span-1">
-            <span class="text-slate-600 font-medium">SGK Döküm:</span>
-            ${getDocStatusBadge(app.docs.sgk)}
-          </div>
-          <div class="p-2 rounded bg-white border border-slate-200 flex items-center justify-between col-span-1">
-            <span class="text-slate-600 font-medium">ADR Belgesi:</span>
-            ${getDocStatusBadge(app.docs.adr)}
-          </div>
-        `;
-      }
-
-      document.getElementById('btnInspectMsg').onclick = function() {
-        closeInspectModal();
-        openMessageModal(index);
-      };
-      document.getElementById('btnInspectEdit').onclick = function() {
-        closeInspectModal();
-        openEditDocModal(index);
-      };
-
-      document.getElementById('inspectCandidateModal').classList.remove('hidden');
-    }
-
-    // Initialize Page & Firebase Listener
-    document.addEventListener('DOMContentLoaded', function() {
-      initAdminSession();
-      loadCMSSettings();
-
-      // Start Firebase Realtime Listener for instant live updates
-      if (typeof window.listenATSApplications === 'function') {
-        window.listenATSApplications(function(updatedApps) {
-          renderApplicationsTable();
-        });
-      }
-
-      const docSelect = document.getElementById('doc-status');
-      const noteInput = document.getElementById('consultant-note');
-      if (docSelect && noteInput) {
-        docSelect.addEventListener('change', function(e) {
-          if (e.target.value === 'approved') {
-            noteInput.value = "SGK dökümü kontrol edildi, barkod onaylandı. 18 sayfalık analiz raporunuz hazırlandı.";
-          } else if (e.target.value === 'request-update') {
-            noteInput.value = "SGK dökümünün son 30 gün içinde e-Devlet'ten alınmış güncel barkodlu nüshası gerekiyor.";
-          } else if (e.target.value === 'reject') {
-            noteInput.value = "Belge okunaksız veya geçersiz format. Lütfen e-Devlet barkodlu PDF olarak tekrar yükleyin.";
-          }
-        });
-      }
-    });
   </script>
-  <!-- GLOBAL CLOUD DATABASE & REALTIME SYNC ENGINE -->
-  <script src="js/cloud-db.js?v=2.6.0"></script>
-  <!-- GOOGLE FIREBASE SDK (COMPAT MODULES) -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script src="js/firebase-db.js?v=2.6.0"></script>
-  <script src="js/app.js?v=2.6.0"></script>
 </body>
 </html>
