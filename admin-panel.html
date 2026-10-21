@@ -996,7 +996,7 @@
     // INITIALIZATION
     document.addEventListener('DOMContentLoaded', function () {
       initDatabase();
-      renderDashboard();
+      applyFilters();
 
       // Outside click handler for bulk actions dropdown
       window.addEventListener('click', function(e) {
@@ -1024,7 +1024,10 @@
         if (stored) {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            allApplications = parsed;
+            const existingIds = new Set(parsed.map(a => a.id || a.referenceNumber));
+            const missingSeeds = SEED_APPLICATIONS.filter(s => !existingIds.has(s.id));
+            allApplications = [...parsed, ...missingSeeds];
+            localStorage.setItem('ats_applications', JSON.stringify(allApplications));
           } else {
             allApplications = SEED_APPLICATIONS;
             localStorage.setItem('ats_applications', JSON.stringify(SEED_APPLICATIONS));
