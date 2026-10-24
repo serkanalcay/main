@@ -382,14 +382,14 @@
                     </label>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
-                        <input checked="" class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="CE">
+                        <input class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="CE">
                         <div class="flex flex-col">
                           <span class="font-label-lg text-label-lg font-bold text-on-surface">CE</span>
                           <span class="font-label-sm text-label-sm text-on-surface-variant">TIR / Çekici</span>
                         </div>
                       </label>
                       <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
-                        <input checked="" class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="C">
+                        <input class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="C">
                         <div class="flex flex-col">
                           <span class="font-label-lg text-label-lg font-bold text-on-surface">C</span>
                           <span class="font-label-sm text-label-sm text-on-surface-variant">Kamyon</span>
@@ -403,7 +403,7 @@
                         </div>
                       </label>
                       <label class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm">
-                        <input checked="" class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="B">
+                        <input class="w-5 h-5 rounded text-secondary-container accent-secondary-container focus:ring-secondary-container" name="licenseClass" type="checkbox" value="B">
                         <div class="flex flex-col">
                           <span class="font-label-lg text-label-lg font-bold text-on-surface">B</span>
                           <span class="font-label-sm text-label-sm text-on-surface-variant">Otomobil</span>
@@ -491,7 +491,7 @@
                     <div class="space-y-3">
                       <!-- SRC 3 -->
                       <label class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all shadow-sm">
-                        <input checked="" class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="SRC3">
+                        <input class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="SRC3">
                         <div class="flex-1">
                           <div class="flex items-center justify-between">
                             <span class="font-label-lg text-label-lg font-bold text-on-surface">SRC 3</span>
@@ -502,7 +502,7 @@
                       </label>
                       <!-- SRC 4 -->
                       <label class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all shadow-sm">
-                        <input checked="" class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="SRC4">
+                        <input class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="SRC4">
                         <div class="flex-1">
                           <div class="flex items-center justify-between">
                             <span class="font-label-lg text-label-lg font-bold text-on-surface">SRC 4</span>
@@ -528,7 +528,7 @@
                       </label>
                       <!-- Psikoteknik Raporu -->
                       <label class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all shadow-sm">
-                        <input checked="" class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="psikoteknik">
+                        <input class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" name="certificates" type="checkbox" value="psikoteknik">
                         <div class="flex-1">
                           <div class="flex items-center justify-between">
                             <span class="font-label-lg text-label-lg font-bold text-on-surface">Psikoteknik Değerlendirme Raporu</span>
@@ -688,16 +688,22 @@
                   </div>
 
                   <div class="space-y-3">
-                    <label class="flex items-start gap-3 cursor-pointer">
+                    <label class="flex items-start gap-3 cursor-pointer select-none">
                       <input class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" required="" type="checkbox">
                       <span class="font-body-sm text-body-sm text-on-surface leading-snug">
-                        <a class="font-bold text-secondary hover:underline underline-offset-2 inline-flex items-center gap-1" href="kvkk-aydinlatma-metni.html" target="_blank" rel="noopener noreferrer"><span>KVKK Aydınlatma Metni</span><span class="material-symbols-outlined text-[15px] align-middle">open_in_new</span></a>'ni ve <a class="font-semibold text-secondary hover:underline" href="javascript:void(0)" onclick="alert('Gizlilik Politikası: Kişisel verileriniz 6698 sayılı KVKK kapsamında gizlilikle korunmakta ve yalnızca istihdam süreçleri için işlenmektedir.');">Gizlilik Sözleşmesi</a>'ni okudum, kişisel verilerimin istihdam ve ehliyet denklik değerlendirmesi kapsamında işlenmesini kabul ediyorum. <span class="text-error">*</span>
+                        <strong class="text-on-surface">Zorunlu Alan:</strong> Narvenn Bilişim Teknolojileri Danışmanlık ve Ticaret Limited Şirketi'ne ait <a class="font-bold text-secondary hover:underline underline-offset-2 inline-flex items-center gap-1" href="kvkk-aydinlatma-metni.html" target="_blank" rel="noopener noreferrer"><span>KVKK Aydınlatma Metni</span><span class="material-symbols-outlined text-[15px] align-middle">open_in_new</span></a>'ni okudum ve anladım. <span class="text-error font-bold">*</span>
                       </span>
                     </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
+                    <label class="flex items-start gap-3 cursor-pointer select-none">
                       <input class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" required="" type="checkbox">
                       <span class="font-body-sm text-body-sm text-on-surface leading-snug">
-                        Formda beyan ettiğim tüm ehliyet, belge ve sürüş tecrübesi bilgilerinin doğru ve şahsıma ait olduğunu taahhüt ederim. <span class="text-error">*</span>
+                        <strong class="text-on-surface">Zorunlu Alan (İş Başvurusu Yapanlar İçin Açık Rıza):</strong> Avrupa'da tır şoförlüğü iş başvurusu süreçlerimin yürütülmesi, profilimin değerlendirilmesi ve uygun pozisyonlara yönlendirilebilmem amacıyla; kimlik, iletişim, ehliyet, takograf, vize, mesleki tecrübe ve varsa sağlık/psikoteknik rapor verilerimin Avrupa Birliği ve yurt dışındaki işveren lojistik firmalarına aktarılmasına açık rıza veriyorum. <span class="text-error font-bold">*</span>
+                      </span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer select-none">
+                      <input class="mt-1 w-5 h-5 rounded text-secondary-container accent-secondary-container" required="" type="checkbox">
+                      <span class="font-body-sm text-body-sm text-on-surface leading-snug">
+                        Formda beyan ettiğim tüm ehliyet, belge ve sürüş tecrübesi bilgilerinin doğru ve şahsıma ait olduğunu taahhüt ederim. <span class="text-error font-bold">*</span>
                       </span>
                     </label>
                   </div>

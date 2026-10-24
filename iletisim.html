@@ -409,11 +409,19 @@
                   <textarea class="w-full p-4 rounded-lg bg-surface-subtle text-on-surface font-body-md text-body-md outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary-container transition-all resize-none" id="message" placeholder="CE sınıfı sürücü belgem, dijital takograf kartım ve SRC belgelerim mevcut. Almanya veya Polonya lojistik filolarındaki evrak süreci ve işveren eşleşmeleri hakkında bilgi almak istiyorum..." required="" rows="5"></textarea>
                 </div>
 
-                <!-- KVKK Checkbox -->
-                <div class="flex items-start gap-3">
-                  <input class="w-5 h-5 rounded mt-0.5 accent-secondary-container cursor-pointer shrink-0" id="kvkk" required="" type="checkbox">
-                  <label class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer select-none" for="kvkk">
-                    <span class="font-semibold text-on-surface">KVKK Aydınlatma Metni</span> kapsamında kişisel verilerimin, yurt dışı işveren eşleşmesi ve evrak uygunluk danışmanlığı süreçlerinin yürütülmesi amacıyla işlenmesini ve e-posta yoluyla benimle iletişime geçilmesini onaylıyorum.
+                <!-- KVKK & Açık Rıza Checkboxes -->
+                <div class="space-y-3 pt-1">
+                  <label class="flex items-start gap-3 cursor-pointer select-none">
+                    <input class="w-5 h-5 rounded mt-0.5 accent-secondary-container cursor-pointer shrink-0" id="kvkk_aydinlatma" required="" type="checkbox">
+                    <span class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+                      <strong class="text-on-surface">Zorunlu Alan:</strong> Narvenn Bilişim Teknolojileri Danışmanlık ve Ticaret Limited Şirketi'ne ait <a class="font-bold text-secondary hover:underline underline-offset-2 inline-flex items-center gap-1" href="kvkk-aydinlatma-metni.html" target="_blank" rel="noopener noreferrer"><span>KVKK Aydınlatma Metni</span><span class="material-symbols-outlined text-[15px] align-middle">open_in_new</span></a>'ni okudum ve anladım. <span class="text-error font-bold">*</span>
+                    </span>
+                  </label>
+                  <label class="flex items-start gap-3 cursor-pointer select-none">
+                    <input class="w-5 h-5 rounded mt-0.5 accent-secondary-container cursor-pointer shrink-0" id="kvkk_acik_riza" required="" type="checkbox">
+                    <span class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+                      <strong class="text-on-surface">Zorunlu Alan (İş Başvurusu Yapanlar İçin Açık Rıza):</strong> Avrupa'da tır şoförlüğü iş başvurusu süreçlerimin yürütülmesi, profilimin değerlendirilmesi ve uygun pozisyonlara yönlendirilebilmem amacıyla; kimlik, iletişim, ehliyet, takograf, vize, mesleki tecrübe ve varsa sağlık/psikoteknik rapor verilerimin Avrupa Birliği ve yurt dışındaki işveren lojistik firmalarına aktarılmasına açık rıza veriyorum. <span class="text-error font-bold">*</span>
+                    </span>
                   </label>
                 </div>
 
