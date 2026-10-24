@@ -388,6 +388,10 @@
                   <span class="material-symbols-outlined text-error text-[18px]">archive</span>
                   Toplu: Arşive Kaldır
                 </button>
+                <button class="w-full text-left px-3 py-2 rounded-lg text-error hover:bg-error/10 font-body-sm text-body-sm flex items-center gap-space-xs cursor-pointer" type="button" onclick="handleBulkAction('sil')">
+                  <span class="material-symbols-outlined text-error text-[18px]">delete</span>
+                  Toplu: Seçilenleri Kalıcı Olarak Sil
+                </button>
                 <div class="my-1 border-t border-border-muted"></div>
                 <button class="w-full text-left px-3 py-2 rounded-lg text-error hover:bg-error/10 font-body-sm text-body-sm font-semibold flex items-center gap-space-xs cursor-pointer" type="button" onclick="clearAllApplications()">
                   <span class="material-symbols-outlined text-error text-[18px]">delete_sweep</span>
@@ -1822,17 +1826,56 @@
   <script src="js/cookie-consent.js?v=1.0.0"></script>
   <script src="js/analytics.js?v=1.0.0"></script>
   <script>
-    // SEED FILTER HELPER
-    const SEED_IDS = new Set([
+    // SIMULATION FILTER & PERSISTENT DELETION TOMBSTONE
+    const SIMULATION_IDS = new Set([
       'TR-2024-0981', 'TR-2024-0980', 'TR-2024-0979', 'TR-2024-0978',
-      'TR-2024-0977', 'TR-2024-0976', 'TR-2024-0975', 'TR-2024-0974'
+      'TR-2024-0977', 'TR-2024-0976', 'TR-2024-0975', 'TR-2024-0974',
+      'AVR-8492', 'AVR-8488', 'AVR-8480', 'AVR-8472', 'AVR-8461', 'AVR-8455', 'AVR-8449',
+      'AVR-5435', 'AVR-2026-9999', 'AVR-2026-9700'
     ]);
+
+    const SIMULATION_NAMES = new Set([
+      'murat demir', 'emre korkmaz', 'serkan yıldız', 'serkan yildiz',
+      'halil ibrahim taş', 'halil ibrahim tas', 'cemil özkan', 'cemil ozkan',
+      'oğuzhan aydın', 'oguzhan aydin', 'bülent şimşek', 'bulent simsek',
+      'ahmet yilmaz', 'ahmet yılmaz', 'can polat', 'aaaa'
+    ]);
+
+    function getDeletedIdsList() {
+      try {
+        const stored = localStorage.getItem('ats_deleted_ids');
+        const parsed = stored ? JSON.parse(stored) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch(e) {
+        return [];
+      }
+    }
+
+    function markIdAsDeleted(id) {
+      if (!id) return;
+      try {
+        const list = getDeletedIdsList();
+        if (!list.includes(id)) {
+          list.push(id);
+          localStorage.setItem('ats_deleted_ids', JSON.stringify(list));
+        }
+      } catch(e) {}
+    }
 
     function isRealApplication(a) {
       if (!a || typeof a !== 'object') return false;
       const id = a.id || a.referenceNumber || '';
       if (!id) return false;
-      if (SEED_IDS.has(id)) return false;
+      if (SIMULATION_IDS.has(id)) return false;
+
+      const delList = getDeletedIdsList();
+      if (delList.includes(id) || (a.referenceNumber && delList.includes(a.referenceNumber))) {
+        return false;
+      }
+
+      const name = (a.fullName || '').trim().toLowerCase();
+      if (SIMULATION_NAMES.has(name)) return false;
+
       return true;
     }
 
@@ -1982,7 +2025,6 @@
 
     function initAdminDashboard() {
       initDatabase();
-      ensurePoolSeedData();
       applyFilters();
       applyQuickFilters();
       renderPoolDashboard();
@@ -2079,6 +2121,19 @@
             applyFilters();
             applyQuickFilters();
             if (currentTab === 'aday-havuzu') renderPoolDashboard();
+          } else if (event.data.type === 'APPLICATION_DELETED') {
+            const delId = event.data.id;
+            if (delId) {
+              allApplications = allApplications.filter(a => a && (a.id || a.referenceNumber) !== delId);
+              applyFilters();
+              applyQuickFilters();
+              if (currentTab === 'aday-havuzu') renderPoolDashboard();
+            }
+          } else if (event.data.type === 'APPLICATIONS_CLEARED') {
+            allApplications = [];
+            applyFilters();
+            applyQuickFilters();
+            renderPoolDashboard();
           }
         }
       };
@@ -2118,18 +2173,25 @@
 
     // RESET ALL APPLICATIONS TO CLEAN 0 STATE
     function clearAllApplications() {
-      if (confirm('Paneldeki tüm aday kayıtlarını sıfırlamak ve portföyü 0 yapmak istediğinize emin misiniz?')) {
+      if (confirm('Paneldeki tüm aday kayıtlarını kalıcı olarak sıfırlamak ve portföyü 0 yapmak istediğinize emin misiniz?')) {
+        // Mark all current IDs as deleted to prevent resurrection
+        allApplications.forEach(a => {
+          const id = a.id || a.referenceNumber;
+          if (id) markIdAsDeleted(id);
+        });
         allApplications = [];
         localStorage.setItem('ats_pool_cleared', 'true');
         localStorage.setItem('ats_applications', JSON.stringify([]));
-        if (typeof window.syncApplicationsToCloud === 'function') {
+        if (typeof window.clearAllApplicationsFromHosting === 'function') {
+          window.clearAllApplicationsFromHosting();
+        } else if (typeof window.syncApplicationsToCloud === 'function') {
           window.syncApplicationsToCloud([]);
         }
         applyFilters();
         applyQuickFilters();
         renderPoolDashboard();
         toggleDropdown('bulk-dropdown');
-        alert('Tüm aday başvuruları başarıyla temizlendi. Panel sayaçları 0 olarak güncellendi.');
+        alert('Tüm aday başvuruları kalıcı olarak temizlendi. Panel sayaçları 0 olarak güncellendi.');
       }
     }
 
@@ -3163,6 +3225,9 @@
                 <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-warning-amber-hover hover:bg-secondary-container hover:text-on-secondary-fixed transition-all flex items-center justify-center shadow-xs cursor-pointer" title="Detaylı Forma Yükselt" onclick="upgradeQuickToDetailed('${app.id}')" type="button">
                   <span class="material-symbols-outlined text-[18px]">upgrade</span>
                 </button>
+                <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-error/70 hover:bg-error-container hover:text-error transition-all flex items-center justify-center shadow-xs cursor-pointer" title="Kaydı Sil" onclick="deleteCandidate('${app.id}')" type="button">
+                  <span class="material-symbols-outlined text-[18px]">delete</span>
+                </button>
               </div>
             </td>
           </tr>
@@ -3485,8 +3550,10 @@
     }
 
     function deleteCandidate(appId) {
-      if (confirm('Bu başvuru kaydını arşivlemek / silmek istediğinize emin misiniz?')) {
-        allApplications = allApplications.filter(a => a.id !== appId && a.referenceNumber !== appId);
+      if (!appId) return;
+      if (confirm('Bu başvuru kaydını kalıcı olarak silmek istediğinize emin misiniz?')) {
+        markIdAsDeleted(appId);
+        allApplications = allApplications.filter(a => a && a.id !== appId && a.referenceNumber !== appId);
         if (typeof window.deleteApplicationFromHosting === 'function') {
           window.deleteApplicationFromHosting(appId);
         }
@@ -3502,6 +3569,26 @@
       const selectedIds = Array.from(document.querySelectorAll('#applications-table-body .row-checkbox:checked')).map(cb => cb.value);
       if (selectedIds.length === 0) {
         alert('Lütfen işlem yapmak için en az bir aday seçiniz.');
+        return;
+      }
+
+      if (action === 'sil') {
+        if (confirm(`Seçilen ${selectedIds.length} adet başvuruyu kalıcı olarak silmek istediğinize emin misiniz?`)) {
+          selectedIds.forEach(id => {
+            markIdAsDeleted(id);
+            if (typeof window.deleteApplicationFromHosting === 'function') {
+              window.deleteApplicationFromHosting(id);
+            }
+          });
+          allApplications = allApplications.filter(a => !selectedIds.includes(a.id) && !selectedIds.includes(a.referenceNumber));
+          saveDatabase();
+          applyFilters();
+          applyQuickFilters();
+          renderPoolDashboard();
+          toggleDropdown('bulk-dropdown');
+          alert(`${selectedIds.length} adet başvuru kalıcı olarak silindi.`);
+          return;
+        }
         return;
       }
 
@@ -3588,125 +3675,11 @@
     // ADAY HAVUZU (CANDIDATE POOL) ENGINE
     // ==========================================
 
-    const INITIAL_POOL_CANDIDATES = [
-      {
-        id: 'AVR-8492',
-        referenceNumber: 'AVR-8492',
-        fullName: 'Murat Demir',
-        phone: '+90 532 418 90 23',
-        email: 'murat.demir@lojistikpostasi.com',
-        status: 'Görüşme Tamamlandı',
-        isApproved: true,
-        inPool: true,
-        approvalDate: '14.10.2024',
-        createdAt: '14.10.2024',
-        city: 'İstanbul',
-        licenseClasses: ['CE'],
-        experienceYears: '8 Yıl',
-        type: 'detailed'
-      },
-      {
-        id: 'AVR-8488',
-        referenceNumber: 'AVR-8488',
-        fullName: 'Emre Korkmaz',
-        phone: '+90 544 612 45 88',
-        email: 'emre.korkmaz77@gmail.com',
-        status: 'Görüşme Tamamlandı',
-        isApproved: true,
-        inPool: true,
-        approvalDate: '12.10.2024',
-        createdAt: '12.10.2024',
-        city: 'Bursa',
-        licenseClasses: ['CE'],
-        experienceYears: '6 Yıl',
-        type: 'detailed'
-      },
-      {
-        id: 'AVR-8480',
-        referenceNumber: 'AVR-8480',
-        fullName: 'Serkan Yıldız',
-        phone: '+90 530 892 11 04',
-        email: 'serkan.yildiz@outlook.com',
-        status: 'Görüşme Tamamlandı',
-        isApproved: true,
-        inPool: true,
-        approvalDate: '09.10.2024',
-        createdAt: '09.10.2024',
-        city: 'Ankara',
-        licenseClasses: ['CE'],
-        experienceYears: '10 Yıl',
-        type: 'detailed'
-      },
-      {
-        id: 'AVR-8472',
-        referenceNumber: 'AVR-8472',
-        fullName: 'Halil İbrahim Taş',
-        phone: '+90 535 220 73 99',
-        email: 'hitashofer@yandex.com',
-        status: 'Görüşme Tamamlandı',
-        isApproved: true,
-        inPool: true,
-        approvalDate: '06.10.2024',
-        createdAt: '06.10.2024',
-        city: 'İzmir',
-        licenseClasses: ['CE'],
-        experienceYears: '7 Yıl',
-        type: 'detailed'
-      },
-      {
-        id: 'AVR-8461',
-        referenceNumber: 'AVR-8461',
-        fullName: 'Cemil Özkan',
-        phone: '+90 552 740 18 65',
-        email: 'cemil.ozkan@hotmail.com',
-        status: 'Görüşme Tamamlandı',
-        isApproved: true,
-        inPool: true,
-        approvalDate: '01.10.2024',
-        createdAt: '01.10.2024',
-        city: 'Kocaeli',
-        licenseClasses: ['CE'],
-        experienceYears: '9 Yıl',
-        type: 'detailed'
-      },
-      {
-        id: 'AVR-8455',
-        referenceNumber: 'AVR-8455',
-        fullName: 'Oğuzhan Aydın',
-        phone: '+90 536 991 30 52',
-        email: 'o.aydin.transport@gmail.com',
-        status: 'Görüşme Tamamlandı',
-        isApproved: true,
-        inPool: true,
-        approvalDate: '28.09.2024',
-        createdAt: '28.09.2024',
-        city: 'Samsun',
-        licenseClasses: ['CE'],
-        experienceYears: '5 Yıl',
-        type: 'detailed'
-      },
-      {
-        id: 'AVR-8449',
-        referenceNumber: 'AVR-8449',
-        fullName: 'Bülent Şimşek',
-        phone: '+90 541 333 82 19',
-        email: 'bulentsimsek@tirportali.net',
-        status: 'Görüşme Tamamlandı',
-        isApproved: true,
-        inPool: true,
-        approvalDate: '25.09.2024',
-        createdAt: '25.09.2024',
-        city: 'Adana',
-        licenseClasses: ['CE'],
-        experienceYears: '12 Yıl',
-        type: 'detailed'
-      }
-    ];
+    const INITIAL_POOL_CANDIDATES = [];
 
     function isPoolCandidate(app) {
       if (!app || typeof app !== 'object') return false;
-      const id = app.id || app.referenceNumber || '';
-      if (SEED_IDS.has(id)) return false;
+      if (!isRealApplication(app)) return false;
 
       const status = (app.status || '').trim();
       const isInterviewDone = status === 'Görüşme Tamamlandı' ||
@@ -3720,15 +3693,7 @@
     }
 
     function ensurePoolSeedData() {
-      const hasApproved = allApplications.some(isPoolCandidate);
-      if (!hasApproved && !localStorage.getItem('ats_pool_cleared')) {
-        INITIAL_POOL_CANDIDATES.forEach(c => {
-          if (!allApplications.some(a => (a.id || a.referenceNumber) === c.id)) {
-            allApplications.push(c);
-          }
-        });
-        saveDatabase();
-      }
+      // Simulation mode completely disabled - only real applications
     }
 
     function renderPoolDashboard(customList) {
@@ -3849,10 +3814,18 @@
               <button 
                 type="button" 
                 onclick="removeCandidate('${cand.id || cand.referenceNumber}', '${encodeURIComponent(name)}')" 
-                title="Havuzdan Çıkart" 
-                class="w-9 h-9 rounded-lg hover:bg-error-container flex items-center justify-center text-outline hover:text-error transition-all cursor-pointer"
+                title="Havuzdan Çıkart (İncelemeye Al)" 
+                class="w-9 h-9 rounded-lg hover:bg-surface-container flex items-center justify-center text-outline hover:text-on-surface transition-all cursor-pointer"
               >
                 <span class="material-symbols-outlined text-[20px]">person_remove</span>
+              </button>
+              <button 
+                type="button" 
+                onclick="deleteCandidate('${cand.id || cand.referenceNumber}')" 
+                title="Adayı Kalıcı Olarak Sil" 
+                class="w-9 h-9 rounded-lg hover:bg-error-container flex items-center justify-center text-outline hover:text-error transition-all cursor-pointer"
+              >
+                <span class="material-symbols-outlined text-[20px]">delete</span>
               </button>
             </div>
           </td>
@@ -3921,7 +3894,7 @@
 
     function removeCandidate(appId, nameEncoded) {
       const name = decodeURIComponent(nameEncoded);
-      const confirmed = window.confirm(`"${name}" isimli onaylı adayı havuzdan çıkartmak istediğinize emin misiniz?`);
+      const confirmed = window.confirm(`"${name}" isimli onaylı adayı havuzdan çıkartıp evrak inceleme masasına almak istediğinize emin misiniz?`);
       if (confirmed) {
         const app = allApplications.find(a => (a.id || a.referenceNumber) === appId);
         if (app) {
@@ -3943,17 +3916,15 @@
       if (checkedBoxes.length === 0) return;
 
       const count = checkedBoxes.length;
-      const confirmed = window.confirm(`Seçilen ${count} adayı havuzdan çıkartmak istediğinize emin misiniz?`);
+      const confirmed = window.confirm(`Seçilen ${count} adayı sistemden kalıcı olarak silmek istediğinize emin misiniz?`);
       if (confirmed) {
         checkedBoxes.forEach(cb => {
           const appId = cb.getAttribute('data-id');
-          const app = allApplications.find(a => (a.id || a.referenceNumber) === appId);
-          if (app) {
-            app.status = 'Evrak İncelemede';
-            app.isApproved = false;
-            app.inPool = false;
-            if (typeof window.updateApplicationOnHosting === 'function') {
-              window.updateApplicationOnHosting(app);
+          if (appId) {
+            markIdAsDeleted(appId);
+            allApplications = allApplications.filter(a => (a.id || a.referenceNumber) !== appId);
+            if (typeof window.deleteApplicationFromHosting === 'function') {
+              window.deleteApplicationFromHosting(appId);
             }
           }
         });

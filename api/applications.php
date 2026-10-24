@@ -279,9 +279,22 @@ if ($method === 'PUT') {
 // -------------------------------------------------------------
 if ($method === 'DELETE') {
     $appId = $_GET['id'] ?? null;
-    if (!$appId) {
+    $action = $_GET['action'] ?? null;
+    if (!$appId && !$action) {
         $input = getJsonInput();
         $appId = $input['id'] ?? null;
+        $action = $input['action'] ?? null;
+    }
+
+    // Toplu sıfırlama talebi
+    if ($action === 'clear_all' || $appId === 'ALL') {
+        if ($USE_MYSQL) {
+            $pdo = getPdoConnection($DB_HOST, $DB_NAME, $DB_USER, $DB_PASS);
+            if ($pdo) $pdo->exec("TRUNCATE TABLE ats_applications");
+        } else {
+            fileDbSaveAll($JSON_FILE, []);
+        }
+        respond(true, 'Tüm başvurular hosting veritabanından tamamen silindi', []);
     }
 
     if (!$appId) {
