@@ -2032,7 +2032,7 @@
 
       const bounceRate = data.totalVisitors > 0 
         ? Math.min(100, Math.round(((data.bounceCount || 0) / data.totalVisitors) * 100)) 
-        : 24;
+        : 0;
       if (elBounceRate) elBounceRate.textContent = `%${bounceRate}`;
 
       const conv = data.conversions || {};
@@ -2045,7 +2045,7 @@
       if (elAvgApplyTime) elAvgApplyTime.textContent = formatDuration(avgApplyTime);
       if (elConversionRate) elConversionRate.textContent = `%${convPct} Dönüşüm`;
       if (elApplyClicks) elApplyClicks.textContent = totalClicks.toLocaleString('tr-TR');
-      if (elConversionBar) elConversionBar.style.width = `${Math.min(100, Math.max(8, convPct))}%`;
+      if (elConversionBar) elConversionBar.style.width = `${Math.min(100, convPct)}%`;
 
       // 2. Sayfa Kalma Süreleri Tablosu ("Hangi Sayfada Çok Durdukları")
       const pagesTbody = document.getElementById('traffic-pages-table-body');
@@ -2062,25 +2062,30 @@
         // En çok kalınan süreye göre sırala
         pagesList.sort((a, b) => b.duration - a.duration);
 
-        const totalPagesDuration = pagesList.reduce((sum, p) => sum + p.duration, 0) || 1;
+        const totalPagesDuration = pagesList.reduce((sum, p) => sum + p.duration, 0) || 0;
         const topPageItem = pagesList[0];
 
-        if (topPageItem) {
+        if (topPageItem && topPageItem.views > 0) {
           if (elTopPage) elTopPage.textContent = topPageItem.name;
           if (elTopPageDuration) elTopPageDuration.textContent = formatDuration(topPageItem.avgDuration);
+        } else {
+          if (elTopPage) elTopPage.textContent = 'Canlı Veri Bekleniyor';
+          if (elTopPageDuration) elTopPageDuration.textContent = '0 sn';
         }
 
         pagesList.forEach((p, idx) => {
-          const sharePct = Math.round((p.duration / totalPagesDuration) * 100);
-          const isTop = idx === 0;
+          const sharePct = totalPagesDuration > 0 && p.duration > 0 ? Math.round((p.duration / totalPagesDuration) * 100) : 0;
+          const isTop = idx === 0 && p.duration > 0;
 
           let badgeHtml = '';
           if (isTop) {
             badgeHtml = `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-700 border border-amber-500/30"><span class="material-symbols-outlined text-[14px]">military_tech</span> En Çok Durulan</span>`;
           } else if (p.avgDuration > 90) {
             badgeHtml = `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-700">Yüksek İlgi</span>`;
-          } else {
+          } else if (p.views > 0) {
             badgeHtml = `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-surface-container text-on-surface-variant">Standart İnceleme</span>`;
+          } else {
+            badgeHtml = `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-surface-container text-outline">Ziyaret Bekleniyor</span>`;
           }
 
           const tr = document.createElement('tr');
@@ -2198,7 +2203,7 @@
       const totalCookieResponses = (cookieData.accepted || 0) + (cookieData.necessaryOnly || 0);
       const cookieAcceptPct = totalCookieResponses > 0 
         ? Math.round(((cookieData.accepted || 0) / totalCookieResponses) * 100) 
-        : 94;
+        : 0;
 
       if (elCookieAccepted) elCookieAccepted.textContent = (cookieData.accepted || 0).toLocaleString('tr-TR');
       if (elCookieNecessary) elCookieNecessary.textContent = (cookieData.necessaryOnly || 0).toLocaleString('tr-TR');

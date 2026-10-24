@@ -22,85 +22,61 @@ if (!is_dir($DATA_DIR)) {
 
 function getDefaultAnalytics() {
     return [
-        'totalVisitors' => 1482,
-        'uniqueVisitors' => 520,
-        'totalPageviews' => 3890,
-        'totalDurationSeconds' => 418500,
-        'averageDurationSeconds' => 165,
-        'bounceCount' => 148,
+        'isRealOnly' => true,
+        'totalVisitors' => 0,
+        'uniqueVisitors' => 0,
+        'totalPageviews' => 0,
+        'totalDurationSeconds' => 0,
+        'averageDurationSeconds' => 0,
+        'bounceCount' => 0,
         'pages' => [
             'Ana Sayfa' => [
                 'path' => 'index.html',
-                'views' => 1840,
-                'durationSeconds' => 193200,
-                'avgDurationSeconds' => 105
+                'views' => 0,
+                'durationSeconds' => 0,
+                'avgDurationSeconds' => 0
             ],
             'Başvuru Formu' => [
                 'path' => 'basvuru.html',
-                'views' => 890,
-                'durationSeconds' => 130830,
-                'avgDurationSeconds' => 147
+                'views' => 0,
+                'durationSeconds' => 0,
+                'avgDurationSeconds' => 0
             ],
             'Hizmetlerimiz' => [
                 'path' => 'hizmetler.html',
-                'views' => 520,
-                'durationSeconds' => 45760,
-                'avgDurationSeconds' => 88
+                'views' => 0,
+                'durationSeconds' => 0,
+                'avgDurationSeconds' => 0
             ],
             'Hakkımızda' => [
                 'path' => 'hakkimizda.html',
-                'views' => 380,
-                'durationSeconds' => 30780,
-                'avgDurationSeconds' => 81
+                'views' => 0,
+                'durationSeconds' => 0,
+                'avgDurationSeconds' => 0
             ],
             'İletişim' => [
                 'path' => 'iletisim.html',
-                'views' => 260,
-                'durationSeconds' => 18980,
-                'avgDurationSeconds' => 73
+                'views' => 0,
+                'durationSeconds' => 0,
+                'avgDurationSeconds' => 0
             ]
         ],
         'conversions' => [
-            'totalApplyClicks' => 126,
-            'totalApplyClickTimeSeconds' => 6048,
-            'avgApplyClickTimeSeconds' => 48,
+            'totalApplyClicks' => 0,
+            'totalApplyClickTimeSeconds' => 0,
+            'avgApplyClickTimeSeconds' => 0,
             'clickDistribution' => [
-                '0-30s' => 38,
-                '30-60s' => 49,
-                '1-2m' => 25,
-                '2-5m' => 10,
-                '5m+' => 4
+                '0-30s' => 0,
+                '30-60s' => 0,
+                '1-2m' => 0,
+                '2-5m' => 0,
+                '5m+' => 0
             ],
-            'recentClicks' => [
-                [
-                    'id' => 'CLK-901',
-                    'time' => '14:22',
-                    'date' => date('d.m.Y'),
-                    'seconds' => 38,
-                    'page' => 'Ana Sayfa',
-                    'label' => 'Hemen Başvur Butonu'
-                ],
-                [
-                    'id' => 'CLK-902',
-                    'time' => '15:10',
-                    'date' => date('d.m.Y'),
-                    'seconds' => 54,
-                    'page' => 'Hizmetlerimiz',
-                    'label' => 'Kayıt Formunu Başlat'
-                ],
-                [
-                    'id' => 'CLK-903',
-                    'time' => '16:05',
-                    'date' => date('d.m.Y'),
-                    'seconds' => 42,
-                    'page' => 'Ana Sayfa',
-                    'label' => 'Hero Başvuru CTA'
-                ]
-            ]
+            'recentClicks' => []
         ],
         'cookieConsent' => [
-            'accepted' => 488,
-            'necessaryOnly' => 32
+            'accepted' => 0,
+            'necessaryOnly' => 0
         ],
         'lastUpdated' => time() * 1000
     ];

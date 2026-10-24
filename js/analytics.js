@@ -27,100 +27,84 @@
     return 'api/analytics.php';
   }
 
-  // Varsayılan Başlangıç Analitik Verisi
+  // Varsayılan Başlangıç Analitik Verisi (Sadece Gerçek Veriler İçin Sıfırdan Başlangıç)
   function getDefaultData() {
     return {
-      totalVisitors: 1482,
-      uniqueVisitors: 520,
-      totalPageviews: 3890,
-      totalDurationSeconds: 418500,
-      averageDurationSeconds: 165,
-      bounceCount: 148,
+      isRealOnly: true,
+      totalVisitors: 0,
+      uniqueVisitors: 0,
+      totalPageviews: 0,
+      totalDurationSeconds: 0,
+      averageDurationSeconds: 0,
+      bounceCount: 0,
       pages: {
         'Ana Sayfa': {
           path: 'index.html',
-          views: 1840,
-          durationSeconds: 193200,
-          avgDurationSeconds: 105
+          views: 0,
+          durationSeconds: 0,
+          avgDurationSeconds: 0
         },
         'Başvuru Formu': {
           path: 'basvuru.html',
-          views: 890,
-          durationSeconds: 130830,
-          avgDurationSeconds: 147
+          views: 0,
+          durationSeconds: 0,
+          avgDurationSeconds: 0
         },
         'Hizmetlerimiz': {
           path: 'hizmetler.html',
-          views: 520,
-          durationSeconds: 45760,
-          avgDurationSeconds: 88
+          views: 0,
+          durationSeconds: 0,
+          avgDurationSeconds: 0
         },
         'Hakkımızda': {
           path: 'hakkimizda.html',
-          views: 380,
-          durationSeconds: 30780,
-          avgDurationSeconds: 81
+          views: 0,
+          durationSeconds: 0,
+          avgDurationSeconds: 0
         },
         'İletişim': {
           path: 'iletisim.html',
-          views: 260,
-          durationSeconds: 18980,
-          avgDurationSeconds: 73
+          views: 0,
+          durationSeconds: 0,
+          avgDurationSeconds: 0
         }
       },
       conversions: {
-        totalApplyClicks: 126,
-        totalApplyClickTimeSeconds: 6048,
-        avgApplyClickTimeSeconds: 48,
+        totalApplyClicks: 0,
+        totalApplyClickTimeSeconds: 0,
+        avgApplyClickTimeSeconds: 0,
         clickDistribution: {
-          '0-30s': 38,
-          '30-60s': 49,
-          '1-2m': 25,
-          '2-5m': 10,
-          '5m+': 4
+          '0-30s': 0,
+          '30-60s': 0,
+          '1-2m': 0,
+          '2-5m': 0,
+          '5m+': 0
         },
-        recentClicks: [
-          {
-            id: 'CLK-901',
-            time: '14:22',
-            date: '24.10.2026',
-            seconds: 38,
-            page: 'Ana Sayfa',
-            label: 'Hemen Başvur Butonu'
-          },
-          {
-            id: 'CLK-902',
-            time: '15:10',
-            date: '24.10.2026',
-            seconds: 54,
-            page: 'Hizmetlerimiz',
-            label: 'Kayıt Formunu Başlat'
-          },
-          {
-            id: 'CLK-903',
-            time: '16:05',
-            date: '24.10.2026',
-            seconds: 42,
-            page: 'Ana Sayfa',
-            label: 'Hero Başvuru CTA'
-          }
-        ]
+        recentClicks: []
       },
       cookieConsent: {
-        accepted: 488,
-        necessaryOnly: 32
+        accepted: 0,
+        necessaryOnly: 0
       },
       lastUpdated: Date.now()
     };
   }
 
-  // Veriyi Yükleme
+  // Veriyi Yükleme (Geçmiş simülasyon/mock verilerini temizler, yalnızca gerçek veriyi tutar)
   function getAnalyticsData() {
+    const PURGE_FLAG = 'ats_purged_simulation_v3';
     try {
+      if (localStorage.getItem(PURGE_FLAG) !== 'true') {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.setItem(PURGE_FLAG, 'true');
+        const initial = getDefaultData();
+        saveAnalyticsData(initial, false);
+        return initial;
+      }
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (parsed && typeof parsed === 'object') {
+        if (parsed && typeof parsed === 'object' && parsed.isRealOnly) {
           return parsed;
         }
       }
@@ -429,53 +413,7 @@
     saveAnalyticsData(data, true);
   };
 
-  // 5. TEST & SİMÜLASYON FONKSİYONU (Admin Panel İçin)
-  window.simulateTrafficVisit = function (options = {}) {
-    const data = getAnalyticsData();
-    const durationSec = options.durationSeconds || Math.floor(45 + Math.random() * 180);
-    const clickSeconds = options.clickSeconds || Math.floor(15 + Math.random() * 75);
-    const page = options.page || ['Ana Sayfa', 'Başvuru Formu', 'Hizmetlerimiz', 'Hakkımızda', 'İletişim'][Math.floor(Math.random() * 5)];
-
-    data.totalVisitors = (data.totalVisitors || 0) + 1;
-    data.uniqueVisitors = (data.uniqueVisitors || 0) + 1;
-    data.totalPageviews = (data.totalPageviews || 0) + Math.floor(1 + Math.random() * 3);
-    data.totalDurationSeconds = (data.totalDurationSeconds || 0) + durationSec;
-    data.averageDurationSeconds = Math.round(data.totalDurationSeconds / data.totalVisitors);
-
-    if (!data.pages[page]) {
-      data.pages[page] = { path: '', views: 0, durationSeconds: 0, avgDurationSeconds: 0 };
-    }
-    data.pages[page].views += 1;
-    data.pages[page].durationSeconds += durationSec;
-    data.pages[page].avgDurationSeconds = Math.round(data.pages[page].durationSeconds / data.pages[page].views);
-
-    // Başvuru tıklaması simülasyonu
-    data.conversions.totalApplyClicks = (data.conversions.totalApplyClicks || 0) + 1;
-    data.conversions.totalApplyClickTimeSeconds = (data.conversions.totalApplyClickTimeSeconds || 0) + clickSeconds;
-    data.conversions.avgApplyClickTimeSeconds = Math.round(data.conversions.totalApplyClickTimeSeconds / data.conversions.totalApplyClicks);
-
-    let bucket = '0-30s';
-    if (clickSeconds > 300) bucket = '5m+';
-    else if (clickSeconds > 120) bucket = '2-5m';
-    else if (clickSeconds > 60) bucket = '1-2m';
-    else if (clickSeconds > 30) bucket = '30-60s';
-    data.conversions.clickDistribution[bucket] = (data.conversions.clickDistribution[bucket] || 0) + 1;
-
-    data.conversions.recentClicks.unshift({
-      id: 'SIM-' + Math.floor(100 + Math.random() * 900),
-      time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
-      date: new Date().toLocaleDateString('tr-TR'),
-      seconds: clickSeconds,
-      page: page,
-      label: 'Simüle Başvuru Tıklaması'
-    });
-    data.conversions.recentClicks = data.conversions.recentClicks.slice(0, 25);
-
-    saveAnalyticsData(data, true);
-    return data;
-  };
-
-  // 6. VERİLERİ SIFIRLAMA FONKSİYONU
+  // 5. VERİLERİ SIFIRLAMA FONKSİYONU
   window.resetTrafficAnalytics = function () {
     const fresh = getDefaultData();
     fresh.totalVisitors = 0;
@@ -504,7 +442,6 @@
   window.atsAnalytics = {
     getData: getAnalyticsData,
     saveData: saveAnalyticsData,
-    simulateVisit: window.simulateTrafficVisit,
     resetData: window.resetTrafficAnalytics,
     trackApply: trackApplyConversion
   };
