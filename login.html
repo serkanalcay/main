@@ -621,19 +621,21 @@
 
       // 1. ADMIN LOGIN CHECK (Only if Admin tab is active)
       if (currentLoginTab === 'admin') {
-        if (normInputUser === 'serkanalcay52' || normInputUser === 'admin' || normInputUser === 'serkanalcay' || normInputUser === 'serkan') {
-          if (rawPass === '0817Serkanalcay*' || rawPass === '0817Serkanalcay' || normInputPass === '0817serkanalcay') {
+        if (normInputUser === 'serkanalcay52' || normInputUser === 'serkanalcay52@avrupatirsoforu.com') {
+          if (rawPass === '123558Serkan*') {
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span>Yönetici Girişi Yapılıyor...</span>';
 
-            sessionStorage.removeItem('user_session');
-            localStorage.removeItem('user_session');
+            sessionStorage.setItem('ats_admin_auth_v1', 'authenticated');
+            sessionStorage.setItem('ats_admin_user', 'serkanalcay52');
+            localStorage.setItem('ats_admin_auth_v1', 'authenticated');
+            localStorage.setItem('ats_admin_user', 'serkanalcay52');
 
             const sessionData = {
               loggedIn: true,
               role: 'admin',
               name: 'Serkan Alçay',
-              username: normInputUser,
+              username: 'serkanalcay52',
               tc: 'serkanalcay52',
               ref: '#ATS-ADMIN-52',
               loginTime: new Date().toISOString()
@@ -650,6 +652,9 @@
             alert('❌ HATA: HATALI YÖNETİCİ ŞİFRESİ!');
             return;
           }
+        } else {
+          alert('❌ HATA: HATALI KULLANICI ADI! Yalnızca yetkili yönetici (serkanalcay52) giriş yapabilir.');
+          return;
         }
       }
 

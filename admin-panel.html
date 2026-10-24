@@ -158,7 +158,90 @@
   </script>
 </head>
 
-<body class="bg-background font-body-md text-body-md text-on-surface antialiased min-h-screen">
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen">
+
+  <!-- AUTH LOGIN GATE SCREEN -->
+  <div id="admin-login-screen" class="min-h-screen w-full flex flex-col justify-center items-center py-space-xl px-gutter-mobile sm:px-gutter bg-surface">
+    <div class="flex flex-col w-full items-center justify-center relative">
+      <div class="w-full max-w-md relative z-10 px-gutter-mobile sm:px-0">
+        <div class="bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden relative">
+          <div class="h-1.5 w-full bg-secondary-container"></div>
+          <div class="p-space-lg sm:p-space-xl flex flex-col items-center">
+            <div class="flex items-center gap-space-sm mb-space-xs">
+              <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-secondary-container shadow-sm">
+                <span class="material-symbols-outlined text-[24px]">local_shipping</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-headline-sm text-headline-sm text-on-surface font-extrabold tracking-tight leading-none">avrupatirsoforu<span class="text-secondary">.com</span></span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mt-1">Yönetim Portalı</span>
+              </div>
+            </div>
+            <div class="w-full text-center mt-space-md mb-space-lg">
+              <h1 class="font-headline-md text-headline-md text-on-surface">Yönetim Paneli Girişi</h1>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Yetkili operasyon ve sistem erişim noktası</p>
+            </div>
+            <form class="w-full flex flex-col space-y-space-md" id="adminLoginForm" onsubmit="event.preventDefault(); handleLogin();">
+              <div class="flex flex-col">
+                <label class="font-label-md text-label-md text-on-surface mb-1 flex items-center gap-1" for="identifier">
+                  <span>Kullanıcı Adı veya E-posta</span>
+                </label>
+                <div class="relative flex items-center">
+                  <span class="material-symbols-outlined absolute left-3.5 text-outline pointer-events-none text-[20px]">account_circle</span>
+                  <input autocomplete="username" class="w-full h-12 pl-11 pr-4 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg outline-none transition-all placeholder:text-outline/70 focus:bg-surface-container-lowest focus:shadow-sm" id="identifier" name="identifier" placeholder="ornek@avrupatirsoforu.com veya kullanici_adi" required="" type="text"/>
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <div class="flex items-center justify-between mb-1">
+                  <label class="font-label-md text-label-md text-on-surface flex items-center gap-1" for="password">
+                    <span>Şifre</span>
+                  </label>
+                  <a class="font-label-sm text-label-sm text-secondary hover:text-warning-amber-hover transition-colors cursor-pointer" href="javascript:void(0)" onclick="openResetNotice()">
+                    Şifremi Unuttum
+                  </a>
+                </div>
+                <div class="relative flex items-center">
+                  <span class="material-symbols-outlined absolute left-3.5 text-outline pointer-events-none text-[20px]">lock</span>
+                  <input autocomplete="current-password" class="w-full h-12 pl-11 pr-11 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg outline-none transition-all placeholder:text-outline/70 focus:bg-surface-container-lowest focus:shadow-sm" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+                  <button aria-label="Şifreyi Göster" class="absolute right-3 text-outline hover:text-on-surface flex items-center justify-center p-1 rounded transition-colors" id="togglePasswordBtn" onclick="togglePasswordVisibility()" type="button">
+                    <span class="material-symbols-outlined text-[20px]" id="eyeIcon">visibility</span>
+                  </button>
+                </div>
+              </div>
+              <div class="flex items-center justify-between pt-1">
+                <label class="flex items-center gap-2 cursor-pointer select-none">
+                  <input class="w-4 h-4 rounded text-secondary focus:ring-0 focus:outline-none accent-secondary-container cursor-pointer" id="rememberMe" type="checkbox"/>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant">Beni bu cihazda hatırla</span>
+                </label>
+                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                  Sistem Aktif
+                </span>
+              </div>
+              <div class="pt-2">
+                <button class="w-full h-12 bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-lg text-label-lg rounded-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]" id="submitButton" type="submit">
+                  <span id="buttonText">Giriş Yap</span>
+                  <span class="material-symbols-outlined text-[20px]" id="buttonIcon">arrow_forward</span>
+                </button>
+              </div>
+            </form>
+            <div class="hidden w-full mt-space-md p-space-sm rounded-lg bg-surface-container text-center transition-all" id="statusMessage">
+              <p class="font-body-sm text-body-sm text-on-surface" id="statusText"></p>
+            </div>
+            <div class="w-full mt-space-lg pt-space-md flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-outline text-[16px]">verified_user</span>
+              <span class="font-label-sm text-label-sm text-outline">256-Bit SSL Uçtan Uca Şifreli • Yalnızca Yetkili Personel</span>
+            </div>
+          </div>
+        </div>
+        <div class="w-full text-center mt-space-md">
+          <span class="font-label-sm text-label-sm text-outline tracking-wider">AVRUPATIRSOFORU BİLİŞİM VE LOJİSTİK OPERASYONLARI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTHENTICATED ADMIN DASHBOARD WRAPPER (HIDDEN UNTIL AUTHENTICATED) -->
+  <div id="admin-app-container" class="hidden">
 
   <!-- LEFT ASIDE: OPERASYON MENÜSÜ -->
   <aside class="fixed left-0 top-0 h-full w-72 bg-canvas-dark text-on-primary z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.2)] select-none">
@@ -214,8 +297,12 @@
 
     </div>
 
-    <!-- Bottom Version Pill -->
-    <div class="p-space-md bg-canvas-dark">
+    <!-- Bottom Version Pill & Logout -->
+    <div class="p-space-md bg-canvas-dark flex flex-col gap-2">
+      <button onclick="adminLogout()" class="w-full flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all cursor-pointer">
+        <span class="material-symbols-outlined text-[20px]">logout</span>
+        <span class="font-label-md text-label-md font-semibold">Güvenli Çıkış Yap</span>
+      </button>
       <div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-primary-container">
         <span class="material-symbols-outlined text-secondary-container text-[20px]">verified_user</span>
         <div class="flex flex-col">
@@ -247,11 +334,14 @@
 
         <!-- Admin Profile -->
         <div class="flex items-center gap-space-sm pl-space-sm border-l border-outline-variant/30">
-          <div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">YA</div>
+          <div class="w-8 h-8 rounded-full bg-primary-container text-secondary-container flex items-center justify-center font-bold text-xs">SA</div>
           <div class="flex flex-col text-right">
-            <span class="font-label-md text-label-md text-on-surface leading-tight font-semibold">Yönetici Admin</span>
-            <span class="text-[11px] text-on-surface-variant">Operasyon Masası</span>
+            <span class="font-label-md text-label-md text-on-surface leading-tight font-semibold">serkanalcay52</span>
+            <span class="text-[11px] text-on-surface-variant">Süper Admin</span>
           </div>
+          <button onclick="adminLogout()" class="ml-2 p-1.5 rounded-lg text-outline hover:text-error hover:bg-error-container/20 transition-all flex items-center justify-center cursor-pointer" title="Güvenli Çıkış Yap">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+          </button>
         </div>
       </div>
     </header>
@@ -1721,6 +1811,7 @@
       </div>
     </div>
   </div>
+  </div><!-- /#admin-app-container -->
 
   <!-- APPLICATION SCRIPTS -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -1765,8 +1856,131 @@
     let quickPageSize = 10;
     let quickStatusPill = 'all';
 
-    // INITIALIZATION
-    document.addEventListener('DOMContentLoaded', function () {
+    // =========================================================================
+    // AUTHENTICATION & ACCESS CONTROL (STRICT SINGLE-USER GATE)
+    // Allowed User: serkanalcay52 | Password: 123558Serkan*
+    // =========================================================================
+    let isDashboardInitialized = false;
+
+    function checkAdminAuth() {
+      const sessionAuth = sessionStorage.getItem('ats_admin_auth_v1');
+      const localAuth = localStorage.getItem('ats_admin_auth_v1');
+      const sessionUser = sessionStorage.getItem('ats_admin_user');
+      const localUser = localStorage.getItem('ats_admin_user');
+      return ((sessionAuth === 'authenticated' && sessionUser === 'serkanalcay52') ||
+              (localAuth === 'authenticated' && localUser === 'serkanalcay52'));
+    }
+
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+      if (!passwordInput || !eyeIcon) return;
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.textContent = 'visibility_off';
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.textContent = 'visibility';
+      }
+    }
+
+    function openResetNotice() {
+      const msgBox = document.getElementById('statusMessage');
+      const msgText = document.getElementById('statusText');
+      if (!msgBox || !msgText) return;
+      msgBox.className = 'w-full mt-space-md p-space-sm rounded-lg bg-surface-container text-center transition-all border border-secondary-container/20';
+      msgText.className = 'font-body-sm text-body-sm text-on-surface';
+      msgBox.classList.remove('hidden');
+      msgText.textContent = 'Şifre sıfırlama yönergeleri için lütfen sistem yöneticinizle (serkanalcay52) irtibata geçiniz.';
+    }
+
+    function handleLogin() {
+      const idInput = document.getElementById('identifier');
+      const passInput = document.getElementById('password');
+      const rememberMe = document.getElementById('rememberMe');
+      const btn = document.getElementById('submitButton');
+      const btnText = document.getElementById('buttonText');
+      const btnIcon = document.getElementById('buttonIcon');
+      const msgBox = document.getElementById('statusMessage');
+      const msgText = document.getElementById('statusText');
+
+      const rawUser = (idInput ? idInput.value : '').trim();
+      const rawPass = (passInput ? passInput.value : '');
+
+      // Strict single-user verification
+      const isUserValid = (rawUser.toLowerCase() === 'serkanalcay52' || rawUser.toLowerCase() === 'serkanalcay52@avrupatirsoforu.com');
+      const isPassValid = (rawPass === '123558Serkan*');
+
+      btn.disabled = true;
+      btnText.textContent = 'Kimlik Doğrulanıyor...';
+      btnIcon.textContent = 'sync';
+      btnIcon.classList.add('animate-spin');
+
+      setTimeout(function () {
+        btn.disabled = false;
+        btnText.textContent = 'Giriş Yap';
+        btnIcon.textContent = 'arrow_forward';
+        btnIcon.classList.remove('animate-spin');
+
+        if (isUserValid && isPassValid) {
+          msgBox.className = 'w-full mt-space-md p-space-sm rounded-lg bg-emerald-50 border border-emerald-300 text-center transition-all';
+          msgText.className = 'font-body-sm text-body-sm text-emerald-800 font-semibold';
+          msgBox.classList.remove('hidden');
+          msgText.textContent = 'Giriş başarılı! Yönetim paneline aktarılıyorsunuz...';
+
+          // Session persistence
+          sessionStorage.setItem('ats_admin_auth_v1', 'authenticated');
+          sessionStorage.setItem('ats_admin_user', 'serkanalcay52');
+          if (rememberMe && rememberMe.checked) {
+            localStorage.setItem('ats_admin_auth_v1', 'authenticated');
+            localStorage.setItem('ats_admin_user', 'serkanalcay52');
+          }
+
+          setTimeout(function () {
+            unlockAdminPanel();
+          }, 600);
+        } else {
+          msgBox.className = 'w-full mt-space-md p-space-sm rounded-lg bg-red-50 border border-red-300 text-center transition-all';
+          msgText.className = 'font-body-sm text-body-sm text-red-700 font-semibold';
+          msgBox.classList.remove('hidden');
+          msgText.textContent = 'Hatalı kullanıcı adı veya şifre! Lütfen bilgilerinizi kontrol ediniz.';
+          if (passInput) passInput.value = '';
+        }
+      }, 700);
+    }
+
+    function unlockAdminPanel() {
+      const loginScreen = document.getElementById('admin-login-screen');
+      const appContainer = document.getElementById('admin-app-container');
+
+      if (loginScreen) loginScreen.classList.add('hidden');
+      if (appContainer) appContainer.classList.remove('hidden');
+
+      if (!isDashboardInitialized) {
+        isDashboardInitialized = true;
+        initAdminDashboard();
+      }
+    }
+
+    function lockAdminPanel() {
+      const loginScreen = document.getElementById('admin-login-screen');
+      const appContainer = document.getElementById('admin-app-container');
+
+      if (loginScreen) loginScreen.classList.remove('hidden');
+      if (appContainer) appContainer.classList.add('hidden');
+    }
+
+    function adminLogout() {
+      if (confirm('Yönetim oturumunu sonlandırmak ve güvenli çıkış yapmak istiyor musunuz?')) {
+        sessionStorage.removeItem('ats_admin_auth_v1');
+        sessionStorage.removeItem('ats_admin_user');
+        localStorage.removeItem('ats_admin_auth_v1');
+        localStorage.removeItem('ats_admin_user');
+        window.location.reload();
+      }
+    }
+
+    function initAdminDashboard() {
       initDatabase();
       ensurePoolSeedData();
       applyFilters();
@@ -1802,11 +2016,21 @@
           checkboxes.forEach(cb => cb.checked = selectAll.checked);
         });
       }
+    }
+
+    // INITIALIZATION ON LOAD
+    document.addEventListener('DOMContentLoaded', function () {
+      if (checkAdminAuth()) {
+        unlockAdminPanel();
+      } else {
+        lockAdminPanel();
+      }
     });
 
     // REAL-TIME SYNC LISTENERS
     // 1. In-Window Custom Event Listener
     window.addEventListener('ats_applications_updated', function (e) {
+      if (!checkAdminAuth()) return;
       if (e.detail && Array.isArray(e.detail)) {
         allApplications = e.detail.filter(isRealApplication);
         applyFilters();
@@ -1817,6 +2041,7 @@
 
     // 2. Cross-Tab Storage Event Listener
     window.addEventListener('storage', function (e) {
+      if (!checkAdminAuth()) return;
       if (e.key === 'ats_applications') {
         try {
           const updated = JSON.parse(e.newValue || '[]');
@@ -1834,6 +2059,7 @@
     if (typeof BroadcastChannel !== 'undefined') {
       const channel = new BroadcastChannel('ats_portal_sync');
       channel.onmessage = function (event) {
+        if (!checkAdminAuth()) return;
         if (event.data) {
           if (event.data.type === 'APPLICATION_SUBMITTED') {
             const newApp = event.data.data;
