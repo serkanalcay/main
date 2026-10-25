@@ -522,12 +522,7 @@
       window.dispatchEvent(new CustomEvent('auth-submit', { detail: { identifier: rawUser, session: sessionData } }));
 
       setTimeout(function() {
-        // If candidate dashboard page exists, redirect to it; otherwise notify
-        if (typeof window.onDriverLoginSuccess === 'function') {
-          window.onDriverLoginSuccess(sessionData);
-        } else {
-          alert('Giriş başarılı! Hoş geldiniz, ' + sessionData.name + '.\n\nHesap Durumu: ' + (isApproved ? '✅ Onaylı Hesap' : '⏳ İncelemede / Admin Onayı Bekliyor') + '\n\nSürücü paneliniz hazırlanıyor...');
-        }
+        window.location.href = 'driver-panel.html';
       }, 300);
     }
 

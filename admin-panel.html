@@ -1498,8 +1498,8 @@
           </select>
         </div>
         <div class="flex flex-col gap-space-xs">
-          <label class="font-label-md text-label-md text-on-surface font-semibold" for="modal-status-notes">Operasyonel Not / Açıklama</label>
-          <textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="modal-status-notes" placeholder="Sürücü ile yapılan görüşme veya evrak kontrol notu..." rows="3"></textarea>
+          <label class="font-label-md text-label-md text-on-surface font-semibold" for="modal-status-notes">Adaya İletilecek Danışman Notu / Operasyonel Açıklama</label>
+          <textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="modal-status-notes" placeholder="Adayın panelinde görüntülenecek özel danışman notunu yazınız..." rows="3"></textarea>
         </div>
       </div>
       <div class="px-space-lg py-space-md bg-surface-container-lowest flex items-center justify-end gap-space-sm border-t border-border-muted">
@@ -3546,7 +3546,7 @@
       document.getElementById('modal-driver-name').textContent = app.fullName || 'Aday';
       document.getElementById('modal-driver-code').textContent = app.id || app.referenceNumber || 'TR-000';
       document.getElementById('modal-status-select').value = app.status || 'Yeni Başvuru';
-      document.getElementById('modal-status-notes').value = '';
+      document.getElementById('modal-status-notes').value = app.consultantNote || '';
 
       openModal('quick-status-modal');
     }
@@ -3569,6 +3569,7 @@
           app.inPool = false;
         }
         if (note) {
+          app.consultantNote = note;
           app.extraNotes = (app.extraNotes ? app.extraNotes + '\n' : '') + `[${new Date().toLocaleDateString('tr-TR')} Operatör Notu]: ${note}`;
         }
         saveDatabase();

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="tr" style="">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_dashboard" name="shell-type">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Sürücü Portali | avrupatirsoforu.com</title>
+  <link rel="icon" href="assets/logo.png?v=20261025_v9">
+
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "warning-amber-hover": "#D97706",
+            "surface-container-low": "#eff4ff",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "inverse-on-surface": "#eaf1ff",
+            "on-surface": "#0b1c30",
+            "on-secondary-fixed-variant": "#653e00",
+            "outline-variant": "#c6c6cd",
+            "surface-container-high": "#dce9ff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-secondary-container": "#684000",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "tertiary": "#000000",
+            "surface-container": "#e5eeff",
+            "error": "#ba1a1a",
+            "surface-card": "#FFFFFF",
+            "canvas-dark": "#020617",
+            "on-tertiary-fixed": "#00174b",
+            "on-error": "#ffffff",
+            "on-secondary": "#ffffff",
+            "on-background": "#0b1c30",
+            "surface-bright": "#f8f9ff",
+            "primary-fixed": "#dae2fd",
+            "background": "#f8f9ff",
+            "primary-fixed-dim": "#bec6e0",
+            "surface": "#f8f9ff",
+            "primary-container": "#131b2e",
+            "on-primary-container": "#7c839b",
+            "on-primary-fixed": "#131b2e",
+            "surface-container-highest": "#d3e4fe",
+            "border-muted": "#E2E8F0",
+            "inverse-surface": "#213145",
+            "surface-tint": "#565e74",
+            "on-surface-variant": "#45464d",
+            "on-tertiary-container": "#497cff",
+            "on-primary": "#ffffff",
+            "secondary-fixed": "#ffddb8",
+            "primary": "#000000",
+            "outline": "#76777d",
+            "on-error-container": "#93000a",
+            "surface-variant": "#d3e4fe",
+            "secondary": "#855300",
+            "on-secondary-fixed": "#2a1700",
+            "surface-dim": "#cbdbf5",
+            "secondary-container": "#fea619",
+            "status-success": "#34D399",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "tertiary-fixed": "#dbe1ff",
+            "on-primary-fixed-variant": "#3f465c",
+            "surface-subtle": "#F8FAFC",
+            "inverse-primary": "#bec6e0",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-container": "#00174b"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Space Grotesk"],
+            "body-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Space Grotesk"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "display-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "label-lg": ["15px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "600"}],
+            "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "display-mobile": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- MAINTENANCE & DEVELOPER PREVIEW GUARD -->
+  <script src="js/maintenance-guard.js?v=20261025_v9"></script>
+</head>
+
+<body class="bg-surface font-body-md text-body-md text-on-surface">
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div id="sidebarBackdrop" onclick="toggleDriverSidebar()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 lg:hidden transition-opacity"></div>
+
+  <!-- ASIDE: SOL MENÜ -->
+  <aside id="driverSidebar" class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+    <div class="flex flex-col">
+      <!-- Logo Header -->
+      <div class="h-16 px-space-lg flex items-center justify-between bg-surface-container-low">
+        <a href="index.html" class="flex items-center gap-space-sm group">
+          <div class="w-9 h-9 rounded-lg bg-secondary-container flex items-center justify-center text-canvas-dark font-headline-md font-bold">
+            <span class="material-symbols-outlined text-[22px]">local_shipping</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-label-lg text-label-lg tracking-tight text-on-surface uppercase font-bold">avrupatirsoforu</span>
+            <span class="font-label-sm text-label-sm text-secondary font-bold tracking-wider uppercase">Şoför Portali</span>
+          </div>
+        </a>
+        <button type="button" onclick="toggleDriverSidebar()" class="lg:hidden p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" aria-label="Kapat">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="px-space-md py-space-sm">
+        <nav class="flex flex-col gap-space-xs" data-active-classes="bg-surface-container text-on-surface font-bold rounded-lg">
+          <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface bg-surface-container font-bold font-label-md text-label-md transition-all cursor-pointer" data-path="genel-bakis-profilim" href="driver-panel.html">
+            <span class="material-symbols-outlined text-[20px] text-secondary">account_box</span>
+            <span>Genel Bakış / Profilim</span>
+          </a>
+          <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-all cursor-pointer" data-path="evraklarim-dosya-yukle" href="javascript:void(0)" onclick="alert('Evrak yükleme ve dosya yönetimi alanı hazırlanmaktadır.');">
+            <span class="material-symbols-outlined text-[20px]">folder_shared</span>
+            <span>Evraklarım &amp; Dosya Yükle</span>
+          </a>
+          <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-all cursor-pointer" data-path="gorusme-danisman-randevusu" href="javascript:void(0)" onclick="alert('Danışman randevu takvimi oluşturulmaktadır.');">
+            <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+            <span>Görüşme / Danışman Randevusu</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- User Profile Card at Bottom of Aside -->
+    <div class="p-space-md bg-surface-container-low m-space-md rounded-xl flex flex-col gap-space-sm shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-label-lg text-label-lg text-canvas-dark font-bold" id="sidebarAvatarIcon">
+          <span class="material-symbols-outlined text-[20px]">badge</span>
+        </div>
+        <div class="flex flex-col min-w-0 flex-1">
+          <span class="font-label-md text-label-md text-on-surface font-bold truncate" id="sidebarUserName">Uğur Görgülü</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant truncate" id="sidebarUserSub">CE &amp; Kod 95 Adayı</span>
+        </div>
+      </div>
+      <div class="pt-space-xs flex items-center justify-between border-t border-border-muted/50">
+        <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-status-success font-semibold">
+          <span class="w-2 h-2 rounded-full bg-status-success"></span>Çevrimiçi
+        </span>
+        <a class="flex items-center gap-1 font-label-sm text-label-sm text-error hover:text-on-error-container transition-colors cursor-pointer" data-path="cikis" href="javascript:void(0)" onclick="handleLogout()">
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          <span>Güvenli Çıkış</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="pl-0 lg:pl-72 flex flex-col min-h-screen">
+
+    <!-- TOP HEADER -->
+    <header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-md sm:px-space-lg">
+      <div class="flex items-center gap-space-md">
+        <!-- Mobile Sidebar Toggle -->
+        <button type="button" onclick="toggleDriverSidebar()" class="lg:hidden p-2 text-on-surface rounded-lg hover:bg-surface-container transition-colors cursor-pointer" aria-label="Menü">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+        <div>
+          <span class="font-headline-sm text-base sm:text-headline-sm text-on-surface block font-bold" id="topHeaderGreeting">Hoş Geldiniz, Uğur Bey</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-space-sm sm:gap-space-md">
+        <!-- VIP WhatsApp Havuzu Badge -->
+        <div class="hidden sm:flex items-center gap-space-xs px-space-md py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed shadow-[0_1px_3px_0_rgba(15,23,42,0.08)]" id="topVipBadge">
+          <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+          <span class="font-label-sm text-label-sm font-bold uppercase tracking-wide" id="topVipText">VIP WhatsApp Havuzu Aktif</span>
+        </div>
+
+        <!-- Destek Hattı Button -->
+        <button class="flex items-center gap-space-xs px-3 sm:px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors cursor-pointer" type="button" onclick="openSupportModal()">
+          <span class="material-symbols-outlined text-[18px] text-secondary-container">support_agent</span>
+          <span class="hidden md:inline">Destek Hattı</span>
+        </button>
+
+        <!-- User Profile Avatar Circle -->
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-xs" id="topAvatarCircle">
+          <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT BODY -->
+    <main class="relative pt-16 w-full bg-surface min-h-screen">
+      <div class="flex flex-col w-full">
+        <div class="px-space-md sm:px-space-lg lg:px-space-xl py-space-lg max-w-[1400px] mx-auto w-full flex flex-col gap-space-lg">
+
+          <!-- Üst Karşılama ve Durum Kartı (TIR / Lojistik Kontrol Şeridi) -->
+          <section class="relative overflow-hidden rounded-xl bg-canvas-dark text-on-primary p-space-lg sm:p-space-xl shadow-xl">
+            <!-- Amber Güvenlik / Fleet Vurgu Çizgisi -->
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-secondary-container"></div>
+            <!-- Dekoratif Arka Plan Işıklandırması -->
+            <div class="absolute -right-20 -top-24 w-96 h-96 bg-secondary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+              <div class="flex flex-col max-w-3xl">
+                <div class="flex flex-wrap items-center gap-space-xs mb-space-xs">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container/20 text-secondary-container font-label-sm text-label-sm font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>
+                    <span id="bannerFileCode">Dosya Takip Kodu: #AVR-2026-7517</span>
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 text-primary-fixed font-label-sm text-label-sm font-semibold">
+                    <span class="material-symbols-outlined text-[14px]">local_shipping</span>
+                    Avrupa Uluslararası Nakliyat Portföyü
+                  </span>
+                </div>
+                <h1 class="font-headline-lg text-2xl sm:text-headline-lg text-white font-bold tracking-tight mb-space-xs" id="bannerWelcomeTitle">
+                  Hoş Geldiniz, Uğur Görgülü!
+                </h1>
+                <p class="font-body-md text-body-md text-slate-300 max-w-2xl" id="bannerStatusDesc">
+                  Dosya Durumunuz: <strong class="text-secondary-fixed font-bold" id="bannerStatusText">Evrak İnceleme Aşamasında</strong>. Eksiksiz dosya tamamlandığında profiliniz doğrudan Avrupa taşımacılık birliklerine iletilecektir.
+                </p>
+
+                <!-- İlerleme Çubuğu ve Yüzde -->
+                <div class="mt-space-md flex flex-col gap-1.5 max-w-xl">
+                  <div class="flex items-center justify-between font-label-md text-label-md">
+                    <span class="text-slate-300">Dosya Hazırlık Seviyesi</span>
+                    <span class="text-secondary-container font-bold font-label-lg text-label-lg" id="progressPercentageText">%65 Tamamlandı</span>
+                  </div>
+                  <div class="w-full h-3 rounded-full bg-white/10 overflow-hidden p-0.5">
+                    <div class="h-full rounded-full bg-secondary-container transition-all duration-700 ease-out shadow-sm" id="progressBarFill" style="width: 65%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hızlı Aksiyon Butonları -->
+              <div class="flex flex-col sm:flex-row lg:flex-col gap-space-sm min-w-[240px]">
+                <a class="inline-flex items-center justify-center gap-2 px-space-md py-3 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-lg text-label-lg font-bold shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer" data-path="evraklarim-dosya-yukle" href="javascript:void(0)" onclick="alert('Evrak yükleme penceresi açılıyor...');">
+                  <span class="material-symbols-outlined text-[20px]">upload_file</span>
+                  <span>Evrak Yükle</span>
+                </a>
+                <a class="inline-flex items-center justify-center gap-2 px-space-md py-3 rounded-lg bg-white/15 hover:bg-white/20 text-white font-label-lg text-label-lg font-bold transition-all active:scale-[0.98] cursor-pointer" data-path="gorusme-danisman-randevusu" href="javascript:void(0)" onclick="alert('Danışman randevusu planlama seansı açılıyor...');">
+                  <span class="material-symbols-outlined text-[20px]">event_available</span>
+                  <span>Görüşme Randevusu Al</span>
+                </a>
+                <a class="inline-flex items-center justify-center gap-2 px-space-md py-3 rounded-lg bg-surface-container-high/20 hover:bg-surface-container-high/30 text-secondary-fixed-dim font-label-md text-label-md font-semibold transition-all cursor-pointer" data-path="vip-abonelik-whatsapp-havuzu" href="javascript:void(0)" onclick="handleVipSubscription()">
+                  <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+                  <span id="quickVipBtnText">VIP Abonelik Başlat</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Ana 2 Kolonlu Düzen -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+
+            <!-- SOL KOLON (Kişisel Bilgiler, Ehliyet & Süreç Çizelgesi - 7 Kolon) -->
+            <div class="lg:col-span-7 flex flex-col gap-space-lg min-w-0">
+
+              <!-- Kişisel Bilgiler & Ehliyet Özeti Kartı -->
+              <div class="rounded-xl bg-surface-card p-space-lg shadow-sm">
+                <div class="flex items-center justify-between pb-space-md mb-space-md bg-surface-container-low -mx-space-lg -mt-space-lg p-space-lg rounded-t-xl">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-lg bg-canvas-dark text-white flex items-center justify-center">
+                      <span class="material-symbols-outlined text-[22px]">badge</span>
+                    </div>
+                    <div>
+                      <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Kişisel Bilgiler &amp; Ehliyet Özeti</h2>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">Uluslararası Tır Şoförü Yetkinlik Kaydı</span>
+                    </div>
+                  </div>
+                  <button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-container text-on-surface font-label-md text-label-md font-semibold shadow-sm transition-colors cursor-pointer" type="button" onclick="openEditProfileModal()">
+                    <span class="material-symbols-outlined text-[16px]">edit</span>
+                    <span>Bilgileri Güncelle</span>
+                  </button>
+                </div>
+
+                <!-- Sürücü Kimlik & Yetkinlik Izgarası -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md font-body-sm text-body-sm">
+                  <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Ad Soyad</span>
+                    <span class="font-headline-sm text-headline-sm text-on-surface font-bold" id="profileFullName">Uğur Görgülü</span>
+                  </div>
+                  <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Ehliyet Sınıfları</span>
+                    <div class="flex items-center gap-1.5 mt-0.5" id="profileLicenseBadges">
+                      <span class="px-2 py-0.5 rounded bg-canvas-dark text-white font-label-md text-label-md font-bold tracking-wider">CE</span>
+                      <span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-label-md text-label-md font-bold tracking-wider">C</span>
+                      <span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-label-md text-label-md font-bold tracking-wider">B</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant font-semibold ml-1">(Ağır Vasıta &amp; Çekici)</span>
+                    </div>
+                  </div>
+                  <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">İletişim &amp; Konum</span>
+                    <span class="font-body-md text-body-md text-on-surface font-semibold truncate" id="profilePhone">+90 537 165 51 49</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant" id="profileLocation">Samsun / Türkiye (AB Seferine Hazır)</span>
+                  </div>
+                  <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">E-posta Adresi</span>
+                    <span class="font-body-md text-body-md text-on-surface font-semibold truncate" id="profileEmail">ugurgorgulu68770@gmail.com</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant" id="profileBirthdate">Doğum: 15.05.2001 (25 Yaş)</span>
+                  </div>
+                  <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">SRC / Kod 95 Mesleki Yeterlilik</span>
+                    <div class="flex items-center gap-2 mt-1">
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold" id="profileSrcBadge">
+                        <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                        SRC 3, SRC 4, SRC 5 Aktif
+                      </span>
+                      <span class="inline-flex items-center px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold" id="profileCode95Badge">
+                        AB Kod 95 Mevcut
+                      </span>
+                    </div>
+                  </div>
+                  <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Dijital Takograf &amp; Kart Durumu</span>
+                    <div class="flex items-center gap-2 mt-1">
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold" id="profileTachoBadge">
+                        <span class="material-symbols-outlined text-[14px]">credit_card</span>
+                        G2V2 Kart Geçerli (2028)
+                      </span>
+                    </div>
+                  </div>
+                  <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Uluslararası Ağır Vasıta Deneyimi</span>
+                    <span class="font-headline-sm text-headline-sm text-on-surface font-bold" id="profileExpYears">1-3 Yıl Fiili Yol Tecrübesi</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant" id="profileExpDetail">Almanya &amp; Orta Avrupa Hattı, Çekici &amp; Dorse</span>
+                  </div>
+                  <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Yabancı Dil Seviyesi</span>
+                    <div class="flex flex-wrap gap-1.5 mt-1" id="profileLanguageBadges">
+                      <span class="px-2 py-0.5 rounded bg-surface-card text-on-surface font-label-sm text-label-sm font-semibold shadow-sm">
+                        Temel İngilizce (A2)
+                      </span>
+                      <span class="px-2 py-0.5 rounded bg-surface-card text-on-surface font-label-sm text-label-sm font-semibold shadow-sm">
+                        Başlangıç Almanca (A1)
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dosya & Danışmanlık Süreç Çizelgesi (Logistics Stepper) -->
+              <div class="rounded-xl bg-surface-card p-space-lg shadow-sm">
+                <div class="flex items-center justify-between pb-space-md mb-space-md">
+                  <div>
+                    <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Dosya &amp; Danışmanlık Süreç Çizelgesi</h2>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Uluslararası Filo Yerleştirme Adımları</span>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold" id="stepperStageBadge">
+                    2. Aşama Aktif
+                  </span>
+                </div>
+
+                <!-- Akış Adımları -->
+                <div class="relative flex flex-col gap-space-lg">
+                  <!-- Adım 1: Tamamlandı -->
+                  <div class="relative flex items-start gap-space-md">
+                    <div class="flex flex-col items-center">
+                      <div class="w-10 h-10 rounded-full bg-status-success/20 text-emerald-800 flex items-center justify-center font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-[20px]">check</span>
+                      </div>
+                      <div class="w-1 h-12 bg-status-success mt-1"></div>
+                    </div>
+                    <div class="flex-1 pt-1">
+                      <div class="flex items-center justify-between">
+                        <h3 class="font-label-lg text-label-lg text-on-surface font-bold">1. Ön Kayıt &amp; Bilgi Girişi</h3>
+                        <span class="font-label-sm text-label-sm text-status-success font-bold" id="step1Date">Tamamlandı (25 Ekim)</span>
+                      </div>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                        Sürücü ehliyet türü, tecrübe yılı ve temel iletişim profili başarıyla sisteme aktarıldı.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Adım 2: İnceleniyor (Şu anki) -->
+                  <div class="relative flex items-start gap-space-md">
+                    <div class="flex flex-col items-center">
+                      <div class="w-10 h-10 rounded-full bg-secondary-container text-canvas-dark flex items-center justify-center font-bold shadow-md ring-4 ring-secondary-container/20">
+                        <span class="material-symbols-outlined text-[20px] animate-spin">sync</span>
+                      </div>
+                      <div class="w-1 h-12 bg-surface-container-highest mt-1"></div>
+                    </div>
+                    <div class="flex-1 pt-1 p-space-sm rounded-lg bg-surface-container-low">
+                      <div class="flex items-center justify-between">
+                        <h3 class="font-label-lg text-label-lg text-secondary-container font-extrabold">2. Evrak &amp; Belge Doğrulama</h3>
+                        <span class="px-2 py-0.5 rounded bg-secondary-container/20 text-warning-amber-hover font-label-sm text-label-sm font-bold" id="step2StatusBadge">İnceleniyor</span>
+                      </div>
+                      <p class="font-body-sm text-body-sm text-on-surface mt-1" id="step2DescText">
+                        Yüklenen dijital takograf dökümü ve SRC/Kod 95 kopyaları operasyon uzmanımız tarafından kontrol ediliyor. Eksik: Adli Sicil Kaydı tercümesi bekleniyor.
+                      </p>
+                      <div class="mt-space-sm flex items-center gap-2">
+                        <a class="text-secondary font-label-sm text-label-sm font-bold hover:underline inline-flex items-center gap-1 cursor-pointer" data-path="evraklarim-dosya-yukle" href="javascript:void(0)" onclick="alert('Evrak yükleme penceresi açılıyor...');">
+                          <span>Eksik Evrağı Yükle</span>
+                          <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Adım 3: Danışman Ön Değerlendirmesi -->
+                  <div class="relative flex items-start gap-space-md">
+                    <div class="flex flex-col items-center">
+                      <div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold">
+                        <span class="material-symbols-outlined text-[20px]">support_agent</span>
+                      </div>
+                      <div class="w-1 h-12 bg-surface-container-highest mt-1"></div>
+                    </div>
+                    <div class="flex-1 pt-1 opacity-70">
+                      <div class="flex items-center justify-between">
+                        <h3 class="font-label-lg text-label-lg text-on-surface font-semibold">3. Danışman Ön Değerlendirmesi</h3>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Beklemede</span>
+                      </div>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                        Evrak teyidinin ardından kariyer uzmanı ile birebir rota, maaş beklentisi ve hat tercihi mülakatı.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Adım 4: Filo Eşleştirmesi -->
+                  <div class="relative flex items-start gap-space-md">
+                    <div class="flex flex-col items-center">
+                      <div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold">
+                        <span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+                      </div>
+                    </div>
+                    <div class="flex-1 pt-1 opacity-50">
+                      <div class="flex items-center justify-between">
+                        <h3 class="font-label-lg text-label-lg text-on-surface font-semibold">4. Avrupa Lojistik Filo Eşleştirmesi</h3>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Sıradaki Aşama</span>
+                      </div>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                        Almanya, Hollanda veya Polonya merkezli uluslararası nakliyat firmalarıyla direkt sözleşme imzalanması.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- SAĞ KOLON (VIP Abonelik, Filo İlanları & Danışman Notu - 5 Kolon) -->
+            <div class="lg:col-span-5 flex flex-col gap-space-lg min-w-0">
+
+              <!-- VIP WhatsApp Havuzu & Abonelik Durumu Kartı -->
+              <div class="relative overflow-hidden rounded-xl bg-surface-card p-space-lg shadow-sm">
+                <!-- Üst Vurgu Çizgisi -->
+                <div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+                <div class="flex items-start justify-between gap-space-sm mb-space-sm">
+                  <div class="flex items-center gap-space-xs">
+                    <div class="w-9 h-9 rounded-lg bg-secondary-container/20 text-secondary flex items-center justify-center">
+                      <span class="material-symbols-outlined text-[22px]">chat</span>
+                    </div>
+                    <div>
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">VIP WhatsApp Havuzu</h3>
+                      <span class="font-label-sm text-label-sm text-error font-semibold" id="vipSubStatusText">Abonelik Durumu: Henüz Abone Değilsiniz</span>
+                    </div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-error/10 text-error font-label-sm text-label-sm font-bold" id="vipBadge">Pasif</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+                  VIP Şoför Havuzuna abone olarak Avrupa filolarından haftalık sıcak iş tekliflerini doğrudan WhatsApp'tan anında alın ve öncelikli başvuru ayrıcalığı kazanın.&nbsp;<br>
+                </p>
+                <div class="p-space-sm rounded-lg bg-surface-container-low mb-space-md flex flex-col gap-1.5 font-label-sm text-label-sm">
+                  <div class="flex items-center gap-2 text-on-surface">
+                    <span class="material-symbols-outlined text-status-success text-[16px]">check_circle</span>
+                    <span>Haftalık 15+ yeni Avrupa çekici/dorse sefer talebi</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-on-surface">
+                    <span class="material-symbols-outlined text-status-success text-[16px]">check_circle</span>
+                    <span>Filo yöneticileriyle doğrudan iletişim kanalı</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-on-surface">
+                    <span class="material-symbols-outlined text-status-success text-[16px]">check_circle</span>
+                    <span>Gecikmesiz evrak önceliklendirme hakkı</span>
+                  </div>
+                </div>
+                <a class="w-full flex items-center justify-center gap-2 px-space-md py-3 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-lg text-label-lg font-bold shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer" data-path="vip-abonelik-whatsapp-havuzu" href="javascript:void(0)" onclick="handleVipSubscription()" id="vipActionBtn">
+                  <span class="material-symbols-outlined text-[20px]" id="vipBtnIcon">add_circle</span>
+                  <span id="vipBtnText">VIP Havuza Abone Ol 100€</span>
+                </a>
+              </div>
+
+              <!-- Yaklaşan Randevular & Danışman Notu -->
+              <div class="rounded-xl bg-surface-card p-space-lg shadow-sm">
+                <div class="flex items-center gap-space-sm mb-space-sm">
+                  <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-label-lg text-label-lg text-canvas-dark font-bold">
+                    <span class="material-symbols-outlined text-[20px]">person_pin</span>
+                  </div>
+                  <div>
+                    <span class="font-label-md text-label-md font-bold text-on-surface block" id="consultantName">Serkan Alçay</span>
+                    <span class="font-label-sm text-label-sm text-secondary font-semibold">Lojistik Kariyer ve Filo Uzmanı</span>
+                  </div>
+                </div>
+                <div class="p-space-sm rounded-lg bg-surface-container-low mb-space-md">
+                  <div class="flex items-start gap-2">
+                    <span class="material-symbols-outlined text-secondary-container text-[20px] shrink-0 mt-0.5">info</span>
+                    <p class="font-body-sm text-body-sm text-on-surface" id="consultantNoteText">
+                      <strong>Danışman Notu:</strong> "Uğur Bey merhaba, ehliyet ve takograf dökümünüz inceleniyor. Eksik olan adli sicil kaydınızı yüklediğinizde Almanya ve Polonya hatları için ön görüşme seansımızı netleştirelim."
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between pt-1 border-t-0">
+                  <span class="font-label-sm text-label-sm text-on-surface-variant font-medium" id="activeAppointmentText">Aktif Randevu: Bulunmuyor</span>
+                  <a class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-canvas-dark hover:bg-slate-800 text-white font-label-md text-label-md font-bold transition-all shadow-sm cursor-pointer" data-path="gorusme-danisman-randevusu" href="javascript:void(0)" onclick="alert('Randevu talep formuna yönlendiriliyorsunuz...');">
+                    <span class="material-symbols-outlined text-[16px]">calendar_add_on</span>
+                    <span>Randevu Oluştur</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Alt Güvence & Taşıma Koridoru Bilgi Bandı -->
+          <footer class="mt-space-sm rounded-xl bg-surface-container-low p-space-md flex flex-col sm:flex-row items-center justify-between gap-space-md">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-secondary-container text-[24px]">verified</span>
+              <div class="flex flex-col">
+                <span class="font-label-md text-label-md text-on-surface font-bold">Resmi AB Taşımacılık Normlarına Uygun Danışmanlık</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">Tüm süreçler 561/2006/EC sayılı Avrupa Birliği sürüş ve dinlenme süreleri regülasyonuna tam uyumludur.</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-space-md text-on-surface-variant font-label-sm text-label-sm">
+              <span class="inline-flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-status-success"></span>
+                Sunucu: Aktif
+              </span>
+              <span>Gizlilik &amp; KVKK Korumalı</span>
+            </div>
+          </footer>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Realtime Sync & Cloud DB Scripts -->
+  <script src="js/cloud-db.js?v=20261025_v9"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase-db.js?v=20261025_v9"></script>
+
+  <!-- Driver Panel Logic Script -->
+  <script>
+    // Toggle Mobile Sidebar
+    function toggleDriverSidebar() {
+      const sidebar = document.getElementById('driverSidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      if (sidebar && backdrop) {
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        if (isHidden) {
+          sidebar.classList.remove('-translate-x-full');
+          backdrop.classList.remove('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+          backdrop.classList.add('hidden');
+        }
+      }
+    }
+
+    // Active User State
+    let currentCandidate = null;
+
+    // Load Candidate Data dynamically from Session or Database
+    async function loadCandidateDashboard() {
+      // 1. Check Session
+      let session = null;
+      try {
+        const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
+        if (sessionStr) session = JSON.parse(sessionStr);
+      } catch(e) {}
+
+      // 2. Fetch fresh applications from Cloud DB
+      if (typeof window.fetchApplicationsFromCloud === 'function') {
+        try {
+          await window.fetchApplicationsFromCloud();
+        } catch(e) {}
+      }
+
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e) {}
+
+      // 3. Find Candidate: either logged-in user OR default real candidate Uğur Görgülü
+      let targetApp = null;
+      if (session && session.email) {
+        targetApp = apps.find(a => a.email === session.email || (a.id && a.id === session.id));
+      }
+
+      // Default real candidate: Uğur Görgülü (ugurgorgulu68770@gmail.com)
+      if (!targetApp) {
+        targetApp = apps.find(a => a.email === 'ugurgorgulu68770@gmail.com') || apps[0];
+      }
+
+      if (!targetApp) {
+        targetApp = {
+          id: "AVR-2026-7517",
+          fullName: "Uğur Görgülü",
+          email: "ugurgorgulu68770@gmail.com",
+          phone: "+90 537 165 51 49",
+          city: "Samsun",
+          birthDate: "2001-05-15",
+          licenseClasses: ["CE", "C", "B"],
+          ceYear: "2023",
+          experienceYears: "1-3",
+          tachograph: "valid",
+          certificates: ["SRC3", "SRC4", "SRC5", "psikoteknik"],
+          code95: "eu",
+          euExp: "yes_eu",
+          targetCountry: "DE",
+          status: "Evrak İncelemede",
+          isApproved: false,
+          hasPaid100: false,
+          inPool: false,
+          consultantNote: "Uğur Bey merhaba, ehliyet ve takograf dökümünüz inceleniyor. Eksik olan adli sicil kaydınızı yüklediğinizde Almanya ve Polonya hatları için ön görüşme seansımızı netleştirelim."
+        };
+      }
+
+      currentCandidate = targetApp;
+      renderCandidateUI(targetApp);
+    }
+
+    // Render candidate information to DOM
+    function renderCandidateUI(app) {
+      if (!app) return;
+
+      const fullName = app.fullName || "Uğur Görgülü";
+      const firstName = fullName.split(' ')[0] || "Uğur";
+      const code = app.id || app.referenceNumber || "#AVR-2026-7517";
+      const phone = app.phone || "+90 537 165 51 49";
+      const email = app.email || "ugurgorgulu68770@gmail.com";
+      const city = app.city || "Samsun";
+      const status = app.status || "Evrak İnceleme Aşamasında";
+      const isApproved = app.isApproved === true || status.includes('Onaylan') || status.includes('Görüşme Tamam');
+      const hasPaid = app.hasPaid100 === true || app.inPool === true;
+
+      // Header & Greetings
+      const topGreeting = document.getElementById('topHeaderGreeting');
+      if (topGreeting) topGreeting.textContent = `Hoş Geldiniz, ${firstName} Bey`;
+
+      const bannerCode = document.getElementById('bannerFileCode');
+      if (bannerCode) bannerCode.textContent = `Dosya Takip Kodu: ${code}`;
+
+      const bannerTitle = document.getElementById('bannerWelcomeTitle');
+      if (bannerTitle) bannerTitle.textContent = `Hoş Geldiniz, ${fullName}!`;
+
+      const bannerStatusText = document.getElementById('bannerStatusText');
+      if (bannerStatusText) bannerStatusText.textContent = status;
+
+      // Sidebar Profile Info
+      const sidebarName = document.getElementById('sidebarUserName');
+      if (sidebarName) sidebarName.textContent = fullName;
+
+      // Profile Grid
+      const profName = document.getElementById('profileFullName');
+      if (profName) profName.textContent = fullName;
+
+      const profPhone = document.getElementById('profilePhone');
+      if (profPhone) profPhone.textContent = phone;
+
+      const profLoc = document.getElementById('profileLocation');
+      if (profLoc) profLoc.textContent = `${city} / Türkiye (AB Seferine Hazır)`;
+
+      const profEmail = document.getElementById('profileEmail');
+      if (profEmail) profEmail.textContent = email;
+
+      const profBirth = document.getElementById('profileBirthdate');
+      if (profBirth) {
+        profBirth.textContent = app.birthDate ? `Doğum: ${app.birthDate} (25 Yaş)` : 'Doğum: 15.05.2001 (25 Yaş)';
+      }
+
+      // Experience
+      const profExp = document.getElementById('profileExpYears');
+      if (profExp) {
+        profExp.textContent = (app.experienceYears ? `${app.experienceYears} Yıl` : '1-3 Yıl') + ' Fiili Yol Tecrübesi';
+      }
+
+      // Danışman Notu (Admin panelinden o kullanıcıya özel iletilen dinamik not)
+      const noteEl = document.getElementById('consultantNoteText');
+      if (noteEl) {
+        const adminNote = app.consultantNote || app.extraNotes || app.notes || 
+          `${firstName} Bey merhaba, ehliyet ve takograf dökümünüz inceleniyor. Eksik olan adli sicil kaydınızı yüklediğinizde Almanya ve Polonya hatları için ön görüşme seansımızı netleştirelim.`;
+        noteEl.innerHTML = `<strong>Danışman Notu:</strong> "${adminNote}"`;
+      }
+
+      // VIP Abonelik & Aday Havuzu Durumu
+      const vipStatus = document.getElementById('vipSubStatusText');
+      const vipBadge = document.getElementById('vipBadge');
+      const vipBtnText = document.getElementById('vipBtnText');
+      const topVipBadge = document.getElementById('topVipBadge');
+      const topVipText = document.getElementById('topVipText');
+
+      if (hasPaid) {
+        if (vipStatus) {
+          vipStatus.className = 'font-label-sm text-label-sm text-status-success font-semibold';
+          vipStatus.textContent = 'Abonelik Durumu: VIP Havuz Aktif (100€ Ödendi)';
+        }
+        if (vipBadge) {
+          vipBadge.className = 'px-2 py-0.5 rounded bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold';
+          vipBadge.textContent = 'Aktif';
+        }
+        if (vipBtnText) vipBtnText.textContent = '✅ VIP Havuzdasınız';
+        if (topVipBadge) topVipBadge.classList.remove('hidden');
+        if (topVipText) topVipText.textContent = 'VIP WhatsApp Havuzu Aktif';
+      } else if (!isApproved) {
+        // Hesap henüz admin tarafından onaylanmadı: Ödeme ve havuz kapalı
+        if (vipStatus) {
+          vipStatus.className = 'font-label-sm text-label-sm text-amber-700 font-semibold';
+          vipStatus.textContent = 'Abonelik Durumu: Admin Onayı Bekleniyor';
+        }
+        if (vipBadge) {
+          vipBadge.className = 'px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-label-sm text-label-sm font-bold';
+          vipBadge.textContent = 'İnceleniyor';
+        }
+        if (vipBtnText) vipBtnText.textContent = 'VIP Havuz (Hesap Onayı Bekleniyor)';
+        if (topVipBadge) topVipBadge.classList.add('hidden');
+      } else {
+        // Hesap onaylandı ancak henüz 100€ ödeme yapılmadı
+        if (vipStatus) {
+          vipStatus.className = 'font-label-sm text-label-sm text-error font-semibold';
+          vipStatus.textContent = 'Abonelik Durumu: Onaylandı • Ödeme Bekleniyor';
+        }
+        if (vipBadge) {
+          vipBadge.className = 'px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold';
+          vipBadge.textContent = 'Onaylı';
+        }
+        if (vipBtnText) vipBtnText.textContent = 'VIP Havuza Abone Ol 100€';
+        if (topVipBadge) topVipBadge.classList.add('hidden');
+      }
+    }
+
+    // VIP Abonelik / 100€ Ödeme Mantığı
+    async function handleVipSubscription() {
+      if (!currentCandidate) return;
+
+      const isApproved = currentCandidate.isApproved === true || 
+                         (currentCandidate.status && currentCandidate.status.includes('Onaylan')) ||
+                         (currentCandidate.status && currentCandidate.status.includes('Görüşme Tamam'));
+
+      // KURAL: Hesap onaylanmadan ödeme ve aday havuzuna geçiş yapılamaz
+      if (!isApproved) {
+        alert(
+          "⚠️ HESAP ONAYI BEKLENİYOR!\n\n" +
+          "Aday havuzuna geçebilmeniz ve 100€ ödeme yapabilmeniz için hesabınızın operasyon ekibi tarafından incelenip onaylanması gerekmektedir.\n\n" +
+          "Başvurunuz şu an 'İnceleme' aşamasındadır. Hesabınız admin tarafından onaylandığında bu alan otomatik olarak ödemeye açılacaktır."
+        );
+        return;
+      }
+
+      if (currentCandidate.hasPaid100 === true || currentCandidate.inPool === true) {
+        alert("✅ Bilgilendirme: VIP Havuz aboneliğiniz ve 100€ ödemeniz zaten aktif durumdadır. Profiliniz Avrupa aday havuzunda listelenmektedir.");
+        return;
+      }
+
+      // Onaylı aday için 100€ ödeme adımı
+      const confirmed = confirm(
+        "💳 AVRUPA VIP HAVUZ KATILIM ÖDEMESİ (100€)\n\n" +
+        "Hesabınız başarıyla onaylanmıştır!\n" +
+        "100€ ödemeyi tamamladığınızda otomatik olarak Avrupa Aday Havuzu'na dahil edilecek ve taşımacılık birliklerine profiliniz iletilecektir.\n\n" +
+        "Ödemeyi onaylıyor musunuz?"
+      );
+
+      if (confirmed) {
+        currentCandidate.hasPaid100 = true;
+        currentCandidate.inPool = true;
+        currentCandidate.status = "Aday Havuzunda";
+
+        // LocalStorage güncelle
+        try {
+          let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
+          const idx = apps.findIndex(a => a.id === currentCandidate.id || a.email === currentCandidate.email);
+          if (idx !== -1) {
+            apps[idx] = currentCandidate;
+          } else {
+            apps.unshift(currentCandidate);
+          }
+          localStorage.setItem('ats_applications', JSON.stringify(apps));
+        } catch(e) {}
+
+        // Cloud API Güncelle
+        if (typeof window.saveApplicationToHosting === 'function') {
+          await window.saveApplicationToHosting(currentCandidate);
+        }
+
+        renderCandidateUI(currentCandidate);
+        alert("🎉 TEBRİKLER! 100€ ödemeniz onaylandı.\n\nProfiliniz otomatik olarak AVRUPA ADAY HAVUZU'na aktarılmıştır ve filo yöneticilerine açılmıştır.");
+      }
+    }
+
+    // Destek Hattı Modal
+    function openSupportModal() {
+      const subject = prompt("Lütfen destek talebinizin konusunu yazınız:");
+      if (!subject) return;
+      const message = prompt("Lütfen danışmanınıza iletmek istediğiniz mesajınızı yazınız:");
+      if (!message) return;
+
+      alert("Destek talebiniz operasyon masasına iletildi. Yönetici ekibimiz en kısa sürede profilinize özel danışman notu olarak dönüş yapacaktır.");
+    }
+
+    // Profil Güncelleme
+    function openEditProfileModal() {
+      alert("Profil bilgileriniz admin paneli ile senkronizedir. Güncelleme talepleriniz otomatik olarak incelenmektedir.");
+    }
+
+    // Logout
+    function handleLogout() {
+      if (confirm('Oturumunuz kapatılacaktır. Onaylıyor musunuz?')) {
+        sessionStorage.removeItem('user_session');
+        localStorage.removeItem('user_session');
+        window.location.href = 'surucu-paneli.html';
+      }
+    }
+
+    // Listen to real-time BroadcastChannel updates from Admin Panel
+    if (typeof BroadcastChannel !== 'undefined') {
+      const channel = new BroadcastChannel('ats_portal_sync');
+      channel.onmessage = function (event) {
+        if (event.data && currentCandidate) {
+          if (event.data.type === 'APPLICATION_SUBMITTED' || event.data.type === 'APPLICATIONS_SYNCED') {
+            loadCandidateDashboard();
+          }
+        }
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCandidateDashboard();
+    });
+  </script>
+</body>
+</html>
