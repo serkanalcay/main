@@ -202,7 +202,7 @@
           <span class="material-symbols-outlined text-[20px]">badge</span>
         </div>
         <div class="flex flex-col min-w-0 flex-1">
-          <span class="font-label-md text-label-md text-on-surface font-bold truncate" id="sidebarUserName">Uğur Görgülü</span>
+          <span class="font-label-md text-label-md text-on-surface font-bold truncate" id="sidebarUserName">Sürücü Portalı</span>
           <span class="font-label-sm text-label-sm text-on-surface-variant truncate" id="sidebarUserSub">CE &amp; Kod 95 Adayı</span>
         </div>
       </div>
@@ -229,7 +229,7 @@
           <span class="material-symbols-outlined text-[24px]">menu</span>
         </button>
         <div>
-          <span class="font-headline-sm text-base sm:text-headline-sm text-on-surface block font-bold" id="topHeaderGreeting">Hoş Geldiniz, Uğur Bey</span>
+          <span class="font-headline-sm text-base sm:text-headline-sm text-on-surface block font-bold" id="topHeaderGreeting">Hoş Geldiniz</span>
         </div>
       </div>
 
@@ -314,222 +314,10 @@
                 </button>
               </div>
 
-              <!-- Document Item 1: Sürücü Belgesi (CE) - ONAYLANDI -->
-              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden" id="docCard1">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
-                  <div class="flex items-start gap-space-sm">
-                    <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
-                      <span class="material-symbols-outlined text-[22px]">badge</span>
-                    </div>
-                    <div class="flex flex-col">
-                      <div class="flex items-center gap-space-sm flex-wrap">
-                        <span class="font-label-lg text-label-lg text-on-surface font-bold">1. Sürücü Belgesi (CE Sınıfı - Ön ve Arka Yüz)</span>
-                        <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold" id="badgeDoc1">
-                          <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Onaylandı
-                        </span>
-                      </div>
-                      <span class="font-body-sm text-body-sm text-on-surface-variant">Uluslararası ağır vasıta sürüş yetkisi belgesi</span>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-space-xs self-end sm:self-center">
-                    <button class="px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-sm text-label-sm font-bold transition-all flex items-center gap-1 cursor-pointer" type="button" onclick="triggerDocUpload('docInput1')">
-                      <span class="material-symbols-outlined text-[16px]">upload</span>
-                      <span>Yenisini Yükle</span>
-                    </button>
-                    <input type="file" id="docInput1" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 1, 'Sürücü Belgesi (CE)')">
-                  </div>
-                </div>
-                <div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
-                  <div class="flex items-center gap-space-sm min-w-0">
-                    <span class="material-symbols-outlined text-secondary-container text-[20px] flex-shrink-0">picture_as_pdf</span>
-                    <div class="flex flex-col min-w-0">
-                      <span class="font-label-md text-label-md font-bold text-on-surface truncate" id="fileNameDoc1">Ugur_Gorgulu_Surucu_Belgesi_CE.pdf</span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant">2.4 MB • Resmi Onaylı Kopya</span>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-space-xs flex-shrink-0">
-                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="Görüntüle" type="button" onclick="previewDocument('Sürücü Belgesi (CE)', 'Ugur_Gorgulu_Surucu_Belgesi_CE.pdf', 'Onaylandı')">
-                      <span class="material-symbols-outlined text-[18px]">visibility</span>
-                    </button>
-                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="İndir" type="button" onclick="downloadDocument('Ugur_Gorgulu_Surucu_Belgesi_CE.pdf')">
-                      <span class="material-symbols-outlined text-[18px]">download</span>
-                    </button>
-                  </div>
-                </div>
+              <!-- Dynamic Documents List Container -->
+              <div id="documentsListContainer" class="flex flex-col gap-space-md">
+                <!-- Dynamically rendered by renderDriverDocuments() -->
               </div>
-
-              <!-- Document Item 2: Kod 95 - İNCELEMEDE -->
-              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden" id="docCard2">
-                <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pl-space-xs">
-                  <div class="flex items-start gap-space-sm">
-                    <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
-                      <span class="material-symbols-outlined text-[22px]">workspace_premium</span>
-                    </div>
-                    <div class="flex flex-col">
-                      <div class="flex items-center gap-space-sm flex-wrap">
-                        <span class="font-label-lg text-label-lg text-on-surface font-bold">2. SRC BELGESİ (Mesleki Yeterlilik Belgesi / SRC)</span>
-                        <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold" id="badgeDoc2">
-                          <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>İncelemede
-                        </span>
-                      </div>
-                      <span class="font-body-sm text-body-sm text-on-surface-variant">Uluslararası yük taşıma SRC3 / SRC4 ve Kod 95 kartı</span>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-space-xs self-end sm:self-center">
-                    <button class="px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-sm text-label-sm font-bold transition-all flex items-center gap-1 cursor-pointer" type="button" onclick="triggerDocUpload('docInput2')">
-                      <span class="material-symbols-outlined text-[16px]">upload</span>
-                      <span>Yenisini Yükle</span>
-                    </button>
-                    <input type="file" id="docInput2" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 2, 'SRC Mesleki Yeterlilik')">
-                  </div>
-                </div>
-                <div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
-                  <div class="flex items-center gap-space-sm min-w-0">
-                    <span class="material-symbols-outlined text-secondary text-[20px] flex-shrink-0">image</span>
-                    <div class="flex flex-col min-w-0">
-                      <span class="font-label-md text-label-md font-bold text-on-surface truncate" id="fileNameDoc2">SRC_Kod95_Yeterlilik_Belgesi.jpg</span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant">1.8 MB • Danışman Kontrolünde</span>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-space-xs flex-shrink-0">
-                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="Görüntüle" type="button" onclick="previewDocument('SRC Belgesi / Kod 95', 'SRC_Kod95_Yeterlilik_Belgesi.jpg', 'İncelemede')">
-                      <span class="material-symbols-outlined text-[18px]">visibility</span>
-                    </button>
-                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="İndir" type="button" onclick="downloadDocument('SRC_Kod95_Yeterlilik_Belgesi.jpg')">
-                      <span class="material-symbols-outlined text-[18px]">download</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Document Item 3: Dijital Takograf Sürücü Kartı - BEKLENİYOR / YÜKLENMEDİ -->
-              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md" id="docCard3">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
-                  <div class="flex items-start gap-space-sm">
-                    <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
-                      <span class="material-symbols-outlined text-[22px]">sim_card</span>
-                    </div>
-                    <div class="flex flex-col">
-                      <div class="flex items-center gap-space-sm flex-wrap">
-                        <span class="font-label-lg text-label-lg text-on-surface font-bold">3. Dijital Takograf Sürücü Kartı</span>
-                        <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-bold" id="badgeDoc3">
-                          <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Yüklenmedi / Bekleniyor
-                        </span>
-                      </div>
-                      <span class="font-body-sm text-body-sm text-on-surface-variant">Sürüş ve dinlenme sürelerinin kaydı için akıllı çipli takograf kartı</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Embedded Drop Zone -->
-                <div class="bg-surface-subtle hover:bg-surface-container-low transition-colors rounded-xl p-space-lg flex flex-col items-center justify-center text-center cursor-pointer group border-2 border-dashed border-border-muted hover:border-secondary-container" id="drop-zone-3" onclick="triggerDocUpload('docInput3')">
-                  <div class="w-12 h-12 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm group-hover:scale-105 transition-transform">
-                    <span class="material-symbols-outlined text-[24px]">cloud_upload</span>
-                  </div>
-                  <span class="font-label-md text-label-md font-bold text-on-surface mt-2" id="dropZoneText3">Dosya Seç veya Sürükle Bırak</span>
-                  <span class="font-body-sm text-body-sm text-on-surface-variant text-[12px] mt-0.5">Ön ve arka yüzü tek sayfada veya yüksek çözünürlüklü fotoğraf olarak</span>
-                  <input accept=".pdf,.png,.jpg,.jpeg" class="hidden" id="docInput3" type="file" onchange="handleFileSelected(event, 3, 'Dijital Takograf Kartı')">
-                  <button class="mt-3 px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-bold uppercase tracking-wider hover:bg-secondary-container hover:text-canvas-dark transition-colors cursor-pointer" type="button">
-                    Gözat ve Yükle
-                  </button>
-                </div>
-              </div>
-
-              <!-- Document Item 4: Adli Sicil Kaydı - ONAYLANDI / İNCELENİYOR -->
-              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md" id="docCard4">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
-                  <div class="flex items-start gap-space-sm">
-                    <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
-                      <span class="material-symbols-outlined text-[22px]">gavel</span>
-                    </div>
-                    <div class="flex flex-col">
-                      <div class="flex items-center gap-space-sm flex-wrap">
-                        <span class="font-label-lg text-label-lg text-on-surface font-bold">4. Adli Sicil Kaydı (e-Devlet Barkodlu)</span>
-                        <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold" id="badgeDoc4">
-                          <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Onaylandı
-                        </span>
-                      </div>
-                      <span class="font-body-sm text-body-sm text-on-surface-variant">Son 30 gün içinde alınmış resmi karekodlu/barkodlu belge</span>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-space-xs self-end sm:self-center">
-                    <button class="px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-sm text-label-sm font-bold transition-all flex items-center gap-1 cursor-pointer" type="button" onclick="triggerDocUpload('docInput4')">
-                      <span class="material-symbols-outlined text-[16px]">upload</span>
-                      <span>Yenisini Yükle</span>
-                    </button>
-                    <input type="file" id="docInput4" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 4, 'Adli Sicil Kaydı')">
-                  </div>
-                </div>
-                <div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
-                  <div class="flex items-center gap-space-sm min-w-0">
-                    <span class="material-symbols-outlined text-secondary-container text-[20px] flex-shrink-0">picture_as_pdf</span>
-                    <div class="flex flex-col min-w-0">
-                      <span class="font-label-md text-label-md font-bold text-on-surface truncate" id="fileNameDoc4">Adli_Sicil_Kaydi_eDevlet_Barkodlu.pdf</span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant">420 KB • Resmi e-Devlet Doğrulamalı</span>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-space-xs flex-shrink-0">
-                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="Görüntüle" type="button" onclick="previewDocument('Adli Sicil Kaydı', 'Adli_Sicil_Kaydi_eDevlet_Barkodlu.pdf', 'Onaylandı')">
-                      <span class="material-symbols-outlined text-[18px]">visibility</span>
-                    </button>
-                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="İndir" type="button" onclick="downloadDocument('Adli_Sicil_Kaydi_eDevlet_Barkodlu.pdf')">
-                      <span class="material-symbols-outlined text-[18px]">download</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Document Item 5: Sağlık Raporu - YÜKLENMEDİ -->
-              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-md" id="docCard5">
-                <div class="flex items-start gap-space-sm">
-                  <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
-                    <span class="material-symbols-outlined text-[22px]">medical_services</span>
-                  </div>
-                  <div class="flex flex-col">
-                    <div class="flex items-center gap-space-sm flex-wrap">
-                      <span class="font-label-lg text-label-lg text-on-surface font-bold">5. Sağlık Raporu (Ağır Vasıta Sürücü Olabilir)</span>
-                      <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-bold" id="badgeDoc5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-error"></span>Yüklenmedi
-                      </span>
-                    </div>
-                    <span class="font-body-sm text-body-sm text-on-surface-variant">Göz, işitme ve genel ağır vasıta sürüş uygunluk heyet onayı</span>
-                  </div>
-                </div>
-                <div class="flex items-center gap-space-xs self-stretch sm:self-auto flex-shrink-0">
-                  <button class="w-full sm:w-auto px-space-lg py-2.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-md text-label-md font-bold transition-all flex items-center justify-center gap-space-xs cursor-pointer" type="button" onclick="triggerDocUpload('docInput5')">
-                    <span class="material-symbols-outlined text-[18px]">upload</span>
-                    <span id="btnTextDoc5">Evrak Yükle</span>
-                  </button>
-                  <input type="file" id="docInput5" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 5, 'Sağlık Raporu')">
-                </div>
-              </div>
-
-              <!-- Document Item 6: SGK Hizmet Dökümü - YÜKLENMEDİ -->
-              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-md" id="docCard6">
-                <div class="flex items-start gap-space-sm">
-                  <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
-                    <span class="material-symbols-outlined text-[22px]">work_history</span>
-                  </div>
-                  <div class="flex flex-col">
-                    <div class="flex items-center gap-space-sm flex-wrap">
-                      <span class="font-label-lg text-label-lg text-on-surface font-bold">6. SGK Hizmet Dökümü (Şoförlük Tecrübesi İspatı)</span>
-                      <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-bold" id="badgeDoc6">
-                        <span class="w-1.5 h-1.5 rounded-full bg-error"></span>Yüklenmedi
-                      </span>
-                    </div>
-                    <span class="font-body-sm text-body-sm text-on-surface-variant">Lojistik firmalarında ağır vasıta meslek koduyla tescilli geçmiş prim dökümü</span>
-                  </div>
-                </div>
-                <div class="flex items-center gap-space-xs self-stretch sm:self-auto flex-shrink-0">
-                  <button class="w-full sm:w-auto px-space-lg py-2.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-md text-label-md font-bold transition-all flex items-center justify-center gap-space-xs cursor-pointer" type="button" onclick="triggerDocUpload('docInput6')">
-                    <span class="material-symbols-outlined text-[18px]">upload</span>
-                    <span id="btnTextDoc6">Evrak Yükle</span>
-                  </button>
-                  <input type="file" id="docInput6" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 6, 'SGK Hizmet Dökümü')">
-                </div>
-              </div>
-
             </div>
 
             <!-- Right Column: Quick Drag-Drop Zone & Driver File Guidance (4 cols) -->
@@ -679,6 +467,15 @@
 
     let activeCandidate = null;
 
+    const ATS_DOC_DEFINITIONS = [
+      { key: 'doc_license', title: '1. Sürücü Belgesi (CE Sınıfı - Ön ve Arka Yüz)', icon: 'badge', desc: 'Uluslararası ağır vasıta sürüş yetkisi belgesi' },
+      { key: 'doc_src', title: '2. Mesleki Yeterlilik Belgesi (SRC3/4 & Kod 95)', icon: 'workspace_premium', desc: 'Uluslararası yük taşıma SRC3 / SRC4 ve Kod 95 kartı' },
+      { key: 'doc_tacho', title: '3. Dijital Takograf Sürücü Kartı', icon: 'sim_card', desc: 'Sürüş ve dinlenme sürelerinin kaydı için akıllı çipli takograf kartı' },
+      { key: 'doc_criminal', title: '4. Adli Sicil Kaydı (e-Devlet Barkodlu)', icon: 'gavel', desc: 'Son 30 gün içinde alınmış resmi sabıka kaydı belgesi' },
+      { key: 'doc_health', title: '5. Sağlık Raporu & Psikoteknik', icon: 'medical_services', desc: 'Göz, işitme ve genel ağır vasıta sürüş uygunluk heyet onayı' },
+      { key: 'doc_passport', title: '6. Pasaport / Kimlik & Biyometrik Fotoğraf', icon: 'contact_page', desc: 'Yurt dışı vize ve çalışma izni başvurusu için resmi evrak' }
+    ];
+
     // Load Candidate Data dynamically
     async function initCandidateData() {
       let session = null;
@@ -686,6 +483,12 @@
         const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
         if (sessionStr) session = JSON.parse(sessionStr);
       } catch(e) {}
+
+      // ENFORCE SESSION GUARD: Redirect to login if not authenticated
+      if (!session || !session.loggedIn) {
+        window.location.href = 'surucu-paneli.html';
+        return;
+      }
 
       if (typeof window.fetchApplicationsFromCloud === 'function') {
         try {
@@ -700,31 +503,142 @@
       } catch(e) {}
 
       let candidate = null;
-      if (session && session.email) {
-        candidate = apps.find(a => a.email === session.email || (a.id && a.id === session.id));
+      if (session && (session.email || session.id)) {
+        candidate = apps.find(a => (session.email && a.email && a.email.toLowerCase() === session.email.toLowerCase()) || 
+                                   (session.id && a.id === session.id) ||
+                                   (session.username && a.username === session.username));
       }
 
       if (!candidate) {
-        candidate = apps.find(a => a.email === 'ugurgorgulu68770@gmail.com') || apps[0];
-      }
-
-      if (!candidate) {
-        candidate = {
-          fullName: "Uğur Görgülü",
-          email: "ugurgorgulu68770@gmail.com",
-          phone: "+90 537 165 51 49"
-        };
+        candidate = session;
       }
 
       activeCandidate = candidate;
-      const fullName = candidate.fullName || "Uğur Görgülü";
-      const firstName = fullName.split(' ')[0] || "Uğur";
+      const fullName = candidate.fullName || candidate.name || "Sürücü Adayı";
+      const firstName = fullName.split(' ')[0] || "Sürücü";
 
       const topGreeting = document.getElementById('topHeaderGreeting');
       if (topGreeting) topGreeting.textContent = `Hoş Geldiniz, ${firstName} Bey`;
 
       const sidebarName = document.getElementById('sidebarUserName');
       if (sidebarName) sidebarName.textContent = fullName;
+
+      renderDriverDocuments();
+    }
+
+    function renderDriverDocuments() {
+      const container = document.getElementById('documentsListContainer');
+      if (!container) return;
+
+      const docs = (activeCandidate && activeCandidate.documents) ? activeCandidate.documents : {};
+      container.innerHTML = '';
+
+      let uploadedCount = 0;
+
+      ATS_DOC_DEFINITIONS.forEach((def, index) => {
+        // Look up by key or legacy doc_index
+        const docData = docs[def.key] || docs['doc_' + (index + 1)];
+        const isUploaded = docData && (docData.status === 'Onaylandı' || docData.status === 'İnceleniyor');
+
+        if (isUploaded) {
+          uploadedCount++;
+        }
+
+        const card = document.createElement('div');
+        card.className = "bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden";
+
+        if (docData && docData.status === 'İnceleniyor') {
+          card.innerHTML += `<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>`;
+        } else if (docData && docData.status === 'Onaylandı') {
+          card.innerHTML += `<div class="absolute left-0 top-0 bottom-0 w-1 bg-status-success"></div>`;
+        }
+
+        let badgeHtml = '';
+        if (docData && docData.status === 'Onaylandı') {
+          badgeHtml = `<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Onaylandı
+          </span>`;
+        } else if (docData && docData.status === 'İnceleniyor') {
+          badgeHtml = `<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>İnceleniyor
+          </span>`;
+        } else {
+          badgeHtml = `<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Yüklenmedi / Bekleniyor
+          </span>`;
+        }
+
+        let bodyHtml = '';
+        if (isUploaded) {
+          const fileName = docData.name || `${def.title.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+          const subText = docData.status === 'Onaylandı' ? 'Resmi Onaylı Kopya' : 'Danışman İnceleme Sırasında';
+          bodyHtml = `
+            <div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
+              <div class="flex items-center gap-space-sm min-w-0">
+                <span class="material-symbols-outlined text-secondary-container text-[20px] flex-shrink-0">
+                  ${fileName.endsWith('.pdf') ? 'picture_as_pdf' : 'image'}
+                </span>
+                <div class="flex flex-col min-w-0">
+                  <span class="font-label-md text-label-md font-bold text-on-surface truncate">${fileName}</span>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant">${subText}</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-space-xs flex-shrink-0">
+                <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="Görüntüle" type="button" onclick="previewDocument('${def.title}', '${fileName}', '${docData.status}')">
+                  <span class="material-symbols-outlined text-[18px]">visibility</span>
+                </button>
+                <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="İndir" type="button" onclick="downloadDocument('${fileName}')">
+                  <span class="material-symbols-outlined text-[18px]">download</span>
+                </button>
+              </div>
+            </div>
+          `;
+        } else {
+          // Dropzone when not uploaded
+          bodyHtml = `
+            <div class="bg-surface-subtle hover:bg-surface-container-low transition-colors rounded-xl p-space-md flex flex-col items-center justify-center text-center cursor-pointer group border-2 border-dashed border-border-muted hover:border-secondary-container" onclick="triggerDocUpload('input_${def.key}')">
+              <div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm group-hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined text-[20px]">cloud_upload</span>
+              </div>
+              <span class="font-label-md text-label-md font-bold text-on-surface mt-1.5">Dosya Seç veya Sürükle Bırak</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant text-[12px] mt-0.5">PDF, PNG veya JPG formatında resmi evrak</span>
+              <input accept=".pdf,.png,.jpg,.jpeg" class="hidden" id="input_${def.key}" type="file" onchange="handleFileSelected(event, '${def.key}', '${def.title}')">
+              <button class="mt-2.5 px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-bold uppercase tracking-wider hover:bg-secondary-container hover:text-canvas-dark transition-colors cursor-pointer" type="button">
+                Dosya Seç
+              </button>
+            </div>
+          `;
+        }
+
+        card.innerHTML += `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+            <div class="flex items-start gap-space-sm">
+              <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
+                <span class="material-symbols-outlined text-[22px]">${def.icon}</span>
+              </div>
+              <div class="flex flex-col">
+                <div class="flex items-center gap-space-sm flex-wrap">
+                  <span class="font-label-lg text-label-lg text-on-surface font-bold">${def.title}</span>
+                  ${badgeHtml}
+                </div>
+                <span class="font-body-sm text-body-sm text-on-surface-variant">${def.desc}</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-space-xs self-end sm:self-center">
+              <button class="px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-sm text-label-sm font-bold transition-all flex items-center gap-1 cursor-pointer" type="button" onclick="triggerDocUpload('input_${def.key}')">
+                <span class="material-symbols-outlined text-[16px]">upload</span>
+                <span>${isUploaded ? 'Yenisini Yükle' : 'Evrak Yükle'}</span>
+              </button>
+              <input type="file" id="input_${def.key}" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, '${def.key}', '${def.title}')">
+            </div>
+          </div>
+          ${bodyHtml}
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateProgressUI(uploadedCount, 6);
     }
 
     function triggerDocUpload(inputId) {
@@ -732,65 +646,92 @@
       if (elem) elem.click();
     }
 
-    function handleFileSelected(event, docIndex, docTitle) {
+    async function handleFileSelected(event, docKey, docTitle) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
 
       const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
-      alert(`"${file.name}" (${sizeMb} MB) seçildi.\n"${docTitle}" belgesi başarıyla yüklendi ve danışman inceleme kuyruğuna alındı.`);
 
-      // Update Card UI
-      const badge = document.getElementById('badgeDoc' + docIndex);
-      if (badge) {
-        badge.className = "inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold";
-        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>İnceleniyor';
-      }
+      if (!activeCandidate) return;
+      if (!activeCandidate.documents) activeCandidate.documents = {};
 
-      const btnText = document.getElementById('btnTextDoc' + docIndex);
-      if (btnText) {
-        btnText.textContent = "Yenisini Yükle";
-      }
+      activeCandidate.documents[docKey] = {
+        name: file.name,
+        title: docTitle,
+        size: `${sizeMb} MB`,
+        status: 'İnceleniyor',
+        uploadedAt: new Date().toISOString()
+      };
 
-      // Save document status in candidate record
-      if (activeCandidate) {
-        if (!activeCandidate.documents) activeCandidate.documents = {};
-        activeCandidate.documents['doc_' + docIndex] = {
-          name: file.name,
-          title: docTitle,
-          status: 'İnceleniyor',
-          uploadedAt: new Date().toISOString()
-        };
-
-        try {
-          let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
-          const idx = apps.findIndex(a => a.id === activeCandidate.id || a.email === activeCandidate.email);
-          if (idx !== -1) {
-            apps[idx] = activeCandidate;
-            localStorage.setItem('ats_applications', JSON.stringify(apps));
-          }
-        } catch(e) {}
-
-        if (typeof window.saveApplicationToHosting === 'function') {
-          window.saveApplicationToHosting(activeCandidate);
+      try {
+        let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
+        const idx = apps.findIndex(a => a.id === activeCandidate.id || a.email === activeCandidate.email);
+        if (idx !== -1) {
+          apps[idx] = activeCandidate;
+        } else {
+          apps.unshift(activeCandidate);
         }
+        localStorage.setItem('ats_applications', JSON.stringify(apps));
+      } catch(e) {}
+
+      if (typeof window.saveApplicationToHosting === 'function') {
+        await window.saveApplicationToHosting(activeCandidate);
       }
 
-      updateProgressUI(4, 6);
+      renderDriverDocuments();
+      alert(`"${file.name}" (${sizeMb} MB) seçildi.\n"${docTitle}" belgesi başarıyla yüklendi ve danışman inceleme kuyruğuna alındı.`);
     }
 
-    function handleUniversalFile(event) {
+    async function handleUniversalFile(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
 
-      alert(`"${file.name}" yüklendi.\nBelgeniz genel evrak havuzuna kaydedildi ve danışmanınız Murat Kaya'ya iletildi.`);
-      updateProgressUI(4, 6);
+      if (!activeCandidate) return;
+      if (!activeCandidate.documents) activeCandidate.documents = {};
+
+      // Assign to the first unuploaded document or license
+      let targetKey = 'doc_license';
+      for (const d of ATS_DOC_DEFINITIONS) {
+        if (!activeCandidate.documents[d.key] || activeCandidate.documents[d.key].status === 'Yüklenmedi / Bekleniyor') {
+          targetKey = d.key;
+          break;
+        }
+      }
+
+      activeCandidate.documents[targetKey] = {
+        name: file.name,
+        title: 'Hızlı Yüklenen Belge',
+        status: 'İnceleniyor',
+        uploadedAt: new Date().toISOString()
+      };
+
+      try {
+        let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
+        const idx = apps.findIndex(a => a.id === activeCandidate.id || a.email === activeCandidate.email);
+        if (idx !== -1) {
+          apps[idx] = activeCandidate;
+        } else {
+          apps.unshift(activeCandidate);
+        }
+        localStorage.setItem('ats_applications', JSON.stringify(apps));
+      } catch(e) {}
+
+      if (typeof window.saveApplicationToHosting === 'function') {
+        await window.saveApplicationToHosting(activeCandidate);
+      }
+
+      renderDriverDocuments();
+      alert(`"${file.name}" yüklendi.\nBelgeniz operasyon masasına ve danışmanınıza iletildi.`);
     }
 
     function updateProgressUI(done, total) {
       const ratioEl = document.getElementById('overallDocsRatioText');
       if (ratioEl) ratioEl.textContent = `${done} / ${total} Tamamlandı`;
 
-      const percent = Math.round((done / total) * 100);
+      // KURAL: Hiç evrağı olmayan kişilerde bu oran çok daha az (%5 veya %0) olarak kalmalı
+      let percent = Math.round((done / total) * 100);
+      if (done === 0) percent = 5;
+
       const circleText = document.getElementById('circleProgressText');
       if (circleText) circleText.textContent = `%${percent}`;
 
@@ -832,7 +773,8 @@
     }
 
     function openSupportModal() {
-      alert("Destek Hattı: Evrak yükleme veya barkodlu döküm konusunda danışmanınız Murat Kaya ile iletişime geçebilirsiniz.");
+      const cName = (activeCandidate && activeCandidate.assignedConsultant && activeCandidate.assignedConsultant.name) || 'Serkan Alçay';
+      alert(`Destek Hattı: Evrak yükleme veya barkodlu döküm konusunda danışmanınız ${cName} ile iletişime geçebilirsiniz.`);
     }
 
     function handleLogout() {
@@ -843,30 +785,25 @@
       }
     }
 
-    // Drag and drop events for Drop Zone 3 and Universal Drop Zone
+    // Drag and drop events for Universal Drop Zone
     function setupDragAndDrop() {
-      const dropZone3 = document.getElementById('drop-zone-3');
       const universalZone = document.getElementById('universalDropZone');
+      if (!universalZone) return;
 
-      [dropZone3, universalZone].forEach(zone => {
-        if (!zone) return;
-        zone.addEventListener('dragover', (e) => {
-          e.preventDefault();
-          zone.classList.add('bg-surface-container-high', 'border-secondary-container');
-        });
-        zone.addEventListener('dragleave', (e) => {
-          e.preventDefault();
-          zone.classList.remove('bg-surface-container-high', 'border-secondary-container');
-        });
-        zone.addEventListener('drop', (e) => {
-          e.preventDefault();
-          zone.classList.remove('bg-surface-container-high', 'border-secondary-container');
-          if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            const f = e.dataTransfer.files[0];
-            alert(`"${f.name}" seçildi ve evrak onay kuyruğuna eklendi.`);
-            updateProgressUI(4, 6);
-          }
-        });
+      universalZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        universalZone.classList.add('bg-surface-container-high', 'border-secondary-container');
+      });
+      universalZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        universalZone.classList.remove('bg-surface-container-high', 'border-secondary-container');
+      });
+      universalZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        universalZone.classList.remove('bg-surface-container-high', 'border-secondary-container');
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          handleUniversalFile({ target: { files: e.dataTransfer.files } });
+        }
       });
     }
 

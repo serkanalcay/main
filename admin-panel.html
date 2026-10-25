@@ -1454,6 +1454,23 @@
           </div>
         </div>
 
+        <!-- Sürücü Evrakları Yönetimi (Admin Manuel Evrak Girişi) -->
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Sürücü Portalı Evrakları</span>
+            <span class="text-xs text-secondary font-semibold" id="drawer-docs-summary">0 / 6 Yüklendi</span>
+          </div>
+          <div class="p-3.5 rounded-lg bg-surface-subtle flex flex-col gap-3 border border-border-muted">
+            <div class="flex flex-col gap-2" id="drawer-docs-slots">
+              <!-- Rendered dynamically -->
+            </div>
+            <button type="button" onclick="saveDriverDocumentsFromDrawer()" class="w-full py-2.5 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-md text-label-md font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">cloud_upload</span>
+              <span>Evrak Durumlarını Kaydet &amp; Sürücü Paneline Yansıt</span>
+            </button>
+          </div>
+        </div>
+
       </div>
 
       <!-- Drawer Footer Buttons -->
@@ -1497,6 +1514,45 @@
             <option value="Arşiv / Uygun Değil">Arşiv / Uygun Değil</option>
           </select>
         </div>
+
+        <!-- Atanan Uzman Danışman -->
+        <div class="flex flex-col gap-space-xs">
+          <label class="font-label-md text-label-md text-on-surface font-semibold" for="modal-consultant-select">Atanan Uzman Danışman</label>
+          <select class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer" id="modal-consultant-select">
+            <option value="">-- Henüz Danışman Atanmadı --</option>
+            <option value="serkanalcay52">Serkan Alçay (Uzman Danışman)</option>
+          </select>
+        </div>
+
+        <!-- VIP & Aday Havuzu Toggle -->
+        <div class="p-3 rounded-xl bg-surface-container-low flex items-center justify-between">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md font-bold text-on-surface">VIP Üyelik &amp; Aday Havuzu</span>
+            <span class="text-xs text-on-surface-variant">WhatsApp havuzuna ve ücretsiz görüşmeye dahil et</span>
+          </div>
+          <input type="checkbox" id="modal-vip-checkbox" class="w-5 h-5 rounded text-secondary-container accent-secondary-container cursor-pointer">
+        </div>
+
+        <!-- Sürücü Portalı Üyelik & Geçici Şifre Oluşturma -->
+        <div class="p-3.5 rounded-xl bg-surface-container-low border border-border-muted flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="font-label-sm text-label-sm font-bold text-on-surface flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px] text-secondary">vpn_key</span>
+              Sürücü Portali Hesabı &amp; Şifre
+            </span>
+            <span id="modal-account-status-badge" class="px-2 py-0.5 rounded text-xs font-bold bg-surface-container text-on-surface-variant">Hesap Yok</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="modal-temp-password" placeholder="Geçici şifre (örn: ATS2026!)" class="flex-1 h-9 px-3 rounded-lg bg-surface-card text-on-surface font-mono text-xs border border-border-muted">
+            <button type="button" onclick="generateTempPassword()" class="px-2.5 h-9 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-semibold cursor-pointer" title="Yeni Şifre Üret">Rastgele</button>
+          </div>
+          <button type="button" id="btn-send-credentials" onclick="handleSendCredentialsFromModal()" class="w-full h-9 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">forward_to_inbox</span>
+            <span>Hesap Aç &amp; Şifreyi Mail Gönder</span>
+          </button>
+          <span id="modal-cred-feedback" class="text-[11px] font-medium hidden"></span>
+        </div>
+
         <div class="flex flex-col gap-space-xs">
           <label class="font-label-md text-label-md text-on-surface font-semibold" for="modal-status-notes">Adaya İletilecek Danışman Notu / Operasyonel Açıklama</label>
           <textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="modal-status-notes" placeholder="Adayın panelinde görüntülenecek özel danışman notunu yazınız..." rows="3"></textarea>
@@ -3502,10 +3558,96 @@
         }
       }
 
+      // Render Documents inside drawer
+      renderDrawerDocuments(app);
+
       const drawer = document.getElementById('driver-drawer');
       if (drawer) {
         drawer.classList.remove('translate-x-full');
       }
+    }
+
+    // DOCUMENT DEFINITIONS FOR DRIVER
+    const ATS_DOC_DEFINITIONS = [
+      { key: 'doc_1', title: '1. Sürücü Belgesi (CE Sınıfı)' },
+      { key: 'doc_2', title: '2. SRC Belgesi / Kod 95' },
+      { key: 'doc_3', title: '3. Dijital Takograf Kartı' },
+      { key: 'doc_4', title: '4. Adli Sicil Kaydı' },
+      { key: 'doc_5', title: '5. Sağlık Raporu' },
+      { key: 'doc_6', title: '6. SGK Hizmet Dökümü' }
+    ];
+
+    function renderDrawerDocuments(app) {
+      const container = document.getElementById('drawer-docs-slots');
+      const summary = document.getElementById('drawer-docs-summary');
+      if (!container) return;
+
+      const docs = app.documents || {};
+      let uploadedCount = 0;
+
+      let html = '';
+      ATS_DOC_DEFINITIONS.forEach(def => {
+        const item = docs[def.key] || { name: '', status: 'Yüklenmedi' };
+        if (item.status === 'Onaylandı' || item.status === 'İnceleniyor') {
+          uploadedCount++;
+        }
+
+        html += `
+          <div class="p-2.5 rounded-lg bg-surface-card border border-border-muted flex flex-col gap-1.5" data-doc-key="${def.key}">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-xs font-bold text-on-surface">${def.title}</span>
+              <select class="h-7 px-2 rounded text-xs font-semibold bg-surface-container-low border border-border-muted doc-status-select cursor-pointer">
+                <option value="Yüklenmedi" ${item.status === 'Yüklenmedi' ? 'selected' : ''}>Yüklenmedi</option>
+                <option value="İnceleniyor" ${item.status === 'İnceleniyor' ? 'selected' : ''}>İnceleniyor</option>
+                <option value="Onaylandı" ${item.status === 'Onaylandı' ? 'selected' : ''}>Onaylandı</option>
+                <option value="Eksik" ${item.status === 'Eksik' ? 'selected' : ''}>Eksik / Hatalı</option>
+              </select>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <input type="text" class="flex-1 h-7 px-2 rounded bg-surface-container-low text-xs text-on-surface doc-name-input border border-border-muted" placeholder="Belge Dosya Adı (Örn: surucu_belgesi.pdf)" value="${item.name || ''}">
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      if (summary) summary.textContent = `${uploadedCount} / 6 Yüklendi`;
+    }
+
+    function saveDriverDocumentsFromDrawer() {
+      if (!selectedDriverId) return;
+      const app = allApplications.find(a => a.id === selectedDriverId || a.referenceNumber === selectedDriverId);
+      if (!app) return;
+
+      if (!app.documents) app.documents = {};
+
+      const rows = document.querySelectorAll('#drawer-docs-slots > div');
+      let uploadedCount = 0;
+      rows.forEach(row => {
+        const key = row.getAttribute('data-doc-key');
+        const status = row.querySelector('.doc-status-select').value;
+        const name = row.querySelector('.doc-name-input').value.trim();
+
+        app.documents[key] = {
+          name: name || (status !== 'Yüklenmedi' ? 'Belge_Onayli.pdf' : ''),
+          status: status,
+          updatedAt: new Date().toISOString()
+        };
+
+        if (status === 'Onaylandı' || status === 'İnceleniyor') {
+          uploadedCount++;
+        }
+      });
+
+      saveDatabase();
+      if (typeof window.updateApplicationOnHosting === 'function') {
+        window.updateApplicationOnHosting(app);
+      }
+
+      const summary = document.getElementById('drawer-docs-summary');
+      if (summary) summary.textContent = `${uploadedCount} / 6 Yüklendi`;
+
+      alert(`"${app.fullName || 'Aday'}" için evrak durumları kaydedildi (${uploadedCount}/6). Sürücü paneline gerçek zamanlı yansıtıldı.`);
     }
 
     function closeDriverDrawer() {
@@ -3538,6 +3680,89 @@
       if (el) el.classList.toggle('hidden');
     }
 
+    function generateTempPassword() {
+      const pass = 'ATS' + Math.floor(1000 + Math.random() * 9000) + '!';
+      const input = document.getElementById('modal-temp-password');
+      if (input) input.value = pass;
+    }
+
+    async function handleSendCredentialsFromModal() {
+      if (!selectedDriverId) return;
+      const app = allApplications.find(a => a.id === selectedDriverId || a.referenceNumber === selectedDriverId);
+      if (!app) return;
+
+      const passInput = document.getElementById('modal-temp-password');
+      const feedback = document.getElementById('modal-cred-feedback');
+      const btn = document.getElementById('btn-send-credentials');
+      let password = (passInput ? passInput.value : '').trim();
+
+      if (!password) {
+        password = 'ATS' + Math.floor(1000 + Math.random() * 9000) + '!';
+        if (passInput) passInput.value = password;
+      }
+
+      if (!app.email || !app.email.includes('@')) {
+        alert('Bu adayın kayıtlı geçerli bir e-posta adresi bulunmuyor. Lütfen önce e-posta adresini güncelleyiniz.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">sync</span><span>Gönderiliyor...</span>';
+
+      app.password = password;
+      app.hasAccount = true;
+      app.isApproved = true;
+      app.username = app.email;
+
+      // Assign Serkan Alçay if not assigned
+      if (!app.assignedConsultant) {
+        app.assignedConsultant = {
+          username: 'serkanalcay52',
+          name: 'Serkan Alçay',
+          title: 'Uzman Danışman',
+          subTitle: 'Avrupa Lojistik İstihdam & Evrak Uzmanı'
+        };
+      }
+
+      saveDatabase();
+      if (typeof window.updateApplicationOnHosting === 'function') {
+        window.updateApplicationOnHosting(app);
+      }
+
+      // Call mail endpoint
+      try {
+        await fetch('api/mail.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'send_credentials',
+            email: app.email,
+            fullName: app.fullName || 'Aday',
+            tempPassword: password,
+            consultantName: app.assignedConsultant.name
+          })
+        });
+      } catch(e) {}
+
+      btn.disabled = false;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-status-success">check</span><span>Şifre Gönderildi</span>';
+
+      const accountBadge = document.getElementById('modal-account-status-badge');
+      if (accountBadge) {
+        accountBadge.className = 'px-2 py-0.5 rounded text-xs font-bold bg-status-success/20 text-emerald-800';
+        accountBadge.textContent = 'Hesap Aktif (Şifreli)';
+      }
+
+      if (feedback) {
+        feedback.className = 'text-[11px] font-semibold text-emerald-700 block mt-1';
+        feedback.textContent = `✅ Geçici şifre (${password}) ${app.email} adresine mail olarak gönderildi.`;
+        feedback.classList.remove('hidden');
+      }
+
+      renderDashboard();
+      renderPoolDashboard();
+    }
+
     function quickStatusChange(appId) {
       const app = allApplications.find(a => a.id === appId || a.referenceNumber === appId);
       if (!app) return;
@@ -3547,6 +3772,36 @@
       document.getElementById('modal-driver-code').textContent = app.id || app.referenceNumber || 'TR-000';
       document.getElementById('modal-status-select').value = app.status || 'Yeni Başvuru';
       document.getElementById('modal-status-notes').value = app.consultantNote || '';
+
+      // Consultant select
+      const consultSelect = document.getElementById('modal-consultant-select');
+      if (consultSelect) {
+        consultSelect.value = (app.assignedConsultant && app.assignedConsultant.username) ? app.assignedConsultant.username : '';
+      }
+
+      // VIP checkbox
+      const vipCb = document.getElementById('modal-vip-checkbox');
+      if (vipCb) {
+        vipCb.checked = (app.inPool === true || app.isVip === true || app.vipPaid === true);
+      }
+
+      // Account status
+      const accountBadge = document.getElementById('modal-account-status-badge');
+      const tempPassInput = document.getElementById('modal-temp-password');
+      const credFeedback = document.getElementById('modal-cred-feedback');
+      if (credFeedback) credFeedback.classList.add('hidden');
+      if (accountBadge) {
+        if (app.hasAccount || app.password) {
+          accountBadge.className = 'px-2 py-0.5 rounded text-xs font-bold bg-status-success/20 text-emerald-800';
+          accountBadge.textContent = 'Hesap Aktif (Şifreli)';
+        } else {
+          accountBadge.className = 'px-2 py-0.5 rounded text-xs font-bold bg-surface-container text-on-surface-variant';
+          accountBadge.textContent = 'Hesap Yok';
+        }
+      }
+      if (tempPassInput) {
+        tempPassInput.value = app.password || '';
+      }
 
       openModal('quick-status-modal');
     }
@@ -3558,20 +3813,46 @@
         const newStatus = document.getElementById('modal-status-select').value;
         const note = document.getElementById('modal-status-notes').value.trim();
         app.status = newStatus;
+
+        // Consultant assignment
+        const consultantKey = document.getElementById('modal-consultant-select')?.value;
+        if (consultantKey === 'serkanalcay52') {
+          app.assignedConsultant = {
+            username: 'serkanalcay52',
+            name: 'Serkan Alçay',
+            title: 'Uzman Danışman',
+            subTitle: 'Avrupa Lojistik İstihdam & Evrak Uzmanı',
+            experience: '10+ Yıl Lojistik Koordinasyonu',
+            placements: '350+ Şoför Yerleştirme',
+            responseTime: '~2 Saat',
+            phone: '+90 850 308 85 52',
+            email: 'info@avrupatirsoforu.com'
+          };
+        } else if (consultantKey === '') {
+          app.assignedConsultant = null;
+        }
+
+        // VIP / Aday Havuzu Toggle
+        const isVipChecked = document.getElementById('modal-vip-checkbox')?.checked;
+        app.inPool = isVipChecked;
+        app.isVip = isVipChecked;
+        app.vipPaid = isVipChecked;
+        if (isVipChecked && !app.approvalDate) {
+          app.approvalDate = new Date().toLocaleDateString('tr-TR');
+        }
+
         if (newStatus === 'Görüşme Tamamlandı' || newStatus === 'Filoya Sevk Aşamasında') {
           app.isApproved = true;
-          app.inPool = true;
           if (!app.approvalDate) {
             app.approvalDate = new Date().toLocaleDateString('tr-TR');
           }
-        } else {
-          app.isApproved = false;
-          app.inPool = false;
         }
+
         if (note) {
           app.consultantNote = note;
           app.extraNotes = (app.extraNotes ? app.extraNotes + '\n' : '') + `[${new Date().toLocaleDateString('tr-TR')} Operatör Notu]: ${note}`;
         }
+
         saveDatabase();
         if (typeof window.updateApplicationOnHosting === 'function') {
           window.updateApplicationOnHosting(app);

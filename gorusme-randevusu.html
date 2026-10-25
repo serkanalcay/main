@@ -202,7 +202,7 @@
           <span class="material-symbols-outlined text-[20px]">badge</span>
         </div>
         <div class="flex flex-col min-w-0 flex-1">
-          <span class="font-label-md text-label-md text-on-surface font-bold truncate" id="sidebarUserName">Uğur Görgülü</span>
+          <span class="font-label-md text-label-md text-on-surface font-bold truncate" id="sidebarUserName">Sürücü Portalı</span>
           <span class="font-label-sm text-label-sm text-on-surface-variant truncate" id="sidebarUserSub">CE &amp; Kod 95 Adayı</span>
         </div>
       </div>
@@ -229,7 +229,7 @@
           <span class="material-symbols-outlined text-[24px]">menu</span>
         </button>
         <div>
-          <span class="font-headline-sm text-base sm:text-headline-sm text-on-surface block font-bold" id="topHeaderGreeting">Hoş Geldiniz, Uğur Bey</span>
+          <span class="font-headline-sm text-base sm:text-headline-sm text-on-surface block font-bold" id="topHeaderGreeting">Hoş Geldiniz</span>
         </div>
       </div>
 
@@ -307,15 +307,17 @@
                   </div>
                   <div class="flex items-start gap-space-md pt-2">
                     <div class="relative shrink-0">
-                      <img class="w-20 h-20 rounded-xl object-cover shadow-sm" data-alt="Professional headshot of a seasoned male logistics coordinator in his late 30s wearing a modern dark navy collar shirt. High resolution, bright confident expression, neutral modern office background with muted amber and slate tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRzwxq1TBFDDfF-eUQd3-1MgYQbXznqoq6Kxl_7qsM_CqBgoj8Z0vrDpDT3S9Mtc2WXW7S-EwI20ToRj-2_FV8sN_hsI3-f4TRBil6t1jFRP3zBqo2kQkgKET3Vh2NRgfeAhWcfoh7qXMlxfekOe6b-gCA_eS5GZ7I7v6-Ek_CHBtdrtfzR9M9yCCEP2I4ZHz1SDXTgyBLJv5GhmKSN8bMNVO3qgFyQp7vkYbTsG-Sn02FR93LyDXh">
+                      <div id="assignedConsultantAvatarWrap" class="w-16 h-16 rounded-xl bg-primary-container text-secondary-container flex items-center justify-center font-bold text-xl shadow-sm border border-secondary-container/30">
+                        <span id="assignedConsultantInitials" class="font-headline-sm font-extrabold tracking-wider">SA</span>
+                      </div>
                       <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-md bg-secondary-container flex items-center justify-center text-canvas-dark shadow-sm">
-                        <span class="material-symbols-outlined text-[14px]">local_shipping</span>
+                        <span class="material-symbols-outlined text-[14px]">verified</span>
                       </div>
                     </div>
                     <div class="flex flex-col min-w-0">
-                      <h2 class="font-headline-sm text-headline-sm text-on-surface truncate font-bold">Murat Kaya</h2>
-                      <span class="font-label-md text-label-md text-secondary font-semibold">Avrupa Lojistik İstihdam &amp; Evrak Uzmanı</span>
-                      <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Uluslararası TIR Filoları &amp; Sürücü Yönetimi</span>
+                      <h2 id="assignedConsultantName" class="font-headline-sm text-headline-sm text-on-surface truncate font-bold">Serkan Alçay</h2>
+                      <span id="assignedConsultantTitle" class="font-label-md text-label-md text-secondary font-semibold">Uzman Danışman</span>
+                      <span id="assignedConsultantDept" class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Uluslararası TIR Filoları &amp; Sürücü Yönetimi</span>
                     </div>
                   </div>
                   <!-- Stats Bar Inside Card -->
@@ -368,7 +370,7 @@
                     </div>
                   </div>
                   <div class="pt-2 flex items-center justify-between">
-                    <span class="font-label-sm text-label-sm text-on-surface-variant">Danışman: Murat Kaya</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Danışman: Serkan Alçay</span>
                     <button class="font-label-md text-label-md text-secondary hover:text-warning-amber-hover font-semibold transition-colors flex items-center gap-1 cursor-pointer" type="button" onclick="alert('Randevu değişikliği talebiniz danışmanınıza iletilmiştir.');">
                       <span>İptal Et / Değiştir</span>
                       <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
@@ -490,45 +492,51 @@
                     </div>
                   </div>
 
-                  <!-- Step 3: Interactive Date Picker (Pazartesi - Cuma) -->
+                  <!-- Step 3: İleriye Dönük İnteraktif Randevu Takvimi -->
                   <div class="flex flex-col gap-space-xs">
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between pb-1">
                       <label class="font-label-md text-label-md text-on-surface font-bold">
-                        3. Tarih Seçimi (Haftalık Takvim) <span class="text-error">*</span>
+                        3. Tarih Seçimi (İnteraktif Randevu Takvimi) <span class="text-error">*</span>
                       </label>
-                      <span class="font-label-sm text-label-sm text-secondary font-bold">Nisan 2026</span>
+                      <!-- Ay Değiştirme Butonları & Başlık -->
+                      <div class="flex items-center gap-2">
+                        <button type="button" onclick="changeCalendarMonth(-1)" class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface flex items-center justify-center transition-colors cursor-pointer" title="Önceki Ay">
+                          <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                        </button>
+                        <span id="calendarCurrentMonthLabel" class="font-label-md text-label-md text-secondary font-bold min-w-[120px] text-center">Nisan 2026</span>
+                        <button type="button" onclick="changeCalendarMonth(1)" class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface flex items-center justify-center transition-colors cursor-pointer" title="Sonraki Ay">
+                          <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                        </button>
+                      </div>
                     </div>
 
-                    <!-- Day selector pills -->
-                    <div class="grid grid-cols-5 gap-space-xs sm:gap-space-sm pt-1" id="calendar-days">
-                      <button class="day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '21 Nisan Pazartesi')" type="button">
-                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Pzt</span>
-                        <span class="font-headline-sm text-headline-sm text-on-surface font-bold">21</span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
-                      </button>
-                      <button class="day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '22 Nisan Salı')" type="button">
-                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sal</span>
-                        <span class="font-headline-sm text-headline-sm text-on-surface font-bold">22</span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
-                      </button>
-                      <!-- Currently Selected Day by Default -->
-                      <button class="day-btn group p-space-sm rounded-xl bg-primary-container text-on-primary ring-2 ring-secondary-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '23 Nisan Çarşamba')" type="button">
-                        <span class="font-label-sm text-label-sm text-on-primary-container uppercase">Çar</span>
-                        <span class="font-headline-sm text-headline-sm text-on-primary font-bold">23</span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
-                      </button>
-                      <button class="day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '24 Nisan Perşembe')" type="button">
-                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Per</span>
-                        <span class="font-headline-sm text-headline-sm text-on-surface font-bold">24</span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
-                      </button>
-                      <button class="day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '25 Nisan Cuma')" type="button">
-                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Cum</span>
-                        <span class="font-headline-sm text-headline-sm text-on-surface font-bold">25</span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
-                      </button>
+                    <!-- Takvim Grid Kutusu -->
+                    <div class="p-3.5 rounded-xl bg-surface-container-low border border-border-muted/50 flex flex-col gap-2">
+                      <!-- Gün Başlıkları (Pzt - Paz) -->
+                      <div class="grid grid-cols-7 gap-1 text-center font-label-sm text-label-sm font-bold text-on-surface-variant uppercase pb-2 border-b border-border-muted/50">
+                        <span>Pzt</span>
+                        <span>Sal</span>
+                        <span>Çar</span>
+                        <span>Per</span>
+                        <span>Cum</span>
+                        <span class="text-on-surface-variant/60">Cmt</span>
+                        <span class="text-on-surface-variant/60">Paz</span>
+                      </div>
+                      <!-- Dinamik Gün Hücreleri -->
+                      <div class="grid grid-cols-7 gap-1.5" id="calendarDaysGrid">
+                        <!-- renderInteractiveCalendar() ile doldurulacak -->
+                      </div>
                     </div>
-                    <input id="selected-date-input" type="hidden" value="23 Nisan Çarşamba">
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-1">
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">
+                        Seçilen Tarih: <strong id="selectedDateDisplay" class="text-secondary font-bold">Seçim Yapınız</strong>
+                      </span>
+                      <span class="font-label-sm text-label-sm text-status-success font-semibold flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> İleriye dönük tüm tarihler takvimden seçilebilir
+                      </span>
+                    </div>
+                    <input id="selected-date-input" type="hidden" value="">
                   </div>
 
                   <!-- Step 4: Time Slot Selector (Saat Dilimi Seçimi) -->
@@ -607,7 +615,7 @@
                   <div class="flex flex-col">
                     <span class="font-label-md text-label-md font-bold">Randevu Talebiniz Başarıyla Alındı!</span>
                     <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5" id="confirmation-text">
-                      Danışmanınız Murat Kaya ile seçtiğiniz tarih ve saatte görüşmeniz planlanmıştır. SMS ve e-posta onayı iletilmiştir.
+                      Danışmanınız Serkan Alçay ile seçtiğiniz tarih ve saatte görüşmeniz planlanmıştır. SMS ve e-posta onayı iletilmiştir.
                     </span>
                   </div>
                 </div>
@@ -642,6 +650,78 @@
 
   </div>
 
+  <!-- Modal: Non-VIP Danışman Randevusu 50€ Ödeme Kutusu -->
+  <div id="consultationPaymentModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+    <div class="bg-surface-card rounded-2xl shadow-2xl max-w-lg w-full p-6 sm:p-8 flex flex-col gap-5 border border-border-muted relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Close button -->
+      <button type="button" onclick="closeConsultationPaymentModal()" class="absolute top-4 right-4 p-2 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors cursor-pointer" aria-label="Kapat">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+
+      <!-- Header Icon & Title -->
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+          <span class="material-symbols-outlined text-[28px]">payments</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">Ön Bilgilendirme &amp; Ödeme</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Görüşme Seansı Talebi (50€)</h3>
+        </div>
+      </div>
+
+      <!-- Description / Explanation -->
+      <div class="p-4 rounded-xl bg-surface-container-low border border-border-muted/60 flex flex-col gap-2">
+        <p class="font-body-sm text-body-sm text-on-surface">
+          VIP Aday Havuzu üyeliği bulunmayan adaylarımız için birebir uzman danışmanlık seans ücreti <strong>50€</strong>'dur.
+        </p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">
+          VIP üyelik (100€) sahibi olan sürücülerimiz tüm danışman görüşmelerini ve WhatsApp aday havuzunu sınırsız olarak kullanabilmektedir.
+        </p>
+      </div>
+
+      <!-- Appointment Summary Box -->
+      <div class="p-3.5 rounded-lg bg-surface-subtle border border-border-muted flex flex-col gap-1.5 font-body-sm text-body-sm">
+        <div class="flex justify-between items-center text-on-surface-variant">
+          <span>Seçilen Tarih &amp; Saat:</span>
+          <strong id="modalApptDateTime" class="text-on-surface">--</strong>
+        </div>
+        <div class="flex justify-between items-center text-on-surface-variant">
+          <span>Görüşme Türü &amp; Konu:</span>
+          <strong id="modalApptTypeSubject" class="text-on-surface">--</strong>
+        </div>
+        <div class="flex justify-between items-center text-on-surface-variant">
+          <span>Atanmış Uzman:</span>
+          <strong id="modalApptConsultant" class="text-on-surface">Serkan Alçay</strong>
+        </div>
+        <div class="flex justify-between items-center pt-2 border-t border-border-muted/80 text-base">
+          <span class="font-bold text-on-surface">Ödenecek Seans Tutarı:</span>
+          <span class="font-extrabold text-secondary font-headline-sm">50€</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button type="button" onclick="confirm50EuroPayment()" class="flex-1 py-3 px-4 rounded-xl bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-md text-label-md font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">credit_card</span>
+          <span>50€ Öde ve Randevuyu Onayla</span>
+        </button>
+        <button type="button" onclick="closeConsultationPaymentModal()" class="py-3 px-5 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-all cursor-pointer">
+          Vazgeç
+        </button>
+      </div>
+
+      <!-- Upsell to VIP -->
+      <div class="text-center pt-1 border-t border-border-muted/50">
+        <a href="driver-panel.html" class="font-label-sm text-label-sm text-secondary hover:underline inline-flex items-center gap-1 font-semibold">
+          <span>Alternatif: 100€ ile VIP Aday Havuzuna Katıl (Ücretsiz Görüşme &amp; WhatsApp)</span>
+          <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Realtime Sync & Cloud DB Scripts -->
   <script src="js/cloud-db.js?v=20261025_v9"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -669,6 +749,111 @@
 
     let activeCandidate = null;
 
+    // Interactive Calendar State
+    const monthNamesTr = [
+      "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+      "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
+    ];
+    const dayNamesTr = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+
+    // Default to current date (October 2026 or real current)
+    const todayObj = new Date();
+    let calYear = todayObj.getFullYear();
+    let calMonth = todayObj.getMonth(); // 0-indexed
+    let selectedFullDate = null;
+
+    function renderInteractiveCalendar() {
+      const label = document.getElementById('calendarCurrentMonthLabel');
+      const grid = document.getElementById('calendarDaysGrid');
+      if (!grid) return;
+
+      if (label) {
+        label.textContent = `${monthNamesTr[calMonth]} ${calYear}`;
+      }
+
+      grid.innerHTML = '';
+
+      // First day of month (0 = Sun, 1 = Mon, ..., 6 = Sat)
+      const firstDay = new Date(calYear, calMonth, 1);
+      let startingDay = firstDay.getDay(); // 0 is Sunday
+      // Convert Sunday-indexed to Monday-indexed (0 = Mon ... 6 = Sun)
+      let monIndexedStart = (startingDay === 0) ? 6 : (startingDay - 1);
+
+      // Empty filler cells before the 1st
+      for (let i = 0; i < monIndexedStart; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'h-10 sm:h-12 rounded-lg bg-surface-container/30 opacity-40';
+        grid.appendChild(emptyCell);
+      }
+
+      // Total days in current month
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+      // Today midnight for comparison
+      const todayMidnight = new Date(todayObj.getFullYear(), todayObj.getMonth(), todayObj.getDate()).getTime();
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const cellDate = new Date(calYear, calMonth, d);
+        const cellMidnight = cellDate.getTime();
+        const isPast = cellMidnight < todayMidnight;
+        const dayOfWeekIndex = cellDate.getDay();
+        const isWeekend = (dayOfWeekIndex === 0 || dayOfWeekIndex === 6);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('data-day', d);
+
+        const dateStr = `${d} ${monthNamesTr[calMonth]} ${dayNamesTr[dayOfWeekIndex]} ${calYear}`;
+
+        if (isPast) {
+          btn.disabled = true;
+          btn.className = 'h-10 sm:h-12 rounded-lg bg-surface-container/40 text-on-surface-variant/40 font-label-md text-label-md flex flex-col items-center justify-center cursor-not-allowed';
+          btn.innerHTML = `<span>${d}</span>`;
+        } else {
+          // Future or today
+          const isSelected = selectedFullDate === dateStr;
+          if (isSelected) {
+            btn.className = 'day-cell h-10 sm:h-12 rounded-lg bg-secondary-container text-canvas-dark font-bold font-label-md text-label-md shadow-sm ring-2 ring-warning-amber-hover flex flex-col items-center justify-center cursor-pointer transition-all';
+            btn.innerHTML = `<span>${d}</span><span class="w-1.5 h-1.5 rounded-full bg-canvas-dark mt-0.5"></span>`;
+          } else {
+            btn.className = `day-cell h-10 sm:h-12 rounded-lg ${isWeekend ? 'bg-surface-card text-on-surface-variant/80' : 'bg-surface-card text-on-surface font-semibold'} hover:bg-surface-container-high transition-colors font-label-md text-label-md flex flex-col items-center justify-center cursor-pointer border border-border-muted/40`;
+            btn.innerHTML = `<span>${d}</span>`;
+          }
+
+          btn.onclick = function() {
+            selectCalendarDate(dateStr, btn);
+          };
+        }
+
+        grid.appendChild(btn);
+      }
+    }
+
+    function changeCalendarMonth(delta) {
+      calMonth += delta;
+      if (calMonth < 0) {
+        calMonth = 11;
+        calYear--;
+      } else if (calMonth > 11) {
+        calMonth = 0;
+        calYear++;
+      }
+      renderInteractiveCalendar();
+    }
+
+    function selectCalendarDate(fullDateStr, buttonElem) {
+      selectedFullDate = fullDateStr;
+
+      // Update hidden input and display text
+      const input = document.getElementById('selected-date-input');
+      const display = document.getElementById('selectedDateDisplay');
+      if (input) input.value = fullDateStr;
+      if (display) display.textContent = fullDateStr;
+
+      // Re-render to show active selection
+      renderInteractiveCalendar();
+    }
+
     // Load Candidate Information
     async function initCandidateData() {
       let session = null;
@@ -676,6 +861,12 @@
         const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
         if (sessionStr) session = JSON.parse(sessionStr);
       } catch(e) {}
+
+      // ENFORCE SESSION GUARD: Redirect to login if not authenticated
+      if (!session || !session.loggedIn) {
+        window.location.href = 'surucu-paneli.html';
+        return;
+      }
 
       // Fetch fresh data from Cloud DB
       if (typeof window.fetchApplicationsFromCloud === 'function') {
@@ -691,25 +882,19 @@
       } catch(e) {}
 
       let candidate = null;
-      if (session && session.email) {
-        candidate = apps.find(a => a.email === session.email || (a.id && a.id === session.id));
+      if (session && (session.email || session.id)) {
+        candidate = apps.find(a => (session.email && a.email && a.email.toLowerCase() === session.email.toLowerCase()) || 
+                                   (session.id && a.id === session.id) ||
+                                   (session.username && a.username === session.username));
       }
 
       if (!candidate) {
-        candidate = apps.find(a => a.email === 'ugurgorgulu68770@gmail.com') || apps[0];
-      }
-
-      if (!candidate) {
-        candidate = {
-          fullName: "Uğur Görgülü",
-          email: "ugurgorgulu68770@gmail.com",
-          phone: "+90 537 165 51 49"
-        };
+        candidate = session;
       }
 
       activeCandidate = candidate;
-      const fullName = candidate.fullName || "Uğur Görgülü";
-      const firstName = fullName.split(' ')[0] || "Uğur";
+      const fullName = candidate.fullName || candidate.name || "Sürücü Adayı";
+      const firstName = fullName.split(' ')[0] || "Sürücü";
 
       const topGreeting = document.getElementById('topHeaderGreeting');
       if (topGreeting) topGreeting.textContent = `Hoş Geldiniz, ${firstName} Bey`;
@@ -718,15 +903,37 @@
       if (sidebarName) sidebarName.textContent = fullName;
 
       const phoneInput = document.getElementById('contact-phone');
-      if (phoneInput && candidate.phone) {
+      if (phoneInput && candidate.phone && candidate.phone !== 'Belirtilmedi') {
         phoneInput.value = candidate.phone;
       }
 
+      // Atanmış Danışman Bilgisi (Yalnızca Admin Hesabı: Serkan Alçay, Uzman Danışman)
+      const assigned = candidate.assignedConsultant;
+      const nameEl = document.getElementById('assignedConsultantName');
+      const titleEl = document.getElementById('assignedConsultantTitle');
+      const initialsEl = document.getElementById('assignedConsultantInitials');
+
+      if (assigned && assigned.name) {
+        if (nameEl) nameEl.textContent = assigned.name;
+        if (titleEl) titleEl.textContent = assigned.title || 'Uzman Danışman';
+        if (initialsEl) {
+          const parts = assigned.name.trim().split(' ');
+          initialsEl.textContent = parts.map(p => p[0]).join('').substring(0, 2).toUpperCase();
+        }
+      } else {
+        // Varsayılan atanmış admin Serkan Alçay
+        if (nameEl) nameEl.textContent = 'Serkan Alçay';
+        if (titleEl) titleEl.textContent = 'Uzman Danışman';
+        if (initialsEl) initialsEl.textContent = 'SA';
+      }
+
       // Dynamic Consultant Note from Admin Panel
-      if (candidate.consultantNote) {
-        const directNoteEl = document.getElementById('consultantDirectNote');
-        if (directNoteEl) {
+      const directNoteEl = document.getElementById('consultantDirectNote');
+      if (directNoteEl) {
+        if (candidate.consultantNote) {
           directNoteEl.textContent = candidate.consultantNote;
+        } else {
+          directNoteEl.textContent = "Danışmanınız, Avrupa hatlarındaki ağır vasıta yerleştirme ve evrak süreçlerinizi doğrudan koordine etmektedir.";
         }
       }
 
@@ -741,6 +948,15 @@
           plannedDetailEl.textContent = `${candidate.activeAppointment.type} • ${candidate.activeAppointment.subject}`;
         }
       }
+
+      // Initialize Calendar
+      renderInteractiveCalendar();
+
+      // Auto-select a convenient default date (tomorrow or today)
+      const defaultDate = new Date();
+      defaultDate.setDate(defaultDate.getDate() + 1);
+      const defaultStr = `${defaultDate.getDate()} ${monthNamesTr[defaultDate.getMonth()]} ${dayNamesTr[defaultDate.getDay()]} ${defaultDate.getFullYear()}`;
+      selectCalendarDate(defaultStr, null);
     }
 
     function updateRadioSelection(group, radioElem) {
@@ -780,30 +996,6 @@
       }
     }
 
-    function selectDay(element, dayLabel) {
-      const days = document.querySelectorAll('.day-btn');
-      days.forEach(btn => {
-        btn.className = "day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer";
-        const labels = btn.querySelectorAll('span');
-        if (labels.length >= 3) {
-          labels[0].className = "font-label-sm text-label-sm text-on-surface-variant uppercase";
-          labels[1].className = "font-headline-sm text-headline-sm text-on-surface font-bold";
-          labels[2].className = "w-1.5 h-1.5 rounded-full bg-status-success";
-        }
-      });
-
-      element.className = "day-btn group p-space-sm rounded-xl bg-primary-container text-on-primary ring-2 ring-secondary-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer";
-      const activeLabels = element.querySelectorAll('span');
-      if (activeLabels.length >= 3) {
-        activeLabels[0].className = "font-label-sm text-label-sm text-on-primary-container uppercase";
-        activeLabels[1].className = "font-headline-sm text-headline-sm text-on-primary font-bold";
-        activeLabels[2].className = "w-1.5 h-1.5 rounded-full bg-secondary-container";
-      }
-
-      const input = document.getElementById('selected-date-input');
-      if (input) input.value = dayLabel;
-    }
-
     function selectTime(element, timeLabel) {
       const times = document.querySelectorAll('.time-btn');
       times.forEach(btn => {
@@ -820,7 +1012,83 @@
       if (input) input.value = timeLabel;
     }
 
+    // Modal Control Functions
+    function openConsultationPaymentModal(dateVal, timeVal, typeTitle, subjectTitle, consultantName) {
+      const modal = document.getElementById('consultationPaymentModal');
+      const dtEl = document.getElementById('modalApptDateTime');
+      const tsEl = document.getElementById('modalApptTypeSubject');
+      const cEl = document.getElementById('modalApptConsultant');
+
+      if (dtEl) dtEl.textContent = `${dateVal} • ${timeVal}`;
+      if (tsEl) tsEl.textContent = `${typeTitle} • ${subjectTitle}`;
+      if (cEl) cEl.textContent = consultantName;
+
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeConsultationPaymentModal() {
+      const modal = document.getElementById('consultationPaymentModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function confirm50EuroPayment() {
+      closeConsultationPaymentModal();
+      executeBookAppointment(50);
+    }
+
+    // Main Form Submit Handler
     async function handleFormSubmit() {
+      const dateVal = document.getElementById('selected-date-input').value;
+      const timeVal = document.getElementById('selected-time-input').value;
+      const typeElem = document.querySelector('input[name="meeting_type"]:checked');
+      const subjectElem = document.querySelector('input[name="meeting_subject"]:checked');
+
+      if (!dateVal) {
+        alert("Lütfen takvimden ileriye dönük bir randevu tarihi seçiniz.");
+        return;
+      }
+      if (!timeVal) {
+        alert("Lütfen bir saat dilimi seçiniz.");
+        return;
+      }
+
+      const typeTitles = {
+        'phone': 'Telefon ile Görüşme',
+        'whatsapp': 'WhatsApp Sesli/Video',
+        'meet': 'Google Meet Online'
+      };
+
+      const subjectTitles = {
+        'evrak': 'Evrak Denklik Durumu',
+        'filo': 'Filo İlanları & İş Teklifleri',
+        'surec': 'Genel Süreç Bilgisi'
+      };
+
+      const meetingType = typeElem ? typeElem.value : 'phone';
+      const meetingSubject = subjectElem ? subjectElem.value : 'evrak';
+      const consultantName = (activeCandidate && activeCandidate.assignedConsultant && activeCandidate.assignedConsultant.name) || 'Serkan Alçay';
+
+      // Check VIP Status: VIP members (100€ pool) can book free of charge!
+      // Non-VIP candidates must pay 50€ fee requested via WEB MODAL (NOT browser alert).
+      const isVip = !!(activeCandidate && (activeCandidate.isVip || activeCandidate.inPool || activeCandidate.hasPaid100 || activeCandidate.vipPaid));
+
+      if (!isVip) {
+        // Open the styled web modal
+        openConsultationPaymentModal(
+          dateVal,
+          timeVal,
+          typeTitles[meetingType] || 'Telefon',
+          subjectTitles[meetingSubject] || 'Evrak',
+          consultantName
+        );
+        return;
+      }
+
+      // If VIP, book directly with 0€
+      await executeBookAppointment(0);
+    }
+
+    async function executeBookAppointment(feeAmount) {
       const banner = document.getElementById('confirmation-banner');
       const submitBtn = document.getElementById('submit-btn');
       const dateVal = document.getElementById('selected-date-input').value;
@@ -845,6 +1113,8 @@
         'surec': 'Genel Süreç Bilgisi'
       };
 
+      const consultantName = (activeCandidate && activeCandidate.assignedConsultant && activeCandidate.assignedConsultant.name) || 'Serkan Alçay';
+
       const appointmentObj = {
         date: dateVal,
         time: timeVal,
@@ -852,7 +1122,9 @@
         notes: noteVal,
         type: typeTitles[meetingType] || 'Telefon Görüşmesi',
         subject: subjectTitles[meetingSubject] || 'Evrak İnceleme',
-        consultant: 'Murat Kaya',
+        consultant: consultantName,
+        fee: feeAmount > 0 ? `${feeAmount}€` : 'VIP Ücretsiz',
+        paid: true,
         status: 'Beklemede / Onaylandı',
         createdAt: new Date().toISOString()
       };
@@ -887,7 +1159,8 @@
       const confirmText = document.getElementById('confirmation-text');
       if (banner) {
         if (confirmText) {
-          confirmText.innerText = "Danışmanınız Murat Kaya ile " + dateVal + " saat " + timeVal + " için randevu talebiniz sisteme başarıyla kaydedildi. SMS ve e-posta onayı iletilmiştir.";
+          const feeMsg = feeAmount > 0 ? ` (50€ seans ödemesi onaylandı)` : ` (VIP Üyelik Kapsamında)`;
+          confirmText.innerText = `Danışmanınız ${consultantName} ile ${dateVal} saat ${timeVal} için randevu talebiniz başarıyla kaydedildi${feeMsg}.`;
         }
         banner.classList.remove('hidden');
         banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -901,7 +1174,8 @@
     }
 
     function openSupportModal() {
-      alert("Destek Hattı: Lojistik kariyer danışmanınız Murat Kaya'ya sorularınızı randevu esnasında veya profil notu üzerinden doğrudan iletebilirsiniz.");
+      const cName = (activeCandidate && activeCandidate.assignedConsultant && activeCandidate.assignedConsultant.name) || 'Serkan Alçay';
+      alert(`Destek Masası: Lojistik kariyer danışmanınız ${cName}'a sorularınızı randevu esnasında veya profil notu üzerinden doğrudan iletebilirsiniz.`);
     }
 
     function handleLogout() {

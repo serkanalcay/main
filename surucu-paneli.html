@@ -222,7 +222,7 @@
                   <label class="block font-label-md text-label-md text-on-surface" for="password-input">
                     Şifre
                   </label>
-                  <a class="font-label-sm text-label-sm text-secondary hover:text-warning-amber-hover transition-colors font-medium cursor-pointer" data-path="forgot-password" href="javascript:void(0)" onclick="alert('Şifrenizi unuttuysanız veya ilk kez giriş yapıyorsanız lütfen danışmanınız veya yönetici ekibi ile iletişime geçiniz.');">
+                  <a class="font-label-sm text-label-sm text-secondary hover:text-warning-amber-hover transition-colors font-medium cursor-pointer" data-path="forgot-password" href="javascript:void(0)" onclick="openForgotPasswordModal()">
                     Şifremi Unuttum?
                   </a>
                 </div>
@@ -502,6 +502,7 @@
         role: 'driver',
         id: matchedApp.id || matchedApp.referenceNumber || '#ATS-DRIVER',
         name: matchedApp.fullName || 'Sürücü Adayı',
+        fullName: matchedApp.fullName || 'Sürücü Adayı',
         tc: matchedApp.tcNo || '',
         ref: matchedApp.id || matchedApp.referenceNumber || '#ATS-DRIVER',
         email: matchedApp.email || '',
@@ -509,8 +510,14 @@
         username: matchedApp.username || matchedApp.tcNo || rawUser,
         status: status || 'İncelemede',
         isApproved: isApproved,
-        hasPaid100: matchedApp.hasPaid100 === true,
-        inPool: matchedApp.inPool === true,
+        hasPaid100: matchedApp.hasPaid100 === true || matchedApp.inPool === true || matchedApp.isVip === true,
+        inPool: matchedApp.inPool === true || matchedApp.isVip === true,
+        isVip: matchedApp.isVip === true || matchedApp.inPool === true || matchedApp.hasPaid100 === true,
+        vipPaid: matchedApp.vipPaid === true || matchedApp.hasPaid100 === true || matchedApp.inPool === true,
+        documents: matchedApp.documents || {},
+        assignedConsultant: matchedApp.assignedConsultant || null,
+        consultantNote: matchedApp.consultantNote || '',
+        activeAppointment: matchedApp.activeAppointment || null,
         loginTime: new Date().toISOString()
       };
 
@@ -526,7 +533,105 @@
       }, 300);
     }
 
+    // FORGOT PASSWORD MODAL LOGIC
+    function openForgotPasswordModal() {
+      var modal = document.getElementById('forgotPasswordModal');
+      var feedback = document.getElementById('forgotFeedback');
+      var form = document.getElementById('forgotPasswordForm');
+      if (feedback) feedback.classList.add('hidden');
+      if (form) form.reset();
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeForgotPasswordModal() {
+      var modal = document.getElementById('forgotPasswordModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function handleForgotPasswordSubmit(e) {
+      e.preventDefault();
+      var emailInput = document.getElementById('forgotEmailInput');
+      var submitBtn = document.getElementById('forgotSubmitBtn');
+      var feedback = document.getElementById('forgotFeedback');
+      var email = (emailInput ? emailInput.value : '').trim();
+
+      if (!email) return;
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-70');
+      submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Gönderiliyor...</span>';
+
+      // 1. Fetch fresh applications
+      var apps = [];
+      try {
+        var resp = await fetch('https://avrupatirsoforu.com/api/applications.php', { cache: 'no-store' });
+        var resJson = await resp.json();
+        if (resJson && resJson.data && Array.isArray(resJson.data)) {
+          apps = resJson.data;
+        }
+      } catch(err) {
+        try {
+          var str = localStorage.getItem('ats_applications');
+          if (str) apps = JSON.parse(str);
+        } catch(e) {}
+      }
+
+      var candidate = apps.find(function(a) {
+        return a && a.email && a.email.toLowerCase() === email.toLowerCase();
+      });
+
+      var token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+      if (candidate) {
+        candidate.resetToken = token;
+        candidate.resetTokenExpiry = Date.now() + (24 * 60 * 60 * 1000);
+        try {
+          var idx = apps.findIndex(function(a) { return a.id === candidate.id; });
+          if (idx !== -1) apps[idx] = candidate;
+          localStorage.setItem('ats_applications', JSON.stringify(apps));
+        } catch(e) {}
+
+        try {
+          await fetch('https://avrupatirsoforu.com/api/applications.php', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(candidate)
+          });
+        } catch(e) {}
+      }
+
+      // 2. Call mail API
+      try {
+        await fetch('api/mail.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'send_password_reset',
+            email: email,
+            fullName: candidate ? candidate.fullName : 'Değerli Sürücümüz',
+            token: token
+          })
+        });
+      } catch(e) {}
+
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('opacity-70');
+      submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">send</span><span>Sıfırlama Bağlantısı Gönder</span>';
+
+      if (feedback) {
+        feedback.className = 'p-3.5 rounded-xl bg-status-success/15 border border-status-success/30 text-emerald-800 text-xs font-medium flex items-start gap-2';
+        feedback.innerHTML = '<span class="material-symbols-outlined text-[18px] text-status-success shrink-0 mt-0.5">check_circle</span><span>Şifre sıfırlama bağlantısı <strong>info@avrupatirsoforu.com</strong> üzerinden <strong>' + email + '</strong> adresinize gönderildi. Lütfen e-posta kutunuzu (ve spam klasörünü) kontrol ediniz.</span>';
+        feedback.classList.remove('hidden');
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
+      // Check query status
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('status') === 'reset_success') {
+        alert('✅ Şifreniz başarıyla güncellendi! Yeni şifreniz ile giriş yapabilirsiniz.');
+      }
+
       // Auto-focus input
       var inp = document.getElementById('identifier-input');
       if (inp) inp.focus();
@@ -536,5 +641,48 @@
       }
     });
   </script>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgotPasswordModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+    <div class="bg-surface-card rounded-2xl max-w-md w-full p-6 shadow-2xl flex flex-col gap-4 border border-border-muted relative">
+      <div class="flex items-center justify-between border-b pb-3 border-border-muted">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-secondary-container/20 text-secondary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px]">lock_reset</span>
+          </div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Şifremi Unuttum</h3>
+        </div>
+        <button type="button" onclick="closeForgotPasswordModal()" class="text-on-surface-variant hover:text-on-surface p-1 rounded-lg cursor-pointer">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <p class="font-body-sm text-body-sm text-on-surface-variant">
+        Kayıtlı e-posta adresinizi yazınız. Size <strong>info@avrupatirsoforu.com</strong> adresinden güvenli bir şifre sıfırlama bağlantısı iletilecektir.
+      </p>
+
+      <div id="forgotFeedback" class="hidden"></div>
+
+      <form id="forgotPasswordForm" onsubmit="handleForgotPasswordSubmit(event)" class="flex flex-col gap-3">
+        <div class="flex flex-col gap-1">
+          <label class="font-label-sm text-label-sm font-bold text-on-surface" for="forgotEmailInput">E-posta Adresiniz</label>
+          <div class="relative flex items-center">
+            <span class="absolute left-3 text-on-surface-variant material-symbols-outlined text-[20px]">mail</span>
+            <input type="email" id="forgotEmailInput" required placeholder="ornek@surucu.com" class="w-full h-11 pl-10 pr-3 rounded-lg bg-surface-subtle text-on-surface font-body-sm text-body-sm border border-border-muted focus:outline-none focus:border-secondary-container">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeForgotPasswordModal()" class="px-4 py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold cursor-pointer">
+            İptal
+          </button>
+          <button type="submit" id="forgotSubmitBtn" class="px-5 py-2.5 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-md text-label-md font-bold flex items-center gap-1.5 shadow-sm cursor-pointer">
+            <span class="material-symbols-outlined text-[18px]">send</span>
+            <span>Sıfırlama Bağlantısı Gönder</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
