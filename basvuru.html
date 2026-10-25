@@ -19,24 +19,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
   <style>
-    @layer base {
-      html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-        scroll-behavior: smooth;
-      }
-      body {
-        overscroll-behavior-y: none;
-      }
-      main > :first-child {
-        margin-top: 0 !important;
-      }
-      main > :last-child {
-        margin-bottom: 0 !important;
-      }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      overscroll-behavior-y: none;
+    }
+    main > :first-child {
+      margin-top: 0 !important;
+    }
+    main > :last-child {
+      margin-bottom: 0 !important;
     }
     ::-webkit-scrollbar {
       display: none;
@@ -156,9 +158,28 @@
 
   <!-- MAINTENANCE & GUARD -->
   <script src="js/maintenance-guard.js?v=2.8.0"></script>
+  <script>
+    window.toggleMobileNav = function (navId, btn, evt) {
+      if (evt && evt.stopPropagation) evt.stopPropagation();
+      if (window.event && window.event.stopPropagation) window.event.stopPropagation();
+      var targetId = navId || 'mobileNavBasvuru';
+      var menu = document.getElementById(targetId);
+      if (!menu) return false;
+      var isHidden = menu.classList.toggle('hidden');
+      var triggerBtn = btn || document.getElementById('mobileMenuBtnBasvuru') || document.querySelector('[onclick*="' + targetId + '"]');
+      if (triggerBtn) {
+        var icon = triggerBtn.querySelector('.material-symbols-outlined, svg');
+        if (icon && icon.classList.contains('material-symbols-outlined')) {
+          icon.textContent = isHidden ? 'menu' : 'close';
+        }
+      }
+      return false;
+    };
+    window.toggleMobileMenu = window.toggleMobileNav;
+  </script>
 </head>
 
-<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between overflow-x-hidden w-full max-w-full">
 
   <!-- Fixed Header -->
   <header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-border-muted/50 shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
@@ -176,11 +197,11 @@
       </div>
 
       <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+      <nav class="hidden md:flex items-center gap-1 xl:gap-2">
         <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="anasayfa" href="index.html">Ana Sayfa</a>
-        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="hizmetler" href="hizmetler.html?v=3.2">Hizmetler</a>
-        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="hakkimizda" href="hakkimizda.html?v=3.2">Hakkımızda</a>
-        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="iletisim" href="iletisim.html?v=3.2">İletişim</a>
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="hizmetler" href="hizmetler.html?v=20261025_v8">Hizmetler</a>
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="hakkimizda" href="hakkimizda.html?v=20261025_v8">Hakkımızda</a>
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="iletisim" href="iletisim.html?v=20261025_v8">İletişim</a>
       </nav>
 
       <!-- CTA Button & Mobile Menu Toggle -->
@@ -192,28 +213,28 @@
         <a class="inline-flex sm:hidden items-center justify-center h-9 px-3 rounded-lg bg-secondary-container text-canvas-dark font-bold text-xs tracking-wider shadow-sm hover:bg-warning-amber-hover transition-colors shrink-0" href="login.html">
           Giriş
         </a>
-        <button type="button" id="mobileMenuBtnBasvuru" class="lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-on-surface rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer shrink-0" onclick="toggleMobileNav('mobileNavBasvuru', this)" aria-label="Menü">
-          <span class="material-symbols-outlined text-[24px]">menu</span>
+        <button type="button" id="mobileMenuBtnBasvuru" class="md:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-on-surface rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer shrink-0" onclick="event.stopPropagation(); toggleMobileNav('mobileNavBasvuru', this, event);" aria-label="Menü">
+          <span class="material-symbols-outlined text-[24px] pointer-events-none select-none">menu</span>
         </button>
       </div>
 
     </div>
 
     <!-- Mobile Navigation Dropdown -->
-    <div id="mobileNavBasvuru" class="hidden lg:hidden bg-surface/98 backdrop-blur-xl border-b border-border-muted px-4 py-4 space-y-1.5 shadow-xl transition-all">
+    <div id="mobileNavBasvuru" class="hidden md:hidden bg-surface/98 backdrop-blur-xl border-b border-border-muted px-4 py-4 space-y-1.5 shadow-xl transition-all">
       <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="index.html">
         <span class="material-symbols-outlined text-[20px] text-amber-500">home</span>
         <span>Ana Sayfa</span>
       </a>
-      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hizmetler.html?v=3.2">
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hizmetler.html?v=20261025_v8">
         <span class="material-symbols-outlined text-[20px] text-blue-500">work</span>
         <span>Hizmetler</span>
       </a>
-      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hakkimizda.html?v=3.2">
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hakkimizda.html?v=20261025_v8">
         <span class="material-symbols-outlined text-[20px] text-indigo-500">corporate_fare</span>
         <span>Hakkımızda</span>
       </a>
-      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="iletisim.html?v=3.2">
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="iletisim.html?v=20261025_v8">
         <span class="material-symbols-outlined text-[20px] text-emerald-500">contact_support</span>
         <span>İletişim</span>
       </a>
@@ -315,7 +336,7 @@
               <form class="flex flex-col gap-6 sm:gap-8" id="driverApplicationForm" onsubmit="event.preventDefault(); handleFormSubmit();">
                 
                 <!-- SECTION A: Kişisel ve İletişim Bilgileri -->
-                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6 overflow-hidden">
                   <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
                     <div class="flex items-center gap-3">
                       <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">A</span>
@@ -392,7 +413,7 @@
                 </div>
 
                 <!-- SECTION B: Ehliyet & Sürüş Tecrübesi -->
-                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6 overflow-hidden">
                   <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
                     <div class="flex items-center gap-3">
                       <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">B</span>
@@ -501,7 +522,7 @@
                 </div>
 
                 <!-- SECTION C: Mesleki Yeterlilik Belgeleri -->
-                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6 overflow-hidden">
                   <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
                     <div class="flex items-center gap-3">
                       <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">C</span>
@@ -598,7 +619,7 @@
                 </div>
 
                 <!-- SECTION D: Avrupa & Yurt Dışı Tecrübe Geçmişi -->
-                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6 overflow-hidden">
                   <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
                     <div class="flex items-center gap-3">
                       <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">D</span>
@@ -669,7 +690,7 @@
                 </div>
 
                 <!-- SECTION E: Ek Notlar & Belge Yükleme (Opsiyonel) -->
-                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6 overflow-hidden">
                   <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
                     <div class="flex items-center gap-3">
                       <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">E</span>
@@ -705,7 +726,7 @@
                 </div>
 
                 <!-- SECTION F: Onay & Gönderim -->
-                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
+                <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6 overflow-hidden">
                   <div class="flex items-center justify-between pb-4 bg-surface-subtle -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 rounded-t-xl">
                     <div class="flex items-center gap-3">
                       <span class="w-9 h-9 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center font-label-lg text-label-lg font-bold">F</span>
@@ -752,7 +773,7 @@
                       <span class="material-symbols-outlined text-[18px]">verified</span>
                       <span>SSL Korumalı Doğrudan İletim</span>
                     </div>
-                    <button class="w-full sm:w-auto min-w-[260px] h-14 px-8 rounded-xl bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-lg text-label-lg font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-3 cursor-pointer" id="submitBtn" type="submit">
+                    <button class="w-full sm:w-auto sm:min-w-[260px] max-w-full h-14 px-4 sm:px-8 rounded-xl bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-lg text-label-lg font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-3 cursor-pointer" id="submitBtn" type="submit">
                       <span class="material-symbols-outlined text-[20px]">send</span>
                       <span>BAŞVURUMU İNCELEMEYE GÖNDER</span>
                     </button>
@@ -969,7 +990,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   <script src="js/firebase-db.js?v=4.0.0"></script>
   <script src="js/cloud-db.js?v=4.0.0"></script>
-  <script src="js/app.js?v=4.0.0"></script>
+  <script src="js/app.js?v=20261025_v8"></script>
   <script src="js/cookie-consent.js?v=1.0.0"></script>
   <script src="js/analytics.js?v=1.0.0"></script>
   <script>

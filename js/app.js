@@ -56,30 +56,38 @@
   };
 
   // 2. MOBILE MENU TOGGLE (SUPPORTS ALL PAGES & DYNAMIC IDS)
-  window.toggleMobileNav = function (navId, btn) {
+  window.toggleMobileNav = function (navId, btn, evt) {
+    if (evt && evt.stopPropagation) evt.stopPropagation();
+    if (window.event && window.event.stopPropagation) window.event.stopPropagation();
+    
     const targetId = navId || 'mobileNav';
     const menu = document.getElementById(targetId);
-    if (!menu) return;
+    if (!menu) return false;
     const isHidden = menu.classList.toggle('hidden');
     
     // Toggle icon if button provided or found
-    const triggerBtn = btn || document.querySelector(`[onclick*="${targetId}"]`);
+    const triggerBtn = btn || document.querySelector(`[onclick*="${targetId}"]`) || document.getElementById('mobileMenuBtn');
     if (triggerBtn) {
       const icon = triggerBtn.querySelector('.material-symbols-outlined, svg');
       if (icon && icon.classList.contains('material-symbols-outlined')) {
         icon.textContent = isHidden ? 'menu' : 'close';
       }
     }
+    return false;
   };
   window.toggleMobileMenu = window.toggleMobileNav;
 
   // Auto-close mobile menu when clicking outside or pressing Escape
   document.addEventListener('click', function (e) {
+    // If the click is on or inside any menu toggle button, NEVER close the menu!
+    if (e.target.closest('button[id^="mobileMenuBtn"], [onclick*="toggleMobileNav"], .mobile-menu-toggle')) {
+      return;
+    }
     const openMenus = document.querySelectorAll('[id^="mobileNav"]:not(.hidden), #mobile-menu:not(.hidden)');
     openMenus.forEach(menu => {
-      const toggleBtn = document.querySelector(`[onclick*="${menu.id}"]`);
-      if (!menu.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+      if (!menu.contains(e.target)) {
         menu.classList.add('hidden');
+        const toggleBtn = document.querySelector(`[onclick*="${menu.id}"]`);
         if (toggleBtn) {
           const icon = toggleBtn.querySelector('.material-symbols-outlined');
           if (icon) icon.textContent = 'menu';

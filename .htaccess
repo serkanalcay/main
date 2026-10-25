@@ -3,9 +3,9 @@ RewriteEngine On
 # Clean URL for KVKK Aydınlatma Metni
 RewriteRule ^kvkk-aydinlatma-metni/?$ kvkk-aydinlatma-metni.html [L,QSA]
 
-# Prevent aggressive browser and CDN caching of logos and images
+# Prevent aggressive browser and CDN caching of HTML, JS, CSS, and media assets
 <IfModule mod_headers.c>
-  <FilesMatch "\.(png|jpe?g|gif|webp|svg|ico)$">
+  <FilesMatch "\.(html?|js|css|png|jpe?g|gif|webp|svg|ico)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
     Header set Pragma "no-cache"
     Header set Expires "0"

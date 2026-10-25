@@ -155,6 +155,25 @@
 
   <!-- MAINTENANCE & GUARD -->
   <script src="js/maintenance-guard.js?v=2.8.0"></script>
+  <script>
+    window.toggleMobileNav = function (navId, btn, evt) {
+      if (evt && evt.stopPropagation) evt.stopPropagation();
+      if (window.event && window.event.stopPropagation) window.event.stopPropagation();
+      var targetId = navId || 'mobileNav';
+      var menu = document.getElementById(targetId);
+      if (!menu) return false;
+      var isHidden = menu.classList.toggle('hidden');
+      var triggerBtn = btn || document.getElementById('mobileMenuBtn') || document.querySelector('[onclick*="' + targetId + '"]');
+      if (triggerBtn) {
+        var icon = triggerBtn.querySelector('.material-symbols-outlined, svg');
+        if (icon && icon.classList.contains('material-symbols-outlined')) {
+          icon.textContent = isHidden ? 'menu' : 'close';
+        }
+      }
+      return false;
+    };
+    window.toggleMobileMenu = window.toggleMobileNav;
+  </script>
 </head>
 
 <body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between overflow-x-hidden">
@@ -176,22 +195,22 @@
 
       <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-1 lg:gap-2" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded-lg">
-        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="hizmetler" href="hizmetler.html?v=3.2">Hizmetler</a>
-        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="hakkimizda" href="hakkimizda.html?v=3.2">Hakkımızda</a>
-        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="iletisim" href="iletisim.html?v=3.2">İletişim</a>
+        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="hizmetler" href="hizmetler.html?v=20261025_v8">Hizmetler</a>
+        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="hakkimizda" href="hakkimizda.html?v=20261025_v8">Hakkımızda</a>
+        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" data-path="iletisim" href="iletisim.html?v=20261025_v8">İletişim</a>
       </nav>
 
       <!-- Action Buttons -->
       <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
-        <a class="hidden sm:inline-flex items-center justify-center h-10 lg:h-11 px-4 lg:px-6 rounded-lg bg-secondary-container text-canvas-dark font-label-md text-label-md font-bold tracking-wider hover:bg-warning-amber-hover transition-colors shadow-sm shrink-0" data-path="hemen-basvur" href="basvuru.html?v=3.2">
+        <a class="hidden sm:inline-flex items-center justify-center h-10 lg:h-11 px-4 lg:px-6 rounded-lg bg-secondary-container text-canvas-dark font-label-md text-label-md font-bold tracking-wider hover:bg-warning-amber-hover transition-colors shadow-sm shrink-0" data-path="hemen-basvur" href="basvuru.html?v=20261025_v8">
           HEMEN BAŞVUR
         </a>
-        <a class="inline-flex sm:hidden items-center justify-center h-9 px-3 rounded-lg bg-secondary-container text-canvas-dark font-bold text-xs tracking-wider shadow-sm hover:bg-warning-amber-hover transition-colors shrink-0" href="basvuru.html?v=3.2">
+        <a class="inline-flex sm:hidden items-center justify-center h-9 px-3 rounded-lg bg-secondary-container text-canvas-dark font-bold text-xs tracking-wider shadow-sm hover:bg-warning-amber-hover transition-colors shrink-0" href="basvuru.html?v=20261025_v8">
           Başvur
         </a>
         <!-- Mobile Menu Toggle Button -->
-        <button type="button" id="mobileMenuBtn" class="md:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-on-surface rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer shrink-0" onclick="toggleMobileNav('mobileNav', this)" aria-label="Menü">
-          <span class="material-symbols-outlined text-[24px]">menu</span>
+        <button type="button" id="mobileMenuBtn" class="md:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-on-surface rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer shrink-0" onclick="event.stopPropagation(); toggleMobileNav('mobileNav', this, event);" aria-label="Menü">
+          <span class="material-symbols-outlined text-[24px] pointer-events-none select-none">menu</span>
         </button>
       </div>
 
@@ -203,15 +222,15 @@
         <span class="material-symbols-outlined text-[20px] text-amber-500">home</span>
         <span>Ana Sayfa</span>
       </a>
-      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hizmetler.html?v=3.2">
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hizmetler.html?v=20261025_v8">
         <span class="material-symbols-outlined text-[20px] text-blue-500">work</span>
         <span>Hizmetler</span>
       </a>
-      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hakkimizda.html?v=3.2">
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hakkimizda.html?v=20261025_v8">
         <span class="material-symbols-outlined text-[20px] text-indigo-500">corporate_fare</span>
         <span>Hakkımızda</span>
       </a>
-      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="iletisim.html?v=3.2">
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="iletisim.html?v=20261025_v8">
         <span class="material-symbols-outlined text-[20px] text-emerald-500">contact_support</span>
         <span>İletişim</span>
       </a>
@@ -220,7 +239,7 @@
         <span>Sürücü / Yönetici Girişi</span>
       </a>
       <div class="pt-3 border-t border-border-muted flex flex-col gap-2">
-        <a href="basvuru.html?v=3.2" class="w-full text-center py-3 text-sm font-bold bg-secondary-container text-canvas-dark rounded-xl block shadow-sm hover:bg-warning-amber-hover transition-colors">
+        <a href="basvuru.html?v=20261025_v8" class="w-full text-center py-3 text-sm font-bold bg-secondary-container text-canvas-dark rounded-xl block shadow-sm hover:bg-warning-amber-hover transition-colors">
           🚀 HEMEN BAŞVUR (ÜCRETSİZ)
         </a>
         <a href="https://wa.me/908508400000" target="_blank" class="w-full text-center py-2.5 text-xs font-semibold bg-emerald-600 text-white rounded-xl flex items-center justify-center gap-2 shadow-sm">
@@ -726,7 +745,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   <script src="js/firebase-db.js?v=4.0.0"></script>
   <script src="js/cloud-db.js?v=4.0.0"></script>
-  <script src="js/app.js?v=4.0.0"></script>
+  <script src="js/app.js?v=20261025_v8"></script>
   <script src="js/cookie-consent.js?v=1.0.0"></script>
   <script src="js/analytics.js?v=1.0.0"></script>
   <script>
