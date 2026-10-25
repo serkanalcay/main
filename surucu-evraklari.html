@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="tr" style="">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_dashboard" name="shell-type">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Evraklarım &amp; Dosya Yükle | avrupatirsoforu.com</title>
+  <link rel="icon" href="assets/logo.png?v=20261025_v9">
+
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "warning-amber-hover": "#D97706",
+            "surface-container-low": "#eff4ff",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "inverse-on-surface": "#eaf1ff",
+            "on-surface": "#0b1c30",
+            "on-secondary-fixed-variant": "#653e00",
+            "outline-variant": "#c6c6cd",
+            "surface-container-high": "#dce9ff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-secondary-container": "#684000",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "tertiary": "#000000",
+            "surface-container": "#e5eeff",
+            "error": "#ba1a1a",
+            "surface-card": "#FFFFFF",
+            "canvas-dark": "#020617",
+            "on-tertiary-fixed": "#00174b",
+            "on-error": "#ffffff",
+            "on-secondary": "#ffffff",
+            "on-background": "#0b1c30",
+            "surface-bright": "#f8f9ff",
+            "primary-fixed": "#dae2fd",
+            "background": "#f8f9ff",
+            "primary-fixed-dim": "#bec6e0",
+            "surface": "#f8f9ff",
+            "primary-container": "#131b2e",
+            "on-primary-container": "#7c839b",
+            "on-primary-fixed": "#131b2e",
+            "surface-container-highest": "#d3e4fe",
+            "border-muted": "#E2E8F0",
+            "inverse-surface": "#213145",
+            "surface-tint": "#565e74",
+            "on-surface-variant": "#45464d",
+            "on-tertiary-container": "#497cff",
+            "on-primary": "#ffffff",
+            "secondary-fixed": "#ffddb8",
+            "primary": "#000000",
+            "outline": "#76777d",
+            "on-error-container": "#93000a",
+            "surface-variant": "#d3e4fe",
+            "secondary": "#855300",
+            "on-secondary-fixed": "#2a1700",
+            "surface-dim": "#cbdbf5",
+            "secondary-container": "#fea619",
+            "status-success": "#34D399",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "tertiary-fixed": "#dbe1ff",
+            "on-primary-fixed-variant": "#3f465c",
+            "surface-subtle": "#F8FAFC",
+            "inverse-primary": "#bec6e0",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-container": "#00174b"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Space Grotesk"],
+            "body-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Space Grotesk"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "display-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "label-lg": ["15px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "600"}],
+            "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "display-mobile": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- MAINTENANCE & DEVELOPER PREVIEW GUARD -->
+  <script src="js/maintenance-guard.js?v=20261025_v9"></script>
+</head>
+
+<body class="bg-surface font-body-md text-body-md text-on-surface">
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div id="sidebarBackdrop" onclick="toggleDriverSidebar()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 lg:hidden transition-opacity"></div>
+
+  <!-- ASIDE: SOL MENÜ -->
+  <aside id="driverSidebar" class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+    <div class="flex flex-col">
+      <!-- Logo Header -->
+      <div class="h-16 px-space-lg flex items-center justify-between bg-surface-container-low">
+        <a href="index.html" class="flex items-center gap-space-sm group">
+          <div class="w-9 h-9 rounded-lg bg-secondary-container flex items-center justify-center text-canvas-dark font-headline-md font-bold">
+            <span class="material-symbols-outlined text-[22px]">local_shipping</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-label-lg text-label-lg tracking-tight text-on-surface uppercase font-bold">avrupatirsoforu</span>
+            <span class="font-label-sm text-label-sm text-secondary font-bold tracking-wider uppercase">Şoför Portali</span>
+          </div>
+        </a>
+        <button type="button" onclick="toggleDriverSidebar()" class="lg:hidden p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" aria-label="Kapat">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="px-space-md py-space-sm">
+        <nav class="flex flex-col gap-space-xs" data-active-classes="bg-surface-container text-on-surface font-bold rounded-lg">
+          <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-all cursor-pointer" data-path="genel-bakis-profilim" href="driver-panel.html">
+            <span class="material-symbols-outlined text-[20px]">account_box</span>
+            <span>Genel Bakış / Profilim</span>
+          </a>
+          <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface bg-surface-container font-bold font-label-md text-label-md transition-all cursor-pointer" data-path="evraklarim-dosya-yukle" href="surucu-evraklari.html">
+            <span class="material-symbols-outlined text-[20px] text-secondary">folder_shared</span>
+            <span>Evraklarım &amp; Dosya Yükle</span>
+          </a>
+          <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-all cursor-pointer" data-path="gorusme-danisman-randevusu" href="gorusme-randevusu.html">
+            <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+            <span>Görüşme / Danışman Randevusu</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- User Profile Card at Bottom of Aside -->
+    <div class="p-space-md bg-surface-container-low m-space-md rounded-xl flex flex-col gap-space-sm shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-label-lg text-label-lg text-canvas-dark font-bold" id="sidebarAvatarIcon">
+          <span class="material-symbols-outlined text-[20px]">badge</span>
+        </div>
+        <div class="flex flex-col min-w-0 flex-1">
+          <span class="font-label-md text-label-md text-on-surface font-bold truncate" id="sidebarUserName">Uğur Görgülü</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant truncate" id="sidebarUserSub">CE &amp; Kod 95 Adayı</span>
+        </div>
+      </div>
+      <div class="pt-space-xs flex items-center justify-between border-t border-border-muted/50">
+        <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-status-success font-semibold">
+          <span class="w-2 h-2 rounded-full bg-status-success"></span>Çevrimiçi
+        </span>
+        <a class="flex items-center gap-1 font-label-sm text-label-sm text-error hover:text-on-error-container transition-colors cursor-pointer" data-path="cikis" href="javascript:void(0)" onclick="handleLogout()">
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          <span>Güvenli Çıkış</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="pl-0 lg:pl-72 flex flex-col min-h-screen">
+
+    <!-- TOP HEADER -->
+    <header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-md sm:px-space-lg">
+      <div class="flex items-center gap-space-md">
+        <!-- Mobile Sidebar Toggle -->
+        <button type="button" onclick="toggleDriverSidebar()" class="lg:hidden p-2 text-on-surface rounded-lg hover:bg-surface-container transition-colors cursor-pointer" aria-label="Menü">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+        <div>
+          <span class="font-headline-sm text-base sm:text-headline-sm text-on-surface block font-bold" id="topHeaderGreeting">Hoş Geldiniz, Uğur Bey</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-space-sm sm:gap-space-md">
+        <!-- VIP WhatsApp Havuzu Badge -->
+        <div class="hidden sm:flex items-center gap-space-xs px-space-md py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed shadow-[0_1px_3px_0_rgba(15,23,42,0.08)]">
+          <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+          <span class="font-label-sm text-label-sm font-bold uppercase tracking-wide">VIP WhatsApp Havuzu Aktif</span>
+        </div>
+
+        <!-- Destek Hattı Button -->
+        <button class="flex items-center gap-space-xs px-3 sm:px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors cursor-pointer" type="button" onclick="openSupportModal()">
+          <span class="material-symbols-outlined text-[18px] text-secondary-container">support_agent</span>
+          <span class="hidden md:inline">Destek Hattı</span>
+        </button>
+
+        <!-- Bildirim Butonu -->
+        <button aria-label="Bildirimler" class="relative w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors shadow-[0_1px_8px_rgba(0,0,0,0.04)] cursor-pointer" type="button" onclick="alert('Yeni bildirim: Kod 95 ve SRC belgeleriniz incelemeye alınmıştır.');">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-secondary-container"></span>
+        </button>
+
+        <!-- User Profile Avatar Circle -->
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-xs" id="topAvatarCircle">
+          <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT BODY -->
+    <main class="relative pt-16 w-full bg-surface min-h-screen">
+      <div class="flex flex-col w-full">
+        <!-- Subtle Top Logistics Accent Strip -->
+        <div class="h-1.5 w-full bg-secondary-container"></div>
+
+        <div class="px-space-md sm:px-space-lg lg:px-space-xl py-space-lg max-w-[1400px] mx-auto w-full flex flex-col gap-space-lg">
+
+          <!-- Top Status & Information Banner -->
+          <div class="bg-surface-container-low rounded-xl p-space-lg shadow-sm relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+            <div class="absolute left-0 top-0 bottom-0 w-2 bg-secondary-container"></div>
+            <div class="flex items-start gap-space-md pl-space-xs">
+              <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-on-surface flex-shrink-0 shadow-sm">
+                <span class="material-symbols-outlined text-[28px] text-secondary">verified_user</span>
+              </div>
+              <div class="flex flex-col">
+                <div class="flex items-center gap-space-xs flex-wrap">
+                  <span class="font-label-lg text-label-lg text-on-surface uppercase tracking-wider font-bold">Evrak Yönetim Sistemi</span>
+                  <span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">256-Bit SSL Şifreli</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-3xl leading-relaxed">
+                  Evraklarınızı <strong class="font-semibold text-on-surface">PDF, JPEG veya PNG</strong> formatında yükleyebilirsiniz. Yüklenen tüm belgeler resmi veri koruma standartlarına uygun olarak şifreli saklanır. Evrak eksiklerinizi tamamlayarak filo eşleştirme şansınızı artırın.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-space-md self-stretch md:self-auto justify-between md:justify-end bg-surface-container-lowest/80 p-space-sm rounded-lg flex-shrink-0 shadow-sm">
+              <div class="flex flex-col text-left md:text-right px-space-xs">
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Dosya Durumu</span>
+                <span class="font-label-lg text-label-lg font-bold text-on-surface" id="overallDocsRatioText">2 / 6 Tamamlandı</span>
+              </div>
+              <div class="w-12 h-12 relative flex items-center justify-center">
+                <svg class="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
+                  <path class="text-surface-container" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="text-secondary-container transition-all duration-500" stroke-width="3.5" stroke-dasharray="33, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" id="circleProgressPath"/>
+                </svg>
+                <span class="absolute font-label-sm text-label-sm font-bold text-on-surface" id="circleProgressText">%33</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Workspace Layout: List (8 cols) & Quick Upload / Stats (4 cols) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+
+            <!-- Left Column: Documents List & File Cards (8 cols) -->
+            <div class="lg:col-span-8 flex flex-col gap-space-md">
+              <div class="flex items-center justify-between px-space-xs">
+                <div>
+                  <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Gerekli Evraklar Listesi</h2>
+                </div>
+                <button class="inline-flex items-center gap-space-xs text-on-surface hover:text-secondary-container font-label-sm text-label-sm font-bold uppercase transition-colors cursor-pointer" type="button" onclick="refreshDocumentList()">
+                  <span class="material-symbols-outlined text-[18px]">sync</span>
+                  <span>Listeyi Yenile</span>
+                </button>
+              </div>
+
+              <!-- Document Item 1: Sürücü Belgesi (CE) - ONAYLANDI -->
+              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden" id="docCard1">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+                  <div class="flex items-start gap-space-sm">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
+                      <span class="material-symbols-outlined text-[22px]">badge</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <div class="flex items-center gap-space-sm flex-wrap">
+                        <span class="font-label-lg text-label-lg text-on-surface font-bold">1. Sürücü Belgesi (CE Sınıfı - Ön ve Arka Yüz)</span>
+                        <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold" id="badgeDoc1">
+                          <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Onaylandı
+                        </span>
+                      </div>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Uluslararası ağır vasıta sürüş yetkisi belgesi</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-space-xs self-end sm:self-center">
+                    <button class="px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-sm text-label-sm font-bold transition-all flex items-center gap-1 cursor-pointer" type="button" onclick="triggerDocUpload('docInput1')">
+                      <span class="material-symbols-outlined text-[16px]">upload</span>
+                      <span>Yenisini Yükle</span>
+                    </button>
+                    <input type="file" id="docInput1" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 1, 'Sürücü Belgesi (CE)')">
+                  </div>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
+                  <div class="flex items-center gap-space-sm min-w-0">
+                    <span class="material-symbols-outlined text-secondary-container text-[20px] flex-shrink-0">picture_as_pdf</span>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-label-md text-label-md font-bold text-on-surface truncate" id="fileNameDoc1">Ugur_Gorgulu_Surucu_Belgesi_CE.pdf</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">2.4 MB • Resmi Onaylı Kopya</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-space-xs flex-shrink-0">
+                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="Görüntüle" type="button" onclick="previewDocument('Sürücü Belgesi (CE)', 'Ugur_Gorgulu_Surucu_Belgesi_CE.pdf', 'Onaylandı')">
+                      <span class="material-symbols-outlined text-[18px]">visibility</span>
+                    </button>
+                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="İndir" type="button" onclick="downloadDocument('Ugur_Gorgulu_Surucu_Belgesi_CE.pdf')">
+                      <span class="material-symbols-outlined text-[18px]">download</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Document Item 2: Kod 95 - İNCELEMEDE -->
+              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden" id="docCard2">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pl-space-xs">
+                  <div class="flex items-start gap-space-sm">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
+                      <span class="material-symbols-outlined text-[22px]">workspace_premium</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <div class="flex items-center gap-space-sm flex-wrap">
+                        <span class="font-label-lg text-label-lg text-on-surface font-bold">2. SRC BELGESİ (Mesleki Yeterlilik Belgesi / SRC)</span>
+                        <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold" id="badgeDoc2">
+                          <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>İncelemede
+                        </span>
+                      </div>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Uluslararası yük taşıma SRC3 / SRC4 ve Kod 95 kartı</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-space-xs self-end sm:self-center">
+                    <button class="px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-sm text-label-sm font-bold transition-all flex items-center gap-1 cursor-pointer" type="button" onclick="triggerDocUpload('docInput2')">
+                      <span class="material-symbols-outlined text-[16px]">upload</span>
+                      <span>Yenisini Yükle</span>
+                    </button>
+                    <input type="file" id="docInput2" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 2, 'SRC Mesleki Yeterlilik')">
+                  </div>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
+                  <div class="flex items-center gap-space-sm min-w-0">
+                    <span class="material-symbols-outlined text-secondary text-[20px] flex-shrink-0">image</span>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-label-md text-label-md font-bold text-on-surface truncate" id="fileNameDoc2">SRC_Kod95_Yeterlilik_Belgesi.jpg</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">1.8 MB • Danışman Kontrolünde</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-space-xs flex-shrink-0">
+                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="Görüntüle" type="button" onclick="previewDocument('SRC Belgesi / Kod 95', 'SRC_Kod95_Yeterlilik_Belgesi.jpg', 'İncelemede')">
+                      <span class="material-symbols-outlined text-[18px]">visibility</span>
+                    </button>
+                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="İndir" type="button" onclick="downloadDocument('SRC_Kod95_Yeterlilik_Belgesi.jpg')">
+                      <span class="material-symbols-outlined text-[18px]">download</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Document Item 3: Dijital Takograf Sürücü Kartı - BEKLENİYOR / YÜKLENMEDİ -->
+              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md" id="docCard3">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+                  <div class="flex items-start gap-space-sm">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
+                      <span class="material-symbols-outlined text-[22px]">sim_card</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <div class="flex items-center gap-space-sm flex-wrap">
+                        <span class="font-label-lg text-label-lg text-on-surface font-bold">3. Dijital Takograf Sürücü Kartı</span>
+                        <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-bold" id="badgeDoc3">
+                          <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Yüklenmedi / Bekleniyor
+                        </span>
+                      </div>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Sürüş ve dinlenme sürelerinin kaydı için akıllı çipli takograf kartı</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Embedded Drop Zone -->
+                <div class="bg-surface-subtle hover:bg-surface-container-low transition-colors rounded-xl p-space-lg flex flex-col items-center justify-center text-center cursor-pointer group border-2 border-dashed border-border-muted hover:border-secondary-container" id="drop-zone-3" onclick="triggerDocUpload('docInput3')">
+                  <div class="w-12 h-12 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm group-hover:scale-105 transition-transform">
+                    <span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+                  </div>
+                  <span class="font-label-md text-label-md font-bold text-on-surface mt-2" id="dropZoneText3">Dosya Seç veya Sürükle Bırak</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant text-[12px] mt-0.5">Ön ve arka yüzü tek sayfada veya yüksek çözünürlüklü fotoğraf olarak</span>
+                  <input accept=".pdf,.png,.jpg,.jpeg" class="hidden" id="docInput3" type="file" onchange="handleFileSelected(event, 3, 'Dijital Takograf Kartı')">
+                  <button class="mt-3 px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-bold uppercase tracking-wider hover:bg-secondary-container hover:text-canvas-dark transition-colors cursor-pointer" type="button">
+                    Gözat ve Yükle
+                  </button>
+                </div>
+              </div>
+
+              <!-- Document Item 4: Adli Sicil Kaydı - ONAYLANDI / İNCELENİYOR -->
+              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md" id="docCard4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+                  <div class="flex items-start gap-space-sm">
+                    <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
+                      <span class="material-symbols-outlined text-[22px]">gavel</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <div class="flex items-center gap-space-sm flex-wrap">
+                        <span class="font-label-lg text-label-lg text-on-surface font-bold">4. Adli Sicil Kaydı (e-Devlet Barkodlu)</span>
+                        <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold" id="badgeDoc4">
+                          <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Onaylandı
+                        </span>
+                      </div>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant">Son 30 gün içinde alınmış resmi karekodlu/barkodlu belge</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-space-xs self-end sm:self-center">
+                    <button class="px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-sm text-label-sm font-bold transition-all flex items-center gap-1 cursor-pointer" type="button" onclick="triggerDocUpload('docInput4')">
+                      <span class="material-symbols-outlined text-[16px]">upload</span>
+                      <span>Yenisini Yükle</span>
+                    </button>
+                    <input type="file" id="docInput4" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 4, 'Adli Sicil Kaydı')">
+                  </div>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
+                  <div class="flex items-center gap-space-sm min-w-0">
+                    <span class="material-symbols-outlined text-secondary-container text-[20px] flex-shrink-0">picture_as_pdf</span>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-label-md text-label-md font-bold text-on-surface truncate" id="fileNameDoc4">Adli_Sicil_Kaydi_eDevlet_Barkodlu.pdf</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">420 KB • Resmi e-Devlet Doğrulamalı</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-space-xs flex-shrink-0">
+                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="Görüntüle" type="button" onclick="previewDocument('Adli Sicil Kaydı', 'Adli_Sicil_Kaydi_eDevlet_Barkodlu.pdf', 'Onaylandı')">
+                      <span class="material-symbols-outlined text-[18px]">visibility</span>
+                    </button>
+                    <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="İndir" type="button" onclick="downloadDocument('Adli_Sicil_Kaydi_eDevlet_Barkodlu.pdf')">
+                      <span class="material-symbols-outlined text-[18px]">download</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Document Item 5: Sağlık Raporu - YÜKLENMEDİ -->
+              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-md" id="docCard5">
+                <div class="flex items-start gap-space-sm">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
+                    <span class="material-symbols-outlined text-[22px]">medical_services</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <div class="flex items-center gap-space-sm flex-wrap">
+                      <span class="font-label-lg text-label-lg text-on-surface font-bold">5. Sağlık Raporu (Ağır Vasıta Sürücü Olabilir)</span>
+                      <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-bold" id="badgeDoc5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-error"></span>Yüklenmedi
+                      </span>
+                    </div>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">Göz, işitme ve genel ağır vasıta sürüş uygunluk heyet onayı</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-space-xs self-stretch sm:self-auto flex-shrink-0">
+                  <button class="w-full sm:w-auto px-space-lg py-2.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-md text-label-md font-bold transition-all flex items-center justify-center gap-space-xs cursor-pointer" type="button" onclick="triggerDocUpload('docInput5')">
+                    <span class="material-symbols-outlined text-[18px]">upload</span>
+                    <span id="btnTextDoc5">Evrak Yükle</span>
+                  </button>
+                  <input type="file" id="docInput5" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 5, 'Sağlık Raporu')">
+                </div>
+              </div>
+
+              <!-- Document Item 6: SGK Hizmet Dökümü - YÜKLENMEDİ -->
+              <div class="bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-md" id="docCard6">
+                <div class="flex items-start gap-space-sm">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface flex-shrink-0">
+                    <span class="material-symbols-outlined text-[22px]">work_history</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <div class="flex items-center gap-space-sm flex-wrap">
+                      <span class="font-label-lg text-label-lg text-on-surface font-bold">6. SGK Hizmet Dökümü (Şoförlük Tecrübesi İspatı)</span>
+                      <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-bold" id="badgeDoc6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-error"></span>Yüklenmedi
+                      </span>
+                    </div>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">Lojistik firmalarında ağır vasıta meslek koduyla tescilli geçmiş prim dökümü</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-space-xs self-stretch sm:self-auto flex-shrink-0">
+                  <button class="w-full sm:w-auto px-space-lg py-2.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-md text-label-md font-bold transition-all flex items-center justify-center gap-space-xs cursor-pointer" type="button" onclick="triggerDocUpload('docInput6')">
+                    <span class="material-symbols-outlined text-[18px]">upload</span>
+                    <span id="btnTextDoc6">Evrak Yükle</span>
+                  </button>
+                  <input type="file" id="docInput6" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, 6, 'SGK Hizmet Dökümü')">
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right Column: Quick Drag-Drop Zone & Driver File Guidance (4 cols) -->
+            <div class="lg:col-span-4 flex flex-col gap-space-lg">
+
+              <!-- Universal Drag & Drop Card -->
+              <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+                      <span class="material-symbols-outlined text-[20px]">cloud_upload</span>
+                    </div>
+                    <span class="font-label-lg text-label-lg text-on-surface font-bold">Hızlı Evrak Yükleme</span>
+                  </div>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant">Max 15 MB</span>
+                </div>
+
+                <div class="bg-surface-subtle hover:bg-surface-container-low transition-colors rounded-xl p-space-lg flex flex-col items-center justify-center text-center cursor-pointer group border-2 border-dashed border-border-muted hover:border-secondary-container" id="universalDropZone" onclick="triggerDocUpload('universalFileInput')">
+                  <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-secondary shadow-sm group-hover:scale-105 transition-transform">
+                    <span class="material-symbols-outlined text-[26px]">upload_file</span>
+                  </div>
+                  <span class="font-label-md text-label-md font-bold text-on-surface mt-2">Belge Seç veya Buraya Sürükle</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant text-[12px] mt-0.5">Sürücü belgesi, SRC, Takograf veya Sağlık raporu</span>
+                  <input accept=".pdf,.png,.jpg,.jpeg" class="hidden" id="universalFileInput" type="file" onchange="handleUniversalFile(event)">
+                  <button class="mt-3 px-space-md py-2 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-sm text-label-sm font-bold uppercase tracking-wider transition-colors cursor-pointer" type="button">
+                    Dosya Seçin
+                  </button>
+                </div>
+              </div>
+
+              <!-- Fleet Matching Advantage Card -->
+              <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+                    <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                  </div>
+                  <span class="font-label-lg text-label-lg text-on-surface font-bold">Filo Eşleşme Avantajı</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Avrupa lojistik standartlarında tüm evrakları onaylanan şoförlerimizin başvuru havuzundaki filo talep yanıt süresi ortalama <strong class="font-bold text-on-surface">4 iş günüdür</strong>.
+                </p>
+                <div class="flex flex-col gap-space-xs pt-space-xs">
+                  <div class="flex items-center justify-between font-label-sm text-label-sm">
+                    <span class="text-on-surface-variant font-medium">Genel Dosya Doluluğu</span>
+                    <span class="font-bold text-on-surface" id="sideBarFillPercentText">%50</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+                    <div class="h-full bg-secondary-container rounded-full transition-all duration-500" id="sideBarFillBar" style="width: 50%"></div>
+                  </div>
+                </div>
+                <div class="bg-surface-subtle p-space-sm rounded-lg flex items-start gap-space-xs">
+                  <span class="material-symbols-outlined text-[18px] text-secondary-container flex-shrink-0 mt-0.5">lightbulb</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant text-[13px]">
+                    Tüm taramaların net, lekesiz ve 300 DPI kalitede olması inceleme süresini hızlandırır.
+                  </span>
+                </div>
+              </div>
+
+              <!-- Real-time Support Box -->
+              <div class="bg-primary text-on-primary rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-canvas-dark">
+                    <span class="material-symbols-outlined text-[20px]">headset_mic</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-label-md text-label-md font-bold text-on-primary">Belge Yükleme Desteği</span>
+                    <span class="font-label-sm text-label-sm text-on-primary-container">Teknik Danışmanlık Ekibi</span>
+                  </div>
+                </div>
+                <p class="font-body-sm text-body-sm text-surface-container-highest">
+                  Belgelerinizi yüklerken veya e-Devlet barkod doğrulamalarında sorun yaşıyorsanız uzman ekibimize danışabilirsiniz.
+                </p>
+                <a class="w-full py-2.5 rounded-lg bg-surface-container-lowest text-on-surface text-center font-label-md text-label-md font-bold hover:bg-secondary-container hover:text-canvas-dark transition-colors cursor-pointer" href="gorusme-randevusu.html">
+                  Danışmana Soru İlet
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Document Preview Modal -->
+  <div id="docPreviewModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+    <div class="bg-surface-card rounded-2xl max-w-lg w-full p-6 shadow-2xl flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b pb-3 border-border-muted">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[24px]">description</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold" id="previewModalTitle">Belge Önizleme</h3>
+        </div>
+        <button type="button" onclick="closePreviewModal()" class="text-on-surface-variant hover:text-on-surface p-1 rounded-lg">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="flex flex-col items-center justify-center p-6 bg-surface-container-low rounded-xl gap-3">
+        <span class="material-symbols-outlined text-secondary-container text-[48px]">file_present</span>
+        <span class="font-label-lg text-label-lg text-on-surface font-bold" id="previewModalFileName">dosya.pdf</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold" id="previewModalStatusBadge">
+          <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Onaylı Belge
+        </span>
+        <p class="font-body-sm text-body-sm text-on-surface-variant text-center mt-2">
+          Bu belge 256-Bit SSL şifrelemeyle güvenli sunucumuzda saklanmakta ve sadece atanan lojistik danışmanınız tarafından görüntülenebilmektedir.
+        </p>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button type="button" onclick="closePreviewModal()" class="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold">
+          Kapat
+        </button>
+        <button type="button" onclick="closePreviewModal(); alert('Belge indirme bağlantısı başlatıldı.');" class="px-4 py-2 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-md text-label-md font-bold flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">download</span>
+          <span>İndir</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Realtime Sync & Cloud DB Scripts -->
+  <script src="js/cloud-db.js?v=20261025_v9"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase-db.js?v=20261025_v9"></script>
+
+  <!-- Document Management Script -->
+  <script>
+    // Toggle Mobile Sidebar
+    function toggleDriverSidebar() {
+      const sidebar = document.getElementById('driverSidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      if (sidebar && backdrop) {
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        if (isHidden) {
+          sidebar.classList.remove('-translate-x-full');
+          backdrop.classList.remove('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+          backdrop.classList.add('hidden');
+        }
+      }
+    }
+
+    let activeCandidate = null;
+
+    // Load Candidate Data dynamically
+    async function initCandidateData() {
+      let session = null;
+      try {
+        const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
+        if (sessionStr) session = JSON.parse(sessionStr);
+      } catch(e) {}
+
+      if (typeof window.fetchApplicationsFromCloud === 'function') {
+        try {
+          await window.fetchApplicationsFromCloud();
+        } catch(e) {}
+      }
+
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e) {}
+
+      let candidate = null;
+      if (session && session.email) {
+        candidate = apps.find(a => a.email === session.email || (a.id && a.id === session.id));
+      }
+
+      if (!candidate) {
+        candidate = apps.find(a => a.email === 'ugurgorgulu68770@gmail.com') || apps[0];
+      }
+
+      if (!candidate) {
+        candidate = {
+          fullName: "Uğur Görgülü",
+          email: "ugurgorgulu68770@gmail.com",
+          phone: "+90 537 165 51 49"
+        };
+      }
+
+      activeCandidate = candidate;
+      const fullName = candidate.fullName || "Uğur Görgülü";
+      const firstName = fullName.split(' ')[0] || "Uğur";
+
+      const topGreeting = document.getElementById('topHeaderGreeting');
+      if (topGreeting) topGreeting.textContent = `Hoş Geldiniz, ${firstName} Bey`;
+
+      const sidebarName = document.getElementById('sidebarUserName');
+      if (sidebarName) sidebarName.textContent = fullName;
+    }
+
+    function triggerDocUpload(inputId) {
+      const elem = document.getElementById(inputId);
+      if (elem) elem.click();
+    }
+
+    function handleFileSelected(event, docIndex, docTitle) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      alert(`"${file.name}" (${sizeMb} MB) seçildi.\n"${docTitle}" belgesi başarıyla yüklendi ve danışman inceleme kuyruğuna alındı.`);
+
+      // Update Card UI
+      const badge = document.getElementById('badgeDoc' + docIndex);
+      if (badge) {
+        badge.className = "inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold";
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>İnceleniyor';
+      }
+
+      const btnText = document.getElementById('btnTextDoc' + docIndex);
+      if (btnText) {
+        btnText.textContent = "Yenisini Yükle";
+      }
+
+      // Save document status in candidate record
+      if (activeCandidate) {
+        if (!activeCandidate.documents) activeCandidate.documents = {};
+        activeCandidate.documents['doc_' + docIndex] = {
+          name: file.name,
+          title: docTitle,
+          status: 'İnceleniyor',
+          uploadedAt: new Date().toISOString()
+        };
+
+        try {
+          let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
+          const idx = apps.findIndex(a => a.id === activeCandidate.id || a.email === activeCandidate.email);
+          if (idx !== -1) {
+            apps[idx] = activeCandidate;
+            localStorage.setItem('ats_applications', JSON.stringify(apps));
+          }
+        } catch(e) {}
+
+        if (typeof window.saveApplicationToHosting === 'function') {
+          window.saveApplicationToHosting(activeCandidate);
+        }
+      }
+
+      updateProgressUI(4, 6);
+    }
+
+    function handleUniversalFile(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      alert(`"${file.name}" yüklendi.\nBelgeniz genel evrak havuzuna kaydedildi ve danışmanınız Murat Kaya'ya iletildi.`);
+      updateProgressUI(4, 6);
+    }
+
+    function updateProgressUI(done, total) {
+      const ratioEl = document.getElementById('overallDocsRatioText');
+      if (ratioEl) ratioEl.textContent = `${done} / ${total} Tamamlandı`;
+
+      const percent = Math.round((done / total) * 100);
+      const circleText = document.getElementById('circleProgressText');
+      if (circleText) circleText.textContent = `%${percent}`;
+
+      const circlePath = document.getElementById('circleProgressPath');
+      if (circlePath) circlePath.setAttribute('stroke-dasharray', `${percent}, 100`);
+
+      const sidePercent = document.getElementById('sideBarFillPercentText');
+      if (sidePercent) sidePercent.textContent = `%${percent}`;
+
+      const sideBar = document.getElementById('sideBarFillBar');
+      if (sideBar) sideBar.style.width = `${percent}%`;
+    }
+
+    function previewDocument(title, fileName, status) {
+      const modal = document.getElementById('docPreviewModal');
+      const titleEl = document.getElementById('previewModalTitle');
+      const nameEl = document.getElementById('previewModalFileName');
+      const statusBadge = document.getElementById('previewModalStatusBadge');
+
+      if (titleEl) titleEl.textContent = title;
+      if (nameEl) nameEl.textContent = fileName;
+      if (statusBadge) statusBadge.textContent = status;
+
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closePreviewModal() {
+      const modal = document.getElementById('docPreviewModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function downloadDocument(fileName) {
+      alert(`"${fileName}" indirme işlemi başlatıldı.`);
+    }
+
+    function refreshDocumentList() {
+      alert("Evrak listesi ve danışman inceleme durumları güncellendi.");
+      initCandidateData();
+    }
+
+    function openSupportModal() {
+      alert("Destek Hattı: Evrak yükleme veya barkodlu döküm konusunda danışmanınız Murat Kaya ile iletişime geçebilirsiniz.");
+    }
+
+    function handleLogout() {
+      if (confirm('Oturumunuz kapatılacaktır. Onaylıyor musunuz?')) {
+        sessionStorage.removeItem('user_session');
+        localStorage.removeItem('user_session');
+        window.location.href = 'surucu-paneli.html';
+      }
+    }
+
+    // Drag and drop events for Drop Zone 3 and Universal Drop Zone
+    function setupDragAndDrop() {
+      const dropZone3 = document.getElementById('drop-zone-3');
+      const universalZone = document.getElementById('universalDropZone');
+
+      [dropZone3, universalZone].forEach(zone => {
+        if (!zone) return;
+        zone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          zone.classList.add('bg-surface-container-high', 'border-secondary-container');
+        });
+        zone.addEventListener('dragleave', (e) => {
+          e.preventDefault();
+          zone.classList.remove('bg-surface-container-high', 'border-secondary-container');
+        });
+        zone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          zone.classList.remove('bg-surface-container-high', 'border-secondary-container');
+          if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            const f = e.dataTransfer.files[0];
+            alert(`"${f.name}" seçildi ve evrak onay kuyruğuna eklendi.`);
+            updateProgressUI(4, 6);
+          }
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initCandidateData();
+      setupDragAndDrop();
+    });
+  </script>
+</body>
+</html>
