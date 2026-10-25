@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <meta content="web_standard" name="shell-type">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -23,10 +23,13 @@
       html, body {
         margin: 0;
         padding: 0;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
         scroll-behavior: smooth;
       }
       body {
-        overscroll-behavior: none;
+        overscroll-behavior-y: none;
       }
       main > :first-child {
         margin-top: 0 !important;
@@ -158,31 +161,38 @@
 <body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between">
 
   <!-- Fixed Header -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between gap-6">
+  <header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-border-muted/50 shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+    <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-12 h-16 sm:h-20 w-full flex items-center justify-between gap-2 sm:gap-6">
       
       <!-- Brand Logo -->
-      <a class="flex items-center gap-3 shrink-0 group" data-path="anasayfa" href="index.html">
-        <img alt="Avrupa Tır Şoförü Logo" class="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-[1.02]" src="assets/logo.png?v=20261025_v6">
-        <div class="flex flex-col">
-          <span class="font-headline-sm text-headline-sm text-on-surface font-extrabold tracking-tight leading-tight">avrupatirsoforu.com</span>
-          <span class="font-label-sm text-label-sm text-on-secondary-container tracking-wider font-semibold uppercase">AVRUPA TIR ŞOFÖRÜ İSTİHDAM &amp; EVRAK DANIŞMANLIĞI</span>
-        </div>
-      </a>
+      <div class="flex items-center min-w-0 max-w-[58%] sm:max-w-none">
+        <a class="flex items-center gap-2 sm:gap-2.5 group min-w-0" data-path="anasayfa" href="index.html">
+          <img alt="Avrupa Tır Şoförü Logo" class="h-8 sm:h-10 w-auto object-contain transition-transform group-hover:scale-[1.02] shrink-0" src="assets/logo.png?v=20261025_v6">
+          <div class="flex flex-col min-w-0 overflow-hidden">
+            <span class="text-sm sm:text-base md:text-headline-sm font-extrabold tracking-tight text-on-surface leading-tight truncate">avrupatirsoforu.com</span>
+            <span class="hidden md:block font-label-sm text-[10px] text-on-secondary-container tracking-wider font-semibold uppercase truncate">AVRUPA TIR ŞOFÖRÜ İSTİHDAM &amp; EVRAK DANIŞMANLIĞI</span>
+          </div>
+        </a>
+      </div>
 
       <!-- Desktop Nav -->
       <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="anasayfa" href="index.html">Ana Sayfa</a>
         <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="hizmetler" href="hizmetler.html?v=3.2">Hizmetler</a>
         <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="hakkimizda" href="hakkimizda.html?v=3.2">Hakkımızda</a>
         <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="iletisim" href="iletisim.html?v=3.2">İletişim</a>
       </nav>
 
       <!-- CTA Button & Mobile Menu Toggle -->
-      <div class="flex items-center gap-3">
-        <a class="inline-flex items-center justify-center h-11 px-6 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-lg text-label-lg font-bold shadow-[0_2px_4px_rgba(0,0,0,0.08)] transition-all" data-path="basvuru-formu" href="basvuru.html?v=3.2">
-          HEMEN BAŞVUR
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        <a class="hidden sm:inline-flex items-center justify-center h-10 lg:h-11 px-4 lg:px-6 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold transition-all border border-border-muted shrink-0" href="login.html">
+          <span class="material-symbols-outlined text-[18px] mr-1.5">login</span>
+          Giriş Yap
         </a>
-        <button type="button" class="lg:hidden p-2 text-on-surface rounded-lg hover:bg-surface-container-high" onclick="document.getElementById('mobileNavBasvuru').classList.toggle('hidden');" aria-label="Menü">
+        <a class="inline-flex sm:hidden items-center justify-center h-9 px-3 rounded-lg bg-secondary-container text-canvas-dark font-bold text-xs tracking-wider shadow-sm hover:bg-warning-amber-hover transition-colors shrink-0" href="login.html">
+          Giriş
+        </a>
+        <button type="button" id="mobileMenuBtnBasvuru" class="lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-on-surface rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer shrink-0" onclick="toggleMobileNav('mobileNavBasvuru', this)" aria-label="Menü">
           <span class="material-symbols-outlined text-[24px]">menu</span>
         </button>
       </div>
@@ -190,82 +200,102 @@
     </div>
 
     <!-- Mobile Navigation Dropdown -->
-    <div id="mobileNavBasvuru" class="hidden lg:hidden bg-surface-container-lowest border-b border-border-muted px-6 py-4 space-y-2">
-      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="hizmetler.html?v=3.2">Hizmetler</a>
-      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="hakkimizda.html?v=3.2">Hakkımızda</a>
-      <a class="block px-3 py-2 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface" href="iletisim.html?v=3.2">İletişim</a>
-      <div class="pt-2 border-t border-border-muted">
-        <a href="basvuru.html?v=3.2" class="w-full text-center py-2 text-label-md font-bold bg-secondary-container text-on-secondary-fixed rounded-lg block">HEMEN BAŞVUR</a>
+    <div id="mobileNavBasvuru" class="hidden lg:hidden bg-surface/98 backdrop-blur-xl border-b border-border-muted px-4 py-4 space-y-1.5 shadow-xl transition-all">
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="index.html">
+        <span class="material-symbols-outlined text-[20px] text-amber-500">home</span>
+        <span>Ana Sayfa</span>
+      </a>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hizmetler.html?v=3.2">
+        <span class="material-symbols-outlined text-[20px] text-blue-500">work</span>
+        <span>Hizmetler</span>
+      </a>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hakkimizda.html?v=3.2">
+        <span class="material-symbols-outlined text-[20px] text-indigo-500">corporate_fare</span>
+        <span>Hakkımızda</span>
+      </a>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="iletisim.html?v=3.2">
+        <span class="material-symbols-outlined text-[20px] text-emerald-500">contact_support</span>
+        <span>İletişim</span>
+      </a>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="login.html">
+        <span class="material-symbols-outlined text-[20px] text-amber-600">badge</span>
+        <span>Sürücü / Yönetici Girişi</span>
+      </a>
+      <div class="pt-3 border-t border-border-muted flex flex-col gap-2">
+        <a href="https://wa.me/908508400000" target="_blank" class="w-full text-center py-2.5 text-xs font-semibold bg-emerald-600 text-white rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">chat</span>
+          <span>WhatsApp Danışma Hattı</span>
+        </a>
       </div>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="w-full pt-20 bg-background flex-1">
+  <main class="w-full pt-16 sm:pt-20 bg-background flex-1 overflow-x-hidden">
     <div class="flex flex-col w-full">
 
       <!-- Progress Indicator Bar -->
-      <div class="w-full bg-surface-container-low py-3 px-6 shadow-sm">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm font-bold">1</span>
-            <span class="font-label-md text-label-md text-on-surface font-semibold tracking-wide uppercase">Ön Değerlendirme Süreci:</span>
-            <span class="font-body-sm text-body-sm text-on-surface-variant">Evrak &amp; Mesleki Yeterlilik Analizi</span>
+      <div class="w-full bg-surface-container-low py-2.5 sm:py-3 px-4 sm:px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 text-center sm:text-left">
+          <div class="flex items-center gap-2 sm:gap-3">
+            <span class="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-secondary-container text-on-secondary-fixed text-xs sm:font-label-sm font-bold">1</span>
+            <span class="text-xs sm:font-label-md text-on-surface font-semibold tracking-wide uppercase">Ön Değerlendirme:</span>
+            <span class="text-xs sm:font-body-sm text-on-surface-variant">Evrak &amp; Yeterlilik Analizi</span>
           </div>
-          <div class="flex items-center gap-6">
-            <div class="flex items-center gap-2 text-status-success font-label-sm text-label-sm font-bold">
-              <span class="material-symbols-outlined text-[18px]">verified_user</span>
-              <span>256-Bit SSL Şifreli Protokol</span>
+          <div class="flex items-center gap-4 text-xs sm:text-sm">
+            <div class="flex items-center gap-1.5 text-status-success font-bold text-xs sm:font-label-sm">
+              <span class="material-symbols-outlined text-[16px] sm:text-[18px]">verified_user</span>
+              <span>256-Bit SSL Protokol</span>
             </div>
-            <div class="hidden sm:flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
-              <span class="material-symbols-outlined text-[18px]">schedule</span>
-              <span>Ortalama Süre: 4 Dakika</span>
+            <div class="hidden sm:flex items-center gap-1.5 text-on-surface-variant text-xs sm:font-label-sm">
+              <span class="material-symbols-outlined text-[16px] sm:text-[18px]">schedule</span>
+              <span>Süre: ~4 Dakika</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Hero / Introduction Banner -->
-      <section class="w-full bg-surface-container-low py-10 lg:py-14">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <section class="w-full bg-surface-container-low py-8 sm:py-10 lg:py-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
             
-            <div class="lg:col-span-8 flex flex-col gap-4">
-              <div class="inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-lg bg-surface-container-highest text-primary-container font-label-sm text-label-sm font-bold uppercase tracking-wider">
+            <div class="lg:col-span-8 flex flex-col gap-3 sm:gap-4">
+              <div class="inline-flex items-center gap-2 self-start px-3 py-1 sm:py-1.5 rounded-lg bg-surface-container-highest text-primary-container text-xs font-bold uppercase tracking-wider">
                 <span class="material-symbols-outlined text-[16px]">verified</span>
                 RESMİ ÖN DEĞERLENDİRME MASASI
               </div>
-              <h1 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
+              <h1 class="text-2xl sm:text-3xl lg:text-headline-lg text-on-surface font-extrabold tracking-tight leading-tight">
                 Avrupa Tır Şoförlüğü Ön Başvuru &amp; Dosya İnceleme Formu
               </h1>
-              <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+              <p class="text-sm sm:text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
                 Avrupa Birliği standartlarında tır şoförlüğü ve lojistik istihdamı için mesleki ve evrak uygunluğunuz uzmanlarımız tarafından ücretsiz olarak incelenir.
               </p>
               
-              <div class="flex flex-wrap items-center gap-3 pt-2">
-                <div class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-card shadow-sm text-on-surface font-label-md text-label-md">
-                  <span class="material-symbols-outlined text-secondary-container text-[18px]">task_alt</span>
+              <div class="flex flex-wrap items-center gap-2 sm:gap-3 pt-1 sm:pt-2">
+                <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:py-2 rounded-lg bg-surface-card shadow-sm text-on-surface text-xs sm:text-sm font-medium">
+                  <span class="material-symbols-outlined text-secondary-container text-[16px] sm:text-[18px]">task_alt</span>
                   <span>Ücretsiz Ön İnceleme</span>
                 </div>
-                <div class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-card shadow-sm text-on-surface font-label-md text-label-md">
-                  <span class="material-symbols-outlined text-secondary-container text-[18px]">electric_bolt</span>
-                  <span>24 Saat İçinde Dosya Analizi</span>
+                <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:py-2 rounded-lg bg-surface-card shadow-sm text-on-surface text-xs sm:text-sm font-medium">
+                  <span class="material-symbols-outlined text-secondary-container text-[16px] sm:text-[18px]">electric_bolt</span>
+                  <span>24 Saat Dosya Analizi</span>
                 </div>
-                <div class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-card shadow-sm text-on-surface font-label-md text-label-md">
-                  <span class="material-symbols-outlined text-secondary-container text-[18px]">lock</span>
-                  <span>%100 KVKK &amp; Kurumsal Gizlilik</span>
+                <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:py-2 rounded-lg bg-surface-card shadow-sm text-on-surface text-xs sm:text-sm font-medium">
+                  <span class="material-symbols-outlined text-secondary-container text-[16px] sm:text-[18px]">lock</span>
+                  <span>%100 KVKK Gizlilik</span>
                 </div>
               </div>
             </div>
 
             <div class="lg:col-span-4">
-              <div class="bg-surface-card p-6 rounded-xl shadow-md flex flex-col gap-3 relative overflow-hidden">
+              <div class="bg-surface-card p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-md flex flex-col gap-2.5 sm:gap-3 relative overflow-hidden">
                 <div class="w-full h-1 bg-secondary-container absolute top-0 left-0"></div>
-                <div class="flex items-center gap-2 text-secondary font-label-sm text-label-sm uppercase font-bold tracking-wider">
-                  <span class="material-symbols-outlined text-[20px]">info</span>
+                <div class="flex items-center gap-2 text-secondary text-xs sm:text-label-sm uppercase font-bold tracking-wider">
+                  <span class="material-symbols-outlined text-[18px] sm:text-[20px]">info</span>
                   Sürücü Önemli Hatırlatma
                 </div>
-                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                <p class="text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
                   Lütfen bilgilerinizi eksiksiz ve doğru doldurunuz. Bu form yalnızca CE sınıfı ehliyet sahibi veya denkliği planlanan profesyonel sürücüler içindir. Verilen bilgiler Avrupa nakliye firmaları denklik kriterlerine göre elenmektedir.
                 </p>
               </div>
@@ -276,13 +306,13 @@
       </section>
 
       <!-- Main Content: Form & Informative Sidebar -->
-      <section class="w-full py-12 lg:py-16">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <section class="w-full py-8 sm:py-12 lg:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             
             <!-- Left: Multi-Section Form (8 Columns) -->
-            <div class="lg:col-span-8 flex flex-col gap-8">
-              <form class="flex flex-col gap-8" id="driverApplicationForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+            <div class="lg:col-span-8 flex flex-col gap-6 sm:gap-8">
+              <form class="flex flex-col gap-6 sm:gap-8" id="driverApplicationForm" onsubmit="event.preventDefault(); handleFormSubmit();">
                 
                 <!-- SECTION A: Kişisel ve İletişim Bilgileri -->
                 <div class="bg-surface-card p-6 sm:p-8 rounded-xl shadow-sm flex flex-col gap-6">
@@ -867,21 +897,21 @@
 
   <!-- Footer -->
   <footer class="w-full bg-surface-container-low text-on-surface mt-space-xl shadow-[0_-1px_4px_rgba(0,0,0,0.03)]">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
         
         <!-- About -->
         <div class="flex flex-col gap-3">
           <div class="flex items-center gap-3">
-            <a href="index.html" class="flex items-center gap-3 group">
+            <a href="index.html" class="flex items-center gap-2.5 sm:gap-3 group">
               <img alt="Avrupa Tır Şoförü Logo" class="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-[1.02]" src="assets/logo.png?v=20261025_v6">
               <div class="flex flex-col">
-                <span class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">avrupatirsoforu.com</span>
-                <span class="font-label-sm text-[10px] text-on-secondary-container tracking-wider font-semibold uppercase">AVRUPA TIR ŞOFÖRÜ İSTİHDAM &amp; EVRAK DANIŞMANLIĞI</span>
+                <span class="text-base sm:text-headline-sm font-bold text-on-surface leading-tight">avrupatirsoforu.com</span>
+                <span class="hidden sm:block font-label-sm text-[9px] sm:text-[10px] text-on-secondary-container tracking-wider font-semibold uppercase">AVRUPA TIR ŞOFÖRÜ İSTİHDAM DANIŞMANLIĞI</span>
               </div>
             </a>
           </div>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">
+          <p class="text-xs sm:text-body-sm text-on-surface-variant">
             Avrupa Birliği genelinde ağır vasıta (TIR/HGV) sürücüleri için resmi vize kolaylaştırma, ehliyet denklik, takograf ve kurumsal istihdam danışmanlığı.
           </p>
         </div>

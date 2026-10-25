@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <meta content="web_standard" name="shell-type">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -23,10 +23,13 @@
       html, body {
         margin: 0;
         padding: 0;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
         scroll-behavior: smooth;
       }
       body {
-        overscroll-behavior: none;
+        overscroll-behavior-y: none;
       }
       main > :first-child {
         margin-top: 0 !important;
@@ -150,42 +153,84 @@
   </script>
 </head>
 
-<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between overflow-x-hidden">
 
   <!-- HEADER -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] no-print">
-    <div class="h-20 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-6">
-      
-      <!-- Logo -->
-      <div class="flex items-center gap-3 shrink-0">
-        <a class="flex items-center gap-3 group" href="index.html">
-          <img alt="Avrupa Tır Şoförü Logo" class="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-[1.02]" src="assets/logo.png?v=20261025_v6">
-          <div class="flex flex-col">
-            <span class="font-headline-sm text-headline-sm text-on-surface font-extrabold tracking-tight leading-tight">avrupatirsoforu.com</span>
-            <span class="font-label-sm text-label-sm text-on-secondary-container tracking-wider font-semibold uppercase">AVRUPA TIR ŞOFÖRÜ İSTİHDAM &amp; EVRAK DANIŞMANLIĞI</span>
-          </div>
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-border-muted/50 no-print">
+    <div>
+      <div class="h-16 sm:h-20 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-12 w-full flex items-center justify-between gap-2 sm:gap-6">
+        
+        <!-- Logo -->
+        <div class="flex items-center min-w-0 max-w-[58%] sm:max-w-none">
+          <a class="flex items-center gap-2 sm:gap-2.5 group min-w-0" href="index.html">
+            <img alt="Avrupa Tır Şoförü Logo" class="h-8 sm:h-10 w-auto object-contain transition-transform group-hover:scale-[1.02] shrink-0" src="assets/logo.png?v=20261025_v6">
+            <div class="flex flex-col min-w-0 overflow-hidden">
+              <span class="text-sm sm:text-base md:text-headline-sm font-extrabold tracking-tight text-on-surface leading-tight truncate">avrupatirsoforu.com</span>
+              <span class="hidden md:block font-label-sm text-[10px] text-on-secondary-container tracking-wider font-semibold uppercase truncate">AVRUPA TIR ŞOFÖRÜ İSTİHDAM &amp; EVRAK DANIŞMANLIĞI</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Desktop Nav Items -->
+        <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+          <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" href="hizmetler.html">Hizmetler</a>
+          <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" href="hakkimizda.html">Hakkımızda</a>
+          <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" href="iletisim.html">İletişim</a>
+        </nav>
+
+        <!-- CTA & Actions -->
+        <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <a class="hidden sm:inline-flex items-center justify-center h-10 lg:h-11 px-4 lg:px-6 rounded-lg bg-secondary-container text-canvas-dark font-label-md text-label-md font-bold tracking-wider hover:bg-warning-amber-hover transition-colors shadow-sm shrink-0" href="basvuru.html">
+            HEMEN BAŞVUR
+          </a>
+          <a class="inline-flex sm:hidden items-center justify-center h-9 px-3 rounded-lg bg-secondary-container text-canvas-dark font-bold text-xs tracking-wider shadow-sm hover:bg-warning-amber-hover transition-colors shrink-0" href="basvuru.html">
+            Başvur
+          </a>
+          <!-- Mobile Menu Button -->
+          <button type="button" id="mobileMenuBtnKvkk" class="md:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-on-surface rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer shrink-0" onclick="toggleMobileNav('mobileNavKvkk', this)" aria-label="Menü">
+            <span class="material-symbols-outlined text-[24px]">menu</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobileNavKvkk" class="hidden md:hidden bg-surface/98 backdrop-blur-xl border-b border-border-muted px-4 py-4 space-y-1.5 shadow-xl transition-all">
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="index.html">
+        <span class="material-symbols-outlined text-[20px] text-amber-500">home</span>
+        <span>Ana Sayfa</span>
+      </a>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hizmetler.html">
+        <span class="material-symbols-outlined text-[20px] text-blue-500">work</span>
+        <span>Hizmetler</span>
+      </a>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="hakkimizda.html">
+        <span class="material-symbols-outlined text-[20px] text-indigo-500">corporate_fare</span>
+        <span>Hakkımızda</span>
+      </a>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="iletisim.html">
+        <span class="material-symbols-outlined text-[20px] text-emerald-500">contact_support</span>
+        <span>İletişim</span>
+      </a>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="login.html">
+        <span class="material-symbols-outlined text-[20px] text-amber-600">badge</span>
+        <span>Sürücü / Yönetici Girişi</span>
+      </a>
+      <div class="pt-3 border-t border-border-muted flex flex-col gap-2">
+        <a href="basvuru.html" class="w-full text-center py-3 text-sm font-bold bg-secondary-container text-canvas-dark rounded-xl block shadow-sm hover:bg-warning-amber-hover transition-colors">
+          🚀 HEMEN BAŞVUR (ÜCRETSİZ)
+        </a>
+        <a href="https://wa.me/908508400000" target="_blank" class="w-full text-center py-2.5 text-xs font-semibold bg-emerald-600 text-white rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">chat</span>
+          <span>WhatsApp Danışma Hattı</span>
         </a>
       </div>
-
-      <!-- Desktop Nav Items -->
-      <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" href="hizmetler.html">Hizmetler</a>
-        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" href="hakkimizda.html">Hakkımızda</a>
-        <a class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg" href="iletisim.html">İletişim</a>
-      </nav>
-
-      <!-- CTA & Actions -->
-      <div class="flex items-center gap-3">
-        <a class="inline-flex items-center justify-center h-11 px-6 rounded-lg bg-secondary-container text-canvas-dark font-label-md text-label-md font-bold tracking-wider hover:bg-warning-amber-hover transition-colors shadow-sm" href="basvuru.html">
-          HEMEN BAŞVUR
-        </a>
-      </div>
-
     </div>
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="w-full pt-20 bg-background flex-1">
+  <main class="w-full pt-16 sm:pt-20 bg-background flex-1 overflow-x-hidden">
     <div class="flex flex-col w-full">
 
       <!-- Top Safety Amber Freight Accent Bar -->
@@ -648,6 +693,7 @@
   </footer>
 
   <!-- Scripts -->
+  <script src="js/app.js?v=4.0.0"></script>
   <script src="js/cookie-consent.js?v=1.0.0"></script>
   <script src="js/analytics.js?v=1.0.0"></script>
 </body>

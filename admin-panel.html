@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="utf-8">
@@ -241,21 +241,27 @@
   <!-- AUTHENTICATED ADMIN DASHBOARD WRAPPER (HIDDEN UNTIL AUTHENTICATED) -->
   <div id="admin-app-container" class="hidden">
 
-  <!-- LEFT ASIDE: OPERASYON MENÜSÜ -->
-  <aside class="fixed left-0 top-0 h-full w-72 bg-canvas-dark text-on-primary z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.2)] select-none">
+  <!-- MOBILE SIDEBAR BACKDROP OVERLAY -->
+  <div id="adminSidebarBackdrop" onclick="toggleAdminSidebar()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 lg:hidden transition-opacity"></div>
+
+  <!-- LEFT ASIDE: OPERASYON MENÜSÜ (OFF-CANVAS ON MOBILE, FIXED ON LG) -->
+  <aside id="adminSidebar" class="fixed left-0 top-0 h-full w-72 max-w-[85vw] bg-canvas-dark text-on-primary z-50 flex flex-col justify-between shadow-2xl lg:shadow-[0_1px_8px_rgba(0,0,0,0.2)] select-none transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
     <div class="flex flex-col">
       
       <!-- Brand Logo Header -->
-      <div class="h-16 flex items-center px-space-md bg-primary-container">
-        <a href="index.html" class="flex items-center gap-2 group" title="Ana Sayfaya Dön">
+      <div class="h-16 flex items-center justify-between px-space-md bg-primary-container">
+        <a href="index.html" class="flex items-center gap-2 group min-w-0" title="Ana Sayfaya Dön">
           <div class="bg-white p-1 rounded-lg shrink-0">
             <img src="assets/logo.png?v=20261025_v6" alt="Avrupa Tır Şoförü Logo" class="h-7 w-auto object-contain">
           </div>
-          <div class="flex flex-col">
-            <span class="font-label-lg text-label-lg tracking-tight text-white leading-none font-bold">avrupatirsoforu.com</span>
-            <span class="font-label-sm text-[9px] text-secondary-container mt-0.5 tracking-wider uppercase font-semibold">AVRUPA TIR ŞOFÖRÜ İSTİHDAM</span>
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-lg text-sm sm:text-label-lg tracking-tight text-white leading-none font-bold truncate">avrupatirsoforu.com</span>
+            <span class="font-label-sm text-[9px] text-secondary-container mt-0.5 tracking-wider uppercase font-semibold truncate">YÖNETİM MASASI</span>
           </div>
         </a>
+        <button type="button" onclick="toggleAdminSidebar()" class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer" aria-label="Kapat">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
       </div>
 
       <!-- Menu Section Title -->
@@ -313,19 +319,23 @@
     </div>
   </aside>
 
-  <!-- MAIN APP CONTAINER (OFFSET BY 72) -->
-  <div class="pl-72 flex flex-col min-h-screen">
+  <!-- MAIN APP CONTAINER (OFFSET BY 72 ON LG ONLY) -->
+  <div class="pl-0 lg:pl-72 flex flex-col min-h-screen">
     
     <!-- TOP HEADER -->
-    <header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg">
-      <div class="flex items-center w-96">
+    <header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-4 sm:px-space-lg gap-2">
+      <div class="flex items-center gap-2 flex-1 sm:w-96 max-w-md">
+        <!-- Mobile Sidebar Hamburger Toggle -->
+        <button type="button" onclick="toggleAdminSidebar()" class="lg:hidden p-2 text-on-surface rounded-lg hover:bg-surface-container transition-colors cursor-pointer" aria-label="Menü">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
         <div class="relative w-full flex items-center">
-          <span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">search</span>
-          <input class="w-full h-10 pl-10 pr-4 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="top-search" placeholder="Aday no, ehliyet sınıfı, vize durumu ara..." type="text" oninput="handleGlobalSearch(this.value)">
+          <span class="material-symbols-outlined absolute left-3 text-outline text-[18px] sm:text-[20px]">search</span>
+          <input class="w-full h-10 pl-9 sm:pl-10 pr-3 sm:pr-4 rounded-lg bg-surface-container-low text-on-surface placeholder-on-surface-variant text-xs sm:font-body-sm focus:outline-none focus:ring-2 focus:ring-secondary-container" id="top-search" placeholder="Aday no, ehliyet, vize ara..." type="text" oninput="handleGlobalSearch(this.value)">
         </div>
       </div>
 
-      <div class="flex items-center gap-space-md">
+      <div class="flex items-center gap-2 sm:gap-space-md shrink-0">
         <!-- Live Alert Notification -->
         <button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all flex items-center justify-center cursor-pointer" type="button" title="Bildirimler">
           <span class="material-symbols-outlined text-[20px]">notifications</span>
@@ -333,13 +343,13 @@
         </button>
 
         <!-- Admin Profile -->
-        <div class="flex items-center gap-space-sm pl-space-sm border-l border-outline-variant/30">
-          <div class="w-8 h-8 rounded-full bg-primary-container text-secondary-container flex items-center justify-center font-bold text-xs">SA</div>
-          <div class="flex flex-col text-right">
+        <div class="flex items-center gap-2 sm:gap-space-sm pl-2 sm:pl-space-sm border-l border-outline-variant/30">
+          <div class="w-8 h-8 rounded-full bg-primary-container text-secondary-container flex items-center justify-center font-bold text-xs shrink-0">SA</div>
+          <div class="hidden sm:flex flex-col text-right">
             <span class="font-label-md text-label-md text-on-surface leading-tight font-semibold">serkanalcay52</span>
             <span class="text-[11px] text-on-surface-variant">Süper Admin</span>
           </div>
-          <button onclick="adminLogout()" class="ml-2 p-1.5 rounded-lg text-outline hover:text-error hover:bg-error-container/20 transition-all flex items-center justify-center cursor-pointer" title="Güvenli Çıkış Yap">
+          <button onclick="adminLogout()" class="p-1.5 rounded-lg text-outline hover:text-error hover:bg-error-container/20 transition-all flex items-center justify-center cursor-pointer" title="Güvenli Çıkış Yap">
             <span class="material-symbols-outlined text-[20px]">logout</span>
           </button>
         </div>
@@ -347,7 +357,7 @@
     </header>
 
     <!-- MAIN BODY -->
-    <main class="w-full pt-16 bg-background flex-1 p-space-lg">
+    <main class="w-full pt-16 bg-background flex-1 p-4 sm:p-space-lg overflow-x-hidden">
       <div class="flex flex-col w-full gap-space-lg" id="view-basvurular">
 
         <!-- Top Title & Action Bar -->
@@ -2224,9 +2234,32 @@
       } catch (e) {}
     }
 
+    // MOBILE ADMIN SIDEBAR TOGGLE
+    function toggleAdminSidebar(forceState) {
+      const sidebar = document.getElementById('adminSidebar');
+      const backdrop = document.getElementById('adminSidebarBackdrop');
+      if (!sidebar) return;
+      const isOpen = !sidebar.classList.contains('-translate-x-full');
+      const shouldOpen = forceState !== undefined ? forceState : !isOpen;
+
+      if (shouldOpen) {
+        sidebar.classList.remove('-translate-x-full');
+        if (backdrop) backdrop.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        if (backdrop) backdrop.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+    window.toggleAdminSidebar = toggleAdminSidebar;
+
     // TAB SWITCHER (Başvurular, Hızlı Başvurular, Aday Havuzu, Ayarlar)
     function switchTab(tabId) {
       currentTab = tabId;
+      if (window.innerWidth < 1024) {
+        toggleAdminSidebar(false);
+      }
       
       // Update sidebar visual active state
       document.querySelectorAll('#sidebar-nav .nav-item').forEach(item => {

@@ -93,52 +93,50 @@
 
     const banner = document.createElement('div');
     banner.id = 'ats-cookie-banner';
-    banner.className = 'fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-xl bg-slate-900/95 backdrop-blur-xl border border-amber-500/30 text-white p-5 md:p-6 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] z-[9999] transition-all duration-500 transform translate-y-8 opacity-0';
+    banner.className = 'fixed bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-xl bg-slate-900/95 backdrop-blur-xl border border-amber-500/30 text-white p-4 sm:p-5 md:p-6 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] z-[9999] transition-all duration-500 transform translate-y-8 opacity-0';
     banner.setAttribute('role', 'dialog');
     banner.setAttribute('aria-live', 'polite');
 
     banner.innerHTML = `
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-3 sm:gap-4">
         <!-- Başlık & İkon & Rozet -->
-        <div class="flex items-start justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400/20 to-amber-600/30 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0 shadow-inner">
-              <span class="material-symbols-outlined text-[24px]">cookie</span>
+        <div class="flex items-start justify-between gap-2 sm:gap-3">
+          <div class="flex items-center gap-2.5 sm:gap-3">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-400/20 to-amber-600/30 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0 shadow-inner">
+              <span class="material-symbols-outlined text-[20px] sm:text-[24px]">cookie</span>
             </div>
             <div>
-              <h3 class="font-bold text-white text-base md:text-lg leading-tight flex items-center gap-2">
+              <h3 class="font-bold text-white text-sm sm:text-base md:text-lg leading-tight flex items-center gap-2">
                 Çerez ve Gizlilik Bildirimi
               </h3>
-              <span class="text-xs text-amber-400 font-medium">KVKK &amp; GDPR Çerez Politikası</span>
+              <span class="text-[11px] sm:text-xs text-amber-400 font-medium">KVKK &amp; GDPR Çerez Politikası</span>
             </div>
           </div>
-          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
+          <span class="hidden xs:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
             Güvenli Portal
           </span>
         </div>
 
         <!-- Açıklama Metni (Neden istendiği net ve açık) -->
-        <p class="text-slate-300 text-xs md:text-sm leading-relaxed">
-          Değerli ziyaretçimiz; web sitemizde size daha hızlı ve kaliteli bir deneyim sunabilmek, 
-          <strong class="text-white font-medium">ziyaretçi trafiğini anonim olarak analiz etmek (sitede kalma süresi, ilgi gören sayfalar ve başvuru dönüşüm hızları)</strong> 
-          ve başvuru süreçlerinizi kolaylaştırmak amacıyla 6698 sayılı KVKK kapsamında standart çerezler kullanmaktayız. Trafik verileriniz tamamen anonim tutulmakta olup kimlik bilgilerinizle eşleştirilmez.
+        <p class="text-slate-300 text-[11px] sm:text-xs md:text-sm leading-relaxed max-h-24 sm:max-h-none overflow-y-auto pr-1">
+          Web sitemizde daha hızlı ve kaliteli deneyim sunmak, ziyaretçi trafiğini anonim analiz etmek ve başvuru süreçlerinizi kolaylaştırmak için KVKK kapsamında standart çerezler kullanılmaktadır.
         </p>
 
         <!-- Butonlar & Tercih Linki -->
-        <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800">
-          <button type="button" id="btn-cookie-details" class="text-xs text-amber-400 hover:text-amber-300 font-semibold underline underline-offset-4 cursor-pointer transition-colors flex items-center gap-1">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3 pt-2 border-t border-slate-800">
+          <button type="button" id="btn-cookie-details" class="text-xs text-amber-400 hover:text-amber-300 font-semibold underline underline-offset-4 cursor-pointer transition-colors flex items-center justify-center sm:justify-start gap-1 py-1">
             <span class="material-symbols-outlined text-[14px]">tune</span>
             Tercihleri Yönet
           </button>
 
-          <div class="flex items-center gap-2 ml-auto">
-            <button type="button" id="btn-cookie-necessary" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs md:text-sm font-medium transition-all cursor-pointer">
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button type="button" id="btn-cookie-necessary" class="flex-1 sm:flex-none px-3.5 py-2 sm:py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs sm:text-sm font-medium transition-all text-center cursor-pointer">
               Yalnızca Zorunlu
             </button>
-            <button type="button" id="btn-cookie-accept-all" class="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs md:text-sm font-bold shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all cursor-pointer flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[18px]">check</span>
-              Çerezleri Kabul Et
+            <button type="button" id="btn-cookie-accept-all" class="flex-1 sm:flex-none px-4 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs sm:text-sm font-bold shadow-lg shadow-amber-500/20 text-center flex items-center justify-center gap-1.5 cursor-pointer">
+              <span class="material-symbols-outlined text-[16px] sm:text-[18px]">check</span>
+              Kabul Et
             </button>
           </div>
         </div>

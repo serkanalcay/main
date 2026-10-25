@@ -55,13 +55,51 @@
     });
   };
 
-  // 2. MOBILE MENU TOGGLE
-  window.toggleMobileMenu = function () {
-    const menu = document.getElementById('mobile-menu');
-    if (menu) {
-      menu.classList.toggle('hidden');
+  // 2. MOBILE MENU TOGGLE (SUPPORTS ALL PAGES & DYNAMIC IDS)
+  window.toggleMobileNav = function (navId, btn) {
+    const targetId = navId || 'mobileNav';
+    const menu = document.getElementById(targetId);
+    if (!menu) return;
+    const isHidden = menu.classList.toggle('hidden');
+    
+    // Toggle icon if button provided or found
+    const triggerBtn = btn || document.querySelector(`[onclick*="${targetId}"]`);
+    if (triggerBtn) {
+      const icon = triggerBtn.querySelector('.material-symbols-outlined, svg');
+      if (icon && icon.classList.contains('material-symbols-outlined')) {
+        icon.textContent = isHidden ? 'menu' : 'close';
+      }
     }
   };
+  window.toggleMobileMenu = window.toggleMobileNav;
+
+  // Auto-close mobile menu when clicking outside or pressing Escape
+  document.addEventListener('click', function (e) {
+    const openMenus = document.querySelectorAll('[id^="mobileNav"]:not(.hidden), #mobile-menu:not(.hidden)');
+    openMenus.forEach(menu => {
+      const toggleBtn = document.querySelector(`[onclick*="${menu.id}"]`);
+      if (!menu.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+        menu.classList.add('hidden');
+        if (toggleBtn) {
+          const icon = toggleBtn.querySelector('.material-symbols-outlined');
+          if (icon) icon.textContent = 'menu';
+        }
+      }
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('[id^="mobileNav"]:not(.hidden), #mobile-menu:not(.hidden)').forEach(menu => {
+        menu.classList.add('hidden');
+        const toggleBtn = document.querySelector(`[onclick*="${menu.id}"]`);
+        if (toggleBtn) {
+          const icon = toggleBtn.querySelector('.material-symbols-outlined');
+          if (icon) icon.textContent = 'menu';
+        }
+      });
+    }
+  });
 
   // 3. LOGIN LINK CLICK GUARD
   window.handleLoginClick = function (e) {
@@ -74,7 +112,7 @@
           if (session.role === 'admin') {
             window.location.href = 'admin-panel.html';
           } else {
-            window.location.href = 'driver-panel.html';
+            alert('Sürücü paneli güncellenmektedir. Yakında yeni arayüzle aktif olacaktır.');
           }
         }
       } catch (err) {}
