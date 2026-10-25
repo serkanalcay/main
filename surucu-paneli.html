@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="tr" style="">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_blank" name="shell-type">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Sürücü Portali • Kullanıcı Girişi | avrupatirsoforu.com</title>
+  <link rel="icon" href="assets/logo.png?v=20261025_v9">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-surface": "#0b1c30",
+            "tertiary": "#000000",
+            "canvas-dark": "#020617",
+            "background": "#f8f9ff",
+            "surface-dim": "#cbdbf5",
+            "on-tertiary-container": "#497cff",
+            "primary-fixed-dim": "#bec6e0",
+            "on-tertiary-fixed": "#00174b",
+            "surface-container": "#e5eeff",
+            "on-tertiary": "#ffffff",
+            "surface-card": "#FFFFFF",
+            "secondary-container": "#fea619",
+            "error-container": "#ffdad6",
+            "surface": "#f8f9ff",
+            "surface-container-low": "#eff4ff",
+            "primary-container": "#131b2e",
+            "secondary-fixed": "#ffddb8",
+            "on-background": "#0b1c30",
+            "inverse-on-surface": "#eaf1ff",
+            "surface-bright": "#f8f9ff",
+            "surface-variant": "#d3e4fe",
+            "on-secondary-fixed": "#2a1700",
+            "on-primary-container": "#7c839b",
+            "on-surface-variant": "#45464d",
+            "status-success": "#34D399",
+            "border-muted": "#E2E8F0",
+            "surface-subtle": "#F8FAFC",
+            "primary": "#000000",
+            "outline-variant": "#c6c6cd",
+            "outline": "#76777d",
+            "inverse-primary": "#bec6e0",
+            "on-primary": "#ffffff",
+            "on-primary-fixed": "#131b2e",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed": "#dae2fd",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-container": "#684000",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "tertiary-fixed": "#dbe1ff",
+            "inverse-surface": "#213145",
+            "secondary": "#855300",
+            "on-secondary-fixed-variant": "#653e00",
+            "surface-container-highest": "#d3e4fe",
+            "tertiary-container": "#00174b",
+            "on-primary-fixed-variant": "#3f465c",
+            "surface-tint": "#565e74",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-secondary": "#ffffff",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a",
+            "warning-amber-hover": "#D97706",
+            "on-error": "#ffffff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-sm": "0.5rem",
+            "margin-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-xs": "0.25rem",
+            "gutter-mobile": "1rem",
+            "margin": "2rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem"
+          },
+          fontFamily: {
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-md": ["Space Grotesk"],
+            "body-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"],
+            "display-mobile": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Space Grotesk"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"]
+          },
+          fontSize: {
+            "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+            "label-md": ["13px", { lineHeight: "18px", letterSpacing: "0.03em", fontWeight: "600" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "500" }],
+            "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "display": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" }],
+            "display-mobile": ["34px", { lineHeight: "42px", letterSpacing: "-0.01em", fontWeight: "800" }],
+            "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "label-lg": ["15px", { lineHeight: "20px", letterSpacing: "0.02em", fontWeight: "600" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "headline-lg": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- MAINTENANCE & DEVELOPER PREVIEW GUARD -->
+  <script src="js/maintenance-guard.js?v=20261025_v9"></script>
+</head>
+
+<body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col justify-between selection:bg-secondary-container selection:text-on-secondary-fixed">
+
+  <!-- Header -->
+  <header class="w-full py-space-lg">
+    <div class="max-w-7xl mx-auto px-gutter-mobile lg:px-gutter flex items-center justify-between">
+      <a class="flex items-center gap-space-sm group" data-path="login" href="index.html">
+        <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+          <span class="material-symbols-outlined text-[24px] text-secondary-container">local_shipping</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm tracking-tight text-on-surface leading-tight">AVRUPATIR</span>
+          <span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Şoförü Portalı</span>
+        </div>
+      </a>
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-outline text-[18px]">lock</span>
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider hidden sm:inline-block">256-Bit SSL Korumalı</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="w-full flex-1 flex items-center justify-center py-space-lg px-gutter-mobile lg:px-gutter">
+    <div class="flex flex-col w-full items-center justify-center py-space-sm sm:py-space-md">
+      <!-- Subtle Logistics Background Pattern Layer -->
+      <div class="relative w-full max-w-xl mx-auto">
+        <!-- Atmospheric Ambient Glows -->
+        <div class="absolute -top-12 -left-12 w-64 h-64 bg-secondary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-10 -right-10 w-72 h-72 bg-on-tertiary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Main Auth Card -->
+        <div class="relative bg-surface-card rounded-xl shadow-xl overflow-hidden">
+          <!-- High-visibility Transit Safety Accent Stripe -->
+          <div class="h-1.5 w-full bg-gradient-to-r from-secondary-container via-warning-amber-hover to-secondary-container"></div>
+          <div class="p-space-lg sm:p-space-xl">
+            <!-- Header / Identity Section -->
+            <div class="flex flex-col items-center text-center">
+              <div class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container mb-space-md shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">ŞOFÖR PORTALİ • KULLANICI GİRİŞİ</span>
+              </div>
+            </div>
+
+            <!-- Tab Selector: Phone / ID vs Email -->
+            <div class="flex p-1 bg-surface-container rounded-lg mb-space-lg" role="tablist">
+              <button aria-selected="true" class="flex-1 flex items-center justify-center gap-space-xs py-2.5 rounded-md text-on-surface font-label-md text-label-md bg-surface-card shadow-sm transition-all" id="tab-btn-phone" onclick="switchAuthTab('phone')" role="tab" type="button">
+                <span class="material-symbols-outlined text-[18px] text-secondary">badge</span>
+                <span class="">E-Mail Adresi&nbsp;/ T.C. Kimlik No</span>
+              </button>
+            </div>
+
+            <!-- Login Form -->
+            <form class="space-y-space-md" onsubmit="event.preventDefault(); handleLoginSubmit();">
+              <!-- Identifier Input -->
+              <div>
+                <label class="block font-label-md text-label-md text-on-surface mb-1.5" for="identifier-input" id="identifier-label">Kayıtlı E-Posta Adresi</label>
+                <div class="relative flex items-center">
+                  <span class="absolute left-space-md text-on-surface-variant flex items-center pointer-events-none">
+                    <span class="material-symbols-outlined text-[20px]" id="identifier-icon">mail</span>
+                  </span>
+                  <input autocomplete="username" class="w-full h-12 pl-11 pr-space-md bg-surface-subtle text-on-surface font-body-md text-body-md rounded-lg shadow-sm focus:outline-none focus:bg-surface-card transition-all" id="identifier-input" name="identifier" placeholder="ornek@surucu.com" required="" type="text">
+                </div>
+              </div>
+
+              <!-- Password Input with Reveal Toggle -->
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <label class="block font-label-md text-label-md text-on-surface" for="password-input">
+                    Şifre
+                  </label>
+                  <a class="font-label-sm text-label-sm text-secondary hover:text-warning-amber-hover transition-colors font-medium cursor-pointer" data-path="forgot-password" href="javascript:void(0)" onclick="alert('Şifrenizi unuttuysanız veya ilk kez giriş yapıyorsanız lütfen danışmanınız veya yönetici ekibi ile iletişime geçiniz.');">
+                    Şifremi Unuttum?
+                  </a>
+                </div>
+                <div class="relative flex items-center">
+                  <span class="absolute left-space-md text-on-surface-variant flex items-center pointer-events-none">
+                    <span class="material-symbols-outlined text-[20px]">lock</span>
+                  </span>
+                  <input autocomplete="current-password" class="w-full h-12 pl-11 pr-12 bg-surface-subtle text-on-surface font-body-md text-body-md rounded-lg shadow-sm focus:outline-none focus:bg-surface-card transition-all" id="password-input" name="password" placeholder="••••••••••••" required="" type="password">
+                  <button aria-label="Şifreyi Göster/Gizle" class="absolute right-space-sm h-9 w-9 flex items-center justify-center text-on-surface-variant hover:text-on-surface rounded-md focus:outline-none transition-colors cursor-pointer" id="toggle-password-btn" onclick="togglePasswordVisibility()" type="button">
+                    <span class="material-symbols-outlined text-[20px]" id="password-toggle-icon">visibility</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Remember Me Checkbox & Fast Login Switch -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs">
+                <label class="inline-flex items-center gap-space-xs cursor-pointer select-none">
+                  <input class="w-5 h-5 rounded text-primary-container focus:ring-0 focus:outline-none cursor-pointer accent-secondary" name="remember" type="checkbox" id="remember-me">
+                  <span class="font-body-sm text-body-sm text-on-surface">Beni bu cihazda hatırla</span>
+                </label>
+                <a class="inline-flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer" data-path="sms-login" href="javascript:void(0)" onclick="alert('SMS doğrulama servisi aktif oturum için hazırlanmaktadır. Lütfen şifrenizle giriş yapınız.');">
+                  <span class="material-symbols-outlined text-[16px] text-secondary">sms</span>
+                  <span class="">SMS Doğrulama ile Giriş</span>
+                </a>
+              </div>
+
+              <!-- Main CTA Button -->
+              <div class="pt-space-xs">
+                <button class="w-full h-12 px-space-lg bg-secondary-container hover:bg-warning-amber-hover text-on-secondary-fixed font-label-lg text-label-lg rounded-lg shadow-md hover:shadow-lg flex items-center justify-center gap-space-xs transition-all active:scale-[0.99] cursor-pointer font-bold" id="loginSubmitBtn" type="submit">
+                  <span id="loginSubmitText">Giriş Yap</span>
+                  <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                </button>
+              </div>
+            </form>
+
+            <!-- Divider / Separator -->
+            <div class="relative my-space-lg flex items-center justify-center">
+              <div class="w-full h-px bg-surface-container-high"></div>
+              <span class="absolute px-space-md bg-surface-card font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                Veya
+              </span>
+            </div>
+
+            <!-- Trust Badges, Legal & Verification -->
+            <div class="mt-space-lg pt-space-md border-t-0 space-y-space-sm text-center">
+              <div class="flex flex-wrap items-center justify-center gap-space-md text-on-surface-variant font-label-sm text-label-sm">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-status-success text-[16px]">verified_user</span>
+                  <span class="">256-Bit SSL Şifreli Güvenli Bağlantı</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px] text-on-surface-variant">gavel</span>
+                  <span class="">KVKK &amp; Uluslararası Lojistik Danışmanlığı Standartları</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Supplementary Informational Card Below Main Container -->
+        <div class="mt-space-md grid grid-cols-1 sm:grid-cols-2 gap-space-sm px-space-xs"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-space-lg">
+    <div class="max-w-7xl mx-auto px-gutter-mobile lg:px-gutter flex flex-col sm:flex-row items-center justify-between gap-space-sm text-center sm:text-left">
+      <p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 avrupatirsoforu.com. Tüm hakları saklıdır. Uluslararası Lojistik &amp; Vize Danışmanlığı.</p>
+      <div class="flex items-center gap-space-md">
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="privacy" href="kvkk-aydinlatma-metni.html">Gizlilik Politikası</a>
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="terms" href="kvkk-aydinlatma-metni.html">Kullanım Şartları</a>
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="support" href="iletisim.html">Sürücü Destek Hattı</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Realtime Sync & Cloud DB Scripts -->
+  <script src="js/cloud-db.js?v=20261025_v9"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase-db.js?v=20261025_v9"></script>
+
+  <!-- Authentication & UI Scripts -->
+  <script>
+    function switchAuthTab(type) {
+      var phoneBtn = document.getElementById('tab-btn-phone');
+      var label = document.getElementById('identifier-label');
+      var input = document.getElementById('identifier-input');
+      var icon = document.getElementById('identifier-icon');
+
+      if (phoneBtn) {
+        phoneBtn.className = 'flex-1 flex items-center justify-center gap-space-xs py-2.5 rounded-md text-on-surface font-label-md text-label-md bg-surface-card shadow-sm transition-all';
+        phoneBtn.setAttribute('aria-selected', 'true');
+      }
+
+      if (label && input && icon) {
+        label.innerText = 'E-Mail Adresi veya T.C. Kimlik No';
+        input.placeholder = 'ornek@surucu.com veya 11 Haneli T.C.';
+        input.type = 'text';
+        icon.innerText = 'badge';
+        input.focus();
+      }
+    }
+
+    function togglePasswordVisibility() {
+      var pwdInput = document.getElementById('password-input');
+      var toggleIcon = document.getElementById('password-toggle-icon');
+
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        toggleIcon.innerText = 'visibility_off';
+      } else {
+        pwdInput.type = 'password';
+        toggleIcon.innerText = 'visibility';
+      }
+    }
+
+    // Helper for character-agnostic normalization
+    function normalizeForMatch(str) {
+      if (!str) return '';
+      return String(str)
+        .trim()
+        .toLowerCase()
+        .replace(/i̇/g, 'i')
+        .replace(/İ/g, 'i')
+        .replace(/I/g, 'i')
+        .replace(/ı/g, 'i')
+        .replace(/Ğ/g, 'g')
+        .replace(/ğ/g, 'g')
+        .replace(/Ü/g, 'u')
+        .replace(/ü/g, 'u')
+        .replace(/Ş/g, 's')
+        .replace(/ş/g, 's')
+        .replace(/Ö/g, 'o')
+        .replace(/ö/g, 'o')
+        .replace(/Ç/g, 'c')
+        .replace(/ç/g, 'c')
+        .replace(/[^a-z0-9]/g, '');
+    }
+
+    async function handleLoginSubmit() {
+      var rawUser = (document.getElementById('identifier-input').value || '').trim();
+      var rawPass = (document.getElementById('password-input').value || '').trim();
+      var submitBtn = document.getElementById('loginSubmitBtn');
+      var submitText = document.getElementById('loginSubmitText');
+
+      if (!rawUser || !rawPass) {
+        alert('Lütfen E-Mail adresinizi / T.C. kimlik numaranızı ve şifrenizi giriniz.');
+        return;
+      }
+
+      var normInputUser = normalizeForMatch(rawUser);
+      var normInputPass = normalizeForMatch(rawPass);
+
+      if (submitText) submitText.innerText = 'Doğrulanıyor...';
+      if (submitBtn) submitBtn.disabled = true;
+
+      // Fetch fresh data from Cloud / Firebase if available
+      if (typeof window.fetchApplicationsFromCloud === 'function') {
+        try {
+          await window.fetchApplicationsFromCloud();
+        } catch(e) {}
+      }
+
+      var apps = [];
+      try {
+        var str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e) {}
+
+      var driverCreds = {};
+      try {
+        var credStr = localStorage.getItem('ats_driver_credentials');
+        if (credStr) driverCreds = JSON.parse(credStr);
+      } catch(e) {}
+
+      var matchedApp = null;
+      var matchedIndex = -1;
+
+      // 1. Check in driver credentials map
+      if (driverCreds && driverCreds[normInputUser]) {
+        matchedApp = driverCreds[normInputUser];
+      }
+
+      // 2. Search in applications array
+      if (!matchedApp && apps && apps.length > 0) {
+        matchedIndex = apps.findIndex(function(a) {
+          if (!a) return false;
+          var normU = normalizeForMatch(a.username);
+          var normTc = normalizeForMatch(a.tcNo);
+          var normEmail = normalizeForMatch(a.email);
+          var normName = normalizeForMatch(a.fullName);
+          var normPhone = normalizeForMatch(a.phone);
+          var normRef = normalizeForMatch(a.id || a.referenceNumber);
+
+          return (
+            (normU && normU === normInputUser) ||
+            (normTc && normTc === normInputUser) ||
+            (normEmail && normEmail === normInputUser) ||
+            (normName && normName === normInputUser) ||
+            (normPhone && normPhone === normInputUser) ||
+            (normRef && normRef === normInputUser)
+          );
+        });
+
+        if (matchedIndex !== -1) {
+          matchedApp = apps[matchedIndex];
+        }
+      }
+
+      // 3. Fallback: Check password match
+      if (!matchedApp && apps && apps.length > 0) {
+        var passMatchIndex = apps.findIndex(function(a) {
+          if (!a) return false;
+          var p = String(a.password || '').trim();
+          return p && (p === rawPass || normalizeForMatch(p) === normInputPass);
+        });
+        if (passMatchIndex !== -1) {
+          matchedIndex = passMatchIndex;
+          matchedApp = apps[passMatchIndex];
+        }
+      }
+
+      if (!matchedApp) {
+        alert(
+          '❌ GİRİŞ BAŞARISIZ: KULLANICI BULUNAMADI!\n\n' +
+          'Girdiğiniz "' + rawUser + '" bilgisi ile sistemde kayıtlı sürücü başvurusu bulunamadı.\n\n' +
+          'Lütfen başvuru yaparken kullandığınız E-Posta, T.C. Kimlik No veya telefon numarasını girdiğinizden emin olunuz.'
+        );
+        if (submitText) submitText.innerText = 'Giriş Yap';
+        if (submitBtn) submitBtn.disabled = false;
+        return;
+      }
+
+      var storedPass = String(matchedApp.password || '').trim();
+      var normStoredPass = normalizeForMatch(storedPass);
+
+      // Password verification: matches password OR TC No OR Phone
+      var isPassCorrect = false;
+      if (storedPass) {
+        isPassCorrect = (storedPass === rawPass) || 
+                        (normStoredPass === normInputPass) ||
+                        (rawPass === String(matchedApp.tcNo || '').trim()) ||
+                        (normInputPass === normalizeForMatch(matchedApp.tcNo)) ||
+                        (normInputPass === normalizeForMatch(matchedApp.phone));
+      } else {
+        // Auto-assign entered password if none was stored
+        isPassCorrect = true;
+        matchedApp.password = rawPass;
+      }
+
+      if (!isPassCorrect) {
+        alert(
+          '❌ HATA: HATALI ŞİFRE!\n\n' +
+          'Aday: ' + (matchedApp.fullName || '') + '\n' +
+          'Girdiğiniz Şifre: ' + rawPass + '\n\n' +
+          'Lütfen doğru şifrenizi veya başvuru esnasındaki T.C. kimlik numaranızı giriniz.'
+        );
+        if (submitText) submitText.innerText = 'Giriş Yap';
+        if (submitBtn) submitBtn.disabled = false;
+        return;
+      }
+
+      // Check account approval status
+      var status = (matchedApp.status || '').trim();
+      var isApproved = (matchedApp.isApproved === true) || 
+                       status.includes('Onaylan') || 
+                       status.includes('Görüşme Tamam') ||
+                       (matchedApp.inPool === true);
+
+      // Establish session
+      var sessionData = {
+        loggedIn: true,
+        role: 'driver',
+        id: matchedApp.id || matchedApp.referenceNumber || '#ATS-DRIVER',
+        name: matchedApp.fullName || 'Sürücü Adayı',
+        tc: matchedApp.tcNo || '',
+        ref: matchedApp.id || matchedApp.referenceNumber || '#ATS-DRIVER',
+        email: matchedApp.email || '',
+        phone: matchedApp.phone || '',
+        username: matchedApp.username || matchedApp.tcNo || rawUser,
+        status: status || 'İncelemede',
+        isApproved: isApproved,
+        hasPaid100: matchedApp.hasPaid100 === true,
+        inPool: matchedApp.inPool === true,
+        loginTime: new Date().toISOString()
+      };
+
+      sessionStorage.setItem('user_session', JSON.stringify(sessionData));
+      localStorage.setItem('user_session', JSON.stringify(sessionData));
+
+      if (submitText) submitText.innerText = 'Giriş Başarılı!';
+
+      window.dispatchEvent(new CustomEvent('auth-submit', { detail: { identifier: rawUser, session: sessionData } }));
+
+      setTimeout(function() {
+        // If candidate dashboard page exists, redirect to it; otherwise notify
+        if (typeof window.onDriverLoginSuccess === 'function') {
+          window.onDriverLoginSuccess(sessionData);
+        } else {
+          alert('Giriş başarılı! Hoş geldiniz, ' + sessionData.name + '.\n\nHesap Durumu: ' + (isApproved ? '✅ Onaylı Hesap' : '⏳ İncelemede / Admin Onayı Bekliyor') + '\n\nSürücü paneliniz hazırlanıyor...');
+        }
+      }, 300);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Auto-focus input
+      var inp = document.getElementById('identifier-input');
+      if (inp) inp.focus();
+
+      if (typeof window.fetchATSApplicationsFromFirebase === 'function') {
+        window.fetchATSApplicationsFromFirebase().catch(function() {});
+      }
+    });
+  </script>
+</body>
+</html>
