@@ -1113,19 +1113,30 @@
         'surec': 'Genel Süreç Bilgisi'
       };
 
-      const consultantName = (activeCandidate && activeCandidate.assignedConsultant && activeCandidate.assignedConsultant.name) || 'Serkan Alçay';
+      const hasConsultant = !!(activeCandidate && activeCandidate.assignedConsultant && activeCandidate.assignedConsultant.name);
+      const consultantName = hasConsultant ? activeCandidate.assignedConsultant.name : null;
+      const consultantUsername = hasConsultant ? activeCandidate.assignedConsultant.username : null;
 
       const appointmentObj = {
+        id: 'RND-' + Date.now().toString().slice(-6),
+        candidateId: activeCandidate.id || activeCandidate.referenceNumber || ('ATS-' + Date.now().toString().slice(-4)),
+        candidateName: activeCandidate.fullName || activeCandidate.name || 'Sürücü Adayı',
+        candidatePhone: phoneVal || activeCandidate.phone || 'Belirtilmedi',
+        candidateEmail: activeCandidate.email || 'Belirtilmedi',
         date: dateVal,
         time: timeVal,
         phone: phoneVal,
         notes: noteVal,
         type: typeTitles[meetingType] || 'Telefon Görüşmesi',
         subject: subjectTitles[meetingSubject] || 'Evrak İnceleme',
+        hasAssignedConsultant: hasConsultant,
         consultant: consultantName,
+        consultantUsername: consultantUsername,
+        assignedToSuperAdmin: !hasConsultant, // Danışmanı olmayanlar Serkan Alçay süper admin paneline düşer
         fee: feeAmount > 0 ? `${feeAmount}€` : 'VIP Ücretsiz',
+        feeAmount: feeAmount,
         paid: true,
-        status: 'Beklemede / Onaylandı',
+        status: 'Beklemede',
         createdAt: new Date().toISOString()
       };
 
@@ -1133,6 +1144,25 @@
       if (activeCandidate) {
         activeCandidate.activeAppointment = appointmentObj;
         activeCandidate.hasScheduledAppointment = true;
+        if (!Array.isArray(activeCandidate.appointments)) {
+          activeCandidate.appointments = [];
+        }
+        activeCandidate.appointments.unshift(appointmentObj);
+
+        // Update session
+        try {
+          let session = JSON.parse(sessionStorage.getItem('user_session') || localStorage.getItem('user_session') || '{}');
+          session.activeAppointment = appointmentObj;
+          sessionStorage.setItem('user_session', JSON.stringify(session));
+          localStorage.setItem('user_session', JSON.stringify(session));
+        } catch(e) {}
+
+        // Save to global ats_appointments
+        try {
+          let globalAppts = JSON.parse(localStorage.getItem('ats_appointments') || '[]');
+          globalAppts.unshift(appointmentObj);
+          localStorage.setItem('ats_appointments', JSON.stringify(globalAppts));
+        } catch(e) {}
 
         try {
           let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
@@ -1147,6 +1177,12 @@
 
         if (typeof window.saveApplicationToHosting === 'function') {
           await window.saveApplicationToHosting(activeCandidate);
+        }
+
+        // Broadcast real-time sync to admin panel and other tabs
+        if (typeof BroadcastChannel !== 'undefined') {
+          const ch = new BroadcastChannel('ats_portal_sync');
+          ch.postMessage({ type: 'APPOINTMENT_CREATED', appointment: appointmentObj, candidateId: activeCandidate.id });
         }
       }
 
@@ -1184,6 +1220,18 @@
         localStorage.removeItem('user_session');
         window.location.href = 'surucu-paneli.html';
       }
+    }
+
+    // Listen to real-time BroadcastChannel updates from Admin Panel
+    if (typeof BroadcastChannel !== 'undefined') {
+      const channel = new BroadcastChannel('ats_portal_sync');
+      channel.onmessage = function (event) {
+        if (event.data && activeCandidate) {
+          if (event.data.type === 'APPLICATIONS_SYNCED' || event.data.type === 'APPOINTMENT_UPDATED') {
+            initCandidateData();
+          }
+        }
+      };
     }
 
     document.addEventListener('DOMContentLoaded', function() {

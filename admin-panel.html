@@ -289,6 +289,17 @@
           <span class="font-label-lg text-label-lg">Aday Havuzu</span>
         </a>
 
+        <!-- Randevu Talepleri -->
+        <a class="flex items-center justify-between px-space-md py-3 rounded-lg text-inverse-on-surface hover:bg-surface-variant/20 hover:text-white transition-all cursor-pointer nav-item" data-tab="randevular" onclick="switchTab('randevular')">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+            <span class="font-label-lg text-label-lg">Randevu Talepleri</span>
+          </div>
+          <span id="sidebar-randevu-count" class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary-container text-canvas-dark hidden">
+            0
+          </span>
+        </a>
+
         <!-- Ayarlar -->
         <a class="flex items-center justify-between px-space-md py-3 rounded-lg text-inverse-on-surface hover:bg-surface-variant/20 hover:text-white transition-all cursor-pointer nav-item" data-tab="ayarlar" onclick="switchTab('ayarlar')">
           <div class="flex items-center gap-space-sm">
@@ -946,6 +957,181 @@
         </div>
       </div>
       <!-- END VIEW: ADAY HAVUZU -->
+
+      <!-- VIEW: RANDEVU TALEPLERİ -->
+      <div class="flex flex-col w-full gap-space-lg hidden" id="view-randevular">
+        <!-- Operational Header & Action Toolbar -->
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+          <div class="flex flex-col">
+            <div class="flex items-center gap-space-sm">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-secondary-container/20 text-warning-amber-hover font-semibold">
+                <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+              </span>
+              <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight font-bold">Randevu Talepleri &amp; Görüşme Masası</h1>
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-600 border border-emerald-500/30">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                Canlı Senkron
+              </span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Sürücülerin danışman görüşme talepleri, atanan danışman takibi ve atanmamış adayların Süper Admin <strong>Serkan Alçay</strong> masasına yönlendirilmesi.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-space-sm flex-wrap">
+            <button onclick="loadAndRenderAppointments()" class="h-10 px-space-md rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-xs" type="button">
+              <span class="material-symbols-outlined text-[18px]">sync</span>
+              <span>Talepleri Yenile</span>
+            </button>
+            <button onclick="filterAppointmentsTab('unassigned')" class="h-10 px-space-md rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-500 border border-amber-500/30 font-label-md text-label-md font-bold flex items-center gap-2 transition-all cursor-pointer shadow-xs" type="button">
+              <span class="material-symbols-outlined text-[18px]">warning</span>
+              <span>Süper Admin Masası (Atanmamışlar)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+          <!-- Card 1: Toplam Talep -->
+          <div class="p-space-lg rounded-xl bg-surface-container-lowest border border-border-muted flex flex-col justify-between shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Toplam Randevu</span>
+              <div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+                <span class="material-symbols-outlined text-[18px]">event_note</span>
+              </div>
+            </div>
+            <div class="mt-space-md flex items-baseline gap-space-xs">
+              <span class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight" id="stat-total-appointments">0</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">talep</span>
+            </div>
+            <div class="mt-2 text-xs text-on-surface-variant">Sistemde kayıtlı toplam görüşme</div>
+          </div>
+
+          <!-- Card 2: Bekleyen Talepler -->
+          <div class="p-space-lg rounded-xl bg-surface-container-lowest border border-border-muted flex flex-col justify-between shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Bekleyen Talepler</span>
+              <div class="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center text-amber-500">
+                <span class="material-symbols-outlined text-[18px]">schedule</span>
+              </div>
+            </div>
+            <div class="mt-space-md flex items-baseline gap-space-xs">
+              <span class="font-headline-lg text-headline-lg font-bold text-amber-500 tracking-tight" id="stat-pending-appointments">0</span>
+              <span class="font-label-sm text-label-sm text-amber-500/80 font-medium">onay bekliyor</span>
+            </div>
+            <div class="mt-2 text-xs text-on-surface-variant">Danışman incelemesinde olanlar</div>
+          </div>
+
+          <!-- Card 3: Atanmamış Danışman (Serkan Alçay Masası) -->
+          <div class="p-space-lg rounded-xl bg-amber-500/10 border-2 border-amber-500/40 flex flex-col justify-between shadow-xs relative overflow-hidden" id="card-unassigned-consultant">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-amber-600 uppercase tracking-wider font-bold">⚠️ Atanmamış Danışman</span>
+              <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-600 animate-pulse">
+                <span class="material-symbols-outlined text-[18px]">supervisor_account</span>
+              </div>
+            </div>
+            <div class="mt-space-md flex items-baseline gap-space-xs">
+              <span class="font-headline-lg text-headline-lg font-bold text-amber-600 tracking-tight" id="stat-unassigned-appointments">0</span>
+              <span class="font-label-sm text-label-sm text-amber-700 font-bold">Süper Admin Masasında</span>
+            </div>
+            <div class="mt-2 text-xs text-amber-800/90 font-medium flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px]">shield_person</span>
+              <span>Yönetici: <strong>Serkan Alçay</strong></span>
+            </div>
+          </div>
+
+          <!-- Card 4: Onaylanan & Kesinleşen -->
+          <div class="p-space-lg rounded-xl bg-surface-container-lowest border border-border-muted flex flex-col justify-between shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Onaylanan Randevular</span>
+              <div class="w-8 h-8 rounded-lg bg-status-success/20 flex items-center justify-center text-status-success">
+                <span class="material-symbols-outlined text-[18px]">verified</span>
+              </div>
+            </div>
+            <div class="mt-space-md flex items-baseline gap-space-xs">
+              <span class="font-headline-lg text-headline-lg font-bold text-status-success tracking-tight" id="stat-confirmed-appointments">0</span>
+              <span class="font-label-sm text-label-sm text-emerald-600 font-medium">kesinleşti</span>
+            </div>
+            <div class="mt-2 text-xs text-on-surface-variant">Takvime bağlanan görüşmeler</div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="p-space-md rounded-xl bg-surface-container-lowest border border-border-muted flex flex-col lg:flex-row lg:items-center justify-between gap-space-md shadow-xs">
+          <!-- Filter Tabs -->
+          <div class="flex items-center gap-1 p-1 rounded-lg bg-surface-container-low overflow-x-auto" id="appointment-filter-tabs">
+            <button type="button" onclick="filterAppointmentsTab('all')" class="px-3 py-1.5 rounded-md text-xs font-bold transition-all appt-filter-btn bg-surface-container-lowest text-on-surface shadow-xs" data-tab="all">
+              Tümü (<span id="count-all-appts">0</span>)
+            </button>
+            <button type="button" onclick="filterAppointmentsTab('pending')" class="px-3 py-1.5 rounded-md text-xs font-semibold text-on-surface-variant hover:text-on-surface transition-all appt-filter-btn" data-tab="pending">
+              ⏳ Bekleyenler (<span id="count-pending-appts">0</span>)
+            </button>
+            <button type="button" onclick="filterAppointmentsTab('unassigned')" class="px-3 py-1.5 rounded-md text-xs font-semibold text-amber-500 hover:text-amber-400 transition-all appt-filter-btn" data-tab="unassigned">
+              ⚠️ Serkan Alçay Masası (<span id="count-unassigned-appts">0</span>)
+            </button>
+            <button type="button" onclick="filterAppointmentsTab('confirmed')" class="px-3 py-1.5 rounded-md text-xs font-semibold text-on-surface-variant hover:text-on-surface transition-all appt-filter-btn" data-tab="confirmed">
+              ✅ Onaylananlar (<span id="count-confirmed-appts">0</span>)
+            </button>
+            <button type="button" onclick="filterAppointmentsTab('completed')" class="px-3 py-1.5 rounded-md text-xs font-semibold text-on-surface-variant hover:text-on-surface transition-all appt-filter-btn" data-tab="completed">
+              🏁 Tamamlanan / İptal
+            </button>
+          </div>
+
+          <!-- Search & Type Select -->
+          <div class="flex items-center gap-space-sm flex-wrap sm:flex-nowrap">
+            <div class="relative flex-1 sm:w-64">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+              <input type="text" id="apptSearchInput" oninput="applyAppointmentFilters()" placeholder="Aday adı, telefon, randevu no..." class="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-container-low text-xs text-on-surface border border-border-muted focus:outline-none focus:ring-1 focus:ring-secondary-container">
+            </div>
+            <select id="apptTypeSelect" onchange="applyAppointmentFilters()" class="h-9 px-3 rounded-lg bg-surface-container-low text-xs text-on-surface border border-border-muted focus:outline-none focus:ring-1 focus:ring-secondary-container cursor-pointer">
+              <option value="">Tüm Görüşme Türleri</option>
+              <option value="Telefon">Telefon Görüşmesi</option>
+              <option value="Görüntülü">Görüntülü Arama</option>
+              <option value="Ofis">Ofis / Yüz Yüze</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Appointments Table Card -->
+        <div class="rounded-xl bg-surface-container-lowest border border-border-muted overflow-hidden shadow-xs">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[900px]">
+              <thead>
+                <tr class="border-b border-border-muted bg-surface-container-low/50 text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">
+                  <th class="py-3 px-4">Randevu Detayı</th>
+                  <th class="py-3 px-4">Sürücü Adayı</th>
+                  <th class="py-3 px-4">Görüşme Türü &amp; Konu</th>
+                  <th class="py-3 px-4">Atanan Danışman &amp; Masa</th>
+                  <th class="py-3 px-4">Talep Durumu</th>
+                  <th class="py-3 px-4 text-right">İşlemler</th>
+                </tr>
+              </thead>
+              <tbody id="appointmentsTableBody" class="divide-y divide-border-muted text-xs">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State Container -->
+          <div id="appointmentsEmptyState" class="hidden p-12 flex flex-col items-center justify-center text-center">
+            <div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant mb-3">
+              <span class="material-symbols-outlined text-[28px]">event_busy</span>
+            </div>
+            <h3 class="font-headline-sm text-sm font-bold text-on-surface">Kriterlere Uygun Randevu Bulunamadı</h3>
+            <p class="font-body-sm text-xs text-on-surface-variant max-w-sm mt-1">Seçili filtreye veya arama sorgusuna uyan randevu talebi bulunmamaktadır.</p>
+          </div>
+
+          <!-- Table Footer -->
+          <div class="p-3.5 bg-surface-container-low/30 border-t border-border-muted flex flex-col sm:flex-row items-center justify-between text-xs text-on-surface-variant gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+              <span>Danışmanı bulunmayan tüm başvurular otomatik olarak <strong>Serkan Alçay (Süper Admin)</strong> masasına yönlendirilir.</span>
+            </div>
+            <span id="appointmentsCountSummary" class="font-semibold text-on-surface">0 Randevu Talebi Listelendi</span>
+          </div>
+        </div>
+      </div>
+      <!-- END VIEW: RANDEVU TALEPLERİ -->
 
       <!-- VIEW: AYARLAR & TRAFİK BİLGİLERİ -->
       <div class="flex flex-col w-full gap-space-lg hidden" id="view-ayarlar">
@@ -1881,6 +2067,78 @@
       </div>
     </div>
   </div>
+
+  <!-- MODAL 7: RANDEVU DANIŞMAN ATAMA MODALI -->
+  <div class="fixed inset-0 z-50 hidden flex items-center justify-center bg-canvas-dark/60 backdrop-blur-sm p-4" id="modal-assign-consultant">
+    <div class="bg-surface-container-lowest rounded-2xl border border-border-muted max-w-lg w-full shadow-2xl overflow-hidden flex flex-col">
+      <!-- Modal Header -->
+      <div class="p-space-lg bg-surface-container-low flex items-center justify-between border-b border-border-muted">
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-secondary-container/20 text-warning-amber-hover flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px]">person_add</span>
+          </span>
+          <div>
+            <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Danışman Ata &amp; Yönlendir</h3>
+            <p class="font-body-sm text-xs text-on-surface-variant">Sürücünün randevu ve başvuru sürecini yönetecek danışmanı belirleyin.</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeAssignConsultantModal()" class="w-8 h-8 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface flex items-center justify-center cursor-pointer transition-colors">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-space-lg flex flex-col gap-space-md">
+        <!-- Selected Candidate & Appt Info Card -->
+        <div class="p-3.5 rounded-xl bg-surface-container-low border border-border-muted flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="font-label-md text-label-md font-bold text-on-surface" id="modal-assign-cand-name">Aday Adı</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-surface-container text-on-surface" id="modal-assign-appt-id">RND-000000</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-on-surface-variant flex-wrap">
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">phone</span> <span id="modal-assign-cand-phone">--</span></span>
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> <span id="modal-assign-appt-date">--</span></span>
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> <span id="modal-assign-appt-time">--</span></span>
+          </div>
+        </div>
+
+        <!-- Warning Callout if Unassigned -->
+        <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-2.5 text-amber-500">
+          <span class="material-symbols-outlined text-[20px] shrink-0 mt-0.5">warning</span>
+          <div class="flex flex-col text-xs leading-relaxed">
+            <span class="font-bold">⚠️ Atanmamış Danışman Durumu:</span>
+            <span class="text-on-surface-variant">Bu aday şu anda doğrudan Süper Admin <strong>Serkan Alçay</strong> masasında beklemektedir. Danışman ataması yapıldığında randevu o danışmanın yetki alanına aktarılacak ve adayın panelinde danışman bilgileri görünecektir.</span>
+          </div>
+        </div>
+
+        <!-- Consultant Selection -->
+        <div class="flex flex-col gap-1.5">
+          <label class="font-label-sm text-xs font-bold text-on-surface uppercase tracking-wider">Atanacak Uzman Danışman</label>
+          <select id="modal-assign-consultant-select" class="h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-semibold border border-border-muted focus:outline-none focus:ring-2 focus:ring-secondary-container cursor-pointer">
+            <option value="serkanalcay52">Serkan Alçay (Uzman Danışman / Süper Admin - 10+ Yıl Lojistik)</option>
+          </select>
+        </div>
+
+        <!-- Meeting Internal Note -->
+        <div class="flex flex-col gap-1.5">
+          <label class="font-label-sm text-xs font-bold text-on-surface uppercase tracking-wider">Görüşme Ön Notu (Opsiyonel)</label>
+          <textarea id="modal-assign-notes" rows="2" placeholder="Danışman için özel not veya görüşme hazırlık talimatı..." class="p-2.5 rounded-lg bg-surface-container-low text-xs text-on-surface border border-border-muted focus:outline-none focus:ring-1 focus:ring-secondary-container resize-none"></textarea>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-space-md bg-surface-container-low flex items-center justify-end gap-space-sm border-t border-border-muted">
+        <button type="button" onclick="closeAssignConsultantModal()" class="px-space-lg h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-all cursor-pointer">
+          Vazgeç
+        </button>
+        <button type="button" onclick="saveAssignedConsultant()" class="px-space-lg h-10 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-md text-label-md font-bold transition-all shadow-sm cursor-pointer flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+          <span>Danışmanı Ata &amp; Kaydet</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   </div><!-- /#admin-app-container -->
 
   <!-- APPLICATION SCRIPTS -->
@@ -2094,6 +2352,7 @@
       applyFilters();
       applyQuickFilters();
       renderPoolDashboard();
+      updateSidebarRandevuBadge();
 
       // Fetch fresh data from global cloud on load
       if (typeof window.fetchApplicationsFromCloud === 'function') {
@@ -2103,6 +2362,7 @@
             applyFilters();
             applyQuickFilters();
             renderPoolDashboard();
+            updateSidebarRandevuBadge();
           }
         });
       }
@@ -2200,6 +2460,15 @@
             applyFilters();
             applyQuickFilters();
             renderPoolDashboard();
+          } else if (event.data.type === 'APPOINTMENT_CREATED' || event.data.type === 'APPOINTMENT_UPDATED') {
+            loadAndRenderAppointments();
+            updateSidebarRandevuBadge();
+          } else if (event.data.type === 'DOCUMENTS_UPLOADED') {
+            loadDatabase();
+            if (selectedDriverId && selectedDriverId === event.data.candidateId) {
+              const cand = allApplications.find(a => (a.id || a.referenceNumber) === selectedDriverId);
+              if (cand) renderDrawerDocuments(cand);
+            }
           }
         }
       };
@@ -2329,11 +2598,13 @@
       const viewBasvurular = document.getElementById('view-basvurular');
       const viewHizliBasvurular = document.getElementById('view-hizli-basvurular');
       const viewAdayHavuzu = document.getElementById('view-aday-havuzu');
+      const viewRandevular = document.getElementById('view-randevular');
       const viewAyarlar = document.getElementById('view-ayarlar');
 
       if (tabId === 'hizli-basvurular') {
         if (viewBasvurular) viewBasvurular.classList.add('hidden');
         if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
+        if (viewRandevular) viewRandevular.classList.add('hidden');
         if (viewAyarlar) viewAyarlar.classList.add('hidden');
         if (viewHizliBasvurular) viewHizliBasvurular.classList.remove('hidden');
         quickCurrentPage = 1;
@@ -2341,13 +2612,22 @@
       } else if (tabId === 'aday-havuzu') {
         if (viewBasvurular) viewBasvurular.classList.add('hidden');
         if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
+        if (viewRandevular) viewRandevular.classList.add('hidden');
         if (viewAyarlar) viewAyarlar.classList.add('hidden');
         if (viewAdayHavuzu) viewAdayHavuzu.classList.remove('hidden');
         renderPoolDashboard();
+      } else if (tabId === 'randevular') {
+        if (viewBasvurular) viewBasvurular.classList.add('hidden');
+        if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
+        if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
+        if (viewAyarlar) viewAyarlar.classList.add('hidden');
+        if (viewRandevular) viewRandevular.classList.remove('hidden');
+        loadAndRenderAppointments();
       } else if (tabId === 'ayarlar') {
         if (viewBasvurular) viewBasvurular.classList.add('hidden');
         if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
         if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
+        if (viewRandevular) viewRandevular.classList.add('hidden');
         if (viewAyarlar) viewAyarlar.classList.remove('hidden');
         renderTrafficDashboard();
         loadCmsSettingsToForm();
@@ -2355,6 +2635,7 @@
         if (viewBasvurular) viewBasvurular.classList.remove('hidden');
         if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
         if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
+        if (viewRandevular) viewRandevular.classList.add('hidden');
         if (viewAyarlar) viewAyarlar.classList.add('hidden');
 
         const breadcrumb = document.getElementById('breadcrumb-current');
@@ -3569,12 +3850,12 @@
 
     // DOCUMENT DEFINITIONS FOR DRIVER
     const ATS_DOC_DEFINITIONS = [
-      { key: 'doc_1', title: '1. Sürücü Belgesi (CE Sınıfı)' },
-      { key: 'doc_2', title: '2. SRC Belgesi / Kod 95' },
-      { key: 'doc_3', title: '3. Dijital Takograf Kartı' },
-      { key: 'doc_4', title: '4. Adli Sicil Kaydı' },
-      { key: 'doc_5', title: '5. Sağlık Raporu' },
-      { key: 'doc_6', title: '6. SGK Hizmet Dökümü' }
+      { key: 'doc_license', legacyKey: 'doc_1', title: '1. Sürücü Belgesi (CE Sınıfı)', icon: 'badge' },
+      { key: 'doc_src', legacyKey: 'doc_2', title: '2. Mesleki Yeterlilik (SRC & Kod 95)', icon: 'workspace_premium' },
+      { key: 'doc_tacho', legacyKey: 'doc_3', title: '3. Dijital Takograf Kartı', icon: 'sim_card' },
+      { key: 'doc_criminal', legacyKey: 'doc_4', title: '4. Adli Sicil Kaydı (Sabıka)', icon: 'gavel' },
+      { key: 'doc_health', legacyKey: 'doc_5', title: '5. Sağlık Raporu & Psikoteknik', icon: 'medical_services' },
+      { key: 'doc_passport', legacyKey: 'doc_6', title: '6. Pasaport / Kimlik & Fotoğraf', icon: 'contact_page' }
     ];
 
     function renderDrawerDocuments(app) {
@@ -3586,32 +3867,60 @@
       let uploadedCount = 0;
 
       let html = '';
-      ATS_DOC_DEFINITIONS.forEach(def => {
-        const item = docs[def.key] || { name: '', status: 'Yüklenmedi' };
-        if (item.status === 'Onaylandı' || item.status === 'İnceleniyor') {
+      ATS_DOC_DEFINITIONS.forEach((def, index) => {
+        const item = docs[def.key] || docs[def.legacyKey] || docs['doc_' + (index + 1)] || { name: '', status: 'Yüklenmedi / Bekleniyor' };
+        const status = item.status || 'Yüklenmedi / Bekleniyor';
+        if (status === 'Onaylandı' || status === 'İnceleniyor') {
           uploadedCount++;
         }
 
+        const isUploaded = !!item.name || (status !== 'Yüklenmedi / Bekleniyor' && status !== 'Yüklenmedi');
+        const statusColor = status === 'Onaylandı' ? 'text-status-success' :
+                            status === 'İnceleniyor' ? 'text-amber-500' :
+                            (status === 'Eksik / Hatalı' || status === 'Eksik' || status === 'Reddedildi') ? 'text-red-500' :
+                            status === 'Yenilenmeli' ? 'text-orange-500' : 'text-on-surface-variant';
+
         html += `
-          <div class="p-2.5 rounded-lg bg-surface-card border border-border-muted flex flex-col gap-1.5" data-doc-key="${def.key}">
-            <div class="flex items-center justify-between">
-              <span class="font-label-sm text-xs font-bold text-on-surface">${def.title}</span>
-              <select class="h-7 px-2 rounded text-xs font-semibold bg-surface-container-low border border-border-muted doc-status-select cursor-pointer">
-                <option value="Yüklenmedi" ${item.status === 'Yüklenmedi' ? 'selected' : ''}>Yüklenmedi</option>
-                <option value="İnceleniyor" ${item.status === 'İnceleniyor' ? 'selected' : ''}>İnceleniyor</option>
-                <option value="Onaylandı" ${item.status === 'Onaylandı' ? 'selected' : ''}>Onaylandı</option>
-                <option value="Eksik" ${item.status === 'Eksik' ? 'selected' : ''}>Eksik / Hatalı</option>
+          <div class="p-3 rounded-lg bg-surface-card border border-border-muted flex flex-col gap-2 relative overflow-hidden" data-doc-key="${def.key}" data-doc-legacy-key="${def.legacyKey}">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <span class="material-symbols-outlined text-[18px] text-secondary flex-shrink-0">${def.icon}</span>
+                <span class="font-label-sm text-xs font-bold text-on-surface truncate">${def.title}</span>
+              </div>
+              <select class="h-7 px-2 rounded text-xs font-semibold bg-surface-container-low border border-border-muted doc-status-select cursor-pointer focus:outline-none focus:ring-1 focus:ring-secondary-container">
+                <option value="Yüklenmedi / Bekleniyor" ${status === 'Yüklenmedi / Bekleniyor' || status === 'Yüklenmedi' ? 'selected' : ''}>Yüklenmedi / Bekleniyor</option>
+                <option value="İnceleniyor" ${status === 'İnceleniyor' ? 'selected' : ''}>⏳ İnceleniyor</option>
+                <option value="Onaylandı" ${status === 'Onaylandı' ? 'selected' : ''}>✅ Onaylandı</option>
+                <option value="Eksik / Hatalı" ${status === 'Eksik / Hatalı' || status === 'Eksik' ? 'selected' : ''}>⚠️ Eksik / Hatalı</option>
+                <option value="Reddedildi" ${status === 'Reddedildi' ? 'selected' : ''}>❌ Reddedildi</option>
+                <option value="Yenilenmeli" ${status === 'Yenilenmeli' ? 'selected' : ''}>🔄 Yenilenmeli</option>
               </select>
             </div>
-            <div class="flex items-center gap-1.5">
-              <input type="text" class="flex-1 h-7 px-2 rounded bg-surface-container-low text-xs text-on-surface doc-name-input border border-border-muted" placeholder="Belge Dosya Adı (Örn: surucu_belgesi.pdf)" value="${item.name || ''}">
+            
+            <div class="flex flex-col gap-1.5">
+              ${isUploaded && item.name ? `
+                <div class="flex items-center justify-between p-1.5 rounded bg-surface-container-low text-xs border border-border-muted/60">
+                  <div class="flex items-center gap-1.5 min-w-0">
+                    <span class="material-symbols-outlined text-[15px] text-secondary flex-shrink-0">attach_file</span>
+                    <span class="font-mono text-on-surface truncate text-[11px] font-semibold">${item.name}</span>
+                    ${item.size ? `<span class="text-on-surface-variant text-[10px]">(${item.size})</span>` : ''}
+                  </div>
+                  <span class="text-[10px] font-bold ${statusColor} px-1.5 py-0.5 rounded bg-surface-container flex-shrink-0">${status}</span>
+                </div>
+              ` : `
+                <div class="text-[11px] text-on-surface-variant italic py-0.5">Henüz aday tarafından dosya yüklenmedi.</div>
+              `}
+              <div class="flex items-center gap-1.5">
+                <input type="text" class="flex-1 h-7 px-2 rounded bg-surface-container-low text-xs text-on-surface doc-name-input border border-border-muted" placeholder="Belge Dosya Adı (Örn: surucu_belgesi.pdf)" value="${item.name || ''}">
+                <input type="text" class="flex-1 h-7 px-2 rounded bg-surface-container-low text-xs text-on-surface doc-note-input border border-border-muted" placeholder="Danışman Notu (Örn: Onaylandı / Eksik)" value="${item.note || ''}">
+              </div>
             </div>
           </div>
         `;
       });
 
       container.innerHTML = html;
-      if (summary) summary.textContent = `${uploadedCount} / 6 Yüklendi`;
+      if (summary) summary.textContent = `${uploadedCount} / 6 Yüklendi & İncelendi`;
     }
 
     function saveDriverDocumentsFromDrawer() {
@@ -3625,29 +3934,62 @@
       let uploadedCount = 0;
       rows.forEach(row => {
         const key = row.getAttribute('data-doc-key');
+        const legacyKey = row.getAttribute('data-doc-legacy-key');
         const status = row.querySelector('.doc-status-select').value;
         const name = row.querySelector('.doc-name-input').value.trim();
+        const note = row.querySelector('.doc-note-input').value.trim();
 
-        app.documents[key] = {
-          name: name || (status !== 'Yüklenmedi' ? 'Belge_Onayli.pdf' : ''),
+        const docObj = {
+          name: name || (status !== 'Yüklenmedi / Bekleniyor' && status !== 'Yüklenmedi' ? `${key}_belgesi.pdf` : ''),
           status: status,
+          note: note,
           updatedAt: new Date().toISOString()
         };
+
+        app.documents[key] = docObj;
+        if (legacyKey) {
+          app.documents[legacyKey] = docObj;
+        }
 
         if (status === 'Onaylandı' || status === 'İnceleniyor') {
           uploadedCount++;
         }
       });
 
+      app.completedDocsRatio = `${uploadedCount}/6`;
+      app.documentsProgress = Math.round((uploadedCount / 6) * 100);
+
       saveDatabase();
       if (typeof window.updateApplicationOnHosting === 'function') {
         window.updateApplicationOnHosting(app);
       }
 
-      const summary = document.getElementById('drawer-docs-summary');
-      if (summary) summary.textContent = `${uploadedCount} / 6 Yüklendi`;
+      // Update session storage if this applicant is active
+      try {
+        let session = JSON.parse(sessionStorage.getItem('user_session') || localStorage.getItem('user_session') || '{}');
+        if (session && (session.id === app.id || session.email === app.email)) {
+          session.documents = app.documents;
+          session.completedDocsRatio = app.completedDocsRatio;
+          session.documentsProgress = app.documentsProgress;
+          sessionStorage.setItem('user_session', JSON.stringify(session));
+          localStorage.setItem('user_session', JSON.stringify(session));
+        }
+      } catch(e) {}
 
-      alert(`"${app.fullName || 'Aday'}" için evrak durumları kaydedildi (${uploadedCount}/6). Sürücü paneline gerçek zamanlı yansıtıldı.`);
+      // Broadcast real-time update to driver panel
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel('ats_portal_sync');
+        bc.postMessage({
+          type: 'APPLICATIONS_SYNCED',
+          candidateId: app.id,
+          documents: app.documents
+        });
+      }
+
+      const summary = document.getElementById('drawer-docs-summary');
+      if (summary) summary.textContent = `${uploadedCount} / 6 Yüklendi & İncelendi`;
+
+      alert(`"${app.fullName || 'Aday'}" için evrak durumları kaydedildi (${uploadedCount}/6).\nSürücü paneline gerçek zamanlı yansıtıldı.`);
     }
 
     function closeDriverDrawer() {
@@ -4373,6 +4715,570 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+    }
+
+    // =========================================================================
+    // APPOINTMENTS MANAGEMENT (Randevu Talepleri & Görüşme Masası)
+    // =========================================================================
+    let currentAppointmentFilter = 'all'; // all, pending, unassigned, confirmed, completed
+    let activeAppointmentModalData = null;
+
+    function getAllAppointments() {
+      let list = [];
+      try {
+        const stored = localStorage.getItem('ats_appointments');
+        if (stored) list = JSON.parse(stored);
+        if (!Array.isArray(list)) list = [];
+      } catch(e) {
+        list = [];
+      }
+
+      // Collect from allApplications
+      allApplications.forEach(app => {
+        if (!app) return;
+        const candId = app.id || app.referenceNumber || ('ATS-' + Math.random().toString(36).substring(2, 7));
+        const candName = app.fullName || app.name || 'Aday';
+        const candPhone = app.phone || 'Belirtilmedi';
+        const candEmail = app.email || 'Belirtilmedi';
+        const hasAssigned = !!(app.assignedConsultant && app.assignedConsultant.name);
+        const consultantName = hasAssigned ? app.assignedConsultant.name : null;
+        const consultantUser = hasAssigned ? app.assignedConsultant.username : null;
+
+        if (app.activeAppointment) {
+          const appt = app.activeAppointment;
+          const exists = list.some(x => x.id === appt.id || (x.candidateId === candId && x.date === appt.date && x.time === appt.time));
+          if (!exists) {
+            list.push({
+              ...appt,
+              id: appt.id || ('RND-' + Date.now().toString().slice(-6)),
+              candidateId: candId,
+              candidateName: candName,
+              candidatePhone: candPhone,
+              candidateEmail: candEmail,
+              hasAssignedConsultant: hasAssigned,
+              consultant: consultantName || appt.consultant || null,
+              consultantUsername: consultantUser || appt.consultantUsername || null,
+              assignedToSuperAdmin: !hasAssigned
+            });
+          }
+        }
+
+        if (Array.isArray(app.appointments)) {
+          app.appointments.forEach(appt => {
+            const exists = list.some(x => x.id === appt.id || (x.candidateId === candId && x.date === appt.date && x.time === appt.time));
+            if (!exists) {
+              list.push({
+                ...appt,
+                id: appt.id || ('RND-' + Date.now().toString().slice(-6)),
+                candidateId: candId,
+                candidateName: candName,
+                candidatePhone: candPhone,
+                candidateEmail: candEmail,
+                hasAssignedConsultant: hasAssigned,
+                consultant: consultantName || appt.consultant || null,
+                consultantUsername: consultantUser || appt.consultantUsername || null,
+                assignedToSuperAdmin: !hasAssigned
+              });
+            }
+          });
+        }
+      });
+
+      // Synchronize latest candidate details
+      list.forEach(item => {
+        const app = allApplications.find(a => (a.id || a.referenceNumber) === item.candidateId || (a.email && a.email === item.candidateEmail));
+        if (app) {
+          item.candidateName = item.candidateName || app.fullName || 'Aday';
+          item.candidatePhone = item.candidatePhone || app.phone || '';
+          item.candidateEmail = item.candidateEmail || app.email || '';
+          if (app.assignedConsultant && app.assignedConsultant.name) {
+            item.hasAssignedConsultant = true;
+            item.consultant = app.assignedConsultant.name;
+            item.consultantUsername = app.assignedConsultant.username;
+            item.assignedToSuperAdmin = false;
+          } else {
+            item.hasAssignedConsultant = false;
+            item.assignedToSuperAdmin = true;
+          }
+        } else if (!item.consultant) {
+          item.hasAssignedConsultant = false;
+          item.assignedToSuperAdmin = true;
+        }
+      });
+
+      // Sort newest / upcoming first
+      list.sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date));
+      return list;
+    }
+
+    function updateSidebarRandevuBadge() {
+      const badge = document.getElementById('sidebar-randevu-count');
+      if (!badge) return;
+      const appts = getAllAppointments();
+      const pendingCount = appts.filter(a => a.status === 'Beklemede' || !a.status).length;
+      const unassignedCount = appts.filter(a => a.assignedToSuperAdmin || !a.hasAssignedConsultant).length;
+
+      if (pendingCount > 0) {
+        badge.textContent = pendingCount;
+        badge.classList.remove('hidden');
+        if (unassignedCount > 0) {
+          badge.className = 'inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-500 text-canvas-dark animate-pulse shadow-sm';
+        } else {
+          badge.className = 'inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary-container text-canvas-dark';
+        }
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    function loadAndRenderAppointments() {
+      const appts = getAllAppointments();
+
+      // Stats
+      const totalCount = appts.length;
+      const pendingCount = appts.filter(a => a.status === 'Beklemede' || !a.status).length;
+      const unassignedCount = appts.filter(a => a.assignedToSuperAdmin || !a.hasAssignedConsultant).length;
+      const confirmedCount = appts.filter(a => a.status === 'Onaylandı' || a.status === 'Tamamlandı').length;
+
+      const totalEl = document.getElementById('stat-total-appointments');
+      if (totalEl) totalEl.textContent = totalCount;
+
+      const pendingEl = document.getElementById('stat-pending-appointments');
+      if (pendingEl) pendingEl.textContent = pendingCount;
+
+      const unassignedEl = document.getElementById('stat-unassigned-appointments');
+      if (unassignedEl) unassignedEl.textContent = unassignedCount;
+
+      const confirmedEl = document.getElementById('stat-confirmed-appointments');
+      if (confirmedEl) confirmedEl.textContent = confirmedCount;
+
+      // Filter tabs counts
+      const countAll = document.getElementById('count-all-appts');
+      if (countAll) countAll.textContent = totalCount;
+      const countPending = document.getElementById('count-pending-appts');
+      if (countPending) countPending.textContent = pendingCount;
+      const countUnassigned = document.getElementById('count-unassigned-appts');
+      if (countUnassigned) countUnassigned.textContent = unassignedCount;
+      const countConfirmed = document.getElementById('count-confirmed-appts');
+      if (countConfirmed) countConfirmed.textContent = confirmedCount;
+
+      // Highlight unassigned card if there are unassigned appointments
+      const unassignedCard = document.getElementById('card-unassigned-consultant');
+      if (unassignedCard) {
+        if (unassignedCount > 0) {
+          unassignedCard.classList.add('ring-2', 'ring-amber-500', 'animate-pulse');
+        } else {
+          unassignedCard.classList.remove('ring-2', 'ring-amber-500', 'animate-pulse');
+        }
+      }
+
+      updateSidebarRandevuBadge();
+      applyAppointmentFilters();
+    }
+
+    function filterAppointmentsTab(tabKey) {
+      currentAppointmentFilter = tabKey;
+      document.querySelectorAll('#appointment-filter-tabs .appt-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabKey) {
+          btn.className = 'px-3 py-1.5 rounded-md text-xs font-bold transition-all appt-filter-btn bg-surface-container-lowest text-on-surface shadow-xs';
+        } else {
+          if (btn.getAttribute('data-tab') === 'unassigned') {
+            btn.className = 'px-3 py-1.5 rounded-md text-xs font-semibold text-amber-500 hover:text-amber-400 transition-all appt-filter-btn';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-md text-xs font-semibold text-on-surface-variant hover:text-on-surface transition-all appt-filter-btn';
+          }
+        }
+      });
+      applyAppointmentFilters();
+    }
+
+    function applyAppointmentFilters() {
+      const all = getAllAppointments();
+      const search = (document.getElementById('apptSearchInput')?.value || '').toLowerCase().trim();
+      const typeFilter = document.getElementById('apptTypeSelect')?.value || '';
+
+      const filtered = all.filter(a => {
+        // Tab filter
+        if (currentAppointmentFilter === 'pending' && a.status !== 'Beklemede' && a.status) return false;
+        if (currentAppointmentFilter === 'unassigned' && !(a.assignedToSuperAdmin || !a.hasAssignedConsultant)) return false;
+        if (currentAppointmentFilter === 'confirmed' && a.status !== 'Onaylandı') return false;
+        if (currentAppointmentFilter === 'completed' && a.status !== 'Tamamlandı' && a.status !== 'İptal Edildi' && a.status !== 'İptal') return false;
+
+        // Type filter
+        if (typeFilter && !(a.type && a.type.toLowerCase().includes(typeFilter.toLowerCase()))) return false;
+
+        // Search filter
+        if (search) {
+          const matchName = (a.candidateName || '').toLowerCase().includes(search);
+          const matchPhone = (a.candidatePhone || '').toLowerCase().includes(search);
+          const matchEmail = (a.candidateEmail || '').toLowerCase().includes(search);
+          const matchId = (a.id || '').toLowerCase().includes(search) || (a.candidateId || '').toLowerCase().includes(search);
+          const matchNotes = (a.notes || '').toLowerCase().includes(search);
+          if (!matchName && !matchPhone && !matchEmail && !matchId && !matchNotes) return false;
+        }
+
+        return true;
+      });
+
+      renderAppointmentsTable(filtered);
+    }
+
+    function renderAppointmentsTable(appts) {
+      const tbody = document.getElementById('appointmentsTableBody');
+      const emptyState = document.getElementById('appointmentsEmptyState');
+      const summaryEl = document.getElementById('appointmentsCountSummary');
+      if (!tbody) return;
+
+      if (!appts || appts.length === 0) {
+        tbody.innerHTML = '';
+        if (emptyState) emptyState.classList.remove('hidden');
+        if (summaryEl) summaryEl.textContent = '0 Randevu Talebi Listelendi';
+        return;
+      }
+
+      if (emptyState) emptyState.classList.add('hidden');
+      if (summaryEl) summaryEl.textContent = `${appts.length} Randevu Talebi Listelendi`;
+
+      let html = '';
+      appts.forEach(appt => {
+        const isUnassigned = appt.assignedToSuperAdmin || !appt.hasAssignedConsultant;
+        const apptDateStr = appt.date || 'Belirtilmedi';
+        const apptTimeStr = appt.time || '10:00';
+        const apptType = appt.type || 'Telefon Görüşmesi';
+        const apptSubject = appt.subject || 'Evrak İnceleme';
+        const apptStatus = appt.status || 'Beklemede';
+
+        // Type icon
+        let typeIcon = 'phone_in_talk';
+        if (apptType.includes('Görüntülü')) typeIcon = 'videocam';
+        else if (apptType.includes('Ofis')) typeIcon = 'business';
+
+        // Status badge style
+        let statusBadgeClass = 'bg-amber-500/15 text-amber-500 border border-amber-500/30';
+        if (apptStatus === 'Onaylandı') statusBadgeClass = 'bg-status-success/20 text-status-success border border-status-success/30';
+        else if (apptStatus === 'Tamamlandı') statusBadgeClass = 'bg-blue-500/15 text-blue-500 border border-blue-500/30';
+        else if (apptStatus.includes('İptal')) statusBadgeClass = 'bg-red-500/15 text-red-500 border border-red-500/30';
+
+        // Consultant column
+        let consultantColumnHtml = '';
+        if (isUnassigned) {
+          consultantColumnHtml = `
+            <div class="inline-flex flex-col gap-1 p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-500 max-w-[240px]">
+              <div class="flex items-center gap-1 font-bold text-xs">
+                <span class="material-symbols-outlined text-[15px]">warning</span>
+                <span>Atanmamış Danışman</span>
+              </div>
+              <div class="text-[11px] text-on-surface-variant font-medium leading-tight">
+                Süper Admin Masasında: <strong class="text-white">Serkan Alçay</strong>
+              </div>
+              <button type="button" onclick="openAssignConsultantModal('${appt.id}', '${appt.candidateId}')" class="mt-1 px-2 py-0.5 rounded bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-bold text-[10px] flex items-center justify-center gap-1 cursor-pointer self-start transition-all shadow-xs">
+                <span class="material-symbols-outlined text-[12px]">person_add</span> Danışman Ata
+              </button>
+            </div>
+          `;
+        } else {
+          consultantColumnHtml = `
+            <div class="flex flex-col gap-1">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container text-xs font-semibold text-on-surface">
+                <span class="w-2 h-2 rounded-full bg-status-success"></span>
+                <span>${appt.consultant || 'Serkan Alçay'}</span>
+              </span>
+              <span class="text-[10px] text-on-surface-variant pl-1">Uzman Danışman</span>
+            </div>
+          `;
+        }
+
+        html += `
+          <tr class="hover:bg-surface-container-low/40 transition-colors">
+            <!-- Randevu Detayı -->
+            <td class="py-3 px-4 align-top">
+              <div class="flex flex-col gap-1">
+                <span class="font-mono text-xs font-bold text-secondary-container">${appt.id}</span>
+                <div class="flex items-center gap-1.5 text-xs text-on-surface font-semibold">
+                  <span class="material-symbols-outlined text-[15px] text-on-surface-variant">calendar_today</span>
+                  <span>${apptDateStr}</span>
+                </div>
+                <div class="flex items-center gap-1 text-xs text-on-surface-variant font-mono">
+                  <span class="material-symbols-outlined text-[15px]">schedule</span>
+                  <span>${apptTimeStr}</span>
+                </div>
+              </div>
+            </td>
+
+            <!-- Sürücü Adayı -->
+            <td class="py-3 px-4 align-top">
+              <div class="flex flex-col gap-1">
+                <button type="button" onclick="openDriverDrawer('${appt.candidateId}')" class="text-left font-label-md text-label-md font-bold text-on-surface hover:text-secondary-container transition-colors truncate cursor-pointer">
+                  ${appt.candidateName}
+                </button>
+                <div class="flex items-center gap-2 text-xs text-on-surface-variant">
+                  <a href="tel:${appt.candidatePhone}" class="hover:text-white transition-colors flex items-center gap-1 font-mono">
+                    <span class="material-symbols-outlined text-[13px]">phone</span>
+                    <span>${appt.candidatePhone}</span>
+                  </a>
+                  <a href="https://wa.me/${(appt.candidatePhone || '').replace(/[^0-9]/g, '')}" target="_blank" rel="noopener" class="text-emerald-500 hover:text-emerald-400" title="WhatsApp ile İletişime Geç">
+                    <span class="material-symbols-outlined text-[14px]">chat</span>
+                  </a>
+                </div>
+                <span class="text-[11px] text-on-surface-variant truncate">${appt.candidateEmail}</span>
+              </div>
+            </td>
+
+            <!-- Görüşme Türü & Konu -->
+            <td class="py-3 px-4 align-top">
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center gap-1 font-semibold text-on-surface text-xs">
+                  <span class="material-symbols-outlined text-[16px] text-secondary">${typeIcon}</span>
+                  <span>${apptType}</span>
+                </div>
+                <span class="text-xs text-on-surface-variant">${apptSubject}</span>
+                <span class="inline-flex items-center self-start px-1.5 py-0.5 rounded text-[10px] font-bold bg-surface-container text-on-surface-variant">
+                  ${appt.fee || 'VIP Ücretsiz'}
+                </span>
+                ${appt.notes ? `<p class="text-[11px] text-on-surface-variant italic mt-0.5 max-w-xs line-clamp-2" title="${appt.notes}">"${appt.notes}"</p>` : ''}
+              </div>
+            </td>
+
+            <!-- Atanan Danışman & Masa -->
+            <td class="py-3 px-4 align-top">
+              ${consultantColumnHtml}
+            </td>
+
+            <!-- Talep Durumu -->
+            <td class="py-3 px-4 align-top">
+              <div class="flex flex-col gap-1.5">
+                <select onchange="updateAppointmentStatus('${appt.id}', this.value)" class="h-8 px-2 rounded-lg text-xs font-semibold bg-surface-container-low border border-border-muted cursor-pointer focus:outline-none focus:ring-1 focus:ring-secondary-container">
+                  <option value="Beklemede" ${apptStatus === 'Beklemede' ? 'selected' : ''}>⏳ Beklemede</option>
+                  <option value="Onaylandı" ${apptStatus === 'Onaylandı' ? 'selected' : ''}>✅ Onaylandı</option>
+                  <option value="Tamamlandı" ${apptStatus === 'Tamamlandı' ? 'selected' : ''}>🏁 Tamamlandı</option>
+                  <option value="İptal Edildi" ${apptStatus === 'İptal Edildi' || apptStatus === 'İptal' ? 'selected' : ''}>❌ İptal Edildi</option>
+                </select>
+                <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[10px] font-bold ${statusBadgeClass}">
+                  ${apptStatus}
+                </span>
+              </div>
+            </td>
+
+            <!-- İşlemler -->
+            <td class="py-3 px-4 align-top text-right">
+              <div class="flex items-center justify-end gap-1.5 flex-wrap">
+                <button type="button" onclick="openDriverDrawer('${appt.candidateId}')" class="p-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-semibold flex items-center gap-1 cursor-pointer" title="Aday Dosyası & Evraklarını Gör">
+                  <span class="material-symbols-outlined text-[16px]">folder_shared</span>
+                </button>
+                <button type="button" onclick="openAssignConsultantModal('${appt.id}', '${appt.candidateId}')" class="p-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-secondary text-xs font-semibold flex items-center gap-1 cursor-pointer" title="Danışman Ata / Değiştir">
+                  <span class="material-symbols-outlined text-[16px]">how_to_reg</span>
+                </button>
+                ${apptStatus !== 'Onaylandı' ? `
+                  <button type="button" onclick="updateAppointmentStatus('${appt.id}', 'Onaylandı')" class="px-2 py-1.5 rounded-lg bg-status-success/20 hover:bg-status-success/30 text-status-success text-xs font-bold flex items-center gap-1 cursor-pointer" title="Randevuyu Onayla">
+                    <span class="material-symbols-outlined text-[15px]">check</span>
+                    <span>Onayla</span>
+                  </button>
+                ` : `
+                  <button type="button" onclick="updateAppointmentStatus('${appt.id}', 'Tamamlandı')" class="px-2 py-1.5 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 text-xs font-bold flex items-center gap-1 cursor-pointer" title="Görüşmeyi Tamamla">
+                    <span class="material-symbols-outlined text-[15px]">done_all</span>
+                    <span>Tamamla</span>
+                  </button>
+                `}
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function updateAppointmentStatus(apptId, newStatus) {
+      if (!apptId) return;
+
+      // 1. Update ats_appointments
+      let list = [];
+      try {
+        const stored = localStorage.getItem('ats_appointments');
+        if (stored) list = JSON.parse(stored);
+      } catch(e) {}
+
+      let targetAppt = list.find(a => a.id === apptId);
+      if (targetAppt) {
+        targetAppt.status = newStatus;
+        targetAppt.updatedAt = new Date().toISOString();
+        localStorage.setItem('ats_appointments', JSON.stringify(list));
+      }
+
+      // 2. Update candidate in allApplications
+      allApplications.forEach(app => {
+        if (!app) return;
+        let matched = false;
+        if (app.activeAppointment && app.activeAppointment.id === apptId) {
+          app.activeAppointment.status = newStatus;
+          matched = true;
+        }
+        if (Array.isArray(app.appointments)) {
+          const idx = app.appointments.findIndex(a => a.id === apptId);
+          if (idx !== -1) {
+            app.appointments[idx].status = newStatus;
+            matched = true;
+          }
+        }
+        if (matched) {
+          if (typeof window.updateApplicationOnHosting === 'function') {
+            window.updateApplicationOnHosting(app);
+          }
+          // Update user session if matching active candidate
+          try {
+            let session = JSON.parse(sessionStorage.getItem('user_session') || localStorage.getItem('user_session') || '{}');
+            if (session && (session.id === app.id || session.email === app.email)) {
+              session.activeAppointment = app.activeAppointment;
+              session.appointments = app.appointments;
+              sessionStorage.setItem('user_session', JSON.stringify(session));
+              localStorage.setItem('user_session', JSON.stringify(session));
+            }
+          } catch(e) {}
+        }
+      });
+
+      saveDatabase();
+
+      // Broadcast real-time update
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel('ats_portal_sync');
+        bc.postMessage({
+          type: 'APPOINTMENT_UPDATED',
+          appointmentId: apptId,
+          status: newStatus
+        });
+      }
+
+      loadAndRenderAppointments();
+      alert(`Randevu statüsü "${newStatus}" olarak güncellendi ve sürücü paneline iletildi.`);
+    }
+
+    function openAssignConsultantModal(apptId, candId) {
+      const appts = getAllAppointments();
+      const appt = appts.find(a => a.id === apptId) || { id: apptId, candidateId: candId };
+      const cand = allApplications.find(a => (a.id || a.referenceNumber) === (candId || appt.candidateId));
+
+      activeAppointmentModalData = {
+        appointmentId: apptId,
+        candidateId: candId || (cand && (cand.id || cand.referenceNumber)),
+        appointment: appt,
+        candidate: cand
+      };
+
+      const nameEl = document.getElementById('modal-assign-cand-name');
+      if (nameEl) nameEl.textContent = (cand && cand.fullName) || appt.candidateName || 'Sürücü Adayı';
+
+      const idEl = document.getElementById('modal-assign-appt-id');
+      if (idEl) idEl.textContent = appt.id || 'RND-000000';
+
+      const phoneEl = document.getElementById('modal-assign-cand-phone');
+      if (phoneEl) phoneEl.textContent = (cand && cand.phone) || appt.candidatePhone || '--';
+
+      const dateEl = document.getElementById('modal-assign-appt-date');
+      if (dateEl) dateEl.textContent = appt.date || '--';
+
+      const timeEl = document.getElementById('modal-assign-appt-time');
+      if (timeEl) timeEl.textContent = appt.time || '--';
+
+      const modal = document.getElementById('modal-assign-consultant');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeAssignConsultantModal() {
+      const modal = document.getElementById('modal-assign-consultant');
+      if (modal) modal.classList.add('hidden');
+      activeAppointmentModalData = null;
+    }
+
+    function saveAssignedConsultant() {
+      if (!activeAppointmentModalData) return;
+      const { appointmentId, candidateId } = activeAppointmentModalData;
+
+      const consultantKey = document.getElementById('modal-assign-consultant-select')?.value || 'serkanalcay52';
+      const notes = document.getElementById('modal-assign-notes')?.value || '';
+
+      const consultantObj = {
+        username: 'serkanalcay52',
+        name: 'Serkan Alçay',
+        title: 'Uzman Danışman',
+        subTitle: 'Avrupa Lojistik İstihdam & Evrak Uzmanı',
+        experience: '10+ Yıl Lojistik Koordinasyonu',
+        placements: '350+ Şoför Yerleştirme',
+        responseTime: '~2 Saat',
+        assignedAt: new Date().toISOString()
+      };
+
+      // 1. Update candidate in allApplications
+      const cand = allApplications.find(a => (a.id || a.referenceNumber) === candidateId);
+      if (cand) {
+        cand.assignedConsultant = consultantObj;
+        if (cand.activeAppointment) {
+          cand.activeAppointment.hasAssignedConsultant = true;
+          cand.activeAppointment.consultant = consultantObj.name;
+          cand.activeAppointment.consultantUsername = consultantObj.username;
+          cand.activeAppointment.assignedToSuperAdmin = false;
+          if (notes) cand.activeAppointment.consultantNotes = notes;
+        }
+        if (Array.isArray(cand.appointments)) {
+          cand.appointments.forEach(a => {
+            if (a.id === appointmentId) {
+              a.hasAssignedConsultant = true;
+              a.consultant = consultantObj.name;
+              a.consultantUsername = consultantObj.username;
+              a.assignedToSuperAdmin = false;
+              if (notes) a.consultantNotes = notes;
+            }
+          });
+        }
+
+        saveDatabase();
+        if (typeof window.updateApplicationOnHosting === 'function') {
+          window.updateApplicationOnHosting(cand);
+        }
+
+        // Update session
+        try {
+          let session = JSON.parse(sessionStorage.getItem('user_session') || localStorage.getItem('user_session') || '{}');
+          if (session && (session.id === cand.id || session.email === cand.email)) {
+            session.assignedConsultant = cand.assignedConsultant;
+            session.activeAppointment = cand.activeAppointment;
+            sessionStorage.setItem('user_session', JSON.stringify(session));
+            localStorage.setItem('user_session', JSON.stringify(session));
+          }
+        } catch(e) {}
+      }
+
+      // 2. Update ats_appointments
+      try {
+        let globalList = JSON.parse(localStorage.getItem('ats_appointments') || '[]');
+        globalList.forEach(a => {
+          if (a.id === appointmentId || a.candidateId === candidateId) {
+            a.hasAssignedConsultant = true;
+            a.consultant = consultantObj.name;
+            a.consultantUsername = consultantObj.username;
+            a.assignedToSuperAdmin = false;
+            if (notes) a.consultantNotes = notes;
+          }
+        });
+        localStorage.setItem('ats_appointments', JSON.stringify(globalList));
+      } catch(e) {}
+
+      // 3. Broadcast real-time sync
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel('ats_portal_sync');
+        bc.postMessage({
+          type: 'APPLICATIONS_SYNCED',
+          candidateId: candidateId
+        });
+        bc.postMessage({
+          type: 'APPOINTMENT_UPDATED',
+          appointmentId: appointmentId
+        });
+      }
+
+      closeAssignConsultantModal();
+      loadAndRenderAppointments();
+      alert(`Danışman ${consultantObj.name} başarıyla atandı.\nAdayın paneli ve randevu masası güncellendi.`);
     }
 
     // HELPERS

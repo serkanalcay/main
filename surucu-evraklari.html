@@ -468,12 +468,12 @@
     let activeCandidate = null;
 
     const ATS_DOC_DEFINITIONS = [
-      { key: 'doc_license', title: '1. Sürücü Belgesi (CE Sınıfı - Ön ve Arka Yüz)', icon: 'badge', desc: 'Uluslararası ağır vasıta sürüş yetkisi belgesi' },
-      { key: 'doc_src', title: '2. Mesleki Yeterlilik Belgesi (SRC3/4 & Kod 95)', icon: 'workspace_premium', desc: 'Uluslararası yük taşıma SRC3 / SRC4 ve Kod 95 kartı' },
-      { key: 'doc_tacho', title: '3. Dijital Takograf Sürücü Kartı', icon: 'sim_card', desc: 'Sürüş ve dinlenme sürelerinin kaydı için akıllı çipli takograf kartı' },
-      { key: 'doc_criminal', title: '4. Adli Sicil Kaydı (e-Devlet Barkodlu)', icon: 'gavel', desc: 'Son 30 gün içinde alınmış resmi sabıka kaydı belgesi' },
-      { key: 'doc_health', title: '5. Sağlık Raporu & Psikoteknik', icon: 'medical_services', desc: 'Göz, işitme ve genel ağır vasıta sürüş uygunluk heyet onayı' },
-      { key: 'doc_passport', title: '6. Pasaport / Kimlik & Biyometrik Fotoğraf', icon: 'contact_page', desc: 'Yurt dışı vize ve çalışma izni başvurusu için resmi evrak' }
+      { key: 'doc_license', legacyKey: 'doc_1', title: '1. Sürücü Belgesi (CE Sınıfı - Ön ve Arka Yüz)', icon: 'badge', desc: 'Uluslararası ağır vasıta sürüş yetkisi belgesi' },
+      { key: 'doc_src', legacyKey: 'doc_2', title: '2. Mesleki Yeterlilik Belgesi (SRC3/4 & Kod 95)', icon: 'workspace_premium', desc: 'Uluslararası yük taşıma SRC3 / SRC4 ve Kod 95 kartı' },
+      { key: 'doc_tacho', legacyKey: 'doc_3', title: '3. Dijital Takograf Sürücü Kartı', icon: 'sim_card', desc: 'Sürüş ve dinlenme sürelerinin kaydı için akıllı çipli takograf kartı' },
+      { key: 'doc_criminal', legacyKey: 'doc_4', title: '4. Adli Sicil Kaydı (e-Devlet Barkodlu)', icon: 'gavel', desc: 'Son 30 gün içinde alınmış resmi sabıka kaydı belgesi' },
+      { key: 'doc_health', legacyKey: 'doc_5', title: '5. Sağlık Raporu & Psikoteknik', icon: 'medical_services', desc: 'Göz, işitme ve genel ağır vasıta sürüş uygunluk heyet onayı' },
+      { key: 'doc_passport', legacyKey: 'doc_6', title: '6. Pasaport / Kimlik & Biyometrik Fotoğraf', icon: 'contact_page', desc: 'Yurt dışı vize ve çalışma izni başvurusu için resmi evrak' }
     ];
 
     // Load Candidate Data dynamically
@@ -537,30 +537,49 @@
 
       ATS_DOC_DEFINITIONS.forEach((def, index) => {
         // Look up by key or legacy doc_index
-        const docData = docs[def.key] || docs['doc_' + (index + 1)];
-        const isUploaded = docData && (docData.status === 'Onaylandı' || docData.status === 'İnceleniyor');
+        const docData = docs[def.key] || docs[def.legacyKey] || docs['doc_' + (index + 1)];
+        const status = docData ? (docData.status || 'İnceleniyor') : 'Yüklenmedi / Bekleniyor';
+        const hasFile = docData && (docData.name || status !== 'Yüklenmedi / Bekleniyor' && status !== 'Yüklenmedi');
 
-        if (isUploaded) {
+        if (status === 'Onaylandı' || status === 'İnceleniyor') {
           uploadedCount++;
         }
 
         const card = document.createElement('div');
         card.className = "bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden";
 
-        if (docData && docData.status === 'İnceleniyor') {
-          card.innerHTML += `<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>`;
-        } else if (docData && docData.status === 'Onaylandı') {
-          card.innerHTML += `<div class="absolute left-0 top-0 bottom-0 w-1 bg-status-success"></div>`;
+        if (status === 'İnceleniyor') {
+          card.innerHTML += `<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary-container"></div>`;
+        } else if (status === 'Onaylandı') {
+          card.innerHTML += `<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-status-success"></div>`;
+        } else if (status === 'Eksik / Hatalı' || status === 'Eksik') {
+          card.innerHTML += `<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-red-500"></div>`;
+        } else if (status === 'Reddedildi') {
+          card.innerHTML += `<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-rose-600"></div>`;
+        } else if (status === 'Yenilenmeli') {
+          card.innerHTML += `<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-amber-500"></div>`;
         }
 
         let badgeHtml = '';
-        if (docData && docData.status === 'Onaylandı') {
+        if (status === 'Onaylandı') {
           badgeHtml = `<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-status-success/20 text-emerald-800 font-label-sm text-label-sm font-bold">
             <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>Onaylandı
           </span>`;
-        } else if (docData && docData.status === 'İnceleniyor') {
+        } else if (status === 'İnceleniyor') {
           badgeHtml = `<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">
             <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>İnceleniyor
+          </span>`;
+        } else if (status === 'Eksik / Hatalı' || status === 'Eksik') {
+          badgeHtml = `<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-red-500/15 text-red-700 font-label-sm text-label-sm font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Eksik / Hatalı
+          </span>`;
+        } else if (status === 'Reddedildi') {
+          badgeHtml = `<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-rose-600/20 text-rose-800 font-label-sm text-label-sm font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span>Reddedildi
+          </span>`;
+        } else if (status === 'Yenilenmeli') {
+          badgeHtml = `<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-amber-500/15 text-amber-800 font-label-sm text-label-sm font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Yenilenmeli
           </span>`;
         } else {
           badgeHtml = `<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-bold">
@@ -569,9 +588,24 @@
         }
 
         let bodyHtml = '';
-        if (isUploaded) {
-          const fileName = docData.name || `${def.title.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
-          const subText = docData.status === 'Onaylandı' ? 'Resmi Onaylı Kopya' : 'Danışman İnceleme Sırasında';
+        if (hasFile) {
+          const fileName = (docData && docData.name) || `${def.title.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+          let subText = 'Danışman İnceleme Sırasında';
+          let subClass = 'text-on-surface-variant';
+          if (status === 'Onaylandı') {
+            subText = 'Resmi Onaylı Kopya';
+            subClass = 'text-status-success font-semibold';
+          } else if (status === 'Eksik / Hatalı' || status === 'Eksik') {
+            subText = (docData && docData.note) ? `Hata: ${docData.note}` : 'Eksik veya Hatalı Evrak - Lütfen Tekrar Yükleyiniz';
+            subClass = 'text-red-600 font-semibold';
+          } else if (status === 'Reddedildi') {
+            subText = (docData && docData.note) ? `Gerekçe: ${docData.note}` : 'Evrak Reddedildi - Danışmanınızla İletişime Geçiniz';
+            subClass = 'text-rose-700 font-semibold';
+          } else if (status === 'Yenilenmeli') {
+            subText = (docData && docData.note) ? `Uyarı: ${docData.note}` : 'Süresi Dolmuş Evrak - Lütfen Güncelini Yükleyiniz';
+            subClass = 'text-amber-700 font-semibold';
+          }
+
           bodyHtml = `
             <div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
               <div class="flex items-center gap-space-sm min-w-0">
@@ -580,11 +614,11 @@
                 </span>
                 <div class="flex flex-col min-w-0">
                   <span class="font-label-md text-label-md font-bold text-on-surface truncate">${fileName}</span>
-                  <span class="font-label-sm text-label-sm text-on-surface-variant">${subText}</span>
+                  <span class="font-label-sm text-label-sm ${subClass}">${subText}</span>
                 </div>
               </div>
               <div class="flex items-center gap-space-xs flex-shrink-0">
-                <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="Görüntüle" type="button" onclick="previewDocument('${def.title}', '${fileName}', '${docData.status}')">
+                <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="Görüntüle" type="button" onclick="previewDocument('${def.title}', '${fileName}', '${status}')">
                   <span class="material-symbols-outlined text-[18px]">visibility</span>
                 </button>
                 <button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" title="İndir" type="button" onclick="downloadDocument('${fileName}')">
@@ -602,12 +636,19 @@
               </div>
               <span class="font-label-md text-label-md font-bold text-on-surface mt-1.5">Dosya Seç veya Sürükle Bırak</span>
               <span class="font-body-sm text-body-sm text-on-surface-variant text-[12px] mt-0.5">PDF, PNG veya JPG formatında resmi evrak</span>
-              <input accept=".pdf,.png,.jpg,.jpeg" class="hidden" id="input_${def.key}" type="file" onchange="handleFileSelected(event, '${def.key}', '${def.title}')">
               <button class="mt-2.5 px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-bold uppercase tracking-wider hover:bg-secondary-container hover:text-canvas-dark transition-colors cursor-pointer" type="button">
                 Dosya Seç
               </button>
             </div>
           `;
+        }
+
+        let buttonText = 'Evrak Yükle';
+        if (hasFile) {
+          if (status === 'Eksik / Hatalı' || status === 'Eksik') buttonText = 'Düzelt & Yükle';
+          else if (status === 'Reddedildi') buttonText = 'Yeni Belge Yükle';
+          else if (status === 'Yenilenmeli') buttonText = 'Güncelini Yükle';
+          else buttonText = 'Yenisini Yükle';
         }
 
         card.innerHTML += `
@@ -627,7 +668,7 @@
             <div class="flex items-center gap-space-xs self-end sm:self-center">
               <button class="px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container hover:text-canvas-dark text-on-surface font-label-sm text-label-sm font-bold transition-all flex items-center gap-1 cursor-pointer" type="button" onclick="triggerDocUpload('input_${def.key}')">
                 <span class="material-symbols-outlined text-[16px]">upload</span>
-                <span>${isUploaded ? 'Yenisini Yükle' : 'Evrak Yükle'}</span>
+                <span>${buttonText}</span>
               </button>
               <input type="file" id="input_${def.key}" class="hidden" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileSelected(event, '${def.key}', '${def.title}')">
             </div>
@@ -655,7 +696,8 @@
       if (!activeCandidate) return;
       if (!activeCandidate.documents) activeCandidate.documents = {};
 
-      activeCandidate.documents[docKey] = {
+      const def = ATS_DOC_DEFINITIONS.find(d => d.key === docKey);
+      const docEntry = {
         name: file.name,
         title: docTitle,
         size: `${sizeMb} MB`,
@@ -663,6 +705,22 @@
         uploadedAt: new Date().toISOString()
       };
 
+      activeCandidate.documents[docKey] = docEntry;
+      if (def && def.legacyKey) {
+        activeCandidate.documents[def.legacyKey] = docEntry;
+      }
+
+      // Update session storage and local storage
+      try {
+        let session = JSON.parse(sessionStorage.getItem('user_session') || localStorage.getItem('user_session') || '{}');
+        if (!session.documents) session.documents = {};
+        session.documents[docKey] = docEntry;
+        if (def && def.legacyKey) session.documents[def.legacyKey] = docEntry;
+        sessionStorage.setItem('user_session', JSON.stringify(session));
+        localStorage.setItem('user_session', JSON.stringify(session));
+      } catch(e) {}
+
+      // Update ats_applications
       try {
         let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
         const idx = apps.findIndex(a => a.id === activeCandidate.id || a.email === activeCandidate.email);
@@ -678,8 +736,18 @@
         await window.saveApplicationToHosting(activeCandidate);
       }
 
+      // Real-time tab sync with Admin Panel
+      if (typeof BroadcastChannel !== 'undefined') {
+        const ch = new BroadcastChannel('ats_portal_sync');
+        ch.postMessage({
+          type: 'DOCUMENTS_UPLOADED',
+          candidateId: activeCandidate.id,
+          documents: activeCandidate.documents
+        });
+      }
+
       renderDriverDocuments();
-      alert(`"${file.name}" (${sizeMb} MB) seçildi.\n"${docTitle}" belgesi başarıyla yüklendi ve danışman inceleme kuyruğuna alındı.`);
+      alert(`"${file.name}" (${sizeMb} MB) seçildi.\n"${docTitle}" belgesi başarıyla yüklendi ve danışman inceleme masasına iletildi.`);
     }
 
     async function handleUniversalFile(event) {
@@ -691,20 +759,41 @@
 
       // Assign to the first unuploaded document or license
       let targetKey = 'doc_license';
+      let targetDef = ATS_DOC_DEFINITIONS[0];
       for (const d of ATS_DOC_DEFINITIONS) {
-        if (!activeCandidate.documents[d.key] || activeCandidate.documents[d.key].status === 'Yüklenmedi / Bekleniyor') {
+        const currentDoc = activeCandidate.documents[d.key] || activeCandidate.documents[d.legacyKey];
+        if (!currentDoc || currentDoc.status === 'Yüklenmedi / Bekleniyor' || currentDoc.status === 'Yüklenmedi') {
           targetKey = d.key;
+          targetDef = d;
           break;
         }
       }
 
-      activeCandidate.documents[targetKey] = {
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      const docEntry = {
         name: file.name,
-        title: 'Hızlı Yüklenen Belge',
+        title: targetDef.title,
+        size: `${sizeMb} MB`,
         status: 'İnceleniyor',
         uploadedAt: new Date().toISOString()
       };
 
+      activeCandidate.documents[targetKey] = docEntry;
+      if (targetDef.legacyKey) {
+        activeCandidate.documents[targetDef.legacyKey] = docEntry;
+      }
+
+      // Update session storage
+      try {
+        let session = JSON.parse(sessionStorage.getItem('user_session') || localStorage.getItem('user_session') || '{}');
+        if (!session.documents) session.documents = {};
+        session.documents[targetKey] = docEntry;
+        if (targetDef.legacyKey) session.documents[targetDef.legacyKey] = docEntry;
+        sessionStorage.setItem('user_session', JSON.stringify(session));
+        localStorage.setItem('user_session', JSON.stringify(session));
+      } catch(e) {}
+
+      // Update ats_applications
       try {
         let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
         const idx = apps.findIndex(a => a.id === activeCandidate.id || a.email === activeCandidate.email);
@@ -718,6 +807,16 @@
 
       if (typeof window.saveApplicationToHosting === 'function') {
         await window.saveApplicationToHosting(activeCandidate);
+      }
+
+      // Real-time tab sync with Admin Panel
+      if (typeof BroadcastChannel !== 'undefined') {
+        const ch = new BroadcastChannel('ats_portal_sync');
+        ch.postMessage({
+          type: 'DOCUMENTS_UPLOADED',
+          candidateId: activeCandidate.id,
+          documents: activeCandidate.documents
+        });
       }
 
       renderDriverDocuments();
@@ -805,6 +904,16 @@
           handleUniversalFile({ target: { files: e.dataTransfer.files } });
         }
       });
+    }
+
+    // Real-time tab sync: Update driver portal when admin modifies document statuses or appointments
+    if (typeof BroadcastChannel !== 'undefined') {
+      const portalBc = new BroadcastChannel('ats_portal_sync');
+      portalBc.onmessage = function (ev) {
+        if (ev.data && (ev.data.type === 'APPLICATIONS_SYNCED' || ev.data.type === 'APPOINTMENT_UPDATED' || ev.data.type === 'DOCUMENTS_UPLOADED')) {
+          initCandidateData();
+        }
+      };
     }
 
     document.addEventListener('DOMContentLoaded', function() {
