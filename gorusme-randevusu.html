@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="tr" style="">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_dashboard" name="shell-type">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Görüşme &amp; Danışman Randevusu | avrupatirsoforu.com</title>
+  <link rel="icon" href="assets/logo.png?v=20261025_v9">
+
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "warning-amber-hover": "#D97706",
+            "surface-container-low": "#eff4ff",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "inverse-on-surface": "#eaf1ff",
+            "on-surface": "#0b1c30",
+            "on-secondary-fixed-variant": "#653e00",
+            "outline-variant": "#c6c6cd",
+            "surface-container-high": "#dce9ff",
+            "secondary-fixed-dim": "#ffb95f",
+            "on-secondary-container": "#684000",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "tertiary": "#000000",
+            "surface-container": "#e5eeff",
+            "error": "#ba1a1a",
+            "surface-card": "#FFFFFF",
+            "canvas-dark": "#020617",
+            "on-tertiary-fixed": "#00174b",
+            "on-error": "#ffffff",
+            "on-secondary": "#ffffff",
+            "on-background": "#0b1c30",
+            "surface-bright": "#f8f9ff",
+            "primary-fixed": "#dae2fd",
+            "background": "#f8f9ff",
+            "primary-fixed-dim": "#bec6e0",
+            "surface": "#f8f9ff",
+            "primary-container": "#131b2e",
+            "on-primary-container": "#7c839b",
+            "on-primary-fixed": "#131b2e",
+            "surface-container-highest": "#d3e4fe",
+            "border-muted": "#E2E8F0",
+            "inverse-surface": "#213145",
+            "surface-tint": "#565e74",
+            "on-surface-variant": "#45464d",
+            "on-tertiary-container": "#497cff",
+            "on-primary": "#ffffff",
+            "secondary-fixed": "#ffddb8",
+            "primary": "#000000",
+            "outline": "#76777d",
+            "on-error-container": "#93000a",
+            "surface-variant": "#d3e4fe",
+            "secondary": "#855300",
+            "on-secondary-fixed": "#2a1700",
+            "surface-dim": "#cbdbf5",
+            "secondary-container": "#fea619",
+            "status-success": "#34D399",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "tertiary-fixed": "#dbe1ff",
+            "on-primary-fixed-variant": "#3f465c",
+            "surface-subtle": "#F8FAFC",
+            "inverse-primary": "#bec6e0",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-container": "#00174b"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Space Grotesk"],
+            "body-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Space Grotesk"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "display-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "label-lg": ["15px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "600"}],
+            "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "display-mobile": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- MAINTENANCE & DEVELOPER PREVIEW GUARD -->
+  <script src="js/maintenance-guard.js?v=20261025_v9"></script>
+</head>
+
+<body class="bg-surface font-body-md text-body-md text-on-surface">
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div id="sidebarBackdrop" onclick="toggleDriverSidebar()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 lg:hidden transition-opacity"></div>
+
+  <!-- ASIDE: SOL MENÜ -->
+  <aside id="driverSidebar" class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+    <div class="flex flex-col">
+      <!-- Logo Header -->
+      <div class="h-16 px-space-lg flex items-center justify-between bg-surface-container-low">
+        <a href="index.html" class="flex items-center gap-space-sm group">
+          <div class="w-9 h-9 rounded-lg bg-secondary-container flex items-center justify-center text-canvas-dark font-headline-md font-bold">
+            <span class="material-symbols-outlined text-[22px]">local_shipping</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-label-lg text-label-lg tracking-tight text-on-surface uppercase font-bold">avrupatirsoforu</span>
+            <span class="font-label-sm text-label-sm text-secondary font-bold tracking-wider uppercase">Şoför Portali</span>
+          </div>
+        </a>
+        <button type="button" onclick="toggleDriverSidebar()" class="lg:hidden p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" aria-label="Kapat">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="px-space-md py-space-sm">
+        <nav class="flex flex-col gap-space-xs" data-active-classes="bg-surface-container text-on-surface font-bold rounded-lg">
+          <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-all cursor-pointer" data-path="genel-bakis-profilim" href="driver-panel.html">
+            <span class="material-symbols-outlined text-[20px]">account_box</span>
+            <span>Genel Bakış / Profilim</span>
+          </a>
+          <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-all cursor-pointer" data-path="evraklarim-dosya-yukle" href="javascript:void(0)" onclick="alert('Evrak yükleme ve dosya yönetimi alanı hazırlanmaktadır.');">
+            <span class="material-symbols-outlined text-[20px]">folder_shared</span>
+            <span>Evraklarım &amp; Dosya Yükle</span>
+          </a>
+          <a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface bg-surface-container font-bold font-label-md text-label-md transition-all cursor-pointer" data-path="gorusme-danisman-randevusu" href="gorusme-randevusu.html">
+            <span class="material-symbols-outlined text-[20px] text-secondary">calendar_month</span>
+            <span>Görüşme / Danışman Randevusu</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- User Profile Card at Bottom of Aside -->
+    <div class="p-space-md bg-surface-container-low m-space-md rounded-xl flex flex-col gap-space-sm shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-label-lg text-label-lg text-canvas-dark font-bold">
+          <span class="material-symbols-outlined text-[20px]">badge</span>
+        </div>
+        <div class="flex flex-col min-w-0 flex-1">
+          <span class="font-label-md text-label-md text-on-surface font-bold truncate" id="sidebarUserName">Uğur Görgülü</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant truncate" id="sidebarUserSub">CE &amp; Kod 95 Adayı</span>
+        </div>
+      </div>
+      <div class="pt-space-xs flex items-center justify-between border-t border-border-muted/50">
+        <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-status-success font-semibold">
+          <span class="w-2 h-2 rounded-full bg-status-success"></span>Çevrimiçi
+        </span>
+        <a class="flex items-center gap-1 font-label-sm text-label-sm text-error hover:text-on-error-container transition-colors cursor-pointer" data-path="cikis" href="javascript:void(0)" onclick="handleLogout()">
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          <span>Güvenli Çıkış</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="pl-0 lg:pl-72 flex flex-col min-h-screen">
+
+    <!-- TOP HEADER -->
+    <header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-md sm:px-space-lg">
+      <div class="flex items-center gap-space-md">
+        <!-- Mobile Sidebar Toggle -->
+        <button type="button" onclick="toggleDriverSidebar()" class="lg:hidden p-2 text-on-surface rounded-lg hover:bg-surface-container transition-colors cursor-pointer" aria-label="Menü">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+        <div>
+          <span class="font-headline-sm text-base sm:text-headline-sm text-on-surface block font-bold" id="topHeaderGreeting">Hoş Geldiniz, Uğur Bey</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-space-sm sm:gap-space-md">
+        <!-- VIP WhatsApp Havuzu Badge -->
+        <div class="hidden sm:flex items-center gap-space-xs px-space-md py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed shadow-[0_1px_3px_0_rgba(15,23,42,0.08)]">
+          <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+          <span class="font-label-sm text-label-sm font-bold uppercase tracking-wide">VIP WhatsApp Havuzu Aktif</span>
+        </div>
+
+        <!-- Destek Hattı Button -->
+        <button class="flex items-center gap-space-xs px-3 sm:px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors cursor-pointer" type="button" onclick="openSupportModal()">
+          <span class="material-symbols-outlined text-[18px] text-secondary-container">support_agent</span>
+          <span class="hidden md:inline">Destek Hattı</span>
+        </button>
+
+        <!-- User Profile Avatar Circle -->
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-xs" id="topAvatarCircle">
+          <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT BODY -->
+    <main class="relative pt-16 w-full bg-surface min-h-screen">
+      <div class="flex flex-col w-full">
+        <!-- Subtle Top Logistics Accent Strip -->
+        <div class="h-1.5 w-full bg-secondary-container"></div>
+        <div class="p-space-lg lg:p-space-xl flex flex-col gap-space-xl max-w-7xl mx-auto w-full">
+
+          <!-- Header Section with Breadcrumb & Operational Status -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs max-w-3xl">
+              <div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm tracking-wider uppercase">
+                <span class="text-secondary font-bold">Danışmanlık Modülü</span>
+                <span>/</span>
+                <span>Birebir Görüşme Takvimi</span>
+              </div>
+              <h1 class="font-headline-lg text-2xl sm:text-headline-lg text-on-surface tracking-tight font-bold">
+                Lojistik Kariyer Danışmanınız ile Birebir Görüşün
+              </h1>
+              <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                Avrupa ağır vasıta iş fırsatları, evrak denklik analiziniz ve filo eşleşme süreciniz hakkında aklınıza takılan tüm soruları uzmanımızla görüşün.
+              </p>
+            </div>
+            <!-- Quick Metrics Badge -->
+            <div class="flex items-center gap-3 bg-surface-container-low px-space-md py-space-sm rounded-xl self-start md:self-auto shadow-sm">
+              <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-[24px]">verified_user</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Görüşme Kotası</span>
+                <span class="font-label-lg text-label-lg text-on-surface font-bold">1 Seans Aktif</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Dynamic Layout: Grid System -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+
+            <!-- LEFT COLUMN: Consultant Profile & Past Appointments (5 Cols) -->
+            <div class="lg:col-span-5 flex flex-col gap-space-lg">
+
+              <!-- Consultant Info Card -->
+              <div class="bg-surface-card rounded-xl shadow-sm overflow-hidden flex flex-col">
+                <div class="p-space-lg flex flex-col gap-space-md">
+                  <div class="flex items-center justify-between">
+                    <span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-semibold tracking-wide uppercase">
+                      Atanmış Uzmanınız
+                    </span>
+                    <div class="flex items-center gap-1.5 text-status-success font-label-sm text-label-sm font-semibold">
+                      <span class="w-2.5 h-2.5 rounded-full bg-status-success animate-pulse"></span>
+                      <span>Müsait</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-space-md pt-2">
+                    <div class="relative shrink-0">
+                      <img class="w-20 h-20 rounded-xl object-cover shadow-sm" data-alt="Professional headshot of a seasoned male logistics coordinator in his late 30s wearing a modern dark navy collar shirt. High resolution, bright confident expression, neutral modern office background with muted amber and slate tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRzwxq1TBFDDfF-eUQd3-1MgYQbXznqoq6Kxl_7qsM_CqBgoj8Z0vrDpDT3S9Mtc2WXW7S-EwI20ToRj-2_FV8sN_hsI3-f4TRBil6t1jFRP3zBqo2kQkgKET3Vh2NRgfeAhWcfoh7qXMlxfekOe6b-gCA_eS5GZ7I7v6-Ek_CHBtdrtfzR9M9yCCEP2I4ZHz1SDXTgyBLJv5GhmKSN8bMNVO3qgFyQp7vkYbTsG-Sn02FR93LyDXh">
+                      <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-md bg-secondary-container flex items-center justify-center text-canvas-dark shadow-sm">
+                        <span class="material-symbols-outlined text-[14px]">local_shipping</span>
+                      </div>
+                    </div>
+                    <div class="flex flex-col min-w-0">
+                      <h2 class="font-headline-sm text-headline-sm text-on-surface truncate font-bold">Murat Kaya</h2>
+                      <span class="font-label-md text-label-md text-secondary font-semibold">Avrupa Lojistik İstihdam &amp; Evrak Uzmanı</span>
+                      <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Uluslararası TIR Filoları &amp; Sürücü Yönetimi</span>
+                    </div>
+                  </div>
+                  <!-- Stats Bar Inside Card -->
+                  <div class="grid grid-cols-2 gap-space-sm pt-space-xs mt-2">
+                    <div class="bg-surface-container-low p-space-md rounded-lg flex flex-col">
+                      <span class="font-headline-sm text-headline-sm text-on-surface font-bold">350+</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Şoför Yerleştirme</span>
+                    </div>
+                    <div class="bg-surface-container-low p-space-md rounded-lg flex flex-col">
+                      <span class="font-headline-sm text-headline-sm text-on-surface font-bold">~2 Saat</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Ortalama Yanıt</span>
+                    </div>
+                  </div>
+                  <!-- Direct Note -->
+                  <div class="bg-surface-subtle p-space-md rounded-lg flex items-start gap-space-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-secondary shrink-0 text-[20px]">info</span>
+                    <p class="font-body-sm text-body-sm" id="consultantDirectNote">
+                      Murat Bey, Almanya ve Polonya hattındaki hat şoförlüğü ve evrak süreçlerinizi doğrudan koordine etmektedir.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Appointment Logs: Gelecek & Önceki Randevular -->
+              <div class="bg-surface-card rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md">
+                <div class="flex items-center justify-between pb-space-xs">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2 font-bold">
+                    <span class="material-symbols-outlined text-[20px] text-secondary">history</span>
+                    Randevu Geçmişi
+                  </h3>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant" id="appointmentCountBadge">Toplam 2 Kayıt</span>
+                </div>
+
+                <!-- Future Appointment Card -->
+                <div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-sm" id="activeAppointmentCard">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-warning-amber-hover text-[20px]">schedule</span>
+                      <span class="font-label-sm text-label-sm font-bold text-on-surface uppercase tracking-wider">Planlanmış Randevu</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-label-sm font-label-sm font-bold bg-secondary-fixed text-on-secondary-fixed">
+                      Beklemede / Onaylandı
+                    </span>
+                  </div>
+                  <div class="pt-1 flex flex-col">
+                    <span class="font-headline-sm text-headline-sm text-on-surface font-bold" id="plannedAppointmentDateTime">18 Nisan Cuma • 14:00</span>
+                    <div class="flex items-center gap-2 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+                      <span class="material-symbols-outlined text-[16px]">call</span>
+                      <span id="plannedAppointmentDetail">Telefon ile Görüşme • Filo Eşleşme İncelemesi</span>
+                    </div>
+                  </div>
+                  <div class="pt-2 flex items-center justify-between">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">Danışman: Murat Kaya</span>
+                    <button class="font-label-md text-label-md text-secondary hover:text-warning-amber-hover font-semibold transition-colors flex items-center gap-1 cursor-pointer" type="button" onclick="alert('Randevu değişikliği talebiniz danışmanınıza iletilmiştir.');">
+                      <span>İptal Et / Değiştir</span>
+                      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Past Completed Appointment Card -->
+                <div class="bg-surface-subtle rounded-xl p-space-md flex flex-col gap-space-sm">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-status-success text-[20px]">check_circle</span>
+                      <span class="font-label-sm text-label-sm font-bold text-on-surface uppercase tracking-wider">Tamamlanan Görüşme</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-label-sm font-label-sm font-bold bg-surface-container text-on-surface-variant">
+                      Tamamlandı
+                    </span>
+                  </div>
+                  <div class="pt-1 flex flex-col">
+                    <span class="font-label-lg text-label-lg font-bold text-on-surface">2 Nisan Salı • Evrak Ön Kontrolü</span>
+                    <div class="mt-2 p-2.5 rounded-lg bg-surface-card text-on-surface-variant font-body-sm text-body-sm flex flex-col gap-1">
+                      <span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">Danışman Özeti</span>
+                      <p class="italic text-on-surface">"Belgeler eksiksiz, filo havuzuna uygun. Kod 95 ve SRC5 denklik verileri sisteme işlendi."</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Appointment Request Form (7 Cols) -->
+            <div class="lg:col-span-7 flex flex-col gap-space-lg">
+              <div class="bg-surface-card rounded-xl shadow-sm p-space-lg lg:p-space-xl flex flex-col gap-space-lg">
+                <div class="flex items-center justify-between pb-space-xs">
+                  <div class="flex flex-col">
+                    <h2 class="font-headline-md text-headline-md text-on-surface font-bold">Yeni Randevu Oluştur</h2>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Uygun gün ve saati seçerek Murat Bey ile doğrudan randevu planlayın.</p>
+                  </div>
+                  <span class="material-symbols-outlined text-secondary-container text-[28px]">calendar_add_on</span>
+                </div>
+
+                <form class="flex flex-col gap-space-lg" id="appointment-form" onsubmit="event.preventDefault(); handleFormSubmit();">
+                  <!-- Step 1: Meeting Type (Görüşme Türü Seçimi) -->
+                  <div class="flex flex-col gap-space-xs">
+                    <label class="font-label-md text-label-md text-on-surface font-bold">
+                      1. Görüşme Türü Seçin <span class="text-error">*</span>
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-1">
+                      <label class="relative flex flex-col p-space-md rounded-xl bg-surface-container-highest ring-2 ring-secondary-container cursor-pointer transition-all hover:bg-surface-container" id="lbl-type-phone">
+                        <input checked="" class="sr-only" name="meeting_type" type="radio" value="phone" onchange="updateRadioSelection('type', this)">
+                        <div class="flex items-center justify-between mb-2">
+                          <span class="material-symbols-outlined text-on-surface text-[24px]">call</span>
+                          <span class="radio-indicator w-4 h-4 rounded-full bg-surface-card flex items-center justify-center">
+                            <span class="dot w-2 h-2 rounded-full bg-secondary-container"></span>
+                          </span>
+                        </div>
+                        <span class="font-label-md text-label-md text-on-surface font-bold">Telefon ile Görüşme</span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">GSM üzerinden doğrudan arama</span>
+                      </label>
+
+                      <label class="relative flex flex-col p-space-md rounded-xl bg-surface-container-low cursor-pointer transition-all hover:bg-surface-container" id="lbl-type-whatsapp">
+                        <input class="sr-only" name="meeting_type" type="radio" value="whatsapp" onchange="updateRadioSelection('type', this)">
+                        <div class="flex items-center justify-between mb-2">
+                          <span class="material-symbols-outlined text-on-surface text-[24px]">chat</span>
+                          <span class="radio-indicator w-4 h-4 rounded-full bg-surface-card flex items-center justify-center">
+                            <span class="dot w-2 h-2 rounded-full bg-transparent"></span>
+                          </span>
+                        </div>
+                        <span class="font-label-md text-label-md text-on-surface font-bold">WhatsApp Sesli / Video</span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Veri hattı veya kabin Wi-Fi</span>
+                      </label>
+
+                      <label class="relative flex flex-col p-space-md rounded-xl bg-surface-container-low cursor-pointer transition-all hover:bg-surface-container" id="lbl-type-meet">
+                        <input class="sr-only" name="meeting_type" type="radio" value="meet" onchange="updateRadioSelection('type', this)">
+                        <div class="flex items-center justify-between mb-2">
+                          <span class="material-symbols-outlined text-on-surface text-[24px]">video_camera_front</span>
+                          <span class="radio-indicator w-4 h-4 rounded-full bg-surface-card flex items-center justify-center">
+                            <span class="dot w-2 h-2 rounded-full bg-transparent"></span>
+                          </span>
+                        </div>
+                        <span class="font-label-md text-label-md text-on-surface font-bold">Google Meet Online</span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Ekran ve evrak paylaşımı</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Step 2: Topic Selection (Görüşme Konusu) -->
+                  <div class="flex flex-col gap-space-xs">
+                    <label class="font-label-md text-label-md text-on-surface font-bold">
+                      2. Görüşme Konusu <span class="text-error">*</span>
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-1">
+                      <label class="flex items-center gap-space-sm p-space-md rounded-lg bg-surface-container-highest ring-2 ring-secondary-container cursor-pointer hover:bg-surface-container transition-all" id="lbl-subject-evrak">
+                        <input checked="" class="sr-only" name="meeting_subject" type="radio" value="evrak" onchange="updateRadioSelection('subject', this)">
+                        <span class="material-symbols-outlined text-secondary text-[20px]">assignment</span>
+                        <div class="flex flex-col">
+                          <span class="font-label-md text-label-md text-on-surface font-semibold">Evrak Denklik Durumu</span>
+                          <span class="font-label-sm text-label-sm text-on-surface-variant">Sertifika &amp; Ehliyet</span>
+                        </div>
+                      </label>
+
+                      <label class="flex items-center gap-space-sm p-space-md rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-all" id="lbl-subject-filo">
+                        <input class="sr-only" name="meeting_subject" type="radio" value="filo" onchange="updateRadioSelection('subject', this)">
+                        <span class="material-symbols-outlined text-secondary text-[20px]">work</span>
+                        <div class="flex flex-col">
+                          <span class="font-label-md text-label-md text-on-surface font-semibold">Filo İlanları &amp; İş Teklifleri</span>
+                          <span class="font-label-sm text-label-sm text-on-surface-variant">Şirket Eşleşmeleri</span>
+                        </div>
+                      </label>
+
+                      <label class="flex items-center gap-space-sm p-space-md rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-all" id="lbl-subject-surec">
+                        <input class="sr-only" name="meeting_subject" type="radio" value="surec" onchange="updateRadioSelection('subject', this)">
+                        <span class="material-symbols-outlined text-secondary text-[20px]">alt_route</span>
+                        <div class="flex flex-col">
+                          <span class="font-label-md text-label-md text-on-surface font-semibold">Genel Süreç Bilgisi</span>
+                          <span class="font-label-sm text-label-sm text-on-surface-variant">Aşamalar ve Süre</span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Step 3: Interactive Date Picker (Pazartesi - Cuma) -->
+                  <div class="flex flex-col gap-space-xs">
+                    <div class="flex items-center justify-between">
+                      <label class="font-label-md text-label-md text-on-surface font-bold">
+                        3. Tarih Seçimi (Haftalık Takvim) <span class="text-error">*</span>
+                      </label>
+                      <span class="font-label-sm text-label-sm text-secondary font-bold">Nisan 2026</span>
+                    </div>
+
+                    <!-- Day selector pills -->
+                    <div class="grid grid-cols-5 gap-space-xs sm:gap-space-sm pt-1" id="calendar-days">
+                      <button class="day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '21 Nisan Pazartesi')" type="button">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Pzt</span>
+                        <span class="font-headline-sm text-headline-sm text-on-surface font-bold">21</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                      </button>
+                      <button class="day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '22 Nisan Salı')" type="button">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sal</span>
+                        <span class="font-headline-sm text-headline-sm text-on-surface font-bold">22</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                      </button>
+                      <!-- Currently Selected Day by Default -->
+                      <button class="day-btn group p-space-sm rounded-xl bg-primary-container text-on-primary ring-2 ring-secondary-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '23 Nisan Çarşamba')" type="button">
+                        <span class="font-label-sm text-label-sm text-on-primary-container uppercase">Çar</span>
+                        <span class="font-headline-sm text-headline-sm text-on-primary font-bold">23</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                      </button>
+                      <button class="day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '24 Nisan Perşembe')" type="button">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Per</span>
+                        <span class="font-headline-sm text-headline-sm text-on-surface font-bold">24</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                      </button>
+                      <button class="day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer" onclick="selectDay(this, '25 Nisan Cuma')" type="button">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Cum</span>
+                        <span class="font-headline-sm text-headline-sm text-on-surface font-bold">25</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                      </button>
+                    </div>
+                    <input id="selected-date-input" type="hidden" value="23 Nisan Çarşamba">
+                  </div>
+
+                  <!-- Step 4: Time Slot Selector (Saat Dilimi Seçimi) -->
+                  <div class="flex flex-col gap-space-xs">
+                    <label class="font-label-md text-label-md text-on-surface font-bold">
+                      4. Saat Dilimi Seçimi <span class="text-error">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-space-sm pt-1" id="time-slots">
+                      <button class="time-btn py-2.5 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all font-label-md text-label-md text-on-surface font-bold flex items-center justify-center gap-1 cursor-pointer" onclick="selectTime(this, '10:00')" type="button">
+                        <span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+                        <span>10:00</span>
+                      </button>
+                      <button class="time-btn py-2.5 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all font-label-md text-label-md text-on-surface font-bold flex items-center justify-center gap-1 cursor-pointer" onclick="selectTime(this, '11:30')" type="button">
+                        <span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+                        <span>11:30</span>
+                      </button>
+                      <!-- Pre-selected active time slot -->
+                      <button class="time-btn py-2.5 px-3 rounded-lg bg-secondary-container text-canvas-dark font-label-md text-label-md font-bold flex items-center justify-center gap-1 shadow-sm cursor-pointer" onclick="selectTime(this, '14:00')" type="button">
+                        <span class="material-symbols-outlined text-[16px]">schedule</span>
+                        <span>14:00</span>
+                      </button>
+                      <button class="time-btn py-2.5 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all font-label-md text-label-md text-on-surface font-bold flex items-center justify-center gap-1 cursor-pointer" onclick="selectTime(this, '15:30')" type="button">
+                        <span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+                        <span>15:30</span>
+                      </button>
+                      <button class="time-btn py-2.5 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all font-label-md text-label-md text-on-surface font-bold flex items-center justify-center gap-1 cursor-pointer" onclick="selectTime(this, '16:45')" type="button">
+                        <span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+                        <span>16:45</span>
+                      </button>
+                      <button class="time-btn py-2.5 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all font-label-md text-label-md text-on-surface font-bold flex items-center justify-center gap-1 cursor-pointer" onclick="selectTime(this, '17:30')" type="button">
+                        <span class="material-symbols-outlined text-[16px] text-on-surface-variant">schedule</span>
+                        <span>17:30</span>
+                      </button>
+                    </div>
+                    <input id="selected-time-input" type="hidden" value="14:00">
+                  </div>
+
+                  <!-- Step 5: Contact Number & Notes -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                    <div class="flex flex-col gap-space-xs">
+                      <label class="font-label-md text-label-md text-on-surface font-bold" for="contact-phone">
+                        İletişim Numarası <span class="text-error">*</span>
+                      </label>
+                      <div class="relative flex items-center">
+                        <span class="absolute left-3 text-on-surface-variant material-symbols-outlined text-[20px]">phone_iphone</span>
+                        <input class="w-full h-12 pl-10 pr-4 rounded-lg bg-surface-card text-on-surface font-body-md text-body-md shadow-sm outline-none focus:ring-2 focus:ring-secondary-container transition-all" id="contact-phone" placeholder="+90 (5XX) XXX XX XX" required="" type="tel" value="+90 537 165 51 49">
+                      </div>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">Danışmanımız bu numaradan arama sağlayacaktır.</span>
+                    </div>
+                    <div class="flex flex-col gap-space-xs">
+                      <label class="font-label-md text-label-md text-on-surface font-bold" for="appointment-note">
+                        Özel Notunuz (İsteğe Bağlı)
+                      </label>
+                      <div class="relative">
+                        <textarea class="w-full p-3 rounded-lg bg-surface-card text-on-surface font-body-sm text-body-sm shadow-sm outline-none focus:ring-2 focus:ring-secondary-container transition-all resize-none" id="appointment-note" placeholder="Görüşmek istediğiniz özel bir konu var mı? (Örn: Polonya ADR / Tanker filoları hakkında detay)" rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Confirmation & Submission CTA -->
+                  <div class="pt-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-md">
+                    <div class="flex items-center gap-2 text-on-surface-variant">
+                      <span class="material-symbols-outlined text-status-success text-[20px]">lock</span>
+                      <span class="font-body-sm text-body-sm">Bilgileriniz KVKK ve Lojistik Gizlilik Esaslarına tabidir.</span>
+                    </div>
+                    <button class="w-full sm:w-auto min-h-[48px] px-space-xl py-3 rounded-lg bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-label-lg text-label-lg font-bold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 cursor-pointer" id="submit-btn" type="submit">
+                      <span class="material-symbols-outlined text-[22px]">event_available</span>
+                      <span>Randevu Talebini Onayla</span>
+                    </button>
+                  </div>
+                </form>
+
+                <!-- Interactive Toast Confirmation -->
+                <div class="hidden p-space-md rounded-xl bg-surface-container-high text-on-surface flex items-start gap-space-sm animate-fade-in" id="confirmation-banner">
+                  <span class="material-symbols-outlined text-status-success text-[24px]">task_alt</span>
+                  <div class="flex flex-col">
+                    <span class="font-label-md text-label-md font-bold">Randevu Talebiniz Başarıyla Alındı!</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5" id="confirmation-text">
+                      Danışmanınız Murat Kaya ile seçtiğiniz tarih ve saatte görüşmeniz planlanmıştır. SMS ve e-posta onayı iletilmiştir.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Fleet Assurance & Process Note -->
+              <div class="bg-surface-container-low rounded-xl p-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md shadow-sm">
+                <div class="flex items-center gap-space-md">
+                  <div class="w-12 h-12 rounded-full bg-surface-card flex items-center justify-center text-secondary shadow-sm">
+                    <span class="material-symbols-outlined text-[26px]">fact_check</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface font-bold">Görüşme Öncesi Hazırlık Notu</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">
+                      Görüşme öncesinde sürücü belgeniz ve SRC / Takograf kartlarınızın portalda yüklü olduğundan emin olunuz.
+                    </span>
+                  </div>
+                </div>
+                <a class="shrink-0 px-space-md py-2.5 rounded-lg bg-surface-card hover:bg-surface-container text-on-surface font-label-md text-label-md font-bold transition-all flex items-center gap-1 shadow-sm cursor-pointer" data-path="evraklarim-dosya-yukle" href="javascript:void(0)" onclick="alert('Evrak yükleme alanı hazırlanmaktadır.');">
+                  <span>Evraklarımı Kontrol Et</span>
+                  <span class="material-symbols-outlined text-[18px]">folder_open</span>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Realtime Sync & Cloud DB Scripts -->
+  <script src="js/cloud-db.js?v=20261025_v9"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase-db.js?v=20261025_v9"></script>
+
+  <!-- Script Section -->
+  <script>
+    // Toggle Mobile Sidebar
+    function toggleDriverSidebar() {
+      const sidebar = document.getElementById('driverSidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      if (sidebar && backdrop) {
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        if (isHidden) {
+          sidebar.classList.remove('-translate-x-full');
+          backdrop.classList.remove('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+          backdrop.classList.add('hidden');
+        }
+      }
+    }
+
+    let activeCandidate = null;
+
+    // Load Candidate Information
+    async function initCandidateData() {
+      let session = null;
+      try {
+        const sessionStr = sessionStorage.getItem('user_session') || localStorage.getItem('user_session');
+        if (sessionStr) session = JSON.parse(sessionStr);
+      } catch(e) {}
+
+      // Fetch fresh data from Cloud DB
+      if (typeof window.fetchApplicationsFromCloud === 'function') {
+        try {
+          await window.fetchApplicationsFromCloud();
+        } catch(e) {}
+      }
+
+      let apps = [];
+      try {
+        const str = localStorage.getItem('ats_applications');
+        if (str) apps = JSON.parse(str);
+      } catch(e) {}
+
+      let candidate = null;
+      if (session && session.email) {
+        candidate = apps.find(a => a.email === session.email || (a.id && a.id === session.id));
+      }
+
+      if (!candidate) {
+        candidate = apps.find(a => a.email === 'ugurgorgulu68770@gmail.com') || apps[0];
+      }
+
+      if (!candidate) {
+        candidate = {
+          fullName: "Uğur Görgülü",
+          email: "ugurgorgulu68770@gmail.com",
+          phone: "+90 537 165 51 49"
+        };
+      }
+
+      activeCandidate = candidate;
+      const fullName = candidate.fullName || "Uğur Görgülü";
+      const firstName = fullName.split(' ')[0] || "Uğur";
+
+      const topGreeting = document.getElementById('topHeaderGreeting');
+      if (topGreeting) topGreeting.textContent = `Hoş Geldiniz, ${firstName} Bey`;
+
+      const sidebarName = document.getElementById('sidebarUserName');
+      if (sidebarName) sidebarName.textContent = fullName;
+
+      const phoneInput = document.getElementById('contact-phone');
+      if (phoneInput && candidate.phone) {
+        phoneInput.value = candidate.phone;
+      }
+
+      // Dynamic Consultant Note from Admin Panel
+      if (candidate.consultantNote) {
+        const directNoteEl = document.getElementById('consultantDirectNote');
+        if (directNoteEl) {
+          directNoteEl.textContent = candidate.consultantNote;
+        }
+      }
+
+      // Dynamic Active Appointment from candidate record
+      if (candidate.activeAppointment) {
+        const plannedDateEl = document.getElementById('plannedAppointmentDateTime');
+        const plannedDetailEl = document.getElementById('plannedAppointmentDetail');
+        if (plannedDateEl && candidate.activeAppointment.date && candidate.activeAppointment.time) {
+          plannedDateEl.textContent = `${candidate.activeAppointment.date} • ${candidate.activeAppointment.time}`;
+        }
+        if (plannedDetailEl && candidate.activeAppointment.type && candidate.activeAppointment.subject) {
+          plannedDetailEl.textContent = `${candidate.activeAppointment.type} • ${candidate.activeAppointment.subject}`;
+        }
+      }
+    }
+
+    function updateRadioSelection(group, radioElem) {
+      if (group === 'type') {
+        const labels = {
+          'phone': document.getElementById('lbl-type-phone'),
+          'whatsapp': document.getElementById('lbl-type-whatsapp'),
+          'meet': document.getElementById('lbl-type-meet')
+        };
+        for (const key in labels) {
+          const lbl = labels[key];
+          if (!lbl) continue;
+          const dot = lbl.querySelector('.dot');
+          if (key === radioElem.value) {
+            lbl.className = "relative flex flex-col p-space-md rounded-xl bg-surface-container-highest ring-2 ring-secondary-container cursor-pointer transition-all hover:bg-surface-container";
+            if (dot) dot.className = "dot w-2 h-2 rounded-full bg-secondary-container";
+          } else {
+            lbl.className = "relative flex flex-col p-space-md rounded-xl bg-surface-container-low cursor-pointer transition-all hover:bg-surface-container";
+            if (dot) dot.className = "dot w-2 h-2 rounded-full bg-transparent";
+          }
+        }
+      } else if (group === 'subject') {
+        const labels = {
+          'evrak': document.getElementById('lbl-subject-evrak'),
+          'filo': document.getElementById('lbl-subject-filo'),
+          'surec': document.getElementById('lbl-subject-surec')
+        };
+        for (const key in labels) {
+          const lbl = labels[key];
+          if (!lbl) continue;
+          if (key === radioElem.value) {
+            lbl.className = "flex items-center gap-space-sm p-space-md rounded-lg bg-surface-container-highest ring-2 ring-secondary-container cursor-pointer hover:bg-surface-container transition-all";
+          } else {
+            lbl.className = "flex items-center gap-space-sm p-space-md rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-all";
+          }
+        }
+      }
+    }
+
+    function selectDay(element, dayLabel) {
+      const days = document.querySelectorAll('.day-btn');
+      days.forEach(btn => {
+        btn.className = "day-btn group p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer";
+        const labels = btn.querySelectorAll('span');
+        if (labels.length >= 3) {
+          labels[0].className = "font-label-sm text-label-sm text-on-surface-variant uppercase";
+          labels[1].className = "font-headline-sm text-headline-sm text-on-surface font-bold";
+          labels[2].className = "w-1.5 h-1.5 rounded-full bg-status-success";
+        }
+      });
+
+      element.className = "day-btn group p-space-sm rounded-xl bg-primary-container text-on-primary ring-2 ring-secondary-container transition-all flex flex-col items-center justify-center gap-1 min-h-[72px] cursor-pointer";
+      const activeLabels = element.querySelectorAll('span');
+      if (activeLabels.length >= 3) {
+        activeLabels[0].className = "font-label-sm text-label-sm text-on-primary-container uppercase";
+        activeLabels[1].className = "font-headline-sm text-headline-sm text-on-primary font-bold";
+        activeLabels[2].className = "w-1.5 h-1.5 rounded-full bg-secondary-container";
+      }
+
+      const input = document.getElementById('selected-date-input');
+      if (input) input.value = dayLabel;
+    }
+
+    function selectTime(element, timeLabel) {
+      const times = document.querySelectorAll('.time-btn');
+      times.forEach(btn => {
+        btn.className = "time-btn py-2.5 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all font-label-md text-label-md text-on-surface font-bold flex items-center justify-center gap-1 cursor-pointer";
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (icon) icon.className = "material-symbols-outlined text-[16px] text-on-surface-variant";
+      });
+
+      element.className = "time-btn py-2.5 px-3 rounded-lg bg-secondary-container text-canvas-dark font-label-md text-label-md font-bold flex items-center justify-center gap-1 shadow-sm cursor-pointer";
+      const activeIcon = element.querySelector('.material-symbols-outlined');
+      if (activeIcon) activeIcon.className = "material-symbols-outlined text-[16px]";
+
+      const input = document.getElementById('selected-time-input');
+      if (input) input.value = timeLabel;
+    }
+
+    async function handleFormSubmit() {
+      const banner = document.getElementById('confirmation-banner');
+      const submitBtn = document.getElementById('submit-btn');
+      const dateVal = document.getElementById('selected-date-input').value;
+      const timeVal = document.getElementById('selected-time-input').value;
+      const phoneVal = document.getElementById('contact-phone').value;
+      const noteVal = document.getElementById('appointment-note').value;
+      const typeElem = document.querySelector('input[name="meeting_type"]:checked');
+      const subjectElem = document.querySelector('input[name="meeting_subject"]:checked');
+
+      const meetingType = typeElem ? typeElem.value : 'phone';
+      const meetingSubject = subjectElem ? subjectElem.value : 'evrak';
+
+      const typeTitles = {
+        'phone': 'Telefon ile Görüşme',
+        'whatsapp': 'WhatsApp Sesli/Video',
+        'meet': 'Google Meet Online'
+      };
+
+      const subjectTitles = {
+        'evrak': 'Evrak Denklik Durumu',
+        'filo': 'Filo İlanları & İş Teklifleri',
+        'surec': 'Genel Süreç Bilgisi'
+      };
+
+      const appointmentObj = {
+        date: dateVal,
+        time: timeVal,
+        phone: phoneVal,
+        notes: noteVal,
+        type: typeTitles[meetingType] || 'Telefon Görüşmesi',
+        subject: subjectTitles[meetingSubject] || 'Evrak İnceleme',
+        consultant: 'Murat Kaya',
+        status: 'Beklemede / Onaylandı',
+        createdAt: new Date().toISOString()
+      };
+
+      // Save to candidate record
+      if (activeCandidate) {
+        activeCandidate.activeAppointment = appointmentObj;
+        activeCandidate.hasScheduledAppointment = true;
+
+        try {
+          let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
+          const idx = apps.findIndex(a => a.id === activeCandidate.id || a.email === activeCandidate.email);
+          if (idx !== -1) {
+            apps[idx] = activeCandidate;
+          } else {
+            apps.unshift(activeCandidate);
+          }
+          localStorage.setItem('ats_applications', JSON.stringify(apps));
+        } catch(e) {}
+
+        if (typeof window.saveApplicationToHosting === 'function') {
+          await window.saveApplicationToHosting(activeCandidate);
+        }
+      }
+
+      // Update Planlanmış Randevu UI
+      const plannedDateEl = document.getElementById('plannedAppointmentDateTime');
+      const plannedDetailEl = document.getElementById('plannedAppointmentDetail');
+      if (plannedDateEl) plannedDateEl.textContent = `${dateVal} • ${timeVal}`;
+      if (plannedDetailEl) plannedDetailEl.textContent = `${typeTitles[meetingType]} • ${subjectTitles[meetingSubject]}`;
+
+      const confirmText = document.getElementById('confirmation-text');
+      if (banner) {
+        if (confirmText) {
+          confirmText.innerText = "Danışmanınız Murat Kaya ile " + dateVal + " saat " + timeVal + " için randevu talebiniz sisteme başarıyla kaydedildi. SMS ve e-posta onayı iletilmiştir.";
+        }
+        banner.classList.remove('hidden');
+        banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] text-status-success">check</span><span>Randevu Talebi Alındı</span>';
+      }
+    }
+
+    function openSupportModal() {
+      alert("Destek Hattı: Lojistik kariyer danışmanınız Murat Kaya'ya sorularınızı randevu esnasında veya profil notu üzerinden doğrudan iletebilirsiniz.");
+    }
+
+    function handleLogout() {
+      if (confirm('Oturumunuz kapatılacaktır. Onaylıyor musunuz?')) {
+        sessionStorage.removeItem('user_session');
+        localStorage.removeItem('user_session');
+        window.location.href = 'surucu-paneli.html';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initCandidateData();
+    });
+  </script>
+</body>
+</html>
