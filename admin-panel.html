@@ -55,7 +55,7 @@
       background: #f1f5f9;
     }
   </style>
-
+  <script src="js/site-notifications.js?v=20261027_v1"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script id="tailwind-config">
     tailwind.config = {
@@ -2347,8 +2347,15 @@
       if (appContainer) appContainer.classList.add('hidden');
     }
 
-    function adminLogout() {
-      if (confirm('Yönetim oturumunu sonlandırmak ve güvenli çıkış yapmak istiyor musunuz?')) {
+    async function adminLogout() {
+      const ok = await window.showSiteConfirm({
+        title: 'Yönetici Çıkışı',
+        message: 'Yönetim oturumunu sonlandırmak ve güvenli çıkış yapmak istiyor musunuz?',
+        confirmText: 'Çıkış Yap',
+        cancelText: 'Vazgeç',
+        type: 'danger'
+      });
+      if (ok) {
         sessionStorage.removeItem('ats_admin_auth_v1');
         sessionStorage.removeItem('ats_admin_user');
         localStorage.removeItem('ats_admin_auth_v1');
@@ -2433,54 +2440,151 @@
       }
     });
 
-    // 3. Cross-Tab BroadcastChannel Listener (Instant 0ms sync)
-    if (typeof BroadcastChannel !== 'undefined') {
+    // 3. Real-time Bi-directional Synchronization & In-App Notification Dispatcher
+    function handlePortalSyncEvent(data) {
+      if (!checkAdminAuth()) return;
+      if (!data) return;
+
+      const type = data.type;
+      const p = data.payload || data;
+
+      // Sürücü Evrak Yüklediğinde / Değiştirdiğinde
+      if (type === 'DOCUMENTS_UPLOADED' || type === 'DRIVER_DOCUMENTS_CHANGED') {
+        initDatabase();
+        applyFilters();
+        applyQuickFilters();
+        if (selectedDriverId && (selectedDriverId === p.candidateId)) {
+          const cand = allApplications.find(a => (a.id || a.referenceNumber) === selectedDriverId);
+          if (cand) renderDrawerDocuments(cand);
+        }
+        window.showSiteNotification({
+          type: 'info',
+          title: 'Yeni Evrak Yüklendi',
+          message: `${p.candidateName || 'Sürücü'} yeni bir evrak yükledi: "${p.docTitle || 'Belge'}"`
+        });
+      }
+
+      // Sürücü Randevu Aldığında / Güncellediğinde
+      else if (type === 'APPOINTMENT_CREATED' || type === 'APPOINTMENT_UPDATED' || type === 'DRIVER_APPOINTMENT_CHANGED') {
+        initDatabase();
+        loadAndRenderAppointments();
+        updateSidebarRandevuBadge();
+        applyFilters();
+        applyQuickFilters();
+        const appt = p.appointment || {};
+        window.showSiteNotification({
+          type: 'success',
+          title: 'Yeni Görüşme Randevusu',
+          message: `${p.candidateName || 'Sürücü Adayı'} randevu oluşturdu: ${appt.date || ''} • ${appt.time || ''} (${appt.type || 'Telefon'})`
+        });
+      }
+
+      // Sürücü VIP Aday Havuzu (100€) Ödemesi Yaptığında
+      else if (type === 'VIP_POOL_JOINED' || type === 'DRIVER_VIP_POOL_JOINED') {
+        initDatabase();
+        applyFilters();
+        applyQuickFilters();
+        renderPoolDashboard();
+        window.showSiteNotification({
+          type: 'success',
+          title: '⭐ VIP Havuz Katılımı',
+          message: `${p.candidateName || 'Sürücü Adayı'} 100€ VIP Havuz katılımını tamamladı ve onaylı aday havuzuna dahil oldu!`
+        });
+      }
+
+      // Sürücü Profil Bilgilerini Güncellediğinde
+      else if (type === 'PROFILE_UPDATED' || type === 'DRIVER_PROFILE_UPDATED') {
+        initDatabase();
+        applyFilters();
+        applyQuickFilters();
+        if (currentTab === 'aday-havuzu') renderPoolDashboard();
+        if (selectedDriverId && selectedDriverId === p.candidateId) {
+          const cand = allApplications.find(a => (a.id || a.referenceNumber) === selectedDriverId);
+          if (cand && typeof renderDriverDrawer === 'function') renderDriverDrawer(cand);
+        }
+        window.showSiteNotification({
+          type: 'info',
+          title: 'Profil Güncellendi',
+          message: `${p.candidateName || 'Sürücü Adayı'} profil ve iletişim bilgilerini güncelledi.`
+        });
+      }
+
+      // Sürücü Şifre Değiştirdiğinde
+      else if (type === 'PASSWORD_CHANGED' || type === 'DRIVER_PASSWORD_CHANGED') {
+        initDatabase();
+        window.showSiteNotification({
+          type: 'info',
+          title: 'Giriş Şifresi Güncellendi',
+          message: `${p.candidateName || 'Sürücü Adayı'} portal giriş şifresini başarıyla yeniledi.`
+        });
+      }
+
+      // Sürücü Destek / Danışman Mesajı Gönderdiğinde
+      else if (type === 'SUPPORT_MESSAGE_SENT' || type === 'DRIVER_SUPPORT_MESSAGE') {
+        initDatabase();
+        applyFilters();
+        window.showSiteNotification({
+          type: 'warning',
+          title: 'Yeni Danışman Destek Mesajı',
+          message: `${p.candidateName || 'Sürücü Adayı'}: "${p.subject || 'Mesaj'}"`
+        });
+      }
+
+      // Yeni Başvuru Gönderildiğinde
+      else if (type === 'APPLICATION_SUBMITTED') {
+        const newApp = p.data || p;
+        if (newApp && isRealApplication(newApp)) {
+          const idx = allApplications.findIndex(a => (a.id || a.referenceNumber) === (newApp.id || newApp.referenceNumber));
+          if (idx !== -1) {
+            allApplications[idx] = newApp;
+          } else {
+            allApplications.unshift(newApp);
+          }
+          applyFilters();
+          applyQuickFilters();
+          if (currentTab === 'aday-havuzu') renderPoolDashboard();
+          window.showSiteNotification({
+            type: 'success',
+            title: 'Yeni Başvuru Alındı',
+            message: `${newApp.fullName || 'Yeni Aday'} (${newApp.phone || ''}) ön başvuru kaydı oluşturdu.`
+          });
+        }
+      }
+
+      // Toplu Başvuru Senkronizasyonu
+      else if (type === 'APPLICATIONS_SYNCED' && Array.isArray(p.data)) {
+        allApplications = p.data.filter(isRealApplication);
+        applyFilters();
+        applyQuickFilters();
+        if (currentTab === 'aday-havuzu') renderPoolDashboard();
+      }
+
+      // Başvuru Silindiğinde
+      else if (type === 'APPLICATION_DELETED') {
+        const delId = p.id;
+        if (delId) {
+          allApplications = allApplications.filter(a => a && (a.id || a.referenceNumber) !== delId);
+          applyFilters();
+          applyQuickFilters();
+          if (currentTab === 'aday-havuzu') renderPoolDashboard();
+        }
+      }
+
+      // Tüm Başvurular Sıfırlandığında
+      else if (type === 'APPLICATIONS_CLEARED') {
+        allApplications = [];
+        applyFilters();
+        applyQuickFilters();
+        renderPoolDashboard();
+      }
+    }
+
+    if (typeof window.atsOnSync === 'function') {
+      window.atsOnSync(handlePortalSyncEvent);
+    } else if (typeof BroadcastChannel !== 'undefined') {
       const channel = new BroadcastChannel('ats_portal_sync');
       channel.onmessage = function (event) {
-        if (!checkAdminAuth()) return;
-        if (event.data) {
-          if (event.data.type === 'APPLICATION_SUBMITTED') {
-            const newApp = event.data.data;
-            if (newApp && isRealApplication(newApp)) {
-              const idx = allApplications.findIndex(a => (a.id || a.referenceNumber) === (newApp.id || newApp.referenceNumber));
-              if (idx !== -1) {
-                allApplications[idx] = newApp;
-              } else {
-                allApplications.unshift(newApp);
-              }
-              applyFilters();
-              applyQuickFilters();
-              if (currentTab === 'aday-havuzu') renderPoolDashboard();
-            }
-          } else if (event.data.type === 'APPLICATIONS_SYNCED' && Array.isArray(event.data.data)) {
-            allApplications = event.data.data.filter(isRealApplication);
-            applyFilters();
-            applyQuickFilters();
-            if (currentTab === 'aday-havuzu') renderPoolDashboard();
-          } else if (event.data.type === 'APPLICATION_DELETED') {
-            const delId = event.data.id;
-            if (delId) {
-              allApplications = allApplications.filter(a => a && (a.id || a.referenceNumber) !== delId);
-              applyFilters();
-              applyQuickFilters();
-              if (currentTab === 'aday-havuzu') renderPoolDashboard();
-            }
-          } else if (event.data.type === 'APPLICATIONS_CLEARED') {
-            allApplications = [];
-            applyFilters();
-            applyQuickFilters();
-            renderPoolDashboard();
-          } else if (event.data.type === 'APPOINTMENT_CREATED' || event.data.type === 'APPOINTMENT_UPDATED') {
-            loadAndRenderAppointments();
-            updateSidebarRandevuBadge();
-          } else if (event.data.type === 'DOCUMENTS_UPLOADED') {
-            loadDatabase();
-            if (selectedDriverId && selectedDriverId === event.data.candidateId) {
-              const cand = allApplications.find(a => (a.id || a.referenceNumber) === selectedDriverId);
-              if (cand) renderDrawerDocuments(cand);
-            }
-          }
-        }
+        if (event.data) handlePortalSyncEvent(event.data);
       };
     }
 
@@ -2517,8 +2621,15 @@
       });
 
     // RESET ALL APPLICATIONS TO CLEAN 0 STATE
-    function clearAllApplications() {
-      if (confirm('Paneldeki tüm aday kayıtlarını kalıcı olarak sıfırlamak ve portföyü 0 yapmak istediğinize emin misiniz?')) {
+    async function clearAllApplications() {
+      const ok = await window.showSiteConfirm({
+        title: 'Tüm Kayıtları Sıfırla',
+        message: 'Paneldeki tüm aday kayıtlarını kalıcı olarak sıfırlamak ve portföyü 0 yapmak istediğinize emin misiniz? Bu işlem geri alınamaz.',
+        confirmText: 'Evet, Sıfırla',
+        cancelText: 'Vazgeç',
+        type: 'danger'
+      });
+      if (ok) {
         // Mark all current IDs as deleted to prevent resurrection
         allApplications.forEach(a => {
           const id = a.id || a.referenceNumber;
@@ -2536,7 +2647,11 @@
         applyQuickFilters();
         renderPoolDashboard();
         toggleDropdown('bulk-dropdown');
-        alert('Tüm aday başvuruları kalıcı olarak temizlendi. Panel sayaçları 0 olarak güncellendi.');
+        window.showSiteNotification({
+          type: 'success',
+          title: 'Portföy Sıfırlandı',
+          message: 'Tüm aday başvuruları kalıcı olarak temizlendi. Panel sayaçları 0 olarak güncellendi.'
+        });
       }
     }
 
@@ -2927,12 +3042,23 @@
     }
 
     // Trafik Sıfırlama
-    function handleResetTraffic() {
-      if (confirm('Tüm web sitesi trafik verilerini ve başvuru tıklama istatistiklerini sıfırlamak istediğinize emin misiniz?')) {
+    async function handleResetTraffic() {
+      const ok = await window.showSiteConfirm({
+        title: 'Trafik İstatistiklerini Sıfırla',
+        message: 'Tüm web sitesi trafik verilerini ve başvuru tıklama istatistiklerini sıfırlamak istediğinize emin misiniz?',
+        confirmText: 'Evet, Sıfırla',
+        cancelText: 'Vazgeç',
+        type: 'warning'
+      });
+      if (ok) {
         if (typeof window.resetTrafficAnalytics === 'function') {
           window.resetTrafficAnalytics();
           renderTrafficDashboard();
-          alert('Tüm trafik analitik sayaçları 0 olarak sıfırlandı.');
+          window.showSiteNotification({
+            type: 'success',
+            title: 'Sayaçlar Sıfırlandı',
+            message: 'Tüm trafik analitik sayaçları 0 olarak sıfırlandı.'
+          });
         }
       }
     }
@@ -3680,11 +3806,18 @@
       applyQuickFilters();
     }
 
-    function upgradeQuickToDetailed(appId) {
+    async function upgradeQuickToDetailed(appId) {
       const app = allApplications.find(a => (a.id === appId || a.referenceNumber === appId));
       if (!app) return;
 
-      if (confirm(`"${app.fullName || 'Aday'}" adlı adayın hızlı başvurusu Detaylı Başvurular Masası'na yükseltilsin mi?`)) {
+      const ok = await window.showSiteConfirm({
+        title: 'Başvuruyu Yükselt',
+        message: `"${app.fullName || 'Aday'}" adlı adayın hızlı başvurusu Detaylı Başvurular Masası'na yükseltilsin mi?`,
+        confirmText: 'Yükselt',
+        cancelText: 'Vazgeç',
+        type: 'info'
+      });
+      if (ok) {
         app.type = 'detailed';
         app.applicationType = 'detailed';
         app.upgradedFromQuick = true;
@@ -3693,7 +3826,11 @@
         saveDatabase();
         applyQuickFilters();
         applyFilters();
-        alert(`"${app.fullName || 'Aday'}" başarıyla Detaylı Başvurular masasına taşındı. Dosya durumu 'Evrak İncelemede' olarak güncellendi.`);
+        window.showSiteNotification({
+          type: 'success',
+          title: 'Başvuru Yükseltildi',
+          message: `"${app.fullName || 'Aday'}" başarıyla Detaylı Başvurular masasına taşındı. Dosya durumu 'Evrak İncelemede' olarak güncellendi.`
+        });
       }
     }
 
@@ -4209,6 +4346,20 @@
         if (typeof window.updateApplicationOnHosting === 'function') {
           window.updateApplicationOnHosting(app);
         }
+        if (typeof window.atsBroadcastSync === 'function') {
+          window.atsBroadcastSync('ADMIN_UPDATED_CANDIDATE', {
+            candidateId: app.id,
+            candidate: app,
+            status: app.status,
+            consultantNote: app.consultantNote,
+            assignedConsultant: app.assignedConsultant
+          });
+        }
+        window.showSiteNotification({
+          type: 'success',
+          title: 'Durum Kaydedildi',
+          message: `"${app.fullName || 'Aday'}" için durum "${newStatus}" olarak güncellendi ve sürücü paneline anında aktarıldı.`
+        });
         renderDashboard();
         applyQuickFilters();
         renderPoolDashboard();
@@ -4216,9 +4367,16 @@
       closeModal('quick-status-modal');
     }
 
-    function deleteCandidate(appId) {
+    async function deleteCandidate(appId) {
       if (!appId) return;
-      if (confirm('Bu başvuru kaydını kalıcı olarak silmek istediğinize emin misiniz?')) {
+      const ok = await window.showSiteConfirm({
+        title: 'Başvuruyu Sil',
+        message: 'Bu başvuru kaydını kalıcı olarak silmek istediğinize emin misiniz?',
+        confirmText: 'Sil',
+        cancelText: 'Vazgeç',
+        type: 'danger'
+      });
+      if (ok) {
         markIdAsDeleted(appId);
         allApplications = allApplications.filter(a => a && a.id !== appId && a.referenceNumber !== appId);
         if (typeof window.deleteApplicationFromHosting === 'function') {
@@ -4228,19 +4386,35 @@
         applyFilters();
         applyQuickFilters();
         renderPoolDashboard();
+        window.showSiteNotification({
+          type: 'success',
+          title: 'Başvuru Silindi',
+          message: 'Başvuru kaydı kalıcı olarak silindi.'
+        });
       }
     }
 
     // BULK ACTIONS
-    function handleBulkAction(action) {
+    async function handleBulkAction(action) {
       const selectedIds = Array.from(document.querySelectorAll('#applications-table-body .row-checkbox:checked')).map(cb => cb.value);
       if (selectedIds.length === 0) {
-        alert('Lütfen işlem yapmak için en az bir aday seçiniz.');
+        window.showSiteNotification({
+          type: 'warning',
+          title: 'Seçim Yapılmadı',
+          message: 'Lütfen işlem yapmak için en az bir aday seçiniz.'
+        });
         return;
       }
 
       if (action === 'sil') {
-        if (confirm(`Seçilen ${selectedIds.length} adet başvuruyu kalıcı olarak silmek istediğinize emin misiniz?`)) {
+        const ok = await window.showSiteConfirm({
+          title: 'Toplu Silme Onayı',
+          message: `Seçilen ${selectedIds.length} adet başvuruyu kalıcı olarak silmek istediğinize emin misiniz?`,
+          confirmText: 'Toplu Sil',
+          cancelText: 'Vazgeç',
+          type: 'danger'
+        });
+        if (ok) {
           selectedIds.forEach(id => {
             markIdAsDeleted(id);
             if (typeof window.deleteApplicationFromHosting === 'function') {
@@ -4253,7 +4427,11 @@
           applyQuickFilters();
           renderPoolDashboard();
           toggleDropdown('bulk-dropdown');
-          alert(`${selectedIds.length} adet başvuru kalıcı olarak silindi.`);
+          window.showSiteNotification({
+            type: 'success',
+            title: 'Toplu Silme Tamamlandı',
+            message: `${selectedIds.length} adet başvuru kalıcı olarak silindi.`
+          });
           return;
         }
         return;
@@ -4559,9 +4737,15 @@
       }
     }
 
-    function removeCandidate(appId, nameEncoded) {
+    async function removeCandidate(appId, nameEncoded) {
       const name = decodeURIComponent(nameEncoded);
-      const confirmed = window.confirm(`"${name}" isimli onaylı adayı havuzdan çıkartıp evrak inceleme masasına almak istediğinize emin misiniz?`);
+      const confirmed = await window.showSiteConfirm({
+        title: 'Havuzdan Çıkar',
+        message: `"${name}" isimli onaylı adayı havuzdan çıkartıp evrak inceleme masasına almak istediğinize emin misiniz?`,
+        confirmText: 'Havuzdan Çıkar',
+        cancelText: 'Vazgeç',
+        type: 'warning'
+      });
       if (confirmed) {
         const app = allApplications.find(a => (a.id || a.referenceNumber) === appId);
         if (app) {
@@ -4574,16 +4758,27 @@
           }
           renderPoolDashboard();
           applyFilters();
+          window.showSiteNotification({
+            type: 'info',
+            title: 'Havuz Güncellendi',
+            message: `"${name}" aday havuzundan çıkartılarak evrak inceleme masasına aktarıldı.`
+          });
         }
       }
     }
 
-    function confirmBulkRemove() {
+    async function confirmBulkRemove() {
       const checkedBoxes = document.querySelectorAll('#candidateTableBody .row-checkbox:checked');
       if (checkedBoxes.length === 0) return;
 
       const count = checkedBoxes.length;
-      const confirmed = window.confirm(`Seçilen ${count} adayı sistemden kalıcı olarak silmek istediğinize emin misiniz?`);
+      const confirmed = await window.showSiteConfirm({
+        title: 'Toplu Silme Onayı',
+        message: `Seçilen ${count} adayı sistemden kalıcı olarak silmek istediğinize emin misiniz?`,
+        confirmText: 'Toplu Sil',
+        cancelText: 'Vazgeç',
+        type: 'danger'
+      });
       if (confirmed) {
         checkedBoxes.forEach(cb => {
           const appId = cb.getAttribute('data-id');
@@ -4598,6 +4793,11 @@
         saveDatabase();
         renderPoolDashboard();
         applyFilters();
+        window.showSiteNotification({
+          type: 'success',
+          title: 'Adaylar Silindi',
+          message: `Seçilen ${count} aday sistemden kalıcı olarak silindi.`
+        });
       }
     }
 

@@ -56,7 +56,7 @@
       background: #d97706;
     }
   </style>
-
+  <script src="js/site-notifications.js?v=20261027_v1"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script id="tailwind-config">
     tailwind.config = {
@@ -654,6 +654,88 @@
     </main>
   </div>
 
+  <!-- Profil Düzenleme Modalı -->
+  <div id="editProfileModal" class="hidden fixed inset-0 z-[10000] bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-surface-card border border-border-muted rounded-2xl shadow-2xl p-6 flex flex-col gap-5 text-on-surface">
+      <div class="flex items-center justify-between border-b border-border-muted pb-4">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-secondary text-2xl">person_edit</span>
+          <h3 class="font-bold text-lg text-on-surface">Profil ve İletişim Bilgilerini Güncelle</h3>
+        </div>
+        <button type="button" onclick="closeEditProfileModal()" class="text-on-surface-variant hover:text-on-surface p-1 rounded-lg hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[22px]">close</span>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-4 text-xs sm:text-sm">
+        <div>
+          <label class="block font-semibold mb-1 text-on-surface-variant">Telefon Numarası</label>
+          <input type="tel" id="editDriverPhone" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-border-muted font-medium focus:ring-2 focus:ring-secondary focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-semibold mb-1 text-on-surface-variant">E-Posta Adresi</label>
+          <input type="email" id="editDriverEmail" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-border-muted font-medium focus:ring-2 focus:ring-secondary focus:outline-none">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold mb-1 text-on-surface-variant">İkamet Şehri</label>
+            <input type="text" id="editDriverCity" placeholder="Örn: İstanbul" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-border-muted font-medium focus:ring-2 focus:ring-secondary focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold mb-1 text-on-surface-variant">Yol Deneyimi (Yıl)</label>
+            <input type="text" id="editDriverExp" placeholder="Örn: 5" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-border-muted font-medium focus:ring-2 focus:ring-secondary focus:outline-none">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-4 border-t border-border-muted">
+        <button type="button" onclick="closeEditProfileModal()" class="px-4 py-2.5 rounded-xl bg-surface-container text-on-surface-variant font-semibold hover:bg-surface-container-high transition-colors text-xs sm:text-sm">
+          Vazgeç
+        </button>
+        <button type="button" onclick="submitEditProfileModal()" class="px-5 py-2.5 rounded-xl bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-bold transition-all shadow-md text-xs sm:text-sm flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">save</span>
+          <span>Değişiklikleri Kaydet</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Destek & Danışmana Mesaj Modalı -->
+  <div id="supportRequestModal" class="hidden fixed inset-0 z-[10000] bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-surface-card border border-border-muted rounded-2xl shadow-2xl p-6 flex flex-col gap-5 text-on-surface">
+      <div class="flex items-center justify-between border-b border-border-muted pb-4">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-secondary text-2xl">support_agent</span>
+          <h3 class="font-bold text-lg text-on-surface">Danışmana Soru &amp; Destek Talebi İlet</h3>
+        </div>
+        <button type="button" onclick="closeSupportModal()" class="text-on-surface-variant hover:text-on-surface p-1 rounded-lg hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[22px]">close</span>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-4 text-xs sm:text-sm">
+        <div>
+          <label class="block font-semibold mb-1 text-on-surface-variant">Konu Başlığı</label>
+          <input type="text" id="supportModalSubject" placeholder="Örn: Evrak tercümesi hakkında soru" class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low border border-border-muted font-medium focus:ring-2 focus:ring-secondary focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-semibold mb-1 text-on-surface-variant">Mesajınız</label>
+          <textarea id="supportModalMessage" rows="4" placeholder="Danışmanınıza iletmek istediğiniz detaylı mesajınızı buraya yazınız..." class="w-full p-3.5 rounded-xl bg-surface-container-low border border-border-muted font-medium focus:ring-2 focus:ring-secondary focus:outline-none resize-none"></textarea>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-4 border-t border-border-muted">
+        <button type="button" onclick="closeSupportModal()" class="px-4 py-2.5 rounded-xl bg-surface-container text-on-surface-variant font-semibold hover:bg-surface-container-high transition-colors text-xs sm:text-sm">
+          İptal
+        </button>
+        <button type="button" onclick="submitSupportModal()" class="px-5 py-2.5 rounded-xl bg-secondary-container hover:bg-warning-amber-hover text-canvas-dark font-bold transition-all shadow-md text-xs sm:text-sm flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">send</span>
+          <span>Talebi İlet</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Realtime Sync & Cloud DB Scripts -->
   <script src="js/cloud-db.js?v=20261025_v9"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -882,26 +964,31 @@
 
       // KURAL: Hesap onaylanmadan ödeme ve aday havuzuna geçiş yapılamaz
       if (!isApproved) {
-        alert(
-          "⚠️ HESAP ONAYI BEKLENİYOR!\n\n" +
-          "Aday havuzuna geçebilmeniz ve 100€ ödeme yapabilmeniz için hesabınızın operasyon ekibi tarafından incelenip onaylanması gerekmektedir.\n\n" +
-          "Başvurunuz şu an 'İnceleme' aşamasındadır. Hesabınız admin tarafından onaylandığında bu alan otomatik olarak ödemeye açılacaktır."
-        );
+        window.showSiteNotification({
+          type: 'warning',
+          title: 'Hesap Onayı Bekleniyor',
+          message: "Aday havuzuna geçebilmeniz ve 100€ ödeme yapabilmeniz için dosyanızın operasyon ekibi tarafından onaylanması gerekmektedir."
+        });
         return;
       }
 
       if (currentCandidate.hasPaid100 === true || currentCandidate.inPool === true) {
-        alert("✅ Bilgilendirme: VIP Havuz aboneliğiniz ve 100€ ödemeniz zaten aktif durumdadır. Profiliniz Avrupa aday havuzunda listelenmektedir.");
+        window.showSiteNotification({
+          type: 'info',
+          title: 'VIP Havuz Aktif',
+          message: "VIP Havuz aboneliğiniz ve 100€ ödemeniz zaten aktif durumdadır. Profiliniz Avrupa aday havuzunda listelenmektedir."
+        });
         return;
       }
 
-      // Onaylı aday için 100€ ödeme adımı
-      const confirmed = confirm(
-        "💳 AVRUPA VIP HAVUZ KATILIM ÖDEMESİ (100€)\n\n" +
-        "Hesabınız başarıyla onaylanmıştır!\n" +
-        "100€ ödemeyi tamamladığınızda otomatik olarak Avrupa Aday Havuzu'na dahil edilecek ve taşımacılık birliklerine profiliniz iletilecektir.\n\n" +
-        "Ödemeyi onaylıyor musunuz?"
-      );
+      // Onaylı aday için 100€ web onay penceresi
+      const confirmed = await window.showSiteConfirm({
+        title: 'Avrupa VIP Havuz Katılımı (100€)',
+        message: 'Hesabınız onaylanmıştır! 100€ katılım ödemesini tamamladığınızda otomatik olarak Avrupa Aday Havuzu\'na dahil edilecek ve lojistik firmalarına profiliniz doğrudan açılacaktır. Onaylıyor musunuz?',
+        confirmText: '100€ Ödemeyi Onayla',
+        cancelText: 'Vazgeç',
+        type: 'success'
+      });
 
       if (confirmed) {
         currentCandidate.hasPaid100 = true;
@@ -925,8 +1012,21 @@
           await window.saveApplicationToHosting(currentCandidate);
         }
 
+        // Admin Paneline Canlı İlet
+        if (typeof window.atsBroadcastSync === 'function') {
+          window.atsBroadcastSync('DRIVER_VIP_POOL_JOINED', {
+            candidateId: currentCandidate.id,
+            candidateName: currentCandidate.fullName || 'Sürücü Adayı',
+            candidate: currentCandidate
+          });
+        }
+
         renderCandidateUI(currentCandidate);
-        alert("🎉 TEBRİKLER! 100€ ödemeniz onaylandı.\n\nProfiliniz otomatik olarak AVRUPA ADAY HAVUZU'na aktarılmıştır ve filo yöneticilerine açılmıştır.");
+        window.showSiteNotification({
+          type: 'success',
+          title: 'Tebrikler! VIP Havuzdasınız',
+          message: "100€ katılım ödemeniz onaylandı. Profiliniz otomatik olarak AVRUPA ADAY HAVUZU'na aktarılmıştır ve admin paneline yansıtılmıştır."
+        });
       }
     }
 
@@ -1003,8 +1103,22 @@
           await window.saveApplicationToHosting(currentCandidate);
         }
 
+        // 4. Admin paneline yayınla
+        if (typeof window.atsBroadcastSync === 'function' && currentCandidate) {
+          window.atsBroadcastSync('DRIVER_PASSWORD_CHANGED', {
+            candidateId: currentCandidate.id,
+            candidateName: currentCandidate.fullName || 'Sürücü'
+          });
+        }
+
         feedback.className = 'font-label-sm text-label-sm text-status-success font-semibold';
         feedback.textContent = '✅ Şifreniz başarıyla güncellendi!';
+
+        window.showSiteNotification({
+          type: 'success',
+          title: 'Şifreniz Güncellendi',
+          message: 'Yeni giriş şifreniz başarıyla kaydedildi ve tüm sistemle eşitlendi.'
+        });
 
         document.getElementById('currentPassInput').value = '';
         document.getElementById('newPassInput').value = '';
@@ -1025,39 +1139,204 @@
       }
     }
 
-    // Destek Hattı Modal
-    function openSupportModal() {
-      const subject = prompt("Lütfen destek talebinizin konusunu yazınız:");
-      if (!subject) return;
-      const message = prompt("Lütfen danışmanınıza iletmek istediğiniz mesajınızı yazınız:");
-      if (!message) return;
+    // Profil Düzenleme Modalı Aç/Kapat/Kaydet
+    function openEditProfileModal() {
+      if (!currentCandidate) return;
+      const phoneInput = document.getElementById('editDriverPhone');
+      const emailInput = document.getElementById('editDriverEmail');
+      const cityInput = document.getElementById('editDriverCity');
+      const expInput = document.getElementById('editDriverExp');
 
-      alert("Destek talebiniz operasyon masasına iletildi. Yönetici ekibimiz en kısa sürede profilinize özel danışman notu olarak dönüş yapacaktır.");
+      if (phoneInput) phoneInput.value = currentCandidate.phone || '';
+      if (emailInput) emailInput.value = currentCandidate.email || '';
+      if (cityInput) cityInput.value = currentCandidate.city || '';
+      if (expInput) expInput.value = currentCandidate.experienceYears || '';
+
+      const modal = document.getElementById('editProfileModal');
+      if (modal) modal.classList.remove('hidden');
     }
 
-    // Profil Güncelleme
-    function openEditProfileModal() {
-      alert("Profil bilgileriniz admin paneli ile senkronizedir. Güncelleme talepleriniz otomatik olarak incelenmektedir.");
+    function closeEditProfileModal() {
+      const modal = document.getElementById('editProfileModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function submitEditProfileModal() {
+      if (!currentCandidate) return;
+
+      const phone = (document.getElementById('editDriverPhone')?.value || '').trim();
+      const email = (document.getElementById('editDriverEmail')?.value || '').trim();
+      const city = (document.getElementById('editDriverCity')?.value || '').trim();
+      const exp = (document.getElementById('editDriverExp')?.value || '').trim();
+
+      if (!phone) {
+        window.showSiteNotification({ type: 'warning', message: 'Lütfen geçerli bir telefon numarası giriniz.' });
+        return;
+      }
+
+      currentCandidate.phone = phone;
+      if (email) currentCandidate.email = email;
+      if (city) currentCandidate.city = city;
+      if (exp) currentCandidate.experienceYears = exp;
+
+      // Session & LocalStorage güncelle
+      try {
+        let session = JSON.parse(sessionStorage.getItem('user_session') || localStorage.getItem('user_session') || '{}');
+        Object.assign(session, { phone, email, city, experienceYears: exp });
+        sessionStorage.setItem('user_session', JSON.stringify(session));
+        localStorage.setItem('user_session', JSON.stringify(session));
+      } catch(e) {}
+
+      try {
+        let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
+        const idx = apps.findIndex(a => a.id === currentCandidate.id || a.email === currentCandidate.email);
+        if (idx !== -1) {
+          apps[idx] = currentCandidate;
+          localStorage.setItem('ats_applications', JSON.stringify(apps));
+        }
+      } catch(e) {}
+
+      if (typeof window.saveApplicationToHosting === 'function') {
+        await window.saveApplicationToHosting(currentCandidate);
+      }
+
+      // Admin Paneline Canlı İlet
+      if (typeof window.atsBroadcastSync === 'function') {
+        window.atsBroadcastSync('DRIVER_PROFILE_UPDATED', {
+          candidateId: currentCandidate.id,
+          candidateName: currentCandidate.fullName || 'Sürücü',
+          candidate: currentCandidate
+        });
+      }
+
+      closeEditProfileModal();
+      renderCandidateUI(currentCandidate);
+      window.showSiteNotification({
+        type: 'success',
+        title: 'Profil Güncellendi',
+        message: 'Profil ve iletişim bilgileriniz başarıyla güncellendi ve admin paneline canlı aktarıldı.'
+      });
+    }
+
+    // Destek Hattı / Danışmana Mesaj Modalı Aç/Kapat/Gönder
+    function openSupportModal() {
+      const modal = document.getElementById('supportRequestModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeSupportModal() {
+      const modal = document.getElementById('supportRequestModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function submitSupportModal() {
+      if (!currentCandidate) return;
+
+      const subject = (document.getElementById('supportModalSubject')?.value || '').trim();
+      const message = (document.getElementById('supportModalMessage')?.value || '').trim();
+
+      if (!subject || !message) {
+        window.showSiteNotification({ type: 'warning', message: 'Lütfen konu başlığı ve mesajınızı eksiksiz doldurunuz.' });
+        return;
+      }
+
+      const msgEntry = {
+        id: 'MSG-' + Date.now(),
+        subject: subject,
+        message: message,
+        date: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'})
+      };
+
+      if (!Array.isArray(currentCandidate.supportMessages)) {
+        currentCandidate.supportMessages = [];
+      }
+      currentCandidate.supportMessages.unshift(msgEntry);
+      currentCandidate.extraNotes = (currentCandidate.extraNotes ? currentCandidate.extraNotes + '\n' : '') + `[${msgEntry.date} Sürücü Mesajı]: ${subject} - ${message}`;
+
+      // LocalStorage & Cloud Kaydet
+      try {
+        let apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
+        const idx = apps.findIndex(a => a.id === currentCandidate.id || a.email === currentCandidate.email);
+        if (idx !== -1) {
+          apps[idx] = currentCandidate;
+          localStorage.setItem('ats_applications', JSON.stringify(apps));
+        }
+      } catch(e) {}
+
+      if (typeof window.saveApplicationToHosting === 'function') {
+        await window.saveApplicationToHosting(currentCandidate);
+      }
+
+      // Admin Paneline Canlı İlet
+      if (typeof window.atsBroadcastSync === 'function') {
+        window.atsBroadcastSync('DRIVER_SUPPORT_MESSAGE', {
+          candidateId: currentCandidate.id,
+          candidateName: currentCandidate.fullName || 'Sürücü',
+          subject: subject,
+          message: message
+        });
+      }
+
+      closeSupportModal();
+      document.getElementById('supportModalSubject').value = '';
+      document.getElementById('supportModalMessage').value = '';
+
+      window.showSiteNotification({
+        type: 'success',
+        title: 'Talebiniz İletildi',
+        message: 'Destek talebiniz operasyon masasına ve danışmanınıza iletildi. En kısa sürede dönüş yapılacaktır.'
+      });
     }
 
     // Logout
-    function handleLogout() {
-      if (confirm('Oturumunuz kapatılacaktır. Onaylıyor musunuz?')) {
+    async function handleLogout() {
+      const ok = await window.showSiteConfirm({
+        title: 'Oturumu Kapat',
+        message: 'Sürücü portalından güvenli çıkış yapmak istiyor musunuz?',
+        confirmText: 'Çıkış Yap',
+        cancelText: 'Vazgeç',
+        type: 'danger'
+      });
+      if (ok) {
         sessionStorage.removeItem('user_session');
         localStorage.removeItem('user_session');
         window.location.href = 'surucu-paneli.html';
       }
     }
 
-    // Listen to real-time BroadcastChannel updates from Admin Panel
-    if (typeof BroadcastChannel !== 'undefined') {
+    // Real-time synchronization listener (Admin -> Driver)
+    function handleDriverIncomingSync(eventData) {
+      if (!eventData || !currentCandidate) return;
+      const type = eventData.type;
+      const p = eventData.payload || eventData;
+
+      if (type === 'ADMIN_UPDATED_CANDIDATE' || type === 'APPLICATIONS_SYNCED') {
+        const targetId = p.candidateId || (p.candidate && p.candidate.id);
+        if (!targetId || targetId === currentCandidate.id || targetId === currentCandidate.referenceNumber) {
+          // Fresh reload from storage
+          try {
+            const apps = JSON.parse(localStorage.getItem('ats_applications') || '[]');
+            const fresh = apps.find(a => a.id === currentCandidate.id || a.email === currentCandidate.email);
+            if (fresh) {
+              currentCandidate = fresh;
+              renderCandidateUI(currentCandidate);
+              window.showSiteNotification({
+                type: 'info',
+                title: 'Dosyanız Güncellendi',
+                message: 'Yönetici ekibi dosyanızda/durumunuzda güncelleme yaptı.'
+              });
+            }
+          } catch(e) {}
+        }
+      }
+    }
+
+    if (typeof window.atsOnSync === 'function') {
+      window.atsOnSync(handleDriverIncomingSync);
+    } else if (typeof BroadcastChannel !== 'undefined') {
       const channel = new BroadcastChannel('ats_portal_sync');
       channel.onmessage = function (event) {
-        if (event.data && currentCandidate) {
-          if (event.data.type === 'APPLICATION_SUBMITTED' || event.data.type === 'APPLICATIONS_SYNCED') {
-            loadCandidateDashboard();
-          }
-        }
+        if (event.data) handleDriverIncomingSync(event.data);
       };
     }
 

@@ -56,7 +56,7 @@
       background: #d97706;
     }
   </style>
-
+  <script src="js/site-notifications.js?v=20261027_v1"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script id="tailwind-config">
     tailwind.config = {
@@ -757,17 +757,30 @@
       }
 
       // Real-time tab sync with Admin Panel
-      if (typeof BroadcastChannel !== 'undefined') {
+      if (typeof window.atsBroadcastSync === 'function') {
+        window.atsBroadcastSync('DRIVER_DOCUMENTS_CHANGED', {
+          candidateId: activeCandidate.id,
+          candidateName: activeCandidate.fullName || 'Sürücü',
+          docTitle: docTitle || 'Belge',
+          documents: activeCandidate.documents
+        });
+      } else if (typeof BroadcastChannel !== 'undefined') {
         const ch = new BroadcastChannel('ats_portal_sync');
         ch.postMessage({
           type: 'DOCUMENTS_UPLOADED',
           candidateId: activeCandidate.id,
+          candidateName: activeCandidate.fullName || 'Sürücü',
+          docTitle: docTitle || 'Belge',
           documents: activeCandidate.documents
         });
       }
 
       renderDriverDocuments();
-      alert(`"${file.name}" (${sizeMb} MB) seçildi.\n"${docTitle}" belgesi başarıyla yüklendi ve danışman inceleme masasına iletildi.`);
+      window.showSiteNotification({
+        type: 'success',
+        title: 'Evrak Yüklendi',
+        message: `"${file.name}" (${sizeMb} MB) seçildi. "${docTitle}" belgesi başarıyla yüklendi ve danışman inceleme masasına iletildi.`
+      });
     }
 
     async function handleUniversalFile(event) {
@@ -830,17 +843,30 @@
       }
 
       // Real-time tab sync with Admin Panel
-      if (typeof BroadcastChannel !== 'undefined') {
+      if (typeof window.atsBroadcastSync === 'function') {
+        window.atsBroadcastSync('DRIVER_DOCUMENTS_CHANGED', {
+          candidateId: activeCandidate.id,
+          candidateName: activeCandidate.fullName || 'Sürücü',
+          docTitle: targetDef.title || 'Belge',
+          documents: activeCandidate.documents
+        });
+      } else if (typeof BroadcastChannel !== 'undefined') {
         const ch = new BroadcastChannel('ats_portal_sync');
         ch.postMessage({
           type: 'DOCUMENTS_UPLOADED',
           candidateId: activeCandidate.id,
+          candidateName: activeCandidate.fullName || 'Sürücü',
+          docTitle: targetDef.title || 'Belge',
           documents: activeCandidate.documents
         });
       }
 
       renderDriverDocuments();
-      alert(`"${file.name}" yüklendi.\nBelgeniz operasyon masasına ve danışmanınıza iletildi.`);
+      window.showSiteNotification({
+        type: 'success',
+        title: 'Evrak Yüklendi',
+        message: `"${file.name}" yüklendi. Belgeniz operasyon masasına ve danışmanınıza iletildi.`
+      });
     }
 
     function updateProgressUI(done, total) {
@@ -883,21 +909,40 @@
     }
 
     function downloadDocument(fileName) {
-      alert(`"${fileName}" indirme işlemi başlatıldı.`);
+      window.showSiteNotification({
+        type: 'info',
+        title: 'İndirme Başlatıldı',
+        message: `"${fileName}" indirme işlemi başlatıldı.`
+      });
     }
 
     function refreshDocumentList() {
-      alert("Evrak listesi ve danışman inceleme durumları güncellendi.");
       initCandidateData();
+      window.showSiteNotification({
+        type: 'success',
+        title: 'Liste Güncellendi',
+        message: "Evrak listesi ve danışman inceleme durumları güncellendi."
+      });
     }
 
     function openSupportModal() {
       const cName = (activeCandidate && activeCandidate.assignedConsultant && activeCandidate.assignedConsultant.name) || 'Serkan Alçay';
-      alert(`Destek Hattı: Evrak yükleme veya barkodlu döküm konusunda danışmanınız ${cName} ile iletişime geçebilirsiniz.`);
+      window.showSiteNotification({
+        type: 'info',
+        title: 'Danışman Destek Hattı',
+        message: `Evrak yükleme veya barkodlu döküm konusunda danışmanınız ${cName} ile iletişime geçebilirsiniz.`
+      });
     }
 
-    function handleLogout() {
-      if (confirm('Oturumunuz kapatılacaktır. Onaylıyor musunuz?')) {
+    async function handleLogout() {
+      const ok = await window.showSiteConfirm({
+        title: 'Oturumu Kapat',
+        message: 'Sürücü portalından güvenli çıkış yapmak istiyor musunuz?',
+        confirmText: 'Çıkış Yap',
+        cancelText: 'Vazgeç',
+        type: 'danger'
+      });
+      if (ok) {
         sessionStorage.removeItem('user_session');
         localStorage.removeItem('user_session');
         window.location.href = 'surucu-paneli.html';
@@ -927,12 +972,28 @@
     }
 
     // Real-time tab sync: Update driver portal when admin modifies document statuses or appointments
-    if (typeof BroadcastChannel !== 'undefined') {
+    function handleDriverDocSync(ev) {
+      if (!ev) return;
+      const type = ev.type;
+      const p = ev.payload || ev;
+      if (type === 'ADMIN_UPDATED_CANDIDATE' || type === 'APPLICATIONS_SYNCED' || type === 'DOCUMENTS_UPLOADED') {
+        initCandidateData();
+        if (type === 'ADMIN_UPDATED_CANDIDATE') {
+          window.showSiteNotification({
+            type: 'info',
+            title: 'Evrak İncelemesi Güncellendi',
+            message: 'Danışmanınız evrak durumlarınızı inceledi ve güncelledi.'
+          });
+        }
+      }
+    }
+
+    if (typeof window.atsOnSync === 'function') {
+      window.atsOnSync(handleDriverDocSync);
+    } else if (typeof BroadcastChannel !== 'undefined') {
       const portalBc = new BroadcastChannel('ats_portal_sync');
       portalBc.onmessage = function (ev) {
-        if (ev.data && (ev.data.type === 'APPLICATIONS_SYNCED' || ev.data.type === 'APPOINTMENT_UPDATED' || ev.data.type === 'DOCUMENTS_UPLOADED')) {
-          initCandidateData();
-        }
+        if (ev.data) handleDriverDocSync(ev.data);
       };
     }
 

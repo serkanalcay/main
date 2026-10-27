@@ -56,7 +56,7 @@
       background: #d97706;
     }
   </style>
-
+  <script src="js/site-notifications.js?v=20261027_v1"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script id="tailwind-config">
     tailwind.config = {
@@ -1200,9 +1200,15 @@
         }
 
         // Broadcast real-time sync to admin panel and other tabs
-        if (typeof BroadcastChannel !== 'undefined') {
+        if (typeof window.atsBroadcastSync === 'function') {
+          window.atsBroadcastSync('DRIVER_APPOINTMENT_CHANGED', {
+            candidateId: activeCandidate.id,
+            candidateName: activeCandidate.fullName || 'Sürücü Adayı',
+            appointment: appointmentObj
+          });
+        } else if (typeof BroadcastChannel !== 'undefined') {
           const ch = new BroadcastChannel('ats_portal_sync');
-          ch.postMessage({ type: 'APPOINTMENT_CREATED', appointment: appointmentObj, candidateId: activeCandidate.id });
+          ch.postMessage({ type: 'APPOINTMENT_CREATED', appointment: appointmentObj, candidateId: activeCandidate.id, candidateName: activeCandidate.fullName });
         }
       }
 
@@ -1213,14 +1219,20 @@
       if (plannedDetailEl) plannedDetailEl.textContent = `${typeTitles[meetingType]} • ${subjectTitles[meetingSubject]}`;
 
       const confirmText = document.getElementById('confirmation-text');
+      const feeMsg = feeAmount > 0 ? ` (50€ seans ödemesi onaylandı)` : ` (VIP Üyelik Kapsamında)`;
       if (banner) {
         if (confirmText) {
-          const feeMsg = feeAmount > 0 ? ` (50€ seans ödemesi onaylandı)` : ` (VIP Üyelik Kapsamında)`;
-          confirmText.innerText = `Danışmanınız ${consultantName} ile ${dateVal} saat ${timeVal} için randevu talebiniz başarıyla kaydedildi${feeMsg}.`;
+          confirmText.innerText = `Danışmanınız ${consultantName || 'Serkan Alçay'} ile ${dateVal} saat ${timeVal} için randevu talebiniz başarıyla kaydedildi${feeMsg}.`;
         }
         banner.classList.remove('hidden');
         banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
+
+      window.showSiteNotification({
+        type: 'success',
+        title: 'Randevu Talebi Alındı',
+        message: `Danışmanınız ${consultantName || 'Serkan Alçay'} ile ${dateVal} saat ${timeVal} için görüşme randevunuz kaydedildi ve admin paneline yansıtıldı.`
+      });
 
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -1231,26 +1243,51 @@
 
     function openSupportModal() {
       const cName = (activeCandidate && activeCandidate.assignedConsultant && activeCandidate.assignedConsultant.name) || 'Serkan Alçay';
-      alert(`Destek Masası: Lojistik kariyer danışmanınız ${cName}'a sorularınızı randevu esnasında veya profil notu üzerinden doğrudan iletebilirsiniz.`);
+      window.showSiteNotification({
+        type: 'info',
+        title: 'Danışman Destek Masası',
+        message: `Lojistik kariyer danışmanınız ${cName}'a sorularınızı randevu esnasında veya profil notu üzerinden doğrudan iletebilirsiniz.`
+      });
     }
 
-    function handleLogout() {
-      if (confirm('Oturumunuz kapatılacaktır. Onaylıyor musunuz?')) {
+    async function handleLogout() {
+      const ok = await window.showSiteConfirm({
+        title: 'Oturumu Kapat',
+        message: 'Sürücü portalından güvenli çıkış yapmak istiyor musunuz?',
+        confirmText: 'Çıkış Yap',
+        cancelText: 'Vazgeç',
+        type: 'danger'
+      });
+      if (ok) {
         sessionStorage.removeItem('user_session');
         localStorage.removeItem('user_session');
         window.location.href = 'surucu-paneli.html';
       }
     }
 
-    // Listen to real-time BroadcastChannel updates from Admin Panel
-    if (typeof BroadcastChannel !== 'undefined') {
+    // Listen to real-time sync updates from Admin Panel
+    function handleIncomingApptSync(ev) {
+      if (!ev || !activeCandidate) return;
+      const type = ev.type;
+      const p = ev.payload || ev;
+      if (type === 'ADMIN_UPDATED_CANDIDATE' || type === 'APPLICATIONS_SYNCED' || type === 'APPOINTMENT_UPDATED') {
+        initCandidateData();
+        if (type === 'ADMIN_UPDATED_CANDIDATE') {
+          window.showSiteNotification({
+            type: 'info',
+            title: 'Randevu Durumu Güncellendi',
+            message: 'Danışmanınız görüşme randevunuz veya dosyanız hakkında güncelleme yaptı.'
+          });
+        }
+      }
+    }
+
+    if (typeof window.atsOnSync === 'function') {
+      window.atsOnSync(handleIncomingApptSync);
+    } else if (typeof BroadcastChannel !== 'undefined') {
       const channel = new BroadcastChannel('ats_portal_sync');
       channel.onmessage = function (event) {
-        if (event.data && activeCandidate) {
-          if (event.data.type === 'APPLICATIONS_SYNCED' || event.data.type === 'APPOINTMENT_UPDATED') {
-            initCandidateData();
-          }
-        }
+        if (event.data) handleIncomingApptSync(event.data);
       };
     }
 
