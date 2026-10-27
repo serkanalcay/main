@@ -18,31 +18,41 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
   <style>
-    @layer base {
-      html, body {
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        overscroll-behavior: none;
-      }
-      main > :first-child {
-        margin-top: 0 !important;
-      }
-      main > :last-child {
-        margin-bottom: 0 !important;
-      }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 #f1f5f9;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-height: 100vh;
+    }
+    main > :first-child {
+      margin-top: 0 !important;
+    }
+    main > :last-child {
+      margin-bottom: 0 !important;
     }
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
     }
     ::-webkit-scrollbar-thumb {
       background: #cbd5e1;
       border-radius: 4px;
     }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #d97706;
+    }
     ::-webkit-scrollbar-track {
-      background: transparent;
+      background: #f1f5f9;
     }
   </style>
 
