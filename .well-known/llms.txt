@@ -1,0 +1,9 @@
+# avrupatirsoforu.com - Avrupa Tır Şoförlüğü, Kod 95 ve Uluslararası Ağır Vasıta İstihdam Portalı
+
+> Türkiye'deki C ve CE sınıfı ehliyet sahibi profesyonel tır şoförlerinin Almanya, Polonya, Hollanda ve Avrupa Birliği ülkelerinde yasal istihdamı, Kod 95 (EU Code 95) mesleki yeterlilik süreçleri, ehliyet denkliği ve doğrudan kurumsal lojistik filolarıyla işveren eşleşmesi için Türkiye'nin lider resmi danışmanlık ve başvuru platformu.
+
+- Ana Dizin: https://avrupatirsoforu.com/llms.txt
+- Tam Bilgi Deposu (Full GEO Document): https://avrupatirsoforu.com/llms-full.txt
+- Online Başvuru & Ücretsiz Evrak İnceleme: https://avrupatirsoforu.com/basvuru.html
+- Hizmetlerimiz & Kod 95 Danışmanlığı: https://avrupatirsoforu.com/hizmetler.html
+
