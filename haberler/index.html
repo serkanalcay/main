@@ -290,6 +290,10 @@
         <div class="max-w-7xl mx-auto flex flex-col gap-6">
           <!-- Breadcrumb & Badges -->
           <div class="flex flex-wrap items-center gap-3">
+            <span id="newsMansetBadge" class="hidden items-center gap-1.5 px-3 py-1 rounded-full bg-primary-container text-secondary-container font-label-md text-label-md font-extrabold uppercase tracking-wider shadow-sm">
+              <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span>MANŞET HABER</span>
+            </span>
             <span id="newsCategoryBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-canvas-dark font-label-md text-label-md font-bold uppercase tracking-wider shadow-sm">
               <span class="material-symbols-outlined text-[16px]">local_shipping</span>
               <span id="newsCategoryText">Haberler &amp; Duyurular</span>
@@ -337,8 +341,8 @@
         </div>
       </div>
 
-      <!-- Featured Media Section -->
-      <div id="newsHeroSection" class="w-full max-w-7xl mx-auto px-6 lg:px-12 -mt-4 mb-10 hidden">
+      <!-- Featured Media Section (Sadece bu içerikle alakalı admin tarafından yüklenen görsel gösterilir) -->
+      <div id="newsHeroSection" class="w-full max-w-7xl mx-auto px-6 lg:px-12 -mt-4 mb-8 hidden">
         <div class="relative w-full rounded-2xl overflow-hidden shadow-xl aspect-[21/9] min-h-[340px] max-h-[500px]">
           <img id="newsHeroImage" alt="Haber Kapak Görseli" class="w-full h-full object-cover" src="">
           <div class="absolute inset-0 bg-gradient-to-t from-canvas-dark/85 via-canvas-dark/20 to-transparent flex items-end p-6 lg:p-8">
@@ -349,6 +353,20 @@
               </span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Manşet Seçilen Diğer İçerikler Vitrini (Birden fazla manşet olduğunda büyük görselleriyle en başta gösterilir) -->
+      <div id="mansetShowcaseSection" class="w-full max-w-7xl mx-auto px-6 lg:px-12 mb-6 hidden">
+        <div class="bg-surface-container-low p-5 rounded-2xl border border-outline-variant/20">
+          <div class="flex items-center justify-between mb-4">
+            <span class="inline-flex items-center gap-1.5 font-label-md text-label-md font-extrabold uppercase tracking-wider text-primary">
+              <span class="material-symbols-outlined text-[18px] text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+              Manşet Haberler
+            </span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">Okumak istediğiniz manşet habere tıklayın</span>
+          </div>
+          <div id="mansetShowcaseGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
       </div>
 
@@ -442,14 +460,14 @@
         </div>
       </div>
 
-      <!-- Related News Section (İlgili Diğer Haberler) -->
+      <!-- Related News Section (En Son Girilen Diğer Haberler) -->
       <section class="w-full bg-surface-container py-14 px-6 lg:px-12 mt-4" id="ilgili-haberler">
         <div class="max-w-7xl mx-auto flex flex-col gap-8">
           <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider">Mevzuat &amp; Filo Rehberleri</span>
               <h3 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
-                İlgili Diğer Haberler ve Gelişmeler
+                En Son Girilen Diğer Haberler
               </h3>
             </div>
           </div>
@@ -543,6 +561,17 @@
     (function() {
       var STORAGE_KEY = 'ats_news_articles';
       var ARTICLES_MAP = {};
+      var ALL_PUBLISHED_ARTICLES = [];
+      var CURRENT_ARTICLE_ID = null;
+
+      function sanitizeArticleImage(imgVal) {
+        var str = String(imgVal || '').trim();
+        if (!str) return '';
+        // Otomatik veya varsayılan eski görselleri kesinlikle engelle; sadece adminin yüklediği görsel gösterilir
+        if (str.indexOf('lh3.googleusercontent.com/aida-public') !== -1) return '';
+        if (str.indexOf('admin-panel.html') !== -1 || str.indexOf('haberler.html') !== -1) return '';
+        return str;
+      }
 
       function getStoredArticles() {
         try {
@@ -550,11 +579,18 @@
           if (!raw) return [];
           var parsed = JSON.parse(raw);
           if (!Array.isArray(parsed)) return [];
-          // Clean out any legacy seed articles
+          var changed = false;
           var clean = parsed.filter(function(item) {
             return item && !item.isSeed && String(item.id || '').indexOf('seed-') !== 0;
+          }).map(function(item) {
+            var cleanImg = sanitizeArticleImage(item.image);
+            if (cleanImg !== (item.image || '')) {
+              item.image = cleanImg;
+              changed = true;
+            }
+            return item;
           });
-          if (clean.length !== parsed.length) {
+          if (clean.length !== parsed.length || changed) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(clean));
           }
           return clean.filter(function(item) {
@@ -603,22 +639,32 @@
       }
 
       function renderEmptyState() {
+        CURRENT_ARTICLE_ID = null;
+        var mansetBadgeEl = document.getElementById('newsMansetBadge');
         var catEl = document.getElementById('newsCategoryText');
         var dateEl = document.getElementById('newsDateText');
         var readEl = document.getElementById('newsReadTimeText');
         var titleEl = document.getElementById('newsMainTitle');
         var heroSectionEl = document.getElementById('newsHeroSection');
+        var heroImgEl = document.getElementById('newsHeroImage');
+        var mansetShowcaseEl = document.getElementById('mansetShowcaseSection');
         var summaryEl = document.getElementById('newsLeadSummary');
         var bodyEl = document.getElementById('newsDynamicBody');
         var tagsEl = document.getElementById('newsTagsContainer');
         var sidebarList = document.getElementById('sidebarNewsList');
         var relatedGrid = document.getElementById('relatedNewsGrid');
 
+        if (mansetBadgeEl) {
+          mansetBadgeEl.classList.add('hidden');
+          mansetBadgeEl.classList.remove('inline-flex');
+        }
         if (catEl) catEl.textContent = 'Haberler & Duyurular';
         if (dateEl) dateEl.textContent = '-';
         if (readEl) readEl.textContent = '-';
         if (titleEl) titleEl.textContent = 'Henüz Yayınlanmış Bir Haber Bulunmuyor';
+        if (heroImgEl) heroImgEl.removeAttribute('src');
         if (heroSectionEl) heroSectionEl.classList.add('hidden');
+        if (mansetShowcaseEl) mansetShowcaseEl.classList.add('hidden');
         if (summaryEl) {
           summaryEl.textContent = '';
           summaryEl.classList.add('hidden');
@@ -629,8 +675,109 @@
         if (relatedGrid) relatedGrid.innerHTML = '';
       }
 
+      // Manşet Seçilen İçeriklerin Üst Vitrini (Birden fazla manşet olduğunda veya farklı bir habere bakılırken manşetleri büyük resimleriyle en başta gösterir)
+      function renderMansetShowcase(activeArticleId) {
+        var showcaseSection = document.getElementById('mansetShowcaseSection');
+        var showcaseGrid = document.getElementById('mansetShowcaseGrid');
+        if (!showcaseSection || !showcaseGrid) return;
+
+        var mansetArticles = ALL_PUBLISHED_ARTICLES.filter(function(item) {
+          return item && item.isManset === true;
+        });
+
+        // Eğer birden fazla manşet varsa veya şu an okunan içerik manşet değilse manşet vitrinini büyük görsellerle en üstte göster
+        var activeIsManset = mansetArticles.some(function(m) { return m.id === activeArticleId; });
+        if (mansetArticles.length > 1 || (mansetArticles.length === 1 && !activeIsManset)) {
+          showcaseSection.classList.remove('hidden');
+          showcaseGrid.innerHTML = mansetArticles.map(function(item) {
+            var isCurrent = item.id === activeArticleId;
+            var activeRing = isCurrent ? 'ring-2 ring-secondary-container shadow-lg' : 'hover:shadow-lg opacity-95 hover:opacity-100';
+            var itemImg = sanitizeArticleImage(item.image);
+            var imgBlock = itemImg
+              ? '<div class="relative h-44 w-full overflow-hidden"><img src="' + itemImg + '" alt="' + (item.title || '').replace(/"/g, '&quot;') + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"><div class="absolute inset-0 bg-gradient-to-t from-canvas-dark/80 via-transparent to-transparent"></div><span class="absolute top-2.5 left-2.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-container text-secondary-container font-label-sm text-[11px] font-extrabold uppercase"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings:\'FILL\' 1;">star</span>Manşet</span></div>'
+              : '<div class="p-3 pb-0"><span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-container text-secondary-container font-label-sm text-[11px] font-extrabold uppercase"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings:\'FILL\' 1;">star</span>Manşet</span></div>';
+            return '<a href="#' + item.id + '" onclick="event.preventDefault(); window.selectNewsArticle(\'' + item.id + '\');" class="group bg-surface-card rounded-xl overflow-hidden flex flex-col justify-between transition-all cursor-pointer ' + activeRing + '">' +
+              imgBlock +
+              '<div class="p-4 flex flex-col gap-1.5">' +
+              '<span class="font-label-sm text-[11px] text-on-surface-variant">' + (item.date || item.createdAt || '') + '</span>' +
+              '<h4 class="font-headline-sm text-[15px] font-bold text-on-surface leading-snug group-hover:text-secondary transition-colors line-clamp-2">' + item.title + '</h4>' +
+              '</div></a>';
+          }).join('');
+        } else {
+          showcaseSection.classList.add('hidden');
+          showcaseGrid.innerHTML = '';
+        }
+      }
+
+      // Sağ Sütun "Son Haberler & Duyurular" Listesi
+      function renderSidebarList(activeArticleId) {
+        var sidebarList = document.getElementById('sidebarNewsList');
+        if (!sidebarList) return;
+        if (!ALL_PUBLISHED_ARTICLES.length) {
+          sidebarList.innerHTML = '<p class="font-body-sm text-body-sm text-on-surface-variant">Henüz yayınlanmış bir haber bulunmuyor.</p>';
+          return;
+        }
+        sidebarList.innerHTML = ALL_PUBLISHED_ARTICLES.slice(0, 10).map(function(item) {
+          var isCurrent = item.id === activeArticleId;
+          var mansetBadge = item.isManset
+            ? '<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-secondary-container/25 text-secondary font-bold text-[10px] uppercase"><span class="material-symbols-outlined text-[12px]" style="font-variation-settings:\'FILL\' 1;">star</span>Manşet</span>'
+            : '';
+          return '<a class="group flex flex-col gap-1 pb-3 border-b border-outline-variant/15 last:border-none hover:opacity-85 transition-opacity cursor-pointer ' + (isCurrent ? 'bg-surface-subtle/70 -mx-2 px-2 py-1.5 rounded-lg' : '') + '" href="#' + item.id + '" onclick="event.preventDefault(); window.selectNewsArticle(\'' + item.id + '\');">' +
+            '<div class="flex items-center justify-between gap-2">' +
+            '<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">' +
+            '<span class="material-symbols-outlined text-[14px]">event</span> ' + (item.date || item.createdAt || 'Yeni') +
+            '</span>' +
+            mansetBadge +
+            '</div>' +
+            '<h5 class="font-headline-sm text-[15px] leading-snug font-bold ' + (isCurrent ? 'text-secondary' : 'text-on-surface') + ' group-hover:text-secondary transition-colors">' +
+            item.title +
+            '</h5></a>';
+        }).join('');
+      }
+
+      // Alt Kısım: "En Son Girilen Diğer Haberler"
+      function renderBottomOtherNews(activeArticleId) {
+        var relatedGrid = document.getElementById('relatedNewsGrid');
+        if (!relatedGrid) return;
+
+        // Şu an okunan haber haricindeki en son girilen diğer tüm haberler
+        var otherArticles = ALL_PUBLISHED_ARTICLES.filter(function(item) {
+          return item && item.id !== activeArticleId;
+        });
+
+        if (!otherArticles.length) {
+          relatedGrid.innerHTML = '';
+          return;
+        }
+
+        relatedGrid.innerHTML = otherArticles.map(function(item) {
+          var cleanImg = sanitizeArticleImage(item.image);
+          var mansetTag = item.isManset
+            ? '<span class="px-2.5 py-1 rounded bg-secondary-container text-canvas-dark font-label-sm text-label-sm font-extrabold uppercase inline-flex items-center gap-1"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings:\'FILL\' 1;">star</span>Manşet</span>'
+            : '';
+          var imgHtml = cleanImg
+            ? '<div class="relative h-52 w-full overflow-hidden"><img alt="' + (item.title || '').replace(/"/g, '&quot;') + '" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" src="' + cleanImg + '"><div class="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">' + mansetTag + '<span class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">' + (item.categoryShort || item.category || 'Haber') + '</span></div></div>'
+            : '<div class="px-5 pt-5 flex flex-wrap items-center gap-1.5">' + mansetTag + '<span class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">' + (item.categoryShort || item.category || 'Haber') + '</span></div>';
+
+          return '<article onclick="window.selectNewsArticle(\'' + item.id + '\');" class="bg-surface-card rounded-2xl overflow-hidden shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow cursor-pointer">' +
+            imgHtml +
+            '<div class="p-5 flex-1 flex flex-col justify-between gap-3">' +
+            '<div class="space-y-2">' +
+            '<span class="font-label-sm text-label-sm text-on-surface-variant">' + (item.date || item.createdAt || '') + ' • ' + (item.readTime || '5 Dk Okuma') + '</span>' +
+            '<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug hover:text-secondary transition-colors">' + item.title + '</h4>' +
+            '<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">' + (item.summary || '') + '</p>' +
+            '</div>' +
+            '<a class="inline-flex items-center gap-1 font-label-md text-label-md font-bold text-secondary hover:text-warning-amber-hover transition-colors pt-2 cursor-pointer" href="#' + item.id + '" onclick="event.stopPropagation(); event.preventDefault(); window.selectNewsArticle(\'' + item.id + '\');">' +
+            '<span>Haberi Oku</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>' +
+            '</a></div></article>';
+        }).join('');
+      }
+
       function renderArticleView(article, shouldScroll) {
         if (!article) return;
+        CURRENT_ARTICLE_ID = article.id;
+
+        var mansetBadgeEl = document.getElementById('newsMansetBadge');
         var catEl = document.getElementById('newsCategoryText');
         var dateEl = document.getElementById('newsDateText');
         var readEl = document.getElementById('newsReadTimeText');
@@ -644,6 +791,16 @@
         var bodyEl = document.getElementById('newsDynamicBody');
         var tagsEl = document.getElementById('newsTagsContainer');
 
+        if (mansetBadgeEl) {
+          if (article.isManset) {
+            mansetBadgeEl.classList.remove('hidden');
+            mansetBadgeEl.classList.add('inline-flex');
+          } else {
+            mansetBadgeEl.classList.add('hidden');
+            mansetBadgeEl.classList.remove('inline-flex');
+          }
+        }
+
         if (catEl) catEl.textContent = article.category || 'Avrupa Lojistik Mevzuatı & Filolar';
         if (dateEl) dateEl.textContent = article.date || article.createdAt || '-';
         if (readEl) readEl.textContent = article.readTime || '5 Dakika Okuma';
@@ -651,12 +808,16 @@
         if (authorNameEl) authorNameEl.textContent = article.authorName || 'Lojistik Danışmanlık Kurulu';
         if (authorRoleEl) authorRoleEl.textContent = article.authorRole || 'Uluslararası Taşımacılık ve Evrak İnceleme Birimi';
 
-        if (article.image) {
-          if (heroImgEl) heroImgEl.src = article.image;
+        // Büyük görsel SADECE bu içerik ile alakalı admin tarafından eklendiyse gösterilir, aksi halde gizlenir
+        var articleImg = sanitizeArticleImage(article.image);
+        if (articleImg) {
+          if (heroImgEl) heroImgEl.src = articleImg;
           if (heroSectionEl) heroSectionEl.classList.remove('hidden');
         } else {
+          if (heroImgEl) heroImgEl.removeAttribute('src');
           if (heroSectionEl) heroSectionEl.classList.add('hidden');
         }
+
         if (heroBadgeTextEl) {
           heroBadgeTextEl.textContent = article.category || 'Avrupa Tır Şoförü İstihdam & Mevzuat Bülteni';
         }
@@ -692,6 +853,11 @@
           }
         }
 
+        // Manşet vitrinini, sağ listeyi ve alttaki "En Son Girilen Diğer Haberler" alanını güncelle
+        renderMansetShowcase(article.id);
+        renderSidebarList(article.id);
+        renderBottomOtherNews(article.id);
+
         document.title = article.title + ' | avrupatirsoforu.com';
         if (shouldScroll) {
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -701,63 +867,32 @@
       function syncAdminPanelArticles(fromArticlesList) {
         var customArticles = Array.isArray(fromArticlesList) ? fromArticlesList.filter(function(item) {
           return item && item.title && item.status !== 'draft' && !item.isSeed && String(item.id || '').indexOf('seed-') !== 0;
+        }).map(function(item) {
+          item.image = sanitizeArticleImage(item.image);
+          return item;
         }) : getStoredArticles();
 
         ARTICLES_MAP = {};
+        ALL_PUBLISHED_ARTICLES = customArticles;
+
         if (!customArticles.length) {
           renderEmptyState();
           return;
         }
 
-        // Register user articles into lookup map
         customArticles.forEach(function(item) {
           if (item.id) ARTICLES_MAP[item.id] = item;
         });
 
-        // Populate Sidebar "Son Haberler & Duyurular" exclusively with user-published articles
-        var sidebarList = document.getElementById('sidebarNewsList');
-        if (sidebarList) {
-          sidebarList.innerHTML = customArticles.slice(0, 6).map(function(item) {
-            return '<a class="group flex flex-col gap-1 pb-3 hover:opacity-80 transition-opacity cursor-pointer" href="#' + item.id + '" onclick="event.preventDefault(); window.selectNewsArticle(\'' + item.id + '\');">' +
-              '<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">' +
-              '<span class="material-symbols-outlined text-[14px]">event</span> ' + (item.date || item.createdAt || 'Yeni') +
-              '</span>' +
-              '<h5 class="font-headline-sm text-[16px] leading-snug font-bold text-on-surface group-hover:text-secondary transition-colors">' +
-              item.title +
-              '</h5></a>';
-          }).join('');
-        }
-
-        // Populate "İlgili Diğer Haberler ve Gelişmeler" grid exclusively with user-published articles
-        var relatedGrid = document.getElementById('relatedNewsGrid');
-        if (relatedGrid) {
-          var relatedItems = customArticles.length > 1 ? customArticles.slice(1, 4) : customArticles.slice(0, 3);
-          relatedGrid.innerHTML = relatedItems.map(function(item) {
-            var imgHtml = item.image
-              ? '<div class="relative h-48 w-full"><img alt="' + (item.title || '').replace(/"/g, '&quot;') + '" class="w-full h-full object-cover" src="' + item.image + '"><span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">' + (item.categoryShort || item.category || 'Haber') + '</span></div>'
-              : '';
-            return '<article class="bg-surface-card rounded-2xl overflow-hidden shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow">' +
-              imgHtml +
-              '<div class="p-5 flex-1 flex flex-col justify-between gap-3">' +
-              '<div class="space-y-2">' +
-              '<span class="font-label-sm text-label-sm text-on-surface-variant">' + (item.date || '') + ' • ' + (item.readTime || '5 Dk Okuma') + '</span>' +
-              '<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">' + item.title + '</h4>' +
-              '<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">' + (item.summary || '') + '</p>' +
-              '</div>' +
-              '<a class="inline-flex items-center gap-1 font-label-md text-label-md font-bold text-secondary hover:text-warning-amber-hover transition-colors pt-2 cursor-pointer" href="#' + item.id + '" onclick="event.preventDefault(); window.selectNewsArticle(\'' + item.id + '\');">' +
-              '<span>İncele</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>' +
-              '</a></div></article>';
-          }).join('');
-        }
-
-        // Show the latest published article from Admin Panel as the main featured news article
+        // URL'de belirli bir haber seçildiyse onu aç; aksi halde MANŞET seçilen içeriği en başta büyük resmiyle göster
         var hashId = (window.location.hash || '').replace(/^#/, '');
         if (hashId && ARTICLES_MAP[hashId]) {
           renderArticleView(ARTICLES_MAP[hashId], false);
         } else {
-          var featured = customArticles.find(function(a) { return a.featured; }) || customArticles[0];
-          if (featured) {
-            renderArticleView(featured, false);
+          var mansetArticle = customArticles.find(function(a) { return a.isManset === true; });
+          var initialArticle = mansetArticle || customArticles[0];
+          if (initialArticle) {
+            renderArticleView(initialArticle, false);
           }
         }
       }
@@ -771,8 +906,10 @@
               var localArticles = getStoredArticles();
               var mergedMap = {};
               var mergedList = [];
-              data.articles.concat(localArticles).forEach(function(art) {
+              // Yerel (admin panelinden yeni kaydedilen) içerikler önceliklidir
+              localArticles.concat(data.articles).forEach(function(art) {
                 if (art && art.id && !art.isSeed && String(art.id).indexOf('seed-') !== 0 && !mergedMap[art.id]) {
+                  art.image = sanitizeArticleImage(art.image);
                   mergedMap[art.id] = true;
                   mergedList.push(art);
                 }
@@ -789,6 +926,9 @@
       window.selectNewsArticle = function(id) {
         var target = ARTICLES_MAP[id];
         if (target) {
+          try {
+            history.replaceState(null, '', '#' + id);
+          } catch (e) {}
           renderArticleView(target, true);
         }
       };

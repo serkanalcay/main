@@ -1560,7 +1560,11 @@
               Web sitenizde ve uluslararası tır şoförü adayları operasyon akışında görünecek yeni makale, karayolu taşımacılığı mevzuatı veya filo duyurusu içeriği oluşturun.
             </p>
           </div>
-          <div class="flex items-center gap-space-sm shrink-0">
+          <div class="flex flex-wrap items-center gap-space-sm shrink-0">
+            <button class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-subtle text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-all shadow-sm cursor-pointer" onclick="resetNewsCmsForm()" title="Yeni İçerik İçin Formu Temizle" type="button">
+              <span class="material-symbols-outlined text-[18px]">add_circle</span>
+              <span>Yeni İçerik Formu</span>
+            </button>
             <button class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container font-label-md text-label-md transition-all shadow-sm cursor-pointer" onclick="handleSaveNewsArticle('draft')" type="button">
               <span class="material-symbols-outlined text-[18px]">drafts</span>
               <span>Taslak Olarak Kaydet</span>
@@ -1689,8 +1693,20 @@
                 <span class="font-label-sm text-label-sm text-outline">1200 x 630 px</span>
               </div>
               <input accept="image/*" class="hidden" id="news-cover-file" onchange="handleNewsCoverFileChange(event)" type="file">
-              <div class="relative group rounded-xl overflow-hidden shadow-sm bg-surface-subtle">
-                <img alt="Haber Kapak Görseli" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" id="news-cover-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvUtLADhxEooKbJ9ikCN_HO292-3KlouB4H_RE1GUhUEnz_ugfAboOtXpsdpIJ7MCuPL5c-dsuxNz-G_B70oXc7-9Q2vYFiFu-VcXdIq6uZTqzRfzS34IUpk27mYT3zy8fk1O5tYn_te4FXrlc96cn3TnvTJZKpIjELJ8qG15HIRcrpr8-osaqVHuXBU5J00QfW-p6UkKATyxNIEDH1UXN3QRSg3eJx3eWT4oTLfs">
+              <input id="news-cover-data" type="hidden" value="">
+
+              <!-- Empty State Dropzone (Shown when no admin image is uploaded) -->
+              <div class="w-full h-48 rounded-xl border-2 border-dashed border-outline-variant/60 bg-surface-subtle hover:bg-surface-container-low transition-colors flex flex-col items-center justify-center gap-2 p-4 text-center cursor-pointer" id="news-cover-empty" onclick="triggerNewsCoverUpload()">
+                <span class="w-11 h-11 rounded-full bg-secondary-container/20 text-on-secondary-fixed flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[24px]">add_photo_alternate</span>
+                </span>
+                <span class="font-label-md text-label-md font-bold text-on-surface">Haber Görseli Yüklemek İçin Tıklayın</span>
+                <span class="font-body-sm text-[12px] text-on-surface-variant">Görsel otomatik gelmez; sadece bu içerikle alakalı görseli buradan ekleyebilirsiniz.</span>
+              </div>
+
+              <!-- Preview Container (Hidden until admin uploads an image) -->
+              <div class="relative group rounded-xl overflow-hidden shadow-sm bg-surface-subtle hidden" id="news-cover-preview-wrap">
+                <img alt="Haber Kapak Görseli" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" id="news-cover-img" src="">
                 <div class="absolute inset-0 bg-canvas-dark/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity gap-2">
                   <button class="px-3 py-1.5 rounded-lg bg-surface-card text-on-surface font-label-sm text-label-sm shadow flex items-center gap-1 cursor-pointer" onclick="triggerNewsCoverUpload()" type="button">
                     <span class="material-symbols-outlined text-[16px]">edit</span> Değiştir
@@ -1700,8 +1716,8 @@
                   </button>
                 </div>
                 <div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-canvas-dark/80 text-white font-label-sm text-label-sm flex items-center gap-1" id="news-cover-badge">
-                  <span class="material-symbols-outlined text-[14px] text-secondary-container">image</span>
-                  <span id="news-cover-badge-text">Görsel Seçmek İçin "Değiştir"e Tıklayın</span>
+                  <span class="material-symbols-outlined text-[14px] text-secondary-container">check_circle</span>
+                  <span id="news-cover-badge-text">Görsel Yüklendi</span>
                 </div>
               </div>
             </div>
@@ -1721,14 +1737,33 @@
                   </label>
                 </div>
               </div>
+
+              <!-- MANŞET SEÇENEĞİ -->
+              <div class="flex flex-col gap-space-xs pt-2 border-t border-border-muted">
+                <label class="font-label-md text-label-md text-on-surface flex items-center justify-between" for="news-is-manset">
+                  <span>Manşet Ayarı</span>
+                  <span class="px-2 py-0.5 rounded bg-secondary-container/25 text-on-secondary-fixed font-label-sm text-label-sm font-bold">Ana Vitrin</span>
+                </label>
+                <label class="flex items-start gap-2.5 p-3 rounded-xl bg-surface-subtle border border-secondary-container/40 cursor-pointer hover:bg-surface-container-low transition-colors">
+                  <input checked="" class="w-4 h-4 mt-0.5 accent-amber-500 rounded cursor-pointer" id="news-is-manset" type="checkbox">
+                  <div class="flex flex-col gap-0.5">
+                    <span class="font-label-md text-label-md font-bold text-on-surface flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[16px] text-secondary">star</span>
+                      Manşet Haberi Olarak Göster
+                    </span>
+                    <span class="font-body-sm text-[12px] text-on-surface-variant leading-snug">
+                      Seçildiğinde bu içerik, Haberler sayfasında büyük kapak görseliyle en başta (Manşet alanında) gösterilir.
+                    </span>
+                  </div>
+                </label>
+              </div>
+
               <div class="flex flex-col gap-space-xs">
                 <label class="font-label-md text-label-md text-on-surface" for="publish-date">Yayın Tarihi &amp; Saati</label>
                 <div class="relative">
                   <input class="w-full h-11 px-space-md rounded-lg bg-surface-subtle text-on-surface font-body-sm text-body-sm focus:bg-surface-card focus:outline-none shadow-sm transition-all" id="publish-date" type="datetime-local" value="">
                 </div>
               </div>
-              <div class="flex flex-col gap-space-xs"></div>
-              <div class="pt-space-sm"></div>
             </div>
           </div>
         </div>
@@ -1736,8 +1771,8 @@
         <div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md mt-space-sm">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
             <div>
-              <h2 class="font-headline-sm text-headline-sm text-on-surface">Son Eklenen Haberler &amp; Mevzuat Duyuruları</h2>
-              <p class="font-body-sm text-body-sm text-on-surface-variant">Sistemde yayında olan son içerikler ve şoför adayları erişim istatistikleri.</p>
+              <h2 class="font-headline-sm text-headline-sm text-on-surface">Eklenen Tüm Haberler &amp; Mevzuat Duyuruları</h2>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Sistemde yayında olan tüm içerikler, manşet durumları ve yönetim işlemleri.</p>
             </div>
             <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold" id="admin-news-count-badge">0 Kayıt Gösteriliyor</span>
           </div>
@@ -1745,16 +1780,16 @@
             <table class="w-full text-left">
               <thead>
                 <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
-                  <th class="py-3 px-space-md rounded-l-lg">Haber Başlığı</th>
+                  <th class="py-3 px-space-md rounded-l-lg">Haber Başlığı &amp; Görsel</th>
                   <th class="py-3 px-space-md">Kategori</th>
+                  <th class="py-3 px-space-md">Manşet Durumu</th>
                   <th class="py-3 px-space-md">Yayın Tarihi</th>
                   <th class="py-3 px-space-md">Durum</th>
-                  <th class="py-3 px-space-md">Okunma</th>
                   <th class="py-3 px-space-md text-right rounded-r-lg">İşlemler</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-transparent font-body-sm text-body-sm text-on-surface" id="admin-news-tbody">
-                <!-- Populated dynamically by renderAdminNewsTable() with default initial rows -->
+                <!-- Populated dynamically by renderAdminNewsTable() -->
               </tbody>
             </table>
           </div>
@@ -5745,9 +5780,6 @@
     // HABER & İÇERİK EKLEME PANELİ (CMS YÖNETİM MOTORU)
     // =========================================================================
     const NEWS_STORAGE_KEY = 'ats_news_articles';
-    const DEFAULT_NEWS_COVER_IMG = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDvUtLADhxEooKbJ9ikCN_HO292-3KlouB4H_RE1GUhUEnz_ugfAboOtXpsdpIJ7MCuPL5c-dsuxNz-G_B70oXc7-9Q2vYFiFu-VcXdIq6uZTqzRfzS34IUpk27mYT3zy8fk1O5tYn_te4FXrlc96cn3TnvTJZKpIjELJ8qG15HIRcrpr8-osaqVHuXBU5J00QfW-p6UkKATyxNIEDH1UXN3QRSg3eJx3eWT4oTLfs';
-
-    const SEED_PANEL_NEWS = [];
 
     function formatTurkishDate(dateInput) {
       const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
@@ -5860,11 +5892,13 @@
         if (!raw) return [];
         const parsed = JSON.parse(raw);
         if (!Array.isArray(parsed)) return [];
-        // Filter out any old seed articles so only user-created articles exist
-        const userArticles = parsed.filter(item => item && !item.isSeed && !String(item.id || '').startsWith('seed-'));
-        if (userArticles.length !== parsed.length) {
-          localStorage.setItem(NEWS_STORAGE_KEY, JSON.stringify(userArticles));
-        }
+        // Filter out any old seed articles or accidental default Google URLs
+        const userArticles = parsed.filter(item => item && !item.isSeed && !String(item.id || '').startsWith('seed-')).map(item => {
+          if (item.image && String(item.image).includes('lh3.googleusercontent.com/aida-public')) {
+            item.image = '';
+          }
+          return item;
+        });
         return userArticles;
       } catch (e) {
         return [];
@@ -5894,13 +5928,69 @@
         if (data && Array.isArray(data.articles)) {
           const localList = getAdminNewsList();
           const map = new Map();
-          data.articles.forEach(a => { if (a && a.id && !a.isSeed && !String(a.id).startsWith('seed-')) map.set(a.id, a); });
-          localList.forEach(a => { if (a && a.id && !a.isSeed && !String(a.id).startsWith('seed-') && !map.has(a.id)) map.set(a.id, a); });
+          // Keep local list order and merge any server-only items
+          localList.forEach(a => { if (a && a.id && !a.isSeed && !String(a.id).startsWith('seed-')) map.set(a.id, a); });
+          data.articles.forEach(a => {
+            if (a && a.id && !a.isSeed && !String(a.id).startsWith('seed-') && !map.has(a.id)) {
+              if (a.image && String(a.image).includes('lh3.googleusercontent.com/aida-public')) a.image = '';
+              map.set(a.id, a);
+            }
+          });
           const merged = Array.from(map.values());
           localStorage.setItem(NEWS_STORAGE_KEY, JSON.stringify(merged));
           renderAdminNewsTable();
         }
       } catch (e) {}
+    }
+
+    function setNewsCoverPreview(dataUrl, badgeLabel) {
+      const dataInput = document.getElementById('news-cover-data');
+      const emptyBox = document.getElementById('news-cover-empty');
+      const previewWrap = document.getElementById('news-cover-preview-wrap');
+      const imgEl = document.getElementById('news-cover-img');
+      const badgeTextEl = document.getElementById('news-cover-badge-text');
+
+      const cleanUrl = String(dataUrl || '').trim();
+      if (dataInput) dataInput.value = cleanUrl;
+
+      if (cleanUrl) {
+        if (imgEl) imgEl.src = cleanUrl;
+        if (emptyBox) emptyBox.classList.add('hidden');
+        if (previewWrap) previewWrap.classList.remove('hidden');
+        if (badgeTextEl) badgeTextEl.textContent = badgeLabel || 'Görsel Yüklendi';
+      } else {
+        if (imgEl) imgEl.removeAttribute('src');
+        if (previewWrap) previewWrap.classList.add('hidden');
+        if (emptyBox) emptyBox.classList.remove('hidden');
+      }
+    }
+
+    function resetNewsCmsForm() {
+      const editIdInput = document.getElementById('news-edit-id');
+      const titleInput = document.getElementById('news-title');
+      const summaryInput = document.getElementById('news-summary');
+      const contentInput = document.getElementById('news-content');
+      const mansetCheckbox = document.getElementById('news-is-manset');
+      const publishDateInput = document.getElementById('publish-date');
+      const fileInput = document.getElementById('news-cover-file');
+      const btnLabel = document.getElementById('news-publish-btn-label');
+
+      if (editIdInput) editIdInput.value = '';
+      if (titleInput) titleInput.value = '';
+      if (summaryInput) summaryInput.value = '';
+      if (contentInput) contentInput.value = '';
+      if (mansetCheckbox) mansetCheckbox.checked = true;
+      if (fileInput) fileInput.value = '';
+      if (btnLabel) btnLabel.textContent = 'Haberi Yayınla';
+
+      if (publishDateInput) {
+        const now = new Date();
+        const tzOffset = now.getTimezoneOffset() * 60000;
+        publishDateInput.value = new Date(now - tzOffset).toISOString().slice(0, 16);
+      }
+
+      renderNewsTagsChips([]);
+      setNewsCoverPreview('', '');
     }
 
     function initNewsCmsPanel() {
@@ -5930,14 +6020,14 @@
 
       const list = getAdminNewsList();
       if (countBadge) {
-        countBadge.textContent = `${list.length} Kayıt Gösteriliyor`;
+        countBadge.textContent = `Toplam ${list.length} Kayıt Gösteriliyor`;
       }
 
       if (list.length === 0) {
         tbody.innerHTML = `
           <tr>
             <td colspan="6" class="py-8 px-space-md text-center text-on-surface-variant font-body-sm text-body-sm">
-              Henüz eklenmiş bir haber veya duyuru bulunmuyor. Yukarıdaki formdan yeni içerik oluşturup yayınlayabilirsiniz.
+              Henüz eklenmiş bir haber veya duyuru bulunmuyor. Yukarıdaki formdan istediğiniz sayıda içerik oluşturup yayınlayabilirsiniz.
             </td>
           </tr>
         `;
@@ -5946,30 +6036,41 @@
 
       tbody.innerHTML = list.map((item) => {
         const isPublished = item.status !== 'draft';
+        const isManset = Boolean(item.isManset);
         const statusBadge = isPublished
           ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-status-success/20 text-[#065F46] font-label-sm text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Yayında</span>`
           : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Taslak</span>`;
+
+        const mansetBtn = isManset
+          ? `<button type="button" onclick="toggleNewsManset('${item.id}')" title="Manşetten Çıkarmak İçin Tıklayın" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-canvas-dark font-label-sm text-label-sm font-bold shadow-sm hover:opacity-90 transition-all cursor-pointer"><span class="material-symbols-outlined text-[14px]">star</span> Manşet</button>`
+          : `<button type="button" onclick="toggleNewsManset('${item.id}')" title="Manşet Haberi Yapmak İçin Tıklayın" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-subtle text-on-surface-variant hover:bg-secondary-container/30 hover:text-on-surface font-label-sm text-label-sm transition-all cursor-pointer"><span class="material-symbols-outlined text-[14px]">star_border</span> Manşet Yap</button>`;
+
         const catShort = item.categoryShort || getShortCategoryBadge(item.category);
-        const viewsText = isPublished ? (item.views || 'Yeni') : '-';
+        const thumbHtml = item.image
+          ? `<img src="${item.image}" alt="" class="w-12 h-8 rounded object-cover shrink-0 border border-border-muted">`
+          : `<span class="w-12 h-8 rounded bg-surface-subtle border border-border-muted flex items-center justify-center text-outline shrink-0" title="Görsel Eklenmedi"><span class="material-symbols-outlined text-[16px]">hide_image</span></span>`;
 
         return `
           <tr class="hover:bg-surface-subtle transition-colors">
-            <td class="py-3.5 px-space-md font-semibold text-on-surface max-w-xs truncate" title="${(item.title || '').replace(/"/g, '&quot;')}">
-              <a href="haberler.html#${item.id}" target="_blank" class="hover:text-secondary transition-colors">${item.title || '-'}</a>
+            <td class="py-3.5 px-space-md font-semibold text-on-surface max-w-sm">
+              <div class="flex items-center gap-3">
+                ${thumbHtml}
+                <a href="haberler.html#${item.id}" target="_blank" class="hover:text-secondary transition-colors truncate" title="${(item.title || '').replace(/"/g, '&quot;')}">${item.title || '-'}</a>
+              </div>
             </td>
             <td class="py-3.5 px-space-md">
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
                 ${catShort}
               </span>
             </td>
+            <td class="py-3.5 px-space-md">
+              ${mansetBtn}
+            </td>
             <td class="py-3.5 px-space-md text-outline font-label-md text-label-md">
               ${item.date || '-'}
             </td>
             <td class="py-3.5 px-space-md">
               ${statusBadge}
-            </td>
-            <td class="py-3.5 px-space-md font-label-md text-label-md text-on-surface font-semibold">
-              ${viewsText}
             </td>
             <td class="py-3.5 px-space-md text-right">
               <div class="inline-flex items-center gap-1">
@@ -5984,6 +6085,26 @@
           </tr>
         `;
       }).join('');
+    }
+
+    async function toggleNewsManset(articleId) {
+      let list = getAdminNewsList();
+      const target = list.find(a => a.id === articleId);
+      if (!target) return;
+      target.isManset = !target.isManset;
+      target.featured = target.isManset;
+      target.updatedAt = new Date().toISOString();
+
+      saveAdminNewsList(list);
+      renderAdminNewsTable();
+
+      try {
+        await fetch('api/news.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(target)
+        });
+      } catch (e) {}
     }
 
     function collectCurrentNewsTags() {
@@ -6069,9 +6190,9 @@
           break;
         }
         case 'image': {
-          const imgUrl = prompt('Eklenecek görselin URL adresini girin:', DEFAULT_NEWS_COVER_IMG);
-          if (!imgUrl) return;
-          replacement = `\n\n![${selected || 'Avrupa Lojistik Görseli'}](${imgUrl})\n\n`;
+          const imgUrl = prompt('Eklenecek görselin URL adresini girin:', 'https://');
+          if (!imgUrl || imgUrl === 'https://') return;
+          replacement = `\n\n![${selected || 'Haber Görseli'}](${imgUrl})\n\n`;
           break;
         }
         case 'table':
@@ -6095,32 +6216,53 @@
       if (fileInput) fileInput.click();
     }
 
+    function compressNewsImageDataUrl(rawDataUrl, maxWidth, quality) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = function() {
+          let w = img.width;
+          let h = img.height;
+          if (w > maxWidth) {
+            h = Math.round((h * maxWidth) / w);
+            w = maxWidth;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          try {
+            const compressed = canvas.toDataURL('image/jpeg', quality || 0.82);
+            resolve(compressed);
+          } catch (e) {
+            resolve(rawDataUrl);
+          }
+        };
+        img.onerror = function() {
+          resolve(rawDataUrl);
+        };
+        img.src = rawDataUrl;
+      });
+    }
+
     function handleNewsCoverFileChange(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = function(ev) {
-        const imgEl = document.getElementById('news-cover-img');
-        const badgeEl = document.getElementById('news-cover-badge');
-        const badgeTextEl = document.getElementById('news-cover-badge-text');
-        if (imgEl && ev.target && ev.target.result) {
-          imgEl.src = ev.target.result;
-        }
-        if (badgeEl) badgeEl.classList.remove('hidden');
-        if (badgeTextEl) {
-          const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
-          const ext = (file.name.split('.').pop() || 'JPG').toUpperCase();
-          badgeTextEl.textContent = `Görsel Yüklendi (${ext}, ${sizeMb} MB)`;
-        }
+      reader.onload = async function(ev) {
+        if (!ev.target || !ev.target.result) return;
+        const optimizedDataUrl = await compressNewsImageDataUrl(ev.target.result, 1280, 0.82);
+        const sizeKb = Math.round((optimizedDataUrl.length * 3) / 4 / 1024);
+        const ext = (file.name.split('.').pop() || 'JPG').toUpperCase();
+        setNewsCoverPreview(optimizedDataUrl, `Görsel Yüklendi (${ext}, ${sizeKb} KB)`);
       };
       reader.readAsDataURL(file);
     }
 
     function removeNewsCoverImage() {
-      const imgEl = document.getElementById('news-cover-img');
-      const badgeTextEl = document.getElementById('news-cover-badge-text');
-      if (imgEl) imgEl.src = DEFAULT_NEWS_COVER_IMG;
-      if (badgeTextEl) badgeTextEl.textContent = 'Varsayılan Kapak Görseli Aktif';
+      const fileInput = document.getElementById('news-cover-file');
+      if (fileInput) fileInput.value = '';
+      setNewsCoverPreview('', '');
     }
 
     async function handleSaveNewsArticle(forcedStatus) {
@@ -6130,7 +6272,8 @@
       const summaryInput = document.getElementById('news-summary');
       const contentInput = document.getElementById('news-content');
       const publishDateInput = document.getElementById('publish-date');
-      const coverImgEl = document.getElementById('news-cover-img');
+      const coverDataInput = document.getElementById('news-cover-data');
+      const mansetCheckbox = document.getElementById('news-is-manset');
       const editIdInput = document.getElementById('news-edit-id');
 
       const title = (titleInput ? titleInput.value : '').trim();
@@ -6139,6 +6282,7 @@
       const summary = (summaryInput ? summaryInput.value : '').trim();
       const content = (contentInput ? contentInput.value : '').trim();
       const publishDateVal = publishDateInput ? publishDateInput.value : '';
+      const isManset = mansetCheckbox ? Boolean(mansetCheckbox.checked) : false;
 
       if (!title) {
         alert('Lütfen "Haber / Makale Başlığı" alanını doldurun.');
@@ -6170,11 +6314,12 @@
 
       const tags = collectCurrentNewsTags();
       const existingId = editIdInput && editIdInput.value ? editIdInput.value : '';
-      const articleId = existingId || ('news-' + Date.now());
+      const articleId = existingId || ('news-' + Date.now() + '-' + Math.floor(Math.random() * 1000));
       const formattedDate = formatTurkishDate(publishDateVal || new Date());
       const readTime = estimateReadTime(content);
       const bodyHtml = convertNewsMarkdownToHtml(content);
-      const imageSrc = (coverImgEl && coverImgEl.src) ? coverImgEl.src : DEFAULT_NEWS_COVER_IMG;
+      // Only use the cover image explicitly uploaded by the admin for THIS article
+      const imageSrc = (coverDataInput && coverDataInput.value) ? coverDataInput.value.trim() : '';
 
       const newArticle = {
         id: articleId,
@@ -6185,10 +6330,11 @@
         summary: summary,
         content: content,
         bodyHtml: bodyHtml,
-        tags: tags.length ? tags : ['#Kod95', '#TırŞoförü', '#AvrupaLojistik'],
+        tags: tags,
         image: imageSrc,
         status: status,
-        featured: status === 'published',
+        isManset: isManset,
+        featured: status === 'published' && isManset,
         date: formattedDate,
         publishDateIso: publishDateVal || new Date().toISOString().slice(0, 16),
         readTime: readTime,
@@ -6199,21 +6345,17 @@
       };
 
       let list = getAdminNewsList();
-      if (status === 'published') {
-        list.forEach(item => { item.featured = false; });
-      }
-
       const existingIdx = list.findIndex(item => item.id === articleId);
       if (existingIdx > -1) {
         list.splice(existingIdx, 1);
       }
-      // Put the newly published/edited article at index 0 so it is the latest published news article
+      // Prepend so the newest article is at index 0 while keeping all previously added articles
       list.unshift(newArticle);
 
       saveAdminNewsList(list);
       renderAdminNewsTable();
 
-      // Persist to server API (api/news.php) so all visitors see the latest published news article
+      // Persist to server API (api/news.php)
       try {
         await fetch('api/news.php', {
           method: 'POST',
@@ -6224,17 +6366,12 @@
         console.warn('API news sync fallback to localStorage:', e);
       }
 
-      // Reset form and edit state after saving
-      if (editIdInput) editIdInput.value = '';
-      if (titleInput) titleInput.value = '';
-      if (summaryInput) summaryInput.value = '';
-      if (contentInput) contentInput.value = '';
-      renderNewsTagsChips([]);
-      const btnLabel = document.getElementById('news-publish-btn-label');
-      if (btnLabel) btnLabel.textContent = 'Haberi Yayınla';
+      // Reset form completely so admin can immediately add another article
+      resetNewsCmsForm();
 
       if (status === 'published') {
-        alert(`"${title}" başlıklı haber başarıyla yayınlandı!\n\nHaberler sayfasında (avrupatirsoforu.com/haberler) en son yayınlanan ana haber olarak yayına alındı.`);
+        const mansetInfo = isManset ? 'Manşet haberi olarak en başta' : 'Haberler listesinde';
+        alert(`"${title}" başlıklı haber başarıyla yayınlandı!\n\n(${mansetInfo} yayına alındı. Dilediğiniz kadar yeni içerik eklemeye devam edebilirsiniz.)`);
       } else {
         alert(`"${title}" başlıklı içerik taslak olarak kaydedildi.`);
       }
@@ -6252,7 +6389,7 @@
       const summaryInput = document.getElementById('news-summary');
       const contentInput = document.getElementById('news-content');
       const publishDateInput = document.getElementById('publish-date');
-      const coverImgEl = document.getElementById('news-cover-img');
+      const mansetCheckbox = document.getElementById('news-is-manset');
       const btnLabel = document.getElementById('news-publish-btn-label');
 
       if (editIdInput) editIdInput.value = item.id;
@@ -6262,8 +6399,10 @@
       if (summaryInput) summaryInput.value = item.summary || '';
       if (contentInput) contentInput.value = item.content || '';
       if (publishDateInput && item.publishDateIso) publishDateInput.value = item.publishDateIso;
-      if (coverImgEl && item.image) coverImgEl.src = item.image;
-      if (Array.isArray(item.tags)) renderNewsTagsChips(item.tags);
+      if (mansetCheckbox) mansetCheckbox.checked = Boolean(item.isManset);
+
+      setNewsCoverPreview(item.image || '', 'Haber Görseli Yüklü');
+      renderNewsTagsChips(Array.isArray(item.tags) ? item.tags : []);
 
       const statusRadio = document.querySelector(`input[name="publish_status"][value="${item.status || 'published'}"]`);
       if (statusRadio) statusRadio.checked = true;
@@ -6291,6 +6430,8 @@
     window.handleSaveNewsArticle = handleSaveNewsArticle;
     window.editAdminNewsArticle = editAdminNewsArticle;
     window.deleteAdminNewsArticle = deleteAdminNewsArticle;
+    window.toggleNewsManset = toggleNewsManset;
+    window.resetNewsCmsForm = resetNewsCmsForm;
     window.insertNewsFormatting = insertNewsFormatting;
     window.removeNewsTag = removeNewsTag;
     window.handleNewsTagKeydown = handleNewsTagKeydown;
