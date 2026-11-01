@@ -310,6 +310,14 @@
           </span>
         </a>
 
+        <!-- İçerik Ekle (Haber & Blog Yönetimi) -->
+        <a class="flex items-center justify-between px-space-md py-3 rounded-lg text-inverse-on-surface hover:bg-surface-variant/20 hover:text-white transition-all cursor-pointer nav-item" data-tab="icerik-ekle" onclick="switchTab('icerik-ekle')">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px]">post_add</span>
+            <span class="font-label-lg text-label-lg">İçerik Ekle</span>
+          </div>
+        </a>
+
         <!-- Ayarlar -->
         <a class="flex items-center justify-between px-space-md py-3 rounded-lg text-inverse-on-surface hover:bg-surface-variant/20 hover:text-white transition-all cursor-pointer nav-item" data-tab="ayarlar" onclick="switchTab('ayarlar')">
           <div class="flex items-center gap-space-sm">
@@ -1534,6 +1542,248 @@
 
       </div>
       <!-- END VIEW: AYARLAR & TRAFİK BİLGİLERİ -->
+
+      <!-- ==========================================
+           VIEW 6: İÇERİK EKLE (HABER & İÇERİK EKLEME PANELİ)
+           ========================================== -->
+      <div class="flex flex-col w-full gap-space-lg max-w-7xl mx-auto hidden" id="view-icerik-ekle">
+        <input type="hidden" id="news-edit-id" value="">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-card p-space-lg rounded-xl shadow-sm">
+          <div class="flex flex-col gap-space-xs">
+            <div class="flex items-center gap-space-sm">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-secondary-container text-canvas-dark">
+                <span class="material-symbols-outlined text-[20px]">post_add</span>
+              </span>
+              <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight" id="news-panel-heading">Haber &amp; İçerik Ekleme Paneli</h1>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant max-w-2xl">
+              Web sitenizde ve uluslararası tır şoförü adayları operasyon akışında görünecek yeni makale, karayolu taşımacılığı mevzuatı veya filo duyurusu içeriği oluşturun.
+            </p>
+          </div>
+          <div class="flex items-center gap-space-sm shrink-0">
+            <button class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container font-label-md text-label-md transition-all shadow-sm cursor-pointer" onclick="handleSaveNewsArticle('draft')" type="button">
+              <span class="material-symbols-outlined text-[18px]">drafts</span>
+              <span>Taslak Olarak Kaydet</span>
+            </button>
+            <button class="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-secondary-container text-canvas-dark hover:bg-warning-amber-hover font-label-md text-label-md font-bold transition-all shadow-md cursor-pointer" onclick="handleSaveNewsArticle('published')" type="button">
+              <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+              <span id="news-publish-btn-label">Haberi Yayınla</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+          <div class="lg:col-span-8 flex flex-col gap-space-lg">
+            <div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col gap-space-lg">
+              <div class="flex flex-col gap-space-xs">
+                <label class="font-label-md text-label-md text-on-surface flex items-center justify-between" for="news-title">
+                  <span>Haber / Makale Başlığı <span class="text-error">*</span></span>
+                  <span class="text-outline font-label-sm text-label-sm">Maks. 110 karakter</span>
+                </label>
+                <input class="w-full h-12 px-space-md rounded-lg bg-surface-subtle text-on-surface placeholder-on-surface-variant font-body-md text-body-md focus:bg-surface-card focus:outline-none shadow-sm transition-all" id="news-title" maxlength="140" placeholder="Örn: 2025 - 2026 Avrupa Karayolu Taşımacılığında Yeni Dönem ve Takograf Kuralları" type="text">
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                <div class="flex flex-col gap-space-xs">
+                  <label class="font-label-md text-label-md text-on-surface" for="news-category">Kategori Seçimi <span class="text-error">*</span></label>
+                  <div class="relative">
+                    <select class="w-full h-12 pl-space-md pr-10 rounded-lg bg-surface-subtle text-on-surface font-body-sm text-body-sm appearance-none focus:bg-surface-card focus:outline-none shadow-sm transition-all" id="news-category">
+                      <option value="Avrupa Lojistik Mevzuatı &amp; Filolar">Avrupa Lojistik Mevzuatı &amp; Filolar</option>
+                      <option value="Şoför Hakları &amp; Dinlenme Standartları">Şoför Hakları &amp; Dinlenme Standartları</option>
+                      <option value="Takograf &amp; Kod 95 Denklik Süreçleri">Takograf &amp; Kod 95 Denklik Süreçleri</option>
+                      <option value="Genel Filo &amp; İstihdam Duyuruları">Genel Filo &amp; İstihdam Duyuruları</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-3.5 text-outline pointer-events-none text-[20px]">expand_more</span>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-space-xs">
+                  <label class="font-label-md text-label-md text-on-surface" for="news-lang">Yayın Dili / Hedef Kitle</label>
+                  <div class="relative">
+                    <select class="w-full h-12 pl-space-md pr-10 rounded-lg bg-surface-subtle text-on-surface font-body-sm text-body-sm appearance-none focus:bg-surface-card focus:outline-none shadow-sm transition-all" id="news-lang">
+                      <option value="tr">Türkçe (Tüm Aday Havuzu)</option>
+                      <option value="de">Almanca (Filo Partnerleri)</option>
+                      <option value="en">İngilizce (Uluslararası Taşımacılık)</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-3.5 text-outline pointer-events-none text-[20px]">language</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-space-xs">
+                <label class="font-label-md text-label-md text-on-surface flex items-center justify-between" for="news-summary">
+                  <span>Kısa Özet / Spot Metin <span class="text-error">*</span></span>
+                  <span class="text-outline font-label-sm text-label-sm">Akış listelemesinde görünen özet (160-200 karakter)</span>
+                </label>
+                <textarea class="w-full p-space-md rounded-lg bg-surface-subtle text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:bg-surface-card focus:outline-none shadow-sm transition-all resize-none" id="news-summary" placeholder="AB sınır kapıları ve transit koridorlarındaki yeni dijital denetim mekanizmaları ile Kod 95 kartlarının Avrupa genelindeki geçerlilik periyotlarına dair operasyonel bilgilendirme..." rows="3"></textarea>
+              </div>
+
+              <div class="flex flex-col gap-space-xs">
+                <div class="flex items-center justify-between">
+                  <label class="font-label-md text-label-md text-on-surface" for="news-content">Detaylı Makale İçeriği (WYSIWYG)</label>
+                  <span class="font-label-sm text-label-sm text-outline">Markdown &amp; Zengin Metin Destekli</span>
+                </div>
+                <div class="flex flex-col rounded-xl overflow-hidden bg-surface-card shadow-sm">
+                  <div class="flex flex-wrap items-center gap-1 p-2 bg-surface-container-low text-on-surface-variant">
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('bold')" title="Kalın" type="button">
+                      <span class="material-symbols-outlined text-[18px]">format_bold</span>
+                    </button>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('italic')" title="İtalik" type="button">
+                      <span class="material-symbols-outlined text-[18px]">format_italic</span>
+                    </button>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('underline')" title="Altı Çizili" type="button">
+                      <span class="material-symbols-outlined text-[18px]">format_underlined</span>
+                    </button>
+                    <span class="w-px h-5 bg-outline-variant/40 mx-1"></span>
+                    <button class="px-2 py-1 rounded hover:bg-surface-container hover:text-on-surface font-label-sm text-label-sm font-bold transition-colors cursor-pointer" onclick="insertNewsFormatting('h2')" title="Başlık 2" type="button">
+                      H2
+                    </button>
+                    <button class="px-2 py-1 rounded hover:bg-surface-container hover:text-on-surface font-label-sm text-label-sm font-bold transition-colors cursor-pointer" onclick="insertNewsFormatting('h3')" title="Başlık 3" type="button">
+                      H3
+                    </button>
+                    <span class="w-px h-5 bg-outline-variant/40 mx-1"></span>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('ul')" title="Madde İmleri" type="button">
+                      <span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+                    </button>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('ol')" title="Numaralı Liste" type="button">
+                      <span class="material-symbols-outlined text-[18px]">format_list_numbered</span>
+                    </button>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('quote')" title="Alıntı" type="button">
+                      <span class="material-symbols-outlined text-[18px]">format_quote</span>
+                    </button>
+                    <span class="w-px h-5 bg-outline-variant/40 mx-1"></span>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('link')" title="Bağlantı Ekle" type="button">
+                      <span class="material-symbols-outlined text-[18px]">link</span>
+                    </button>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('image')" title="Görsel Ekle" type="button">
+                      <span class="material-symbols-outlined text-[18px]">image</span>
+                    </button>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('table')" title="Mevzuat Tablosu" type="button">
+                      <span class="material-symbols-outlined text-[18px]">table_chart</span>
+                    </button>
+                    <span class="w-px h-5 bg-outline-variant/40 mx-1"></span>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center ml-auto cursor-pointer" onclick="insertNewsFormatting('undo')" title="Geri Al" type="button">
+                      <span class="material-symbols-outlined text-[18px]">undo</span>
+                    </button>
+                    <button class="p-1.5 rounded hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center cursor-pointer" onclick="insertNewsFormatting('redo')" title="İleri Al" type="button">
+                      <span class="material-symbols-outlined text-[18px]">redo</span>
+                    </button>
+                  </div>
+                  <textarea class="w-full p-space-lg bg-surface-subtle text-on-surface placeholder-on-surface-variant font-body-md text-body-md focus:bg-surface-card focus:outline-none transition-all leading-relaxed" id="news-content" placeholder="Uluslararası taşımacılık operasyonları, dinlenme süreleri, takograf veri indirme aralıkları ve C+E sınıfı sürücülerin dikkat etmesi gereken kritik maddeleri buraya yazın..." rows="12">Avrupa Parlamentosu ve Konseyi'nin uluslararası taşımacılık paketinde devreye aldığı Akıllı Takograf Versiyon 2 (Smart Tacho 2) zorunluluğu, uluslararası hatta çalışan C+E sınıfı ağır vasıta sürücülerimiz için kritik operasyonel süreçleri beraberinde getirmektedir.
+
+## 1. Kabin Dinlenme Standartları ve Otel Konaklamaları
+Mevzuat uyarınca, 45 saatlik düzenli haftalık dinlenmenin araç kabini içerisinde geçirilmesi kesin bir dille yasaklanmıştır. Filo yöneticileri ve işveren lojistik firmaları, sürücülerin bu dinlenmelerini lisanslı konaklama tesislerinde geçirmelerini sağlamakla yükümlüdür.
+
+## 2. Kod 95 (Mesleki Yeterlilik) Yenileme Periyotları
+Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini sınır geçişlerinden en az 60 gün önce kontrol etmesi önerilmektedir. Çekici değişimlerinde dijital sürücü kartlarının eşzamanlı aktarımı esastır.</textarea>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-space-xs">
+                <label class="font-label-md text-label-md text-on-surface" for="news-tag-input">Etiketler (Arama &amp; Filtreleme)</label>
+                <div class="flex flex-wrap items-center gap-space-xs p-2.5 rounded-lg bg-surface-subtle" id="news-tags-wrapper">
+                  <div class="flex flex-wrap items-center gap-space-xs" id="news-tags-list">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-tag="#Kod95">
+                      #Kod95
+                      <button class="hover:text-error transition-colors flex items-center cursor-pointer" onclick="removeNewsTag(this)" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-tag="#TırŞoförü">
+                      #TırŞoförü
+                      <button class="hover:text-error transition-colors flex items-center cursor-pointer" onclick="removeNewsTag(this)" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-tag="#AlmanyaFiloları">
+                      #AlmanyaFiloları
+                      <button class="hover:text-error transition-colors flex items-center cursor-pointer" onclick="removeNewsTag(this)" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-tag="#TakografMevzuatı">
+                      #TakografMevzuatı
+                      <button class="hover:text-error transition-colors flex items-center cursor-pointer" onclick="removeNewsTag(this)" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+                    </span>
+                  </div>
+                  <input class="flex-1 min-w-[180px] bg-transparent text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none px-2 py-1" id="news-tag-input" onkeydown="handleNewsTagKeydown(event)" placeholder="Yeni etiket yazıp Enter'a basın..." type="text">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col gap-space-lg">
+            <div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md">
+              <div class="flex items-center justify-between">
+                <h2 class="font-headline-sm text-headline-sm text-on-surface">Kapak Görseli</h2>
+                <span class="font-label-sm text-label-sm text-outline">1200 x 630 px</span>
+              </div>
+              <input accept="image/*" class="hidden" id="news-cover-file" onchange="handleNewsCoverFileChange(event)" type="file">
+              <div class="relative group rounded-xl overflow-hidden shadow-sm bg-surface-subtle">
+                <img alt="Haber Kapak Görseli" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" id="news-cover-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvUtLADhxEooKbJ9ikCN_HO292-3KlouB4H_RE1GUhUEnz_ugfAboOtXpsdpIJ7MCuPL5c-dsuxNz-G_B70oXc7-9Q2vYFiFu-VcXdIq6uZTqzRfzS34IUpk27mYT3zy8fk1O5tYn_te4FXrlc96cn3TnvTJZKpIjELJ8qG15HIRcrpr8-osaqVHuXBU5J00QfW-p6UkKATyxNIEDH1UXN3QRSg3eJx3eWT4oTLfs">
+                <div class="absolute inset-0 bg-canvas-dark/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity gap-2">
+                  <button class="px-3 py-1.5 rounded-lg bg-surface-card text-on-surface font-label-sm text-label-sm shadow flex items-center gap-1 cursor-pointer" onclick="triggerNewsCoverUpload()" type="button">
+                    <span class="material-symbols-outlined text-[16px]">edit</span> Değiştir
+                  </button>
+                  <button class="px-3 py-1.5 rounded-lg bg-error text-on-error font-label-sm text-label-sm shadow flex items-center gap-1 cursor-pointer" onclick="removeNewsCoverImage()" type="button">
+                    <span class="material-symbols-outlined text-[16px]">delete</span> Kaldır
+                  </button>
+                </div>
+                <div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-canvas-dark/80 text-white font-label-sm text-label-sm flex items-center gap-1" id="news-cover-badge">
+                  <span class="material-symbols-outlined text-[14px] text-secondary-container">check_circle</span>
+                  <span id="news-cover-badge-text">Görsel Yüklendi (JPG, 2.1 MB)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md">
+              <h2 class="font-headline-sm text-headline-sm text-on-surface">Yayın ve Görünürlük Ayarları</h2>
+              <div class="flex flex-col gap-space-xs">
+                <label class="font-label-md text-label-md text-on-surface">Yayın Durumu</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-subtle cursor-pointer hover:bg-surface-container-low transition-colors">
+                    <input checked="" class="w-4 h-4 text-canvas-dark accent-black" name="publish_status" type="radio" value="published">
+                    <span class="font-label-md text-label-md text-on-surface">Yayında</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-subtle cursor-pointer hover:bg-surface-container-low transition-colors">
+                    <input class="w-4 h-4 text-canvas-dark accent-black" name="publish_status" type="radio" value="draft">
+                    <span class="font-label-md text-label-md text-on-surface">Taslak</span>
+                  </label>
+                </div>
+              </div>
+              <div class="flex flex-col gap-space-xs">
+                <label class="font-label-md text-label-md text-on-surface" for="publish-date">Yayın Tarihi &amp; Saati</label>
+                <div class="relative">
+                  <input class="w-full h-11 px-space-md rounded-lg bg-surface-subtle text-on-surface font-body-sm text-body-sm focus:bg-surface-card focus:outline-none shadow-sm transition-all" id="publish-date" type="datetime-local" value="2025-05-18T10:30">
+                </div>
+              </div>
+              <div class="flex flex-col gap-space-xs"></div>
+              <div class="pt-space-sm"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md mt-space-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+            <div>
+              <h2 class="font-headline-sm text-headline-sm text-on-surface">Son Eklenen Haberler &amp; Mevzuat Duyuruları</h2>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Sistemde yayında olan son içerikler ve şoför adayları erişim istatistikleri.</p>
+            </div>
+            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold" id="admin-news-count-badge">Son 3 Kayıt Gösteriliyor</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+                  <th class="py-3 px-space-md rounded-l-lg">Haber Başlığı</th>
+                  <th class="py-3 px-space-md">Kategori</th>
+                  <th class="py-3 px-space-md">Yayın Tarihi</th>
+                  <th class="py-3 px-space-md">Durum</th>
+                  <th class="py-3 px-space-md">Okunma</th>
+                  <th class="py-3 px-space-md text-right rounded-r-lg">İşlemler</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-transparent font-body-sm text-body-sm text-on-surface" id="admin-news-tbody">
+                <!-- Populated dynamically by renderAdminNewsTable() with default initial rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- END VIEW: İÇERİK EKLE -->
     </main>
   </div>
 
@@ -2724,12 +2974,14 @@
       const viewHizliBasvurular = document.getElementById('view-hizli-basvurular');
       const viewAdayHavuzu = document.getElementById('view-aday-havuzu');
       const viewRandevular = document.getElementById('view-randevular');
+      const viewIcerikEkle = document.getElementById('view-icerik-ekle');
       const viewAyarlar = document.getElementById('view-ayarlar');
 
       if (tabId === 'hizli-basvurular') {
         if (viewBasvurular) viewBasvurular.classList.add('hidden');
         if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
         if (viewRandevular) viewRandevular.classList.add('hidden');
+        if (viewIcerikEkle) viewIcerikEkle.classList.add('hidden');
         if (viewAyarlar) viewAyarlar.classList.add('hidden');
         if (viewHizliBasvurular) viewHizliBasvurular.classList.remove('hidden');
         quickCurrentPage = 1;
@@ -2738,6 +2990,7 @@
         if (viewBasvurular) viewBasvurular.classList.add('hidden');
         if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
         if (viewRandevular) viewRandevular.classList.add('hidden');
+        if (viewIcerikEkle) viewIcerikEkle.classList.add('hidden');
         if (viewAyarlar) viewAyarlar.classList.add('hidden');
         if (viewAdayHavuzu) viewAdayHavuzu.classList.remove('hidden');
         renderPoolDashboard();
@@ -2745,14 +2998,24 @@
         if (viewBasvurular) viewBasvurular.classList.add('hidden');
         if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
         if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
+        if (viewIcerikEkle) viewIcerikEkle.classList.add('hidden');
         if (viewAyarlar) viewAyarlar.classList.add('hidden');
         if (viewRandevular) viewRandevular.classList.remove('hidden');
         loadAndRenderAppointments();
+      } else if (tabId === 'icerik-ekle') {
+        if (viewBasvurular) viewBasvurular.classList.add('hidden');
+        if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
+        if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
+        if (viewRandevular) viewRandevular.classList.add('hidden');
+        if (viewAyarlar) viewAyarlar.classList.add('hidden');
+        if (viewIcerikEkle) viewIcerikEkle.classList.remove('hidden');
+        if (typeof initNewsCmsPanel === 'function') initNewsCmsPanel();
       } else if (tabId === 'ayarlar') {
         if (viewBasvurular) viewBasvurular.classList.add('hidden');
         if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
         if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
         if (viewRandevular) viewRandevular.classList.add('hidden');
+        if (viewIcerikEkle) viewIcerikEkle.classList.add('hidden');
         if (viewAyarlar) viewAyarlar.classList.remove('hidden');
         renderTrafficDashboard();
         loadCmsSettingsToForm();
@@ -2761,6 +3024,7 @@
         if (viewHizliBasvurular) viewHizliBasvurular.classList.add('hidden');
         if (viewAdayHavuzu) viewAdayHavuzu.classList.add('hidden');
         if (viewRandevular) viewRandevular.classList.add('hidden');
+        if (viewIcerikEkle) viewIcerikEkle.classList.add('hidden');
         if (viewAyarlar) viewAyarlar.classList.add('hidden');
 
         const breadcrumb = document.getElementById('breadcrumb-current');
@@ -5499,6 +5763,590 @@
       }
       return name.slice(0, 2).toUpperCase();
     }
+
+    // =========================================================================
+    // HABER & İÇERİK EKLEME PANELİ (CMS YÖNETİM MOTORU)
+    // =========================================================================
+    const NEWS_STORAGE_KEY = 'ats_news_articles';
+    const DEFAULT_NEWS_COVER_IMG = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDvUtLADhxEooKbJ9ikCN_HO292-3KlouB4H_RE1GUhUEnz_ugfAboOtXpsdpIJ7MCuPL5c-dsuxNz-G_B70oXc7-9Q2vYFiFu-VcXdIq6uZTqzRfzS34IUpk27mYT3zy8fk1O5tYn_te4FXrlc96cn3TnvTJZKpIjELJ8qG15HIRcrpr8-osaqVHuXBU5J00QfW-p6UkKATyxNIEDH1UXN3QRSg3eJx3eWT4oTLfs';
+
+    const SEED_PANEL_NEWS = [
+      {
+        id: 'seed-takograf-v2',
+        title: 'Almanya C+E Sürücüleri İçin Dijital Takograf 2. Versiyon Geçiş Takvimi',
+        category: 'Takograf & Kod 95 Denklik Süreçleri',
+        categoryShort: 'Takograf & Kod 95',
+        lang: 'tr',
+        summary: 'AB sınır kapıları ve transit koridorlarındaki yeni dijital denetim mekanizmaları ile Akıllı Takograf 2. Versiyon (Smart Tacho 2) zorunluluğu hakkında operasyonel rehber.',
+        content: "Avrupa Parlamentosu ve Konseyi'nin uluslararası taşımacılık paketinde devreye aldığı Akıllı Takograf Versiyon 2 (Smart Tacho 2) zorunluluğu, uluslararası hatta çalışan C+E sınıfı ağır vasıta sürücülerimiz için kritik operasyonel süreçleri beraberinde getirmektedir.\n\n## 1. Kabin Dinlenme Standartları ve Otel Konaklamaları\nMevzuat uyarınca, 45 saatlik düzenli haftalık dinlenmenin araç kabini içerisinde geçirilmesi kesin bir dille yasaklanmıştır. Filo yöneticileri ve işveren lojistik firmaları, sürücülerin bu dinlenmelerini lisanslı konaklama tesislerinde geçirmelerini sağlamakla yükümlüdür.\n\n## 2. Kod 95 (Mesleki Yeterlilik) Yenileme Periyotları\nTüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini sınır geçişlerinden en az 60 gün önce kontrol etmesi önerilmektedir. Çekici değişimlerinde dijital sürücü kartlarının eşzamanlı aktarımı esastır.",
+        date: '14 Mayıs 2025',
+        publishDateIso: '2025-05-14T10:30',
+        readTime: '5 Dakika Okuma',
+        status: 'published',
+        views: '1,420',
+        image: DEFAULT_NEWS_COVER_IMG,
+        tags: ['#Kod95', '#TırŞoförü', '#AlmanyaFiloları', '#TakografMevzuatı'],
+        isSeed: true
+      },
+      {
+        id: 'seed-fransa-belcika-dinlenme',
+        title: 'Fransa ve Belçika Arası Haftalık Dinlenme Denetimlerinde Ağır Para Cezaları',
+        category: 'Şoför Hakları & Dinlenme Standartları',
+        categoryShort: 'Şoför Hakları & Dinlenme',
+        lang: 'tr',
+        summary: 'Fransa ve Belçika otoyol jandarması tarafından gerçekleştirilen kabin içi 45 saatlik haftalık düzenli dinlenme denetimleri ve filo operatörlerine uygulanan cezai yaptırımlar.',
+        content: "Mobilite Paketi kapsamında Fransa ve Belçika transit koridorlarında görev yapan ağır vasıta sürücülerinin haftalık düzenli dinlenme periyotları sıkı denetim altına alınmıştır.\n\n## 1. 45 Saatlik Haftalık Dinlenme Kuralları\nSürücülerin 45 saatlik düzenli haftalık dinlenmelerini çekici kabininde geçirmesi yasaktır. İşveren lojistik firması güvenli park alanı ve otel konaklama giderlerini karşılamakla yükümlüdür.",
+        date: '11 Mayıs 2025',
+        publishDateIso: '2025-05-11T14:00',
+        readTime: '4 Dakika Okuma',
+        status: 'published',
+        views: '2,890',
+        image: DEFAULT_NEWS_COVER_IMG,
+        tags: ['#ŞoförHakları', '#FransaOtoyol', '#KabinDinlenme'],
+        isSeed: true
+      },
+      {
+        id: 'seed-polonya-hollanda-oryantasyon',
+        title: 'Polonya ve Hollanda Filolarına Katılacak Türk Ağır Vasıta Şoförleri İçin Oryantasyon',
+        category: 'Avrupa Lojistik Mevzuatı & Filolar',
+        categoryShort: 'Avrupa Lojistik Mevzuatı',
+        lang: 'tr',
+        summary: 'Polonya ve Hollanda merkezli uluslararası tır filolarında göreve başlayacak C+E sınıfı şoför adayları için iş sözleşmesi, PKZ numarası ve filo teslim süreçleri.',
+        content: "Polonya ve Hollanda merkezli lojistik filolarına katılacak profesyonel tır şoförleri için evrak hazırlığından çekici teslimine kadar tüm oryantasyon adımları standartlaştırılmıştır.\n\n## 1. PKZ ve Kod 95 Süreci\nPolonya filolarında çalışacak sürücüler için Karta Kwalifikacji Kierowcy (Kod 95) ve psikoteknik muayene işlemleri danışmanlarımız eşliğinde organize edilmektedir.",
+        date: '06 Mayıs 2025',
+        publishDateIso: '2025-05-06T09:15',
+        readTime: '6 Dakika Okuma',
+        status: 'draft',
+        views: '-',
+        image: DEFAULT_NEWS_COVER_IMG,
+        tags: ['#PolonyaFiloları', '#HollandaFiloları', '#Kod95'],
+        isSeed: true
+      }
+    ];
+
+    function formatTurkishDate(dateInput) {
+      const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+      const d = dateInput ? new Date(dateInput) : new Date();
+      if (isNaN(d.getTime())) {
+        const now = new Date();
+        return `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+      }
+      return `${String(d.getDate()).padStart(2, '0')} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    }
+
+    function estimateReadTime(text) {
+      const words = String(text || '').trim().split(/\s+/).filter(Boolean).length;
+      const mins = Math.max(3, Math.ceil(words / 160));
+      return `${mins} Dakika Okuma`;
+    }
+
+    function convertNewsMarkdownToHtml(rawText) {
+      const text = String(rawText || '').trim();
+      if (!text) return '';
+      const blocks = text.split(/\n\s*\n/);
+      let htmlParts = [];
+      let currentSectionOpen = false;
+
+      blocks.forEach((block) => {
+        const trimmed = block.trim();
+        if (!trimmed) return;
+
+        if (trimmed.startsWith('## ')) {
+          if (currentSectionOpen) htmlParts.push('</section>');
+          const headingText = trimmed.replace(/^##\s+/, '');
+          htmlParts.push(
+            `<section class="flex flex-col gap-4">` +
+            `<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight flex items-center gap-3">` +
+            `<span class="w-2.5 h-8 bg-secondary-container rounded-full shrink-0"></span>` +
+            `<span>${headingText}</span>` +
+            `</h2>`
+          );
+          currentSectionOpen = true;
+        } else if (trimmed.startsWith('### ')) {
+          if (!currentSectionOpen) {
+            htmlParts.push('<section class="flex flex-col gap-4">');
+            currentSectionOpen = true;
+          }
+          const subHeadingText = trimmed.replace(/^###\s+/, '');
+          htmlParts.push(`<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight pt-2">${subHeadingText}</h3>`);
+        } else if (trimmed.startsWith('> ')) {
+          if (!currentSectionOpen) {
+            htmlParts.push('<section class="flex flex-col gap-4">');
+            currentSectionOpen = true;
+          }
+          const quoteText = trimmed.replace(/^>\s+/gm, '');
+          htmlParts.push(
+            `<blockquote class="border-l-4 border-secondary-container bg-surface-card p-5 rounded-r-xl shadow-sm italic font-body-md text-body-md text-on-surface">` +
+            `${quoteText.replace(/\n/g, '<br>')}` +
+            `</blockquote>`
+          );
+        } else if (/^(\*|-)\s+/m.test(trimmed)) {
+          if (!currentSectionOpen) {
+            htmlParts.push('<section class="flex flex-col gap-4">');
+            currentSectionOpen = true;
+          }
+          const items = trimmed.split(/\n/).map(line => line.replace(/^(\*|-)\s+/, '').trim()).filter(Boolean);
+          htmlParts.push(
+            `<ul class="list-disc pl-6 space-y-2 font-body-md text-body-md text-on-surface-variant leading-relaxed">` +
+            items.map(it => `<li>${formatInlineMarkdown(it)}</li>`).join('') +
+            `</ul>`
+          );
+        } else if (/^\d+\.\s+/m.test(trimmed)) {
+          if (!currentSectionOpen) {
+            htmlParts.push('<section class="flex flex-col gap-4">');
+            currentSectionOpen = true;
+          }
+          const items = trimmed.split(/\n/).map(line => line.replace(/^\d+\.\s+/, '').trim()).filter(Boolean);
+          htmlParts.push(
+            `<ol class="list-decimal pl-6 space-y-2 font-body-md text-body-md text-on-surface-variant leading-relaxed">` +
+            items.map(it => `<li>${formatInlineMarkdown(it)}</li>`).join('') +
+            `</ol>`
+          );
+        } else {
+          if (!currentSectionOpen) {
+            htmlParts.push('<section class="flex flex-col gap-4">');
+            currentSectionOpen = true;
+          }
+          htmlParts.push(
+            `<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">` +
+            `${formatInlineMarkdown(trimmed).replace(/\n/g, '<br>')}` +
+            `</p>`
+          );
+        }
+      });
+
+      if (currentSectionOpen) {
+        htmlParts.push('</section>');
+      }
+      return htmlParts.join('\n');
+    }
+
+    function formatInlineMarkdown(str) {
+      return String(str || '')
+        .replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-on-surface">$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<div class="relative w-full rounded-xl overflow-hidden shadow-md my-3"><img src="$2" alt="$1" class="w-full max-h-96 object-cover"></div>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-secondary font-semibold underline hover:text-warning-amber-hover" target="_blank" rel="noopener noreferrer">$1</a>');
+    }
+
+    function getAdminNewsList() {
+      try {
+        const raw = localStorage.getItem(NEWS_STORAGE_KEY);
+        if (!raw) return [...SEED_PANEL_NEWS];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed) || parsed.length === 0) return [...SEED_PANEL_NEWS];
+        return parsed;
+      } catch (e) {
+        return [...SEED_PANEL_NEWS];
+      }
+    }
+
+    function saveAdminNewsList(list) {
+      try {
+        localStorage.setItem(NEWS_STORAGE_KEY, JSON.stringify(list));
+      } catch (e) {
+        console.warn('localStorage news save warning:', e);
+      }
+      // Broadcast to open tabs (e.g., haberler.html)
+      try {
+        if (typeof BroadcastChannel !== 'undefined') {
+          const bc = new BroadcastChannel('ats_portal_sync');
+          bc.postMessage({ type: 'NEWS_ARTICLES_UPDATED', timestamp: Date.now() });
+        }
+      } catch (e) {}
+    }
+
+    async function syncNewsWithServerApi() {
+      try {
+        const res = await fetch('api/news.php', { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && Array.isArray(data.articles) && data.articles.length > 0) {
+          const localList = getAdminNewsList();
+          const map = new Map();
+          data.articles.forEach(a => { if (a && a.id) map.set(a.id, a); });
+          localList.forEach(a => { if (a && a.id && !map.has(a.id)) map.set(a.id, a); });
+          const merged = Array.from(map.values());
+          localStorage.setItem(NEWS_STORAGE_KEY, JSON.stringify(merged));
+          renderAdminNewsTable();
+        }
+      } catch (e) {}
+    }
+
+    function initNewsCmsPanel() {
+      renderAdminNewsTable();
+      syncNewsWithServerApi();
+    }
+
+    function getShortCategoryBadge(cat) {
+      const c = String(cat || '');
+      if (c.includes('Takograf')) return 'Takograf & Kod 95';
+      if (c.includes('Şoför Hakları')) return 'Şoför Hakları & Dinlenme';
+      if (c.includes('Avrupa Lojistik')) return 'Avrupa Lojistik Mevzuatı';
+      if (c.includes('Genel Filo')) return 'Filo & İstihdam';
+      return c || 'Lojistik Mevzuatı';
+    }
+
+    function renderAdminNewsTable() {
+      const tbody = document.getElementById('admin-news-tbody');
+      const countBadge = document.getElementById('admin-news-count-badge');
+      if (!tbody) return;
+
+      const list = getAdminNewsList();
+      if (countBadge) {
+        countBadge.textContent = `Son ${list.length} Kayıt Gösteriliyor`;
+      }
+
+      tbody.innerHTML = list.map((item) => {
+        const isPublished = item.status !== 'draft';
+        const statusBadge = isPublished
+          ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-status-success/20 text-[#065F46] font-label-sm text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Yayında</span>`
+          : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Taslak</span>`;
+        const catShort = item.categoryShort || getShortCategoryBadge(item.category);
+        const viewsText = isPublished ? (item.views || '1,240') : '-';
+
+        return `
+          <tr class="hover:bg-surface-subtle transition-colors">
+            <td class="py-3.5 px-space-md font-semibold text-on-surface max-w-xs truncate" title="${(item.title || '').replace(/"/g, '&quot;')}">
+              <a href="haberler.html#${item.id}" target="_blank" class="hover:text-secondary transition-colors">${item.title || '-'}</a>
+            </td>
+            <td class="py-3.5 px-space-md">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+                ${catShort}
+              </span>
+            </td>
+            <td class="py-3.5 px-space-md text-outline font-label-md text-label-md">
+              ${item.date || '-'}
+            </td>
+            <td class="py-3.5 px-space-md">
+              ${statusBadge}
+            </td>
+            <td class="py-3.5 px-space-md font-label-md text-label-md text-on-surface font-semibold">
+              ${viewsText}
+            </td>
+            <td class="py-3.5 px-space-md text-right">
+              <div class="inline-flex items-center gap-1">
+                <button class="p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" onclick="editAdminNewsArticle('${item.id}')" title="Düzenle" type="button">
+                  <span class="material-symbols-outlined text-[18px]">edit</span>
+                </button>
+                <button class="p-1 rounded text-outline hover:text-error hover:bg-error-container/40 transition-colors cursor-pointer" onclick="deleteAdminNewsArticle('${item.id}')" title="Sil" type="button">
+                  <span class="material-symbols-outlined text-[18px]">delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function collectCurrentNewsTags() {
+      const container = document.getElementById('news-tags-list');
+      if (!container) return ['#Kod95', '#TırŞoförü'];
+      const chips = container.querySelectorAll('[data-tag]');
+      return Array.from(chips).map(el => el.getAttribute('data-tag')).filter(Boolean);
+    }
+
+    function renderNewsTagsChips(tagsArray) {
+      const container = document.getElementById('news-tags-list');
+      if (!container) return;
+      container.innerHTML = (tagsArray || []).map(tag => {
+        const cleanTag = tag.startsWith('#') ? tag : `#${tag}`;
+        return `
+          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-tag="${cleanTag}">
+            ${cleanTag}
+            <button class="hover:text-error transition-colors flex items-center cursor-pointer" onclick="removeNewsTag(this)" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+          </span>
+        `;
+      }).join('');
+    }
+
+    function removeNewsTag(btnEl) {
+      const chip = btnEl && btnEl.closest('[data-tag]');
+      if (chip) chip.remove();
+    }
+
+    function handleNewsTagKeydown(event) {
+      if (event.key === 'Enter' || event.key === ',') {
+        event.preventDefault();
+        const input = event.target;
+        let val = (input.value || '').trim().replace(/^,+|,+$/g, '');
+        if (!val) return;
+        if (!val.startsWith('#')) val = '#' + val.replace(/\s+/g, '');
+        const existing = collectCurrentNewsTags();
+        if (!existing.includes(val)) {
+          existing.push(val);
+          renderNewsTagsChips(existing);
+        }
+        input.value = '';
+      }
+    }
+
+    function insertNewsFormatting(type) {
+      const textarea = document.getElementById('news-content');
+      if (!textarea) return;
+      textarea.focus();
+      const start = textarea.selectionStart || 0;
+      const end = textarea.selectionEnd || 0;
+      const selected = textarea.value.substring(start, end);
+      let replacement = '';
+
+      switch (type) {
+        case 'bold':
+          replacement = `**${selected || 'kalın metin'}**`;
+          break;
+        case 'italic':
+          replacement = `*${selected || 'italik metin'}*`;
+          break;
+        case 'underline':
+          replacement = `<u>${selected || 'altı çizili metin'}</u>`;
+          break;
+        case 'h2':
+          replacement = `\n\n## ${selected || 'Yeni Bölüm Başlığı'}\n`;
+          break;
+        case 'h3':
+          replacement = `\n\n### ${selected || 'Alt Başlık'}\n`;
+          break;
+        case 'ul':
+          replacement = `\n- ${selected || 'Liste maddesi 1'}\n- Liste maddesi 2\n`;
+          break;
+        case 'ol':
+          replacement = `\n1. ${selected || 'Birinci adım'}\n2. İkinci adım\n`;
+          break;
+        case 'quote':
+          replacement = `\n> ${selected || 'Önemli mevzuat notu veya alıntı metni...'}\n`;
+          break;
+        case 'link': {
+          const url = prompt('Eklenecek bağlantı adresini (URL) girin:', 'https://avrupatirsoforu.com/basvuru');
+          if (!url) return;
+          replacement = `[${selected || 'Detaylı Başvuru Formu'}](${url})`;
+          break;
+        }
+        case 'image': {
+          const imgUrl = prompt('Eklenecek görselin URL adresini girin:', DEFAULT_NEWS_COVER_IMG);
+          if (!imgUrl) return;
+          replacement = `\n\n![${selected || 'Avrupa Lojistik Görseli'}](${imgUrl})\n\n`;
+          break;
+        }
+        case 'table':
+          replacement = `\n\n## Resmi Sürüş ve Mola Standartları Özeti\n- **Maksimum Günlük Sürüş:** 9 Saat (Haftada 2 gün 10 saate çıkabilir)\n- **Zorunlu Mola Periyodu:** 45 Dakika (Her 4.5 saatlik sürüş sonunda)\n- **Haftalık Düzenli Dinlenme:** 45 Saat (Kabin içinde geçirilmesi yasaktır)\n\n`;
+          break;
+        case 'undo':
+          document.execCommand('undo');
+          return;
+        case 'redo':
+          document.execCommand('redo');
+          return;
+        default:
+          return;
+      }
+
+      textarea.setRangeText(replacement, start, end, 'end');
+    }
+
+    function triggerNewsCoverUpload() {
+      const fileInput = document.getElementById('news-cover-file');
+      if (fileInput) fileInput.click();
+    }
+
+    function handleNewsCoverFileChange(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const imgEl = document.getElementById('news-cover-img');
+        const badgeEl = document.getElementById('news-cover-badge');
+        const badgeTextEl = document.getElementById('news-cover-badge-text');
+        if (imgEl && ev.target && ev.target.result) {
+          imgEl.src = ev.target.result;
+        }
+        if (badgeEl) badgeEl.classList.remove('hidden');
+        if (badgeTextEl) {
+          const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+          const ext = (file.name.split('.').pop() || 'JPG').toUpperCase();
+          badgeTextEl.textContent = `Görsel Yüklendi (${ext}, ${sizeMb} MB)`;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeNewsCoverImage() {
+      const imgEl = document.getElementById('news-cover-img');
+      const badgeTextEl = document.getElementById('news-cover-badge-text');
+      if (imgEl) imgEl.src = DEFAULT_NEWS_COVER_IMG;
+      if (badgeTextEl) badgeTextEl.textContent = 'Varsayılan Kapak Görseli Aktif';
+    }
+
+    async function handleSaveNewsArticle(forcedStatus) {
+      const titleInput = document.getElementById('news-title');
+      const categorySelect = document.getElementById('news-category');
+      const langSelect = document.getElementById('news-lang');
+      const summaryInput = document.getElementById('news-summary');
+      const contentInput = document.getElementById('news-content');
+      const publishDateInput = document.getElementById('publish-date');
+      const coverImgEl = document.getElementById('news-cover-img');
+      const editIdInput = document.getElementById('news-edit-id');
+
+      const title = (titleInput ? titleInput.value : '').trim();
+      const category = categorySelect ? categorySelect.value : 'Avrupa Lojistik Mevzuatı & Filolar';
+      const lang = langSelect ? langSelect.value : 'tr';
+      const summary = (summaryInput ? summaryInput.value : '').trim();
+      const content = (contentInput ? contentInput.value : '').trim();
+      const publishDateVal = publishDateInput ? publishDateInput.value : '';
+
+      if (!title) {
+        alert('Lütfen "Haber / Makale Başlığı" alanını doldurun.');
+        if (titleInput) titleInput.focus();
+        return;
+      }
+
+      if (!summary) {
+        alert('Lütfen "Kısa Özet / Spot Metin" alanını doldurun.');
+        if (summaryInput) summaryInput.focus();
+        return;
+      }
+
+      if (!content) {
+        alert('Lütfen "Detaylı Makale İçeriği" alanını doldurun.');
+        if (contentInput) contentInput.focus();
+        return;
+      }
+
+      // Determine status from button clicked or radio selection
+      let status = forcedStatus;
+      if (!status) {
+        const checkedRadio = document.querySelector('input[name="publish_status"]:checked');
+        status = checkedRadio ? checkedRadio.value : 'published';
+      } else {
+        const targetRadio = document.querySelector(`input[name="publish_status"][value="${status}"]`);
+        if (targetRadio) targetRadio.checked = true;
+      }
+
+      const tags = collectCurrentNewsTags();
+      const existingId = editIdInput && editIdInput.value ? editIdInput.value : '';
+      const articleId = existingId || ('news-' + Date.now());
+      const formattedDate = formatTurkishDate(publishDateVal || new Date());
+      const readTime = estimateReadTime(content);
+      const bodyHtml = convertNewsMarkdownToHtml(content);
+      const imageSrc = (coverImgEl && coverImgEl.src) ? coverImgEl.src : DEFAULT_NEWS_COVER_IMG;
+
+      const newArticle = {
+        id: articleId,
+        title: title,
+        category: category,
+        categoryShort: getShortCategoryBadge(category),
+        lang: lang,
+        summary: summary,
+        content: content,
+        bodyHtml: bodyHtml,
+        tags: tags.length ? tags : ['#Kod95', '#TırŞoförü', '#AvrupaLojistik'],
+        image: imageSrc,
+        status: status,
+        featured: status === 'published',
+        date: formattedDate,
+        publishDateIso: publishDateVal || new Date().toISOString().slice(0, 16),
+        readTime: readTime,
+        authorName: 'Lojistik Danışmanlık Kurulu',
+        authorRole: 'Uluslararası Taşımacılık ve Evrak İnceleme Birimi',
+        views: status === 'published' ? 'Yeni Yayınlandı' : '-',
+        updatedAt: new Date().toISOString()
+      };
+
+      let list = getAdminNewsList();
+      if (status === 'published') {
+        list.forEach(item => { item.featured = false; });
+      }
+
+      const existingIdx = list.findIndex(item => item.id === articleId);
+      if (existingIdx > -1) {
+        list.splice(existingIdx, 1);
+      }
+      // Put the newly published/edited article at index 0 so it is the latest published news article
+      list.unshift(newArticle);
+
+      saveAdminNewsList(list);
+      renderAdminNewsTable();
+
+      // Persist to server API (api/news.php) so all visitors see the latest published news article
+      try {
+        await fetch('api/news.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newArticle)
+        });
+      } catch (e) {
+        console.warn('API news sync fallback to localStorage:', e);
+      }
+
+      // Reset edit state
+      if (editIdInput) editIdInput.value = '';
+      const btnLabel = document.getElementById('news-publish-btn-label');
+      if (btnLabel) btnLabel.textContent = 'Haberi Yayınla';
+
+      if (status === 'published') {
+        alert(`"${title}" başlıklı haber başarıyla yayınlandı!\n\nHaberler sayfasında (avrupatirsoforu.com/haberler) en son yayınlanan ana haber olarak yayına alındı.`);
+      } else {
+        alert(`"${title}" başlıklı içerik taslak olarak kaydedildi.`);
+      }
+    }
+
+    function editAdminNewsArticle(articleId) {
+      const list = getAdminNewsList();
+      const item = list.find(a => a.id === articleId);
+      if (!item) return;
+
+      const editIdInput = document.getElementById('news-edit-id');
+      const titleInput = document.getElementById('news-title');
+      const categorySelect = document.getElementById('news-category');
+      const langSelect = document.getElementById('news-lang');
+      const summaryInput = document.getElementById('news-summary');
+      const contentInput = document.getElementById('news-content');
+      const publishDateInput = document.getElementById('publish-date');
+      const coverImgEl = document.getElementById('news-cover-img');
+      const btnLabel = document.getElementById('news-publish-btn-label');
+
+      if (editIdInput) editIdInput.value = item.id;
+      if (titleInput) titleInput.value = item.title || '';
+      if (categorySelect && item.category) categorySelect.value = item.category;
+      if (langSelect && item.lang) langSelect.value = item.lang;
+      if (summaryInput) summaryInput.value = item.summary || '';
+      if (contentInput) contentInput.value = item.content || '';
+      if (publishDateInput && item.publishDateIso) publishDateInput.value = item.publishDateIso;
+      if (coverImgEl && item.image) coverImgEl.src = item.image;
+      if (Array.isArray(item.tags)) renderNewsTagsChips(item.tags);
+
+      const statusRadio = document.querySelector(`input[name="publish_status"][value="${item.status || 'published'}"]`);
+      if (statusRadio) statusRadio.checked = true;
+      if (btnLabel) btnLabel.textContent = 'Haberi Güncelle & Yayınla';
+
+      const viewEl = document.getElementById('view-icerik-ekle');
+      if (viewEl) viewEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    async function deleteAdminNewsArticle(articleId) {
+      const list = getAdminNewsList();
+      const target = list.find(a => a.id === articleId);
+      if (!target) return;
+      if (!confirm(`"${target.title}" başlıklı haberi silmek istediğinize emin misiniz?`)) return;
+
+      const updated = list.filter(a => a.id !== articleId);
+      saveAdminNewsList(updated);
+      renderAdminNewsTable();
+
+      try {
+        await fetch(`api/news.php?id=${encodeURIComponent(articleId)}`, { method: 'DELETE' });
+      } catch (e) {}
+    }
+
+    window.handleSaveNewsArticle = handleSaveNewsArticle;
+    window.editAdminNewsArticle = editAdminNewsArticle;
+    window.deleteAdminNewsArticle = deleteAdminNewsArticle;
+    window.insertNewsFormatting = insertNewsFormatting;
+    window.removeNewsTag = removeNewsTag;
+    window.handleNewsTagKeydown = handleNewsTagKeydown;
+    window.triggerNewsCoverUpload = triggerNewsCoverUpload;
+    window.handleNewsCoverFileChange = handleNewsCoverFileChange;
+    window.removeNewsCoverImage = removeNewsCoverImage;
+    window.initNewsCmsPanel = initNewsCmsPanel;
   </script>
 </body>
 </html>
