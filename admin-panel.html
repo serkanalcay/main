@@ -1668,37 +1668,14 @@
                       <span class="material-symbols-outlined text-[18px]">redo</span>
                     </button>
                   </div>
-                  <textarea class="w-full p-space-lg bg-surface-subtle text-on-surface placeholder-on-surface-variant font-body-md text-body-md focus:bg-surface-card focus:outline-none transition-all leading-relaxed" id="news-content" placeholder="Uluslararası taşımacılık operasyonları, dinlenme süreleri, takograf veri indirme aralıkları ve C+E sınıfı sürücülerin dikkat etmesi gereken kritik maddeleri buraya yazın..." rows="12">Avrupa Parlamentosu ve Konseyi'nin uluslararası taşımacılık paketinde devreye aldığı Akıllı Takograf Versiyon 2 (Smart Tacho 2) zorunluluğu, uluslararası hatta çalışan C+E sınıfı ağır vasıta sürücülerimiz için kritik operasyonel süreçleri beraberinde getirmektedir.
-
-## 1. Kabin Dinlenme Standartları ve Otel Konaklamaları
-Mevzuat uyarınca, 45 saatlik düzenli haftalık dinlenmenin araç kabini içerisinde geçirilmesi kesin bir dille yasaklanmıştır. Filo yöneticileri ve işveren lojistik firmaları, sürücülerin bu dinlenmelerini lisanslı konaklama tesislerinde geçirmelerini sağlamakla yükümlüdür.
-
-## 2. Kod 95 (Mesleki Yeterlilik) Yenileme Periyotları
-Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini sınır geçişlerinden en az 60 gün önce kontrol etmesi önerilmektedir. Çekici değişimlerinde dijital sürücü kartlarının eşzamanlı aktarımı esastır.</textarea>
+                  <textarea class="w-full p-space-lg bg-surface-subtle text-on-surface placeholder-on-surface-variant font-body-md text-body-md focus:bg-surface-card focus:outline-none transition-all leading-relaxed" id="news-content" placeholder="Uluslararası taşımacılık operasyonları, dinlenme süreleri, takograf veri indirme aralıkları ve C+E sınıfı sürücülerin dikkat etmesi gereken kritik maddeleri buraya yazın..." rows="12"></textarea>
                 </div>
               </div>
 
               <div class="flex flex-col gap-space-xs">
                 <label class="font-label-md text-label-md text-on-surface" for="news-tag-input">Etiketler (Arama &amp; Filtreleme)</label>
                 <div class="flex flex-wrap items-center gap-space-xs p-2.5 rounded-lg bg-surface-subtle" id="news-tags-wrapper">
-                  <div class="flex flex-wrap items-center gap-space-xs" id="news-tags-list">
-                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-tag="#Kod95">
-                      #Kod95
-                      <button class="hover:text-error transition-colors flex items-center cursor-pointer" onclick="removeNewsTag(this)" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
-                    </span>
-                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-tag="#TırŞoförü">
-                      #TırŞoförü
-                      <button class="hover:text-error transition-colors flex items-center cursor-pointer" onclick="removeNewsTag(this)" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
-                    </span>
-                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-tag="#AlmanyaFiloları">
-                      #AlmanyaFiloları
-                      <button class="hover:text-error transition-colors flex items-center cursor-pointer" onclick="removeNewsTag(this)" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
-                    </span>
-                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-tag="#TakografMevzuatı">
-                      #TakografMevzuatı
-                      <button class="hover:text-error transition-colors flex items-center cursor-pointer" onclick="removeNewsTag(this)" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
-                    </span>
-                  </div>
+                  <div class="flex flex-wrap items-center gap-space-xs" id="news-tags-list"></div>
                   <input class="flex-1 min-w-[180px] bg-transparent text-on-surface placeholder-on-surface-variant font-body-sm text-body-sm focus:outline-none px-2 py-1" id="news-tag-input" onkeydown="handleNewsTagKeydown(event)" placeholder="Yeni etiket yazıp Enter'a basın..." type="text">
                 </div>
               </div>
@@ -1723,8 +1700,8 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
                   </button>
                 </div>
                 <div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-canvas-dark/80 text-white font-label-sm text-label-sm flex items-center gap-1" id="news-cover-badge">
-                  <span class="material-symbols-outlined text-[14px] text-secondary-container">check_circle</span>
-                  <span id="news-cover-badge-text">Görsel Yüklendi (JPG, 2.1 MB)</span>
+                  <span class="material-symbols-outlined text-[14px] text-secondary-container">image</span>
+                  <span id="news-cover-badge-text">Görsel Seçmek İçin "Değiştir"e Tıklayın</span>
                 </div>
               </div>
             </div>
@@ -1747,7 +1724,7 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
               <div class="flex flex-col gap-space-xs">
                 <label class="font-label-md text-label-md text-on-surface" for="publish-date">Yayın Tarihi &amp; Saati</label>
                 <div class="relative">
-                  <input class="w-full h-11 px-space-md rounded-lg bg-surface-subtle text-on-surface font-body-sm text-body-sm focus:bg-surface-card focus:outline-none shadow-sm transition-all" id="publish-date" type="datetime-local" value="2025-05-18T10:30">
+                  <input class="w-full h-11 px-space-md rounded-lg bg-surface-subtle text-on-surface font-body-sm text-body-sm focus:bg-surface-card focus:outline-none shadow-sm transition-all" id="publish-date" type="datetime-local" value="">
                 </div>
               </div>
               <div class="flex flex-col gap-space-xs"></div>
@@ -1762,7 +1739,7 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
               <h2 class="font-headline-sm text-headline-sm text-on-surface">Son Eklenen Haberler &amp; Mevzuat Duyuruları</h2>
               <p class="font-body-sm text-body-sm text-on-surface-variant">Sistemde yayında olan son içerikler ve şoför adayları erişim istatistikleri.</p>
             </div>
-            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold" id="admin-news-count-badge">Son 3 Kayıt Gösteriliyor</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold" id="admin-news-count-badge">0 Kayıt Gösteriliyor</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left">
@@ -5770,59 +5747,7 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
     const NEWS_STORAGE_KEY = 'ats_news_articles';
     const DEFAULT_NEWS_COVER_IMG = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDvUtLADhxEooKbJ9ikCN_HO292-3KlouB4H_RE1GUhUEnz_ugfAboOtXpsdpIJ7MCuPL5c-dsuxNz-G_B70oXc7-9Q2vYFiFu-VcXdIq6uZTqzRfzS34IUpk27mYT3zy8fk1O5tYn_te4FXrlc96cn3TnvTJZKpIjELJ8qG15HIRcrpr8-osaqVHuXBU5J00QfW-p6UkKATyxNIEDH1UXN3QRSg3eJx3eWT4oTLfs';
 
-    const SEED_PANEL_NEWS = [
-      {
-        id: 'seed-takograf-v2',
-        title: 'Almanya C+E Sürücüleri İçin Dijital Takograf 2. Versiyon Geçiş Takvimi',
-        category: 'Takograf & Kod 95 Denklik Süreçleri',
-        categoryShort: 'Takograf & Kod 95',
-        lang: 'tr',
-        summary: 'AB sınır kapıları ve transit koridorlarındaki yeni dijital denetim mekanizmaları ile Akıllı Takograf 2. Versiyon (Smart Tacho 2) zorunluluğu hakkında operasyonel rehber.',
-        content: "Avrupa Parlamentosu ve Konseyi'nin uluslararası taşımacılık paketinde devreye aldığı Akıllı Takograf Versiyon 2 (Smart Tacho 2) zorunluluğu, uluslararası hatta çalışan C+E sınıfı ağır vasıta sürücülerimiz için kritik operasyonel süreçleri beraberinde getirmektedir.\n\n## 1. Kabin Dinlenme Standartları ve Otel Konaklamaları\nMevzuat uyarınca, 45 saatlik düzenli haftalık dinlenmenin araç kabini içerisinde geçirilmesi kesin bir dille yasaklanmıştır. Filo yöneticileri ve işveren lojistik firmaları, sürücülerin bu dinlenmelerini lisanslı konaklama tesislerinde geçirmelerini sağlamakla yükümlüdür.\n\n## 2. Kod 95 (Mesleki Yeterlilik) Yenileme Periyotları\nTüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini sınır geçişlerinden en az 60 gün önce kontrol etmesi önerilmektedir. Çekici değişimlerinde dijital sürücü kartlarının eşzamanlı aktarımı esastır.",
-        date: '14 Mayıs 2025',
-        publishDateIso: '2025-05-14T10:30',
-        readTime: '5 Dakika Okuma',
-        status: 'published',
-        views: '1,420',
-        image: DEFAULT_NEWS_COVER_IMG,
-        tags: ['#Kod95', '#TırŞoförü', '#AlmanyaFiloları', '#TakografMevzuatı'],
-        isSeed: true
-      },
-      {
-        id: 'seed-fransa-belcika-dinlenme',
-        title: 'Fransa ve Belçika Arası Haftalık Dinlenme Denetimlerinde Ağır Para Cezaları',
-        category: 'Şoför Hakları & Dinlenme Standartları',
-        categoryShort: 'Şoför Hakları & Dinlenme',
-        lang: 'tr',
-        summary: 'Fransa ve Belçika otoyol jandarması tarafından gerçekleştirilen kabin içi 45 saatlik haftalık düzenli dinlenme denetimleri ve filo operatörlerine uygulanan cezai yaptırımlar.',
-        content: "Mobilite Paketi kapsamında Fransa ve Belçika transit koridorlarında görev yapan ağır vasıta sürücülerinin haftalık düzenli dinlenme periyotları sıkı denetim altına alınmıştır.\n\n## 1. 45 Saatlik Haftalık Dinlenme Kuralları\nSürücülerin 45 saatlik düzenli haftalık dinlenmelerini çekici kabininde geçirmesi yasaktır. İşveren lojistik firması güvenli park alanı ve otel konaklama giderlerini karşılamakla yükümlüdür.",
-        date: '11 Mayıs 2025',
-        publishDateIso: '2025-05-11T14:00',
-        readTime: '4 Dakika Okuma',
-        status: 'published',
-        views: '2,890',
-        image: DEFAULT_NEWS_COVER_IMG,
-        tags: ['#ŞoförHakları', '#FransaOtoyol', '#KabinDinlenme'],
-        isSeed: true
-      },
-      {
-        id: 'seed-polonya-hollanda-oryantasyon',
-        title: 'Polonya ve Hollanda Filolarına Katılacak Türk Ağır Vasıta Şoförleri İçin Oryantasyon',
-        category: 'Avrupa Lojistik Mevzuatı & Filolar',
-        categoryShort: 'Avrupa Lojistik Mevzuatı',
-        lang: 'tr',
-        summary: 'Polonya ve Hollanda merkezli uluslararası tır filolarında göreve başlayacak C+E sınıfı şoför adayları için iş sözleşmesi, PKZ numarası ve filo teslim süreçleri.',
-        content: "Polonya ve Hollanda merkezli lojistik filolarına katılacak profesyonel tır şoförleri için evrak hazırlığından çekici teslimine kadar tüm oryantasyon adımları standartlaştırılmıştır.\n\n## 1. PKZ ve Kod 95 Süreci\nPolonya filolarında çalışacak sürücüler için Karta Kwalifikacji Kierowcy (Kod 95) ve psikoteknik muayene işlemleri danışmanlarımız eşliğinde organize edilmektedir.",
-        date: '06 Mayıs 2025',
-        publishDateIso: '2025-05-06T09:15',
-        readTime: '6 Dakika Okuma',
-        status: 'draft',
-        views: '-',
-        image: DEFAULT_NEWS_COVER_IMG,
-        tags: ['#PolonyaFiloları', '#HollandaFiloları', '#Kod95'],
-        isSeed: true
-      }
-    ];
+    const SEED_PANEL_NEWS = [];
 
     function formatTurkishDate(dateInput) {
       const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
@@ -5932,12 +5857,17 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
     function getAdminNewsList() {
       try {
         const raw = localStorage.getItem(NEWS_STORAGE_KEY);
-        if (!raw) return [...SEED_PANEL_NEWS];
+        if (!raw) return [];
         const parsed = JSON.parse(raw);
-        if (!Array.isArray(parsed) || parsed.length === 0) return [...SEED_PANEL_NEWS];
-        return parsed;
+        if (!Array.isArray(parsed)) return [];
+        // Filter out any old seed articles so only user-created articles exist
+        const userArticles = parsed.filter(item => item && !item.isSeed && !String(item.id || '').startsWith('seed-'));
+        if (userArticles.length !== parsed.length) {
+          localStorage.setItem(NEWS_STORAGE_KEY, JSON.stringify(userArticles));
+        }
+        return userArticles;
       } catch (e) {
-        return [...SEED_PANEL_NEWS];
+        return [];
       }
     }
 
@@ -5961,11 +5891,11 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
         const res = await fetch('api/news.php', { cache: 'no-store' });
         if (!res.ok) return;
         const data = await res.json();
-        if (data && Array.isArray(data.articles) && data.articles.length > 0) {
+        if (data && Array.isArray(data.articles)) {
           const localList = getAdminNewsList();
           const map = new Map();
-          data.articles.forEach(a => { if (a && a.id) map.set(a.id, a); });
-          localList.forEach(a => { if (a && a.id && !map.has(a.id)) map.set(a.id, a); });
+          data.articles.forEach(a => { if (a && a.id && !a.isSeed && !String(a.id).startsWith('seed-')) map.set(a.id, a); });
+          localList.forEach(a => { if (a && a.id && !a.isSeed && !String(a.id).startsWith('seed-') && !map.has(a.id)) map.set(a.id, a); });
           const merged = Array.from(map.values());
           localStorage.setItem(NEWS_STORAGE_KEY, JSON.stringify(merged));
           renderAdminNewsTable();
@@ -5974,6 +5904,12 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
     }
 
     function initNewsCmsPanel() {
+      const publishDateInput = document.getElementById('publish-date');
+      if (publishDateInput && !publishDateInput.value) {
+        const now = new Date();
+        const tzOffset = now.getTimezoneOffset() * 60000;
+        publishDateInput.value = new Date(now - tzOffset).toISOString().slice(0, 16);
+      }
       renderAdminNewsTable();
       syncNewsWithServerApi();
     }
@@ -5994,7 +5930,18 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
 
       const list = getAdminNewsList();
       if (countBadge) {
-        countBadge.textContent = `Son ${list.length} Kayıt Gösteriliyor`;
+        countBadge.textContent = `${list.length} Kayıt Gösteriliyor`;
+      }
+
+      if (list.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-8 px-space-md text-center text-on-surface-variant font-body-sm text-body-sm">
+              Henüz eklenmiş bir haber veya duyuru bulunmuyor. Yukarıdaki formdan yeni içerik oluşturup yayınlayabilirsiniz.
+            </td>
+          </tr>
+        `;
+        return;
       }
 
       tbody.innerHTML = list.map((item) => {
@@ -6003,7 +5950,7 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
           ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-status-success/20 text-[#065F46] font-label-sm text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Yayında</span>`
           : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-on-secondary-fixed font-label-sm text-label-sm font-bold"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Taslak</span>`;
         const catShort = item.categoryShort || getShortCategoryBadge(item.category);
-        const viewsText = isPublished ? (item.views || '1,240') : '-';
+        const viewsText = isPublished ? (item.views || 'Yeni') : '-';
 
         return `
           <tr class="hover:bg-surface-subtle transition-colors">
@@ -6041,7 +5988,7 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
 
     function collectCurrentNewsTags() {
       const container = document.getElementById('news-tags-list');
-      if (!container) return ['#Kod95', '#TırŞoförü'];
+      if (!container) return [];
       const chips = container.querySelectorAll('[data-tag]');
       return Array.from(chips).map(el => el.getAttribute('data-tag')).filter(Boolean);
     }
@@ -6277,8 +6224,12 @@ Tüm sürücülerin ehliyet arkasında yer alan 95 kodunun geçerlilik süresini
         console.warn('API news sync fallback to localStorage:', e);
       }
 
-      // Reset edit state
+      // Reset form and edit state after saving
       if (editIdInput) editIdInput.value = '';
+      if (titleInput) titleInput.value = '';
+      if (summaryInput) summaryInput.value = '';
+      if (contentInput) contentInput.value = '';
+      renderNewsTagsChips([]);
       const btnLabel = document.getElementById('news-publish-btn-label');
       if (btnLabel) btnLabel.textContent = 'Haberi Yayınla';
 

@@ -292,23 +292,23 @@
           <div class="flex flex-wrap items-center gap-3">
             <span id="newsCategoryBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-canvas-dark font-label-md text-label-md font-bold uppercase tracking-wider shadow-sm">
               <span class="material-symbols-outlined text-[16px]">local_shipping</span>
-              <span id="newsCategoryText">Avrupa Lojistik Mevzuatı &amp; Filolar</span>
+              <span id="newsCategoryText">Haberler &amp; Duyurular</span>
             </span>
             <span class="text-outline-variant font-label-md text-label-md">•</span>
             <span class="inline-flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
               <span class="material-symbols-outlined text-[16px]">calendar_today</span>
-              <span id="newsDateText">28 Ekim 2024</span>
+              <span id="newsDateText">-</span>
             </span>
             <span class="text-outline-variant font-label-md text-label-md">•</span>
             <span class="inline-flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
               <span class="material-symbols-outlined text-[16px]">schedule</span>
-              <span id="newsReadTimeText">6 Dakika Okuma</span>
+              <span id="newsReadTimeText">-</span>
             </span>
           </div>
 
           <!-- Main Headline -->
           <h1 id="newsMainTitle" class="font-display text-display-mobile md:text-display text-on-surface max-w-5xl leading-tight font-extrabold tracking-tight">
-            2025 - 2026 Avrupa Karayolu Taşımacılığında Yeni Dönem: Şoför Hakları, Takograf Kuralları ve Filo Maaş Standartları
+            Henüz Yayınlanmış Bir Haber Bulunmuyor
           </h1>
 
           <!-- Author & Metadata Row -->
@@ -329,7 +329,7 @@
                 <span class="material-symbols-outlined text-[18px]">share</span>
                 <span>Paylaş</span>
               </button>
-              <a id="whatsappShareTop" class="p-2 rounded-lg bg-status-success text-canvas-dark hover:opacity-90 transition-opacity shadow-sm" href="https://wa.me/?text=2025%20Avrupa%20T%C4%B1r%20%C5%9Eof%C3%B6r%C3%BC%20Mevzuat%C4%B1%20ve%20Maa%C5%9F%20Standartlar%C4%B1" rel="noopener noreferrer" target="_blank" title="WhatsApp'ta Paylaş">
+              <a id="whatsappShareTop" class="p-2 rounded-lg bg-status-success text-canvas-dark hover:opacity-90 transition-opacity shadow-sm" href="https://wa.me/" rel="noopener noreferrer" target="_blank" title="WhatsApp'ta Paylaş">
                 <span class="material-symbols-outlined text-[20px]">chat</span>
               </a>
             </div>
@@ -338,24 +338,14 @@
       </div>
 
       <!-- Featured Media Section -->
-      <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 -mt-4 mb-10">
+      <div id="newsHeroSection" class="w-full max-w-7xl mx-auto px-6 lg:px-12 -mt-4 mb-10 hidden">
         <div class="relative w-full rounded-2xl overflow-hidden shadow-xl aspect-[21/9] min-h-[340px] max-h-[500px]">
-          <img id="newsHeroImage" alt="Avrupa Karayolu Taşımacılığı ve Tır Filoları" class="w-full h-full object-cover" data-alt="A heavy-duty Euro 6 modern long-haul freight truck cruising smoothly on a pristine multi-lane German Autobahn during sunrise, sleek aerodynamic cab design in midnight navy blue with sharp amber warning clearance lights, dramatic morning sky, ultra-sharp realistic logistics photography with authoritative industrial presence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8uTASek1iqYqdacoePWttsGve2xHD5a5_CREZA9vYLygoG4bjPyJ8xEosyrATDR616cV8nav_XxtfJXo_G1JNbBuTYuP2u2McnbbPYe5k1iK_L201UwlJFD_N1LVowmGUPkwwFQNB3X1XFBXbEPG0yCGvX7HwCwj28uX-PWMnJ_d1mjQZjo8qL8g5Xxcmyr7x8bSoErG550sXPvAMXdLQNlY3jf5-8eXG0Fl98Fs">
+          <img id="newsHeroImage" alt="Haber Kapak Görseli" class="w-full h-full object-cover" src="">
           <div class="absolute inset-0 bg-gradient-to-t from-canvas-dark/85 via-canvas-dark/20 to-transparent flex items-end p-6 lg:p-8">
             <div id="newsHeroHighlights" class="flex flex-wrap items-center gap-4 text-on-primary font-label-sm text-label-sm bg-primary-container/80 backdrop-blur-md px-4 py-2 rounded-lg">
               <span class="inline-flex items-center gap-1">
-                <span class="material-symbols-outlined text-[16px] text-secondary-container">speed</span>
-                Akıllı Takograf Gen2 Zorunluluğu
-              </span>
-              <span class="text-outline-variant">•</span>
-              <span class="inline-flex items-center gap-1">
-                <span class="material-symbols-outlined text-[16px] text-secondary-container">payments</span>
-                Net Taban 2.800€ - 3.400€ Seviyesi
-              </span>
-              <span class="text-outline-variant">•</span>
-              <span class="inline-flex items-center gap-1">
-                <span class="material-symbols-outlined text-[16px] text-secondary-container">badge</span>
-                Kod 95 AB Geçerliliği
+                <span class="material-symbols-outlined text-[16px] text-secondary-container">verified</span>
+                <span id="newsHeroBadgeText">Avrupa Tır Şoförü İstihdam &amp; Mevzuat Bülteni</span>
               </span>
             </div>
           </div>
@@ -363,133 +353,18 @@
       </div>
 
       <!-- Main Content & Sidebar Grid -->
-      <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 pb-16">
+      <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-10 pb-16">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
           <!-- Article Body (8 Cols Desktop) -->
           <article class="lg:col-span-8 flex flex-col gap-8" id="newsArticleContainer">
             <!-- Summary Lead Paragraph -->
             <p id="newsLeadSummary" class="font-body-lg text-body-lg text-on-surface font-semibold leading-relaxed bg-surface-subtle p-6 rounded-xl shadow-sm">
-              Avrupa Birliği genelinde uygulamaya alınan Mobilite Paketi gereklilikleri, uluslararası karayolu taşımacılığında çalışan profesyonel ağır vasıta (CE sınıfı) sürücülerinin çalışma standartlarını, sürüş saatlerini ve bordrolama modellerini kökten yeniden tanımlıyor. 2025 itibarıyla yürürlüğe girecek yeni denetim mekanizmaları ve filo yönergelerini sizler için mercek altına aldık.
+              Yönetici panelindeki "İçerik Ekle" bölümünden yeni bir haber veya duyuru yayınladığınızda içerik otomatik olarak burada görüntülenecektir.
             </p>
 
-            <!-- Dynamic Body Wrapper (Replaced when another news item from Admin Panel is selected) -->
-            <div id="newsDynamicBody" class="flex flex-col gap-8">
-              <!-- Section 1 -->
-              <section class="flex flex-col gap-4">
-                <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight flex items-center gap-3">
-                  <span class="w-2.5 h-8 bg-secondary-container rounded-full"></span>
-                  Dijital Takograf ve Sürüş/Dinlenme Sürelerinde Son Düzenlemeler
-                </h2>
-                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                  Avrupa Komisyonu Taşımacılık Direktifi kapsamında, sınır ötesi yük taşımacılığı yapan tüm tır ve çekicilerde <strong>Akıllı Takograf Sürüm 2 (Smart Tacho 2 - V2)</strong> donanımına geçiş zorunluluğu aşamalı olarak tamamlanıyor. Bu sistem sayesinde araçların sınır geçişleri, kabin dinlenme aralıkları ve dingil ağırlığı kontrolleri uydu üzerinden (GNSS) kaydedilmekte, manuel mühürleme hataları ortadan kalkmaktadır.
-                </p>
-
-                <!-- Interactive Highlight Card: Takograf Kural Matrisi -->
-                <div class="bg-surface-card p-6 rounded-xl shadow-md space-y-4">
-                  <div class="flex items-center justify-between pb-3 bg-surface-container-high/40 p-3 rounded-lg">
-                    <span class="font-label-lg text-label-lg font-bold text-on-surface flex items-center gap-2">
-                      <span class="material-symbols-outlined text-secondary">tune</span>
-                      2025 Resmi Takograf &amp; Sürüş Tablosu
-                    </span>
-                    <span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">AB 561/2006 Sayılı Direktif</span>
-                  </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div class="bg-surface-subtle p-4 rounded-lg flex flex-col gap-1">
-                      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Maksimum Günlük Sürüş</span>
-                      <span class="font-headline-md text-headline-md font-extrabold text-on-surface">9 Saat</span>
-                      <span class="font-label-sm text-label-sm text-secondary font-medium">Haftada 2 gün 10 saate çıkabilir</span>
-                    </div>
-                    <div class="bg-surface-subtle p-4 rounded-lg flex flex-col gap-1">
-                      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Zorunlu Mola Periyodu</span>
-                      <span class="font-headline-md text-headline-md font-extrabold text-on-surface">45 Dakika</span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Her 4.5 saatlik kesintisiz sürüşte</span>
-                    </div>
-                    <div class="bg-surface-subtle p-4 rounded-lg flex flex-col gap-1">
-                      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Haftalık Düzenli Dinlenme</span>
-                      <span class="font-headline-md text-headline-md font-extrabold text-on-surface">45 Saat</span>
-                      <span class="font-label-sm text-label-sm text-error font-medium">Kabin içinde geçirilmesi yasaktır</span>
-                    </div>
-                  </div>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant italic pt-1">
-                    *Not: 45 saatlik haftalık düzenli dinlenmenin araç kabininde geçirilmesi durumunda filo operatörüne ve araç sürücüsüne Almanya, Fransa ve Belçika otoyol denetimlerinde ağır idari yaptırımlar uygulanmaktadır. Otel konaklama bedelleri lojistik firması tarafından karşılanmak zorundadır.
-                  </p>
-                </div>
-              </section>
-
-              <!-- In-Content Visual Context Image -->
-              <div class="relative w-full rounded-xl overflow-hidden shadow-md h-72">
-                <img alt="Dijital Takograf ve Tır Kabini" class="w-full h-full object-cover" data-alt="A focused commercial truck driver operating an advanced digital cockpit dashboard with illuminated telemetry, navigation screen, and digital tachograph card slot inside a clean Mercedes-Benz Actros cabin, calm night highway lighting, authentic professional cockpit atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMS-tubevTHwZejx7EugEjRq-mMKomP7YEhdZPMfWw28YSXrRdTSES96ao8Imgc5PwG2TE7VSVDprhrSgvxiZprHHsTGfq2ccdiIKiJ02DKlFPyYBw1ac9ksP1BVArjlIcIxP-S4uH2uD4Ovsps_77iyOyO_qrLJKUuG2iLrc652RBNX10iHXyI728aFsQmh02pGNEQvZxPBidaBSSYeg6jGDE-euBLFm9srbadqg">
-              </div>
-
-              <!-- Section 2 -->
-              <section class="flex flex-col gap-4">
-                <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight flex items-center gap-3">
-                  <span class="w-2.5 h-8 bg-secondary-container rounded-full"></span>
-                  Almanya ve Polonya Filolarında Ortalama Maaş ve Yan Haklar
-                </h2>
-                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                  Avrupa taşımacılık endüstrisindeki nitelikli ağır vasıta şoförü açığı, 2025 yılı kontratlarında taban maaşların ve harcırahların (Diäten) yukarı yönlü güncellenmesini sağlamıştır. Özellikle uluslararası tenteli (Curtainsider), soğuk zincir (Frigo) ve konteyner taşımacılığında çalışan sürücüler için net kazançlar cazip seviyelere ulaşmıştır.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <!-- Germany Fleet Box -->
-                  <div class="bg-surface-card p-5 rounded-xl shadow-sm flex flex-col justify-between gap-3">
-                    <div class="flex items-center justify-between">
-                      <span class="font-headline-sm text-headline-sm font-bold text-on-surface flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-secondary-container"></span>
-                        Almanya Filoları (DE)
-                      </span>
-                      <span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold">ADR Tercihli</span>
-                    </div>
-                    <div class="space-y-2 py-2">
-                      <div class="flex justify-between items-center text-body-sm font-body-sm">
-                        <span class="text-on-surface-variant">Aylık Net Taban:</span>
-                        <span class="font-bold text-on-surface">2.900 € - 3.400 €</span>
-                      </div>
-                      <div class="flex justify-between items-center text-body-sm font-body-sm">
-                        <span class="text-on-surface-variant">Günlük Yol Harcırahı:</span>
-                        <span class="font-bold text-on-surface">28 € - 34 € / Gün</span>
-                      </div>
-                      <div class="flex justify-between items-center text-body-sm font-body-sm">
-                        <span class="text-on-surface-variant">Çalışma Düzeni:</span>
-                        <span class="font-bold text-on-surface">3 Hafta Sürüş / 1 Hafta İzin</span>
-                      </div>
-                    </div>
-                    <div class="bg-surface-subtle p-3 rounded-lg text-label-sm font-label-sm text-on-surface-variant">
-                      Sağlık sigortası, emeklilik fonu katkısı ve tatil ikramiyesi şirket tarafından karşılanır.
-                    </div>
-                  </div>
-
-                  <!-- Poland Fleet Box -->
-                  <div class="bg-surface-card p-5 rounded-xl shadow-sm flex flex-col justify-between gap-3">
-                    <div class="flex items-center justify-between">
-                      <span class="font-headline-sm text-headline-sm font-bold text-on-surface flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-on-tertiary-container"></span>
-                        Polonya Merkezli Filolar (PL)
-                      </span>
-                      <span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold">Tüm AB Rotaları</span>
-                    </div>
-                    <div class="space-y-2 py-2">
-                      <div class="flex justify-between items-center text-body-sm font-body-sm">
-                        <span class="text-on-surface-variant">Aylık Net Taban:</span>
-                        <span class="font-bold text-on-surface">2.600 € - 3.100 €</span>
-                      </div>
-                      <div class="flex justify-between items-center text-body-sm font-body-sm">
-                        <span class="text-on-surface-variant">Günlük Diyet / Harcırah:</span>
-                        <span class="font-bold text-on-surface">65 € - 80 € / Gün</span>
-                      </div>
-                      <div class="flex justify-between items-center text-body-sm font-body-sm">
-                        <span class="text-on-surface-variant">Çalışma Düzeni:</span>
-                        <span class="font-bold text-on-surface">4 Hafta Sürüş / 2 Hafta İzin</span>
-                      </div>
-                    </div>
-                    <div class="bg-surface-subtle p-3 rounded-lg text-label-sm font-label-sm text-on-surface-variant">
-                      Doğrudan Avrupa genelinde batı hattı (DE, NL, BE, FR, ES) transit operasyonları.
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
+            <!-- Dynamic Body Wrapper (Populated exclusively from Admin Panel) -->
+            <div id="newsDynamicBody" class="flex flex-col gap-8"></div>
 
             <!-- Mandatory Callout Box (Kurumsal Hatırlatma) -->
             <div class="bg-primary-container text-on-primary p-6 rounded-2xl shadow-xl flex flex-col sm:flex-row items-start gap-5">
@@ -506,21 +381,15 @@
               </div>
             </div>
 
-            <!-- Section 3 -->
-            <section class="flex flex-col gap-4"></section>
-
             <!-- Social Share & Tags Row -->
             <div class="pt-6 flex flex-wrap items-center justify-between gap-4 bg-surface-subtle p-5 rounded-xl">
               <div class="flex flex-wrap items-center gap-2" id="newsTagsContainer">
                 <span class="font-label-sm text-label-sm font-bold text-on-surface uppercase">Etiketler:</span>
-                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">#Kod95</span>
-                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">#TırŞoförü</span>
-                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">#AlmanyaFiloları</span>
-                <span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">#Takograf2025</span>
+                <span class="text-on-surface-variant font-body-sm text-body-sm">-</span>
               </div>
               <div class="flex items-center gap-3">
                 <span class="font-label-sm text-label-sm font-semibold text-on-surface-variant">Haberi Paylaş:</span>
-                <a id="whatsappShareBottom" class="w-9 h-9 rounded-full bg-status-success text-canvas-dark flex items-center justify-center hover:opacity-90 transition-opacity" href="https://wa.me/?text=Avrupa%20T%C4%B1r%20%C5%9Eof%C3%B6r%C3%BC%20Mevzuat%C4%B1%20Hakk%C4%B1nda%20Detaylar" rel="noopener noreferrer" target="_blank" title="WhatsApp">
+                <a id="whatsappShareBottom" class="w-9 h-9 rounded-full bg-status-success text-canvas-dark flex items-center justify-center hover:opacity-90 transition-opacity" href="https://wa.me/" rel="noopener noreferrer" target="_blank" title="WhatsApp">
                   <span class="material-symbols-outlined text-[18px]">chat</span>
                 </a>
                 <a class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-canvas-dark transition-colors" href="https://www.linkedin.com/sharing/share-offsite/" rel="noopener noreferrer" target="_blank" title="LinkedIn">
@@ -567,46 +436,7 @@
                 </h4>
               </div>
               <div class="space-y-4" id="sidebarNewsList">
-                <!-- News Item 1 -->
-                <a class="group flex flex-col gap-1 pb-3 hover:opacity-80 transition-opacity cursor-pointer" data-news-id="news-polonya-kod95" href="#news-polonya-kod95" onclick="if(window.selectNewsArticle) { event.preventDefault(); window.selectNewsArticle('news-polonya-kod95'); }">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">event</span>
-                    24 Ekim 2024
-                  </span>
-                  <h5 class="font-headline-sm text-[16px] leading-snug font-bold text-on-surface group-hover:text-secondary transition-colors">
-                    Polonya'da Kod 95 Yenileme Süreçlerinde Yapılan 2024 Değişiklikleri
-                  </h5>
-                </a>
-                <!-- News Item 2 -->
-                <a class="group flex flex-col gap-1 pb-3 hover:opacity-80 transition-opacity cursor-pointer" data-news-id="news-almanya-adr" href="#news-almanya-adr" onclick="if(window.selectNewsArticle) { event.preventDefault(); window.selectNewsArticle('news-almanya-adr'); }">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">event</span>
-                    19 Ekim 2024
-                  </span>
-                  <h5 class="font-headline-sm text-[16px] leading-snug font-bold text-on-surface group-hover:text-secondary transition-colors">
-                    Almanya Lojistik Koridorunda ADR Taşıyan Şoförler İçin Prim Artışı
-                  </h5>
-                </a>
-                <!-- News Item 3 -->
-                <a class="group flex flex-col gap-1 pb-3 hover:opacity-80 transition-opacity cursor-pointer" data-news-id="news-hollanda-konteyner" href="#news-hollanda-konteyner" onclick="if(window.selectNewsArticle) { event.preventDefault(); window.selectNewsArticle('news-hollanda-konteyner'); }">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">event</span>
-                    12 Ekim 2024
-                  </span>
-                  <h5 class="font-headline-sm text-[16px] leading-snug font-bold text-on-surface group-hover:text-secondary transition-colors">
-                    Hollanda Filolarında Konteyner Taşımacılığı Yapan Sürücülere Yeni Haklar
-                  </h5>
-                </a>
-                <!-- News Item 4 -->
-                <a class="group flex flex-col gap-1 hover:opacity-80 transition-opacity cursor-pointer" data-news-id="news-ce-denklik" href="#news-ce-denklik" onclick="if(window.selectNewsArticle) { event.preventDefault(); window.selectNewsArticle('news-ce-denklik'); }">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[14px]">event</span>
-                    05 Ekim 2024
-                  </span>
-                  <h5 class="font-headline-sm text-[16px] leading-snug font-bold text-on-surface group-hover:text-secondary transition-colors">
-                    CE Sınıfı Ehliyet Denklik Sürecinde Dikkat Edilmesi Gereken 5 Temel Evrak
-                  </h5>
-                </a>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Henüz yayınlanmış bir haber bulunmuyor.</p>
               </div>
             </div>
           </aside>
@@ -624,88 +454,13 @@
                 İlgili Diğer Haberler ve Gelişmeler
               </h3>
             </div>
-            <a class="inline-flex items-center gap-1.5 font-label-md text-label-md font-bold text-on-surface hover:text-secondary transition-colors" href="#ilgili-haberler">
-              <span>Tüm Bültenleri Gör</span>
-              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </a>
           </div>
 
-          <!-- 3 Related Articles Grid -->
+          <!-- Related Articles Grid (Populated exclusively from Admin Panel) -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="relatedNewsGrid">
-            <!-- Related Card 1 -->
-            <article class="bg-surface-card rounded-2xl overflow-hidden shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow">
-              <div class="relative h-48 w-full">
-                <img alt="Almanya Ağır Vasıta Maaş Tabloları" class="w-full h-full object-cover" data-alt="A clean row of Scania and Volvo heavy commercial freight trucks parked in a modern German logistics terminal distribution center, evening ambient lighting, organized transport fleet yard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqZbl5w7lhPgLRL_XYi04bTakY2D0q4N9F8A6YupszvlLJRBIM6X-wqwIa0vczcxs2HZf2aX7VqeGZcjuTq_acFyZVjDXWwmd-rib2rCp03kO9qatrVAEEEWuVreg31fXHqginLeROb9Pwy1fbnxNm-GCRAcoYouNe4LLtySaLrcKf1ov1ydFlbtoJ87J5kBOvR5gt0mdncdNbjULRBWPpERwNYdm0ajQB4CjG_YE">
-                <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">
-                  Filo Analizi
-                </span>
-              </div>
-              <div class="p-5 flex-1 flex flex-col justify-between gap-3">
-                <div class="space-y-2">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant">18 Ekim 2024 • 5 Dk Okuma</span>
-                  <h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">
-                    Almanya'da Ağır Vasıta Şoförleri İçin 2025 Saatlik Ücret ve Harcırah Tabloları
-                  </h4>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
-                    Alman Lojistik Federasyonu (BGL) tarafından duyurulan asgari taban ücret düzenlemeleri ve şoförlerin net kazanç analizleri.
-                  </p>
-                </div>
-                <a class="inline-flex items-center gap-1 font-label-md text-label-md font-bold text-secondary hover:text-warning-amber-hover transition-colors pt-2 cursor-pointer" href="#rel-almanya-maas" onclick="if(window.selectNewsArticle) { event.preventDefault(); window.selectNewsArticle('rel-almanya-maas'); }">
-                  <span>İncele</span>
-                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </a>
-              </div>
-            </article>
-
-            <!-- Related Card 2 -->
-            <article class="bg-surface-card rounded-2xl overflow-hidden shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow">
-              <div class="relative h-48 w-full">
-                <img alt="Kod 95 Sertifikası ve Dijital Takograf Kartı" class="w-full h-full object-cover" data-alt="Close up photograph of a European Union standardized driver qualification card and modern digital tachograph card resting on an official clipboard next to truck keys, crisp clean professional setup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4eTUXuJKQ2dburltYkwWS12yQ6MrgPW3TNR85-mRzQMwy1jh1wjF7oCEnYxq9IU5fPOGiuV49X5UPZT3-vEBV2UWQoOFqmWj9cgI31nI-rRrR7YFGu0XR2UV6T6bOW8uE9vIBi_xr7EjOFoSanhznsJbvsJjZw5p1P4EqCJLKTbqYZs7ONV5w8v09WZZ955f75XtZIvNU020BwJafz6ctEWO4hBBOlbt-aT-Ogf8">
-                <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">
-                  Evrak Rehberi
-                </span>
-              </div>
-              <div class="p-5 flex-1 flex flex-col justify-between gap-3">
-                <div class="space-y-2">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant">14 Ekim 2024 • 4 Dk Okuma</span>
-                  <h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">
-                    Kod 95 Sertifikası Alırken En Sık Yapılan 4 Hata ve Doğru Adımlar
-                  </h4>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
-                    Avrupa Birliği ulaştırma bakanlıkları tarafından yetkilendirilmemiş geçersiz eğitimlerden kaçınma ve resmi onay prosedürleri.
-                  </p>
-                </div>
-                <a class="inline-flex items-center gap-1 font-label-md text-label-md font-bold text-secondary hover:text-warning-amber-hover transition-colors pt-2 cursor-pointer" href="#rel-kod95-adimlar" onclick="if(window.selectNewsArticle) { event.preventDefault(); window.selectNewsArticle('rel-kod95-adimlar'); }">
-                  <span>İncele</span>
-                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </a>
-              </div>
-            </article>
-
-            <!-- Related Card 3 -->
-            <article class="bg-surface-card rounded-2xl overflow-hidden shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow">
-              <div class="relative h-48 w-full">
-                <img alt="Avrupa Otoyollarında Güvenli Park ve Dinlenme Alanları" class="w-full h-full object-cover" data-alt="A heavy freight articulated truck maneuvering into a safe illuminated rest area and secure truck stop in France along the highway, night photography with amber street lights and clear safety signage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXlFbhTtRXHPdhvPnqAK4ep51phWyVAkfUQ0ekNMEZmXvtHwATVzOfsSBh3KNQm_j8nc_4cl63yZ65PCd_3IWIyAxqYjxRa_GjUQYG_n0ttd--r4C6NmkI5JApcSiYGQQeAm9Odc9scYhyF3CjS7ib6Ds5iSaNfQGNVwM0_KzwJtiUVDtNoxmNsQia2p2iScd6MiTSD071grh0w26GfdLi5L8yXKxqe4ZthnfvkGk">
-                <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">
-                  Otoyol Standartları
-                </span>
-              </div>
-              <div class="p-5 flex-1 flex flex-col justify-between gap-3">
-                <div class="space-y-2">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant">09 Ekim 2024 • 7 Dk Okuma</span>
-                  <h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">
-                    Avrupa Otoyollarında Güvenli Park ve Dinlenme Alanları Haritası
-                  </h4>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
-                    Mobilite Paketi sonrası şoförlerin zorunlu otel ve güvenli park alanı konaklama koşulları, ücretsiz rezervasyon uygulamaları.
-                  </p>
-                </div>
-                <a class="inline-flex items-center gap-1 font-label-md text-label-md font-bold text-secondary hover:text-warning-amber-hover transition-colors pt-2 cursor-pointer" href="#rel-otoyol-park" onclick="if(window.selectNewsArticle) { event.preventDefault(); window.selectNewsArticle('rel-otoyol-park'); }">
-                  <span>İncele</span>
-                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </a>
-              </div>
-            </article>
+            <div class="col-span-full bg-surface-card p-8 rounded-2xl shadow-sm text-center text-on-surface-variant font-body-md text-body-md">
+              Henüz diğer haberler eklenmedi. Yönetici panelinden yeni içerikler yayınlandıkça burada listelenecektir.
+            </div>
           </div>
         </div>
       </section>
@@ -793,95 +548,28 @@
     // =========================================================================
     (function() {
       var STORAGE_KEY = 'ats_news_articles';
-      var defaultInitialHtml = document.getElementById('newsDynamicBody') ? document.getElementById('newsDynamicBody').innerHTML : '';
-
-      var BUILTIN_ARTICLES = {
-        'default-main': {
-          id: 'default-main',
-          category: 'Avrupa Lojistik Mevzuatı & Filolar',
-          date: '28 Ekim 2024',
-          readTime: '6 Dakika Okuma',
-          title: '2025 - 2026 Avrupa Karayolu Taşımacılığında Yeni Dönem: Şoför Hakları, Takograf Kuralları ve Filo Maaş Standartları',
-          authorName: 'Lojistik Danışmanlık Kurulu',
-          authorRole: 'Uluslararası Taşımacılık ve Evrak İnceleme Birimi',
-          image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA8uTASek1iqYqdacoePWttsGve2xHD5a5_CREZA9vYLygoG4bjPyJ8xEosyrATDR616cV8nav_XxtfJXo_G1JNbBuTYuP2u2McnbbPYe5k1iK_L201UwlJFD_N1LVowmGUPkwwFQNB3X1XFBXbEPG0yCGvX7HwCwj28uX-PWMnJ_d1mjQZjo8qL8g5Xxcmyr7x8bSoErG550sXPvAMXdLQNlY3jf5-8eXG0Fl98Fs',
-          summary: 'Avrupa Birliği genelinde uygulamaya alınan Mobilite Paketi gereklilikleri, uluslararası karayolu taşımacılığında çalışan profesyonel ağır vasıta (CE sınıfı) sürücülerinin çalışma standartlarını, sürüş saatlerini ve bordrolama modellerini kökten yeniden tanımlıyor. 2025 itibarıyla yürürlüğe girecek yeni denetim mekanizmaları ve filo yönergelerini sizler için mercek altına aldık.',
-          bodyHtml: defaultInitialHtml,
-          tags: ['#Kod95', '#TırŞoförü', '#AlmanyaFiloları', '#Takograf2025']
-        },
-        'news-polonya-kod95': {
-          id: 'news-polonya-kod95',
-          category: 'Kod 95 & AB Mevzuatı',
-          date: '24 Ekim 2024',
-          readTime: '5 Dakika Okuma',
-          title: "Polonya'da Kod 95 Yenileme Süreçlerinde Yapılan 2024 Değişiklikleri ve Başvuru Adımları",
-          authorName: 'Lojistik Danışmanlık Kurulu',
-          authorRole: 'Uluslararası Taşımacılık ve Evrak İnceleme Birimi',
-          image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC4eTUXuJKQ2dburltYkwWS12yQ6MrgPW3TNR85-mRzQMwy1jh1wjF7oCEnYxq9IU5fPOGiuV49X5UPZT3-vEBV2UWQoOFqmWj9cgI31nI-rRrR7YFGu0XR2UV6T6bOW8uE9vIBi_xr7EjOFoSanhznsJbvsJjZw5p1P4EqCJLKTbqYZs7ONV5w8v09WZZ955f75XtZIvNU020BwJafz6ctEWO4hBBOlbt-aT-Ogf8',
-          summary: "Polonya Ulaştırma Bakanlığı tarafından devreye alınan yeni PKZ (Profil Kierowcy Zawodowego) sistemi ile Türk CE ehliyetli sürücülerin Kod 95 Sürücü Yeterlilik Kartı (Karta Kwalifikacji Kierowcy) alım ve yenileme süreçleri dijitalleştirildi.",
-          bodyHtml: '<section class="flex flex-col gap-4"><h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight flex items-center gap-3"><span class="w-2.5 h-8 bg-secondary-container rounded-full"></span>2009 Öncesi ve Sonrası Ehliyetler İçin Kod 95 Prosedürü</h2><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">C sınıfı ehliyetini <strong>10 Eylül 2009 tarihinden önce</strong> alan sürücüler sınavsız 35 saatlik (5 gün) periyodik eğitim (Szkolenie Okresowe) ile; <strong>10 Eylül 2009 tarihinden sonra</strong> alanlar ise hızlandırılmış temel mesleki yeterlilik eğitimi (Kwalifikacja Wstępna Przyspieszona) ve test sınavı ile 5 yıl geçerli AB Kod 95 kartını almaktadır.</p></section>',
-          tags: ['#Kod95NasılAlınır', '#PolonyaKod95', '#PKZ', '#TırŞoförü']
-        },
-        'news-almanya-adr': {
-          id: 'news-almanya-adr',
-          category: 'Almanya Filoları & Maaş',
-          date: '19 Ekim 2024',
-          readTime: '4 Dakika Okuma',
-          title: 'Almanya Lojistik Koridorunda ADR Taşıyan Şoförler İçin Prim ve Harcırah Artışı',
-          authorName: 'Lojistik Danışmanlık Kurulu',
-          authorRole: 'Uluslararası Taşımacılık ve Evrak İnceleme Birimi',
-          image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCqZbl5w7lhPgLRL_XYi04bTakY2D0q4N9F8A6YupszvlLJRBIM6X-wqwIa0vczcxs2HZf2aX7VqeGZcjuTq_acFyZVjDXWwmd-rib2rCp03kO9qatrVAEEEWuVreg31fXHqginLeROb9Pwy1fbnxNm-GCRAcoYouNe4LLtySaLrcKf1ov1ydFlbtoJ87J5kBOvR5gt0mdncdNbjULRBWPpERwNYdm0ajQB4CjG_YE',
-          summary: 'Almanya kimya ve enerji lojistiği koridorlarında SRC 5 / ADR belgesine sahip CE sınıfı tır şoförleri için aylık net taban maaşlara ek 300€ - 450€ tehlikeli madde operasyon primi uygulanmaya başlandı.',
-          bodyHtml: '<section class="flex flex-col gap-4"><h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight flex items-center gap-3"><span class="w-2.5 h-8 bg-secondary-container rounded-full"></span>ADR Belgeli Sürücülere Öncelikli Kontenjan</h2><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Frankfurt, Duisburg, Hamburg ve Münih merkezli anlaşmalı filolarımızda ADR (Tanker ve Paket) sertifikalı sürücüler için hızlandırılmış iş sözleşmesi ve vize danışmanlığı sağlanmaktadır.</p></section>',
-          tags: ['#AlmanyaFiloları', '#ADR', '#TırŞoförüMaaşları', '#SRC5']
-        },
-        'news-hollanda-konteyner': {
-          id: 'news-hollanda-konteyner',
-          category: 'Hollanda & Benelüks',
-          date: '12 Ekim 2024',
-          readTime: '5 Dakika Okuma',
-          title: 'Hollanda Filolarında Konteyner Taşımacılığı Yapan Sürücülere Yeni Haklar',
-          authorName: 'Lojistik Danışmanlık Kurulu',
-          authorRole: 'Uluslararası Taşımacılık ve Evrak İnceleme Birimi',
-          image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAXlFbhTtRXHPdhvPnqAK4ep51phWyVAkfUQ0ekNMEZmXvtHwATVzOfsSBh3KNQm_j8nc_4cl63yZ65PCd_3IWIyAxqYjxRa_GjUQYG_n0ttd--r4C6NmkI5JApcSiYGQQeAm9Odc9scYhyF3CjS7ib6Ds5iSaNfQGNVwM0_KzwJtiUVDtNoxmNsQia2p2iScd6MiTSD071grh0w26GfdLi5L8yXKxqe4ZthnfvkGk',
-          summary: 'Rotterdam ve Antwerp limanları arasında çalışan ağır vasıta sürücüleri için bekleme süresi ücretleri, liman güvenlik kartı kolaylıkları ve hafta sonu konaklama standartları iyileştirildi.',
-          bodyHtml: '<section class="flex flex-col gap-4"><h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight flex items-center gap-3"><span class="w-2.5 h-8 bg-secondary-container rounded-full"></span>Rotterdam - Ruhr Koridoru Operasyonları</h2><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Hollanda merkezli konteyner ve frigo filolarında çalışan CE sınıfı şoförler, modern Euro 6 çekicilerle düzenli hatlarda yüksek harcırah standartlarıyla görev yapmaktadır.</p></section>',
-          tags: ['#HollandaFiloları', '#Rotterdam', '#KonteynerTaşımacılığı']
-        },
-        'news-ce-denklik': {
-          id: 'news-ce-denklik',
-          category: 'Evrak & Denklik Rehberi',
-          date: '05 Ekim 2024',
-          readTime: '6 Dakika Okuma',
-          title: 'CE Sınıfı Ehliyet Denklik Sürecinde Dikkat Edilmesi Gereken 5 Temel Evrak',
-          authorName: 'Lojistik Danışmanlık Kurulu',
-          authorRole: 'Uluslararası Taşımacılık ve Evrak İnceleme Birimi',
-          image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC4eTUXuJKQ2dburltYkwWS12yQ6MrgPW3TNR85-mRzQMwy1jh1wjF7oCEnYxq9IU5fPOGiuV49X5UPZT3-vEBV2UWQoOFqmWj9cgI31nI-rRrR7YFGu0XR2UV6T6bOW8uE9vIBi_xr7EjOFoSanhznsJbvsJjZw5p1P4EqCJLKTbqYZs7ONV5w8v09WZZ955f75XtZIvNU020BwJafz6ctEWO4hBBOlbt-aT-Ogf8',
-          summary: "Avrupa'da tırcı olmak isteyen sürücülerin dosya hazırlığında en sık karşılaştığı 5 evrak kriteri: Çipli CE ehliyet, Dijital Takograf Kartı, Apostilli Adli Sicil Kaydı, Pasaport ve Kod 95 uygunluk belgesi.",
-          bodyHtml: '<section class="flex flex-col gap-4"><h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight flex items-center gap-3"><span class="w-2.5 h-8 bg-secondary-container rounded-full"></span>Ücretsiz Evrak Ön İncelemesi Nasıl Yapılır?</h2><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Belgelerinizin Avrupa Birliği taşımacılık mevzuatına uygunluğunu öğrenmek için Hemen Başvur butonuna tıklayarak detaylı başvuru formumuzu ücretsiz doldurabilirsiniz.</p></section>',
-          tags: ['#AvrupadaTırcıNasılOlunur', '#CEEhliyetDenkliği', '#EvrakAnalizi']
-        }
-      };
-
-      BUILTIN_ARTICLES['rel-almanya-maas'] = BUILTIN_ARTICLES['news-almanya-adr'];
-      BUILTIN_ARTICLES['rel-kod95-adimlar'] = BUILTIN_ARTICLES['news-polonya-kod95'];
-      BUILTIN_ARTICLES['rel-otoyol-park'] = BUILTIN_ARTICLES['news-hollanda-konteyner'];
+      var ARTICLES_MAP = {};
 
       function getStoredArticles() {
         try {
           var raw = localStorage.getItem(STORAGE_KEY);
           if (!raw) return [];
           var parsed = JSON.parse(raw);
-          return Array.isArray(parsed) ? parsed.filter(function(item) {
-            return item && item.title && item.status !== 'draft';
-          }) : [];
+          if (!Array.isArray(parsed)) return [];
+          // Clean out any legacy seed articles
+          var clean = parsed.filter(function(item) {
+            return item && !item.isSeed && String(item.id || '').indexOf('seed-') !== 0;
+          });
+          if (clean.length !== parsed.length) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(clean));
+          }
+          return clean.filter(function(item) {
+            return item.title && item.status !== 'draft';
+          });
         } catch (e) {
           return [];
         }
       }
-
-      var initialSidebarEl = document.getElementById('sidebarNewsList');
-      var defaultSidebarHtml = initialSidebarEl ? initialSidebarEl.innerHTML : '';
 
       function formatMarkdownFallback(rawText) {
         var text = String(rawText || '').trim();
@@ -920,6 +608,30 @@
         return htmlParts.join('\n');
       }
 
+      function renderEmptyState() {
+        var catEl = document.getElementById('newsCategoryText');
+        var dateEl = document.getElementById('newsDateText');
+        var readEl = document.getElementById('newsReadTimeText');
+        var titleEl = document.getElementById('newsMainTitle');
+        var heroSectionEl = document.getElementById('newsHeroSection');
+        var summaryEl = document.getElementById('newsLeadSummary');
+        var bodyEl = document.getElementById('newsDynamicBody');
+        var tagsEl = document.getElementById('newsTagsContainer');
+        var sidebarList = document.getElementById('sidebarNewsList');
+        var relatedGrid = document.getElementById('relatedNewsGrid');
+
+        if (catEl) catEl.textContent = 'Haberler & Duyurular';
+        if (dateEl) dateEl.textContent = '-';
+        if (readEl) readEl.textContent = '-';
+        if (titleEl) titleEl.textContent = 'Henüz Yayınlanmış Bir Haber Bulunmuyor';
+        if (heroSectionEl) heroSectionEl.classList.add('hidden');
+        if (summaryEl) summaryEl.textContent = 'Yönetici panelindeki "İçerik Ekle" bölümünden yeni bir haber veya duyuru yayınladığınızda içerik otomatik olarak burada görüntülenecektir.';
+        if (bodyEl) bodyEl.innerHTML = '';
+        if (tagsEl) tagsEl.innerHTML = '<span class="font-label-sm text-label-sm font-bold text-on-surface uppercase">Etiketler:</span><span class="text-on-surface-variant font-body-sm text-body-sm">-</span>';
+        if (sidebarList) sidebarList.innerHTML = '<p class="font-body-sm text-body-sm text-on-surface-variant">Henüz yayınlanmış bir haber bulunmuyor.</p>';
+        if (relatedGrid) relatedGrid.innerHTML = '<div class="col-span-full bg-surface-card p-8 rounded-2xl shadow-sm text-center text-on-surface-variant font-body-md text-body-md">Henüz diğer haberler eklenmedi. Yönetici panelinden yeni içerikler yayınlandıkça burada listelenecektir.</div>';
+      }
+
       function renderArticleView(article, shouldScroll) {
         if (!article) return;
         var catEl = document.getElementById('newsCategoryText');
@@ -928,18 +640,30 @@
         var titleEl = document.getElementById('newsMainTitle');
         var authorNameEl = document.getElementById('newsAuthorName');
         var authorRoleEl = document.getElementById('newsAuthorRole');
+        var heroSectionEl = document.getElementById('newsHeroSection');
         var heroImgEl = document.getElementById('newsHeroImage');
+        var heroBadgeTextEl = document.getElementById('newsHeroBadgeText');
         var summaryEl = document.getElementById('newsLeadSummary');
         var bodyEl = document.getElementById('newsDynamicBody');
         var tagsEl = document.getElementById('newsTagsContainer');
 
         if (catEl) catEl.textContent = article.category || 'Avrupa Lojistik Mevzuatı & Filolar';
-        if (dateEl) dateEl.textContent = article.date || article.createdAt || '28 Ekim 2024';
+        if (dateEl) dateEl.textContent = article.date || article.createdAt || '-';
         if (readEl) readEl.textContent = article.readTime || '5 Dakika Okuma';
         if (titleEl) titleEl.textContent = article.title;
         if (authorNameEl) authorNameEl.textContent = article.authorName || 'Lojistik Danışmanlık Kurulu';
         if (authorRoleEl) authorRoleEl.textContent = article.authorRole || 'Uluslararası Taşımacılık ve Evrak İnceleme Birimi';
-        if (heroImgEl && article.image) heroImgEl.src = article.image;
+
+        if (article.image) {
+          if (heroImgEl) heroImgEl.src = article.image;
+          if (heroSectionEl) heroSectionEl.classList.remove('hidden');
+        } else {
+          if (heroSectionEl) heroSectionEl.classList.add('hidden');
+        }
+        if (heroBadgeTextEl) {
+          heroBadgeTextEl.textContent = article.category || 'Avrupa Tır Şoförü İstihdam & Mevzuat Bülteni';
+        }
+
         if (summaryEl) summaryEl.textContent = article.summary || '';
 
         if (bodyEl) {
@@ -947,15 +671,21 @@
             bodyEl.innerHTML = article.bodyHtml;
           } else if (article.content) {
             bodyEl.innerHTML = formatMarkdownFallback(article.content);
+          } else {
+            bodyEl.innerHTML = '';
           }
         }
 
-        if (tagsEl && Array.isArray(article.tags) && article.tags.length) {
-          tagsEl.innerHTML = '<span class="font-label-sm text-label-sm font-bold text-on-surface uppercase">Etiketler:</span>' +
-            article.tags.map(function(t) {
-              var tagStr = t.charAt(0) === '#' ? t : ('#' + t);
-              return '<span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">' + tagStr + '</span>';
-            }).join('');
+        if (tagsEl) {
+          if (Array.isArray(article.tags) && article.tags.length) {
+            tagsEl.innerHTML = '<span class="font-label-sm text-label-sm font-bold text-on-surface uppercase">Etiketler:</span>' +
+              article.tags.map(function(t) {
+                var tagStr = t.charAt(0) === '#' ? t : ('#' + t);
+                return '<span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">' + tagStr + '</span>';
+              }).join('');
+          } else {
+            tagsEl.innerHTML = '<span class="font-label-sm text-label-sm font-bold text-on-surface uppercase">Etiketler:</span><span class="text-on-surface-variant font-body-sm text-body-sm">-</span>';
+          }
         }
 
         document.title = article.title + ' | avrupatirsoforu.com';
@@ -966,20 +696,24 @@
 
       function syncAdminPanelArticles(fromArticlesList) {
         var customArticles = Array.isArray(fromArticlesList) ? fromArticlesList.filter(function(item) {
-          return item && item.title && item.status !== 'draft';
+          return item && item.title && item.status !== 'draft' && !item.isSeed && String(item.id || '').indexOf('seed-') !== 0;
         }) : getStoredArticles();
 
-        if (!customArticles.length) return;
+        ARTICLES_MAP = {};
+        if (!customArticles.length) {
+          renderEmptyState();
+          return;
+        }
 
-        // Register custom articles into lookup map
+        // Register user articles into lookup map
         customArticles.forEach(function(item) {
-          if (item.id) BUILTIN_ARTICLES[item.id] = item;
+          if (item.id) ARTICLES_MAP[item.id] = item;
         });
 
-        // Prepend custom published articles into Sidebar "Son Haberler & Duyurular"
+        // Populate Sidebar "Son Haberler & Duyurular" exclusively with user-published articles
         var sidebarList = document.getElementById('sidebarNewsList');
         if (sidebarList) {
-          var customSidebarHtml = customArticles.slice(0, 4).map(function(item) {
+          sidebarList.innerHTML = customArticles.slice(0, 6).map(function(item) {
             return '<a class="group flex flex-col gap-1 pb-3 hover:opacity-80 transition-opacity cursor-pointer" href="#' + item.id + '" onclick="event.preventDefault(); window.selectNewsArticle(\'' + item.id + '\');">' +
               '<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">' +
               '<span class="material-symbols-outlined text-[14px]">event</span> ' + (item.date || item.createdAt || 'Yeni') +
@@ -988,14 +722,39 @@
               item.title +
               '</h5></a>';
           }).join('');
-          sidebarList.innerHTML = customSidebarHtml + defaultSidebarHtml;
+        }
+
+        // Populate "İlgili Diğer Haberler ve Gelişmeler" grid exclusively with user-published articles
+        var relatedGrid = document.getElementById('relatedNewsGrid');
+        if (relatedGrid) {
+          var relatedItems = customArticles.length > 1 ? customArticles.slice(1, 4) : customArticles.slice(0, 3);
+          relatedGrid.innerHTML = relatedItems.map(function(item) {
+            var imgHtml = item.image
+              ? '<div class="relative h-48 w-full"><img alt="' + (item.title || '').replace(/"/g, '&quot;') + '" class="w-full h-full object-cover" src="' + item.image + '"><span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">' + (item.categoryShort || item.category || 'Haber') + '</span></div>'
+              : '';
+            return '<article class="bg-surface-card rounded-2xl overflow-hidden shadow-md flex flex-col justify-between hover:shadow-xl transition-shadow">' +
+              imgHtml +
+              '<div class="p-5 flex-1 flex flex-col justify-between gap-3">' +
+              '<div class="space-y-2">' +
+              '<span class="font-label-sm text-label-sm text-on-surface-variant">' + (item.date || '') + ' • ' + (item.readTime || '5 Dk Okuma') + '</span>' +
+              '<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug">' + item.title + '</h4>' +
+              '<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">' + (item.summary || '') + '</p>' +
+              '</div>' +
+              '<a class="inline-flex items-center gap-1 font-label-md text-label-md font-bold text-secondary hover:text-warning-amber-hover transition-colors pt-2 cursor-pointer" href="#' + item.id + '" onclick="event.preventDefault(); window.selectNewsArticle(\'' + item.id + '\');">' +
+              '<span>İncele</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>' +
+              '</a></div></article>';
+          }).join('');
         }
 
         // Show the latest published article from Admin Panel as the main featured news article
-        var userPublished = customArticles.filter(function(a) { return !a.isSeed; });
-        var featured = userPublished.find(function(a) { return a.featured; }) || userPublished[0] || customArticles.find(function(a) { return a.featured; });
-        if (featured && !window.location.hash) {
-          renderArticleView(featured, false);
+        var hashId = (window.location.hash || '').replace(/^#/, '');
+        if (hashId && ARTICLES_MAP[hashId]) {
+          renderArticleView(ARTICLES_MAP[hashId], false);
+        } else {
+          var featured = customArticles.find(function(a) { return a.featured; }) || customArticles[0];
+          if (featured) {
+            renderArticleView(featured, false);
+          }
         }
       }
 
@@ -1004,12 +763,12 @@
         fetch(apiPath, { cache: 'no-store' })
           .then(function(res) { return res.ok ? res.json() : null; })
           .then(function(data) {
-            if (data && Array.isArray(data.articles) && data.articles.length > 0) {
+            if (data && Array.isArray(data.articles)) {
               var localArticles = getStoredArticles();
               var mergedMap = {};
               var mergedList = [];
               data.articles.concat(localArticles).forEach(function(art) {
-                if (art && art.id && !mergedMap[art.id]) {
+                if (art && art.id && !art.isSeed && String(art.id).indexOf('seed-') !== 0 && !mergedMap[art.id]) {
                   mergedMap[art.id] = true;
                   mergedList.push(art);
                 }
@@ -1024,7 +783,7 @@
       }
 
       window.selectNewsArticle = function(id) {
-        var target = BUILTIN_ARTICLES[id];
+        var target = ARTICLES_MAP[id];
         if (target) {
           renderArticleView(target, true);
         }
@@ -1052,10 +811,6 @@
       document.addEventListener('DOMContentLoaded', function() {
         syncAdminPanelArticles();
         fetchServerNewsArticles();
-        var hashId = (window.location.hash || '').replace(/^#/, '');
-        if (hashId && BUILTIN_ARTICLES[hashId]) {
-          renderArticleView(BUILTIN_ARTICLES[hashId], false);
-        }
       });
     })();
   </script>
