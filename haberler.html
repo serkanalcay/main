@@ -359,9 +359,7 @@
           <!-- Article Body (8 Cols Desktop) -->
           <article class="lg:col-span-8 flex flex-col gap-8" id="newsArticleContainer">
             <!-- Summary Lead Paragraph -->
-            <p id="newsLeadSummary" class="font-body-lg text-body-lg text-on-surface font-semibold leading-relaxed bg-surface-subtle p-6 rounded-xl shadow-sm">
-              Yönetici panelindeki "İçerik Ekle" bölümünden yeni bir haber veya duyuru yayınladığınızda içerik otomatik olarak burada görüntülenecektir.
-            </p>
+            <p id="newsLeadSummary" class="font-body-lg text-body-lg text-on-surface font-semibold leading-relaxed bg-surface-subtle p-6 rounded-xl shadow-sm hidden"></p>
 
             <!-- Dynamic Body Wrapper (Populated exclusively from Admin Panel) -->
             <div id="newsDynamicBody" class="flex flex-col gap-8"></div>
@@ -457,11 +455,7 @@
           </div>
 
           <!-- Related Articles Grid (Populated exclusively from Admin Panel) -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="relatedNewsGrid">
-            <div class="col-span-full bg-surface-card p-8 rounded-2xl shadow-sm text-center text-on-surface-variant font-body-md text-body-md">
-              Henüz diğer haberler eklenmedi. Yönetici panelinden yeni içerikler yayınlandıkça burada listelenecektir.
-            </div>
-          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="relatedNewsGrid"></div>
         </div>
       </section>
 
@@ -625,11 +619,14 @@
         if (readEl) readEl.textContent = '-';
         if (titleEl) titleEl.textContent = 'Henüz Yayınlanmış Bir Haber Bulunmuyor';
         if (heroSectionEl) heroSectionEl.classList.add('hidden');
-        if (summaryEl) summaryEl.textContent = 'Yönetici panelindeki "İçerik Ekle" bölümünden yeni bir haber veya duyuru yayınladığınızda içerik otomatik olarak burada görüntülenecektir.';
+        if (summaryEl) {
+          summaryEl.textContent = '';
+          summaryEl.classList.add('hidden');
+        }
         if (bodyEl) bodyEl.innerHTML = '';
         if (tagsEl) tagsEl.innerHTML = '<span class="font-label-sm text-label-sm font-bold text-on-surface uppercase">Etiketler:</span><span class="text-on-surface-variant font-body-sm text-body-sm">-</span>';
         if (sidebarList) sidebarList.innerHTML = '<p class="font-body-sm text-body-sm text-on-surface-variant">Henüz yayınlanmış bir haber bulunmuyor.</p>';
-        if (relatedGrid) relatedGrid.innerHTML = '<div class="col-span-full bg-surface-card p-8 rounded-2xl shadow-sm text-center text-on-surface-variant font-body-md text-body-md">Henüz diğer haberler eklenmedi. Yönetici panelinden yeni içerikler yayınlandıkça burada listelenecektir.</div>';
+        if (relatedGrid) relatedGrid.innerHTML = '';
       }
 
       function renderArticleView(article, shouldScroll) {
@@ -664,7 +661,14 @@
           heroBadgeTextEl.textContent = article.category || 'Avrupa Tır Şoförü İstihdam & Mevzuat Bülteni';
         }
 
-        if (summaryEl) summaryEl.textContent = article.summary || '';
+        if (summaryEl) {
+          summaryEl.textContent = article.summary || '';
+          if (article.summary) {
+            summaryEl.classList.remove('hidden');
+          } else {
+            summaryEl.classList.add('hidden');
+          }
+        }
 
         if (bodyEl) {
           if (article.bodyHtml) {
